@@ -32,7 +32,7 @@
 				</td>
 						
 				<td><a
-					href="mvc?logica=AlterarNegocioLogica&idNegocio=${negocio.idNegocio}">Atualizar</a>
+					href="mvc?logica=AtualizarNegocioLogica&idNegocio=${negocio.idNegocio}">Atualizar</a>
 				</td>
 				
 				
@@ -52,7 +52,7 @@
 	<br>
 	<br>
 	<p>
-		<a href="mvc?logica=tecnologia.InserirNegocioLogica"></a>
+		<a href="mvc?logica=negocio.InserirNegocioLogica"></a>
 	</p>
 
 </body>

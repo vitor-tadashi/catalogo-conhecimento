@@ -3,14 +3,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Atualiza Negocio</title>
+<title>Atualizar Negocio</title>
 </head>
 <body>
 
 <form method="POST" action="mvc">
 <p>Id:<input type="text" name="id" value="${negocio.idNegocio}" readonly></p>
 <p>Area de atuacao:<input type="text" name="areaAtuacao" value="${negocio.areaAtuacao}"></p>
-<input type="hidden" name="logica" value="negocio.AlterarNegocioLogica">
+<input type="hidden" name="logica" value="negocio.AtualizarNegocioLogica">
 <p><input type="submit" value="Atualizar"></p>
 </form>
 
