@@ -14,7 +14,7 @@ public class FormularioAtualizarTecnologiaLogica implements Logica {
 		int idTecnologia = Integer.parseInt(request.getParameter("idTecnologia"));
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		TecnologiaBean tecnologia = tecnologiaBusiness.listarPorId(idTecnologia);
+		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(idTecnologia);
 
 		request.setAttribute("tecnologia", tecnologia);
 

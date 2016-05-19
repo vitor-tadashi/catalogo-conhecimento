@@ -13,7 +13,7 @@ public class FormularioAtualizarNegocioLogica {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		TecnologiaBean tecnologia = tecnologiaBusiness.listarPorId(id);
+		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(id);
 
 		request.setAttribute("tecnologia", tecnologia);
 
