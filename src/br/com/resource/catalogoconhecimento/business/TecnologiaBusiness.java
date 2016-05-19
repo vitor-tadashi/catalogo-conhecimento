@@ -36,10 +36,10 @@ public class TecnologiaBusiness {
 	}
 
 	// LISTA POR ID
-	public TecnologiaBean listarPorId(int idTecnologia) {
+	public TecnologiaBean obterPorId(int idTecnologia) {
 		try {
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-			return tecnologiaDao.listarPorId(idTecnologia);
+			return tecnologiaDao.obterPorId(idTecnologia);
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 			return null;
@@ -55,7 +55,7 @@ public class TecnologiaBusiness {
 			TecnologiaDAO tecnologiaDao;
 			tecnologiaDao = new TecnologiaDAO();
 
-			TecnologiaBean tecnologiaAux = tecnologiaDao.listarPorId(tecnologia.getIdTecnologia());
+			TecnologiaBean tecnologiaAux = tecnologiaDao.obterPorId(tecnologia.getIdTecnologia());
 
 			if (tecnologiaAux != null) {
 				tecnologiaDao.atualizar(tecnologia);
@@ -79,7 +79,7 @@ public class TecnologiaBusiness {
 		try {
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
-			TecnologiaBean tecnologiaAux = this.listarPorId(id);
+			TecnologiaBean tecnologiaAux = this.obterPorId(id);
 			if (tecnologiaAux != null) {
 				tecnologiaDao.deletar(id);
 				return true;

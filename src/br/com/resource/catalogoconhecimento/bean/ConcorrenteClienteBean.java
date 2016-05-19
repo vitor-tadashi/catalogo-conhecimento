@@ -4,7 +4,7 @@ public class ConcorrenteClienteBean {
 	private int idConcorrenteCliente;
 	private ClienteBean cliente;
 	private ConcorrenteBean concorrente;
-	private double valorhora;
+	private double valorHora;
 
 	public ConcorrenteClienteBean() {
 	}
@@ -34,11 +34,11 @@ public class ConcorrenteClienteBean {
 	}
 
 	public double getValorhora() {
-		return valorhora;
+		return valorHora;
 	}
 
 	public void setValorhora(double valorhora) {
-		this.valorhora = valorhora;
+		this.valorHora = valorhora;
 	}
 
 }

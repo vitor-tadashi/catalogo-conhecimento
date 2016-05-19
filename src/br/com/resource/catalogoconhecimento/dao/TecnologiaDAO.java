@@ -21,7 +21,7 @@ public class TecnologiaDAO {
 	// CRIA
 	public void inserir(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Tecnologia(nomeTecnologia) VALUES(?)";
+		String sql = "INSERT INTO Tecnologia(nomeTecnologia) VALUES(?)";
 		PreparedStatement st = conexao.prepareStatement(sql);
 
 		st.setString(1, tecnologia.getNomeTecnologia());
@@ -34,7 +34,7 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.tecnologia";
+		String sql = "SELECT * FROM Tecnologia";
 		
 		ArrayList<TecnologiaBean> tecnologias = new ArrayList<TecnologiaBean>(); 
 		TecnologiaBean tecnologia;
@@ -59,7 +59,7 @@ public class TecnologiaDAO {
 	// ATUALIZA
 	public void atualizar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "UPDATE CatalogoConhecimentos.dbo.Tecnologia SET nomeTecnologia = ? WHERE idTecnologia = ?";
+		String sql = "UPDATE Tecnologia SET nomeTecnologia = ? WHERE idTecnologia = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, tecnologia.getNomeTecnologia());
 		ps.setInt(2, tecnologia.getIdTecnologia());
@@ -71,7 +71,7 @@ public class TecnologiaDAO {
 	// DELETA
 	public void deletar(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "DELETE FROM CatalogoConhecimentos.dbo.tecnologia WHERE idTecnologia = ?";
+		String sql = "DELETE FROM Tecnologia WHERE idTecnologia = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 
 		ps.setInt(1, id);
@@ -80,9 +80,9 @@ public class TecnologiaDAO {
 	}
 
 	// LISTA POR ID
-	public TecnologiaBean listarPorId(int idTecnologia) throws SQLException, ClassNotFoundException {
+	public TecnologiaBean obterPorId(int idTecnologia) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.tecnologia WHERE idTecnologia = '" + idTecnologia + "'";
+		String sql = "SELECT * FROM Tecnologia WHERE idTecnologia = '" + idTecnologia + "'";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 
 		ResultSet rs = ps.executeQuery();

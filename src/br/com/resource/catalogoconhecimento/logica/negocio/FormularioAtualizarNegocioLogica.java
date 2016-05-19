@@ -16,6 +16,7 @@ public class FormularioAtualizarNegocioLogica implements Logica {
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio = negocioBusiness.listarPorId(id);
 
+
 		request.setAttribute("negocio", negocio);
 
 		return "/WEB-INF/jsp/negocios/formularioAtualizarNegocio.jsp";
