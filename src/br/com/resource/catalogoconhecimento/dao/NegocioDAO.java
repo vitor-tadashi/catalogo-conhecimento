@@ -16,7 +16,7 @@ public class NegocioDAO {
 			
 			Connection conexao = ConnectionFactory.createConnection();
 			
-			String sql = "INSERT INTO CatalogoConhecimentos.dbo.Negocio(areaAtuacao) VALUES(?)";
+			String sql = "INSERT INTO Negocio(areaAtuacao) VALUES(?)";
 			PreparedStatement st = conexao.prepareStatement(sql);
 			
 			st.setString(1, negocio.getAreaAtuacao());
@@ -31,7 +31,7 @@ public class NegocioDAO {
 		
 			Connection conexao = ConnectionFactory.createConnection();
 
-			String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Negocio";
+			String sql = "SELECT * FROM Negocio";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -56,7 +56,7 @@ public class NegocioDAO {
 		// ATUALIZA
 		public void atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
 			Connection conexao = ConnectionFactory.createConnection();
-			String sql = "UPDATE CatalogoConhecimentos.dbo.Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
+			String sql = "UPDATE Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setString(1, negocio.getAreaAtuacao());
 			ps.setInt(2, negocio.getIdNegocio());
@@ -67,7 +67,7 @@ public class NegocioDAO {
 		// DELETA
 		public void deletar(int id) throws SQLException, ClassNotFoundException {
 			Connection conexao = ConnectionFactory.createConnection();
-			String sql = "DELETE FROM CatalogoConhecimentos.dbo.Negocio WHERE idNegocio = ?";
+			String sql = "DELETE FROM Negocio WHERE idNegocio = ?";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			
 			ps.setInt(1, id);
@@ -78,7 +78,7 @@ public class NegocioDAO {
 		// LISTA POR ID
 		public NegocioBean listarPorId(int idNegocio) throws SQLException, ClassNotFoundException {
 			Connection conexao = ConnectionFactory.createConnection();
-			String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Negocio WHERE idNegocio = '" + idNegocio + "'";
+			String sql = "SELECT * FROM Negocio WHERE idNegocio = '" + idNegocio + "'";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
@@ -99,7 +99,7 @@ public class NegocioDAO {
 
 public NegocioBean listarPorNome(String nome) throws SQLException, ClassNotFoundException {
 	Connection conexao = ConnectionFactory.createConnection();
-	String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Negocio WHERE areaAtuacao = '" + nome + "'";
+	String sql = "SELECT * FROM Negocio WHERE areaAtuacao = '" + nome + "'";
 	PreparedStatement ps = conexao.prepareStatement(sql);
 
 	ResultSet rs = ps.executeQuery();
