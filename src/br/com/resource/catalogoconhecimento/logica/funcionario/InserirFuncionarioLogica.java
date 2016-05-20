@@ -1,4 +1,4 @@
-package br.com.resource.catalogoconhecimento.funcionario;
+package br.com.resource.catalogoconhecimento.logica.funcionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
+import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.FuncionarioTecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AdicionarFuncionarioLogica implements Logica{
+public class InserirFuncionarioLogica implements Logica{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,23 +24,20 @@ public class AdicionarFuncionarioLogica implements Logica{
 		String nomeUsuario = request.getParameter("usuario");
 		String email = request.getParameter("email");
 		String[] tecnologias = request.getParameterValues("tecnologiasArray[]");
-		
-		CargoBean cargoBean = new CargoBean();
-		
-		int idCargo = 0;
-		cargoBean.setIdCargo(idCargo);
-		String nomeCargo = null;
-		cargoBean.setNomeCargo(nomeCargo);
+		String cargo = request.getParameter("cargo");
+	
 		
 		
 		//cargoBean.setNome(cargo);
 		List<TecnologiaBean> tecnologiasLista = new ArrayList<>();
 		TecnologiaBean tecnologia;
-		for(int i =0 ; i <= tecnologias.length ; i ++){
+		for(int i =0 ; i < tecnologias.length ; i ++){
 			tecnologia =  new TecnologiaBean();
 			tecnologia.setNomeTecnologia(tecnologias[i]);
 			tecnologiasLista.add(tecnologia);
 		}
+		
+		
 		FuncionarioBean funcionario = new FuncionarioBean();
 		funcionario.setNomeFuncionario(nomeFuncionario);
 		funcionario.setEmail(email);
@@ -47,6 +46,17 @@ public class AdicionarFuncionarioLogica implements Logica{
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		funcionarioBusiness.inserir(funcionario);
+		
+		CargoBean cargoBean = new CargoBean();
+		cargoBean.setNomeCargo(cargo);
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		cargoBusiness.inserir(cargoBean);
+		
+		FuncionarioTecnologiaBusiness funcionariotecnologia = new FuncionarioTecnologiaBusiness();
+		funcionariotecnologia.inserir(funcionario, tecnologiasLista);
+		
+		
+		
 			
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 	}

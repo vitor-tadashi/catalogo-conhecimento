@@ -23,12 +23,11 @@
 
 		<br>
 		Tecnologias
-		<c:forEach items="${tecnologias}" var="tecnologias">
+		<c:forEach items="${tecnologias}" var="tecnologia">
 			<br>
-			<input type="checkbox" name="tecnologiasArray[]"value="${tecnologias.nomeTecnologia}" />${tecnologias.nomeTecnologia}
+			<input type="checkbox" name="tecnologiasArray[]"value="${tecnologia.nomeTecnologia}" />${tecnologia.nomeTecnologia}
 			<br>
 		</c:forEach>
-		
 		Email <input type="email" name="email">
 		
 		Nome de usuario: <input type="text" name="usuario">
