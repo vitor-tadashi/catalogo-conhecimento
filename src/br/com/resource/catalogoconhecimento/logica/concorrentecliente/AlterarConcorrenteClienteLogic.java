@@ -15,7 +15,7 @@ public class AlterarConcorrenteClienteLogic implements Logica {
 		ConcorrenteClienteBean concorrenteclienteBean = new ConcorrenteClienteBean();
 			
 		concorrenteclienteBean.setIdConcorrenteCliente(Integer.parseInt(req.getParameter("idConcorrentecliente")));
-		concorrenteclienteBean.setValorhora(Integer.parseInt(req.getParameter("valorhora")));
+		concorrenteclienteBean.setValorHora(Integer.parseInt(req.getParameter("valorhora")));
 				
 		ConcorrenteClienteBusiness concorrenteclienteBusiness = new ConcorrenteClienteBusiness();
 		

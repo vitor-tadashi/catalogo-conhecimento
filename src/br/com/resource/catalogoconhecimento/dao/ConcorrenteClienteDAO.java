@@ -23,7 +23,7 @@ public class ConcorrenteClienteDAO {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			stmt.setInt(1, concClienteBean.getIdConcorrenteCliente());
-			stmt.setDouble(2, concClienteBean.getValorhora());
+			stmt.setDouble(2, concClienteBean.getValorHora());
 
 			stmt.executeQuery(sql);
 			stmt.close();
@@ -88,7 +88,7 @@ public class ConcorrenteClienteDAO {
 				concorrentescliente.setIdConcorrenteCliente(IdConcorrenteCliente);
 				//concorrentescliente.setIdCliente(IdCliente);
 				//concorrentescliente.setIdConcorrente(IdConcorrente);
-				concorrentescliente.setValorhora(Valorhora);
+				concorrentescliente.setValorHora(Valorhora);
 
 				concorrentesclientes.add(concorrentescliente);
 			}

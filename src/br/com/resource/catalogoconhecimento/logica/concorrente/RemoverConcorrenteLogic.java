@@ -14,10 +14,10 @@ public class RemoverConcorrenteLogic implements Logica {
 		
 		int idConcorrente = Integer.parseInt(req.getParameter("idConcorrente"));
 		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-		concorrenteBean.setIdConcorrente(idConcorrente);
+		concorrenteBean.setId(idConcorrente);
 		
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
-		concorrenteBusiness.deletar(concorrenteBean.getIdConcorrente());
+		concorrenteBusiness.deletar(concorrenteBean.getId());
 		
 		System.out.println("Excluindo Concorrente");
 		
