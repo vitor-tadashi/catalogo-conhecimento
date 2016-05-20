@@ -43,7 +43,7 @@ public class ClienteBusiness {
 
 		ClienteDAO clienteDao = new ClienteDAO();
 		try {
-			ClienteBean cliente = clienteDao.listarPorId(clienteBean.getId());
+			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 			if (cliente == null) {
 				return true;
 			} else {
@@ -64,7 +64,7 @@ public class ClienteBusiness {
 
 		try {
 			ClienteDAO clienteDao = new ClienteDAO();
-			ClienteBean cliente = clienteDao.listarPorId(clienteBean.getId());
+			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 			if (cliente == null) {
 				return true;
 			} else {
@@ -86,7 +86,7 @@ public class ClienteBusiness {
 
 		try {
 			ClienteDAO clienteDAO = new ClienteDAO();
-			return clienteDAO.listarPorId(idCliente);
+			return clienteDAO.obterPorId(idCliente);
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 			return null;

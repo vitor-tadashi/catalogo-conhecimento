@@ -16,7 +16,7 @@ public class ClienteDAO {
 
 	public void inserir(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO CatalogoConhecimentos.dbo.cliente(nomeCliente, logradouro, CEP, numero, CNPJ, email) VALUES(?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Cliente(nomeCliente, logradouro, CEP, numero, CNPJ, email, ativo) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, clienteBean.getNome());
 		ps.setString(2, clienteBean.getLogradouro());
@@ -24,6 +24,7 @@ public class ClienteDAO {
 		ps.setString(4, clienteBean.getNumero());
 		ps.setString(5, clienteBean.getCnpj());
 		ps.setString(6, clienteBean.getEmail());
+		ps.setString(7, String.valueOf(clienteBean.getAtivo()));
 		ps.executeUpdate();
 		ps.close();
 		conn.close();
@@ -32,7 +33,7 @@ public class ClienteDAO {
 	public List<ClienteBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "select * from CatalogoConhecimentos.dbo.cliente";
+		String sql = "SELECT * FROM Cliente";
 
 		PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -50,6 +51,7 @@ public class ClienteDAO {
 			clienteBean.setNumero(rs.getString("numero"));
 			clienteBean.setCnpj(rs.getString("cnpj"));
 			clienteBean.setEmail(rs.getString("email"));
+			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 			listaClientes.add(clienteBean);
 		}
 		conn.close();
@@ -58,7 +60,7 @@ public class ClienteDAO {
 
 	public void atualizar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "UPDATE CatalogoConhecimentos.dbo.cliente SET nomeCliente = ?, logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ? WHERE idCliente = ?";
+		String sql = "UPDATE Cliente SET nomeCliente = ?, logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE idCliente = ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, clienteBean.getNome());
 		ps.setString(2, clienteBean.getLogradouro());
@@ -66,7 +68,8 @@ public class ClienteDAO {
 		ps.setString(4, clienteBean.getNumero());
 		ps.setString(5, clienteBean.getCnpj());
 		ps.setString(6, clienteBean.getEmail());
-		ps.setInt(7, clienteBean.getId());
+		ps.setString(7, String.valueOf(clienteBean.getAtivo()));
+		ps.setInt(8, clienteBean.getId());
 		ps.executeUpdate();
 		conn.close();
 	}
@@ -82,19 +85,19 @@ public class ClienteDAO {
 			PreparedStatement stmt1 = conn.prepareStatement(sql1);
 			stmt1.setInt(1, clienteBean.getId());
 			stmt1.executeUpdate();
-			
+
 			String sql2 = "DELETE FROM CatalogoConhecimentos.dbo.Projeto WHERE idCliente= ? ";
 			PreparedStatement stmt2 = conn.prepareStatement(sql2);
 			stmt2.setInt(1, clienteBean.getId());
 			stmt2.executeUpdate();
-			
+
 			String sql = "DELETE FROM CatalogoConhecimentos.dbo.Cliente  WHERE idCliente= ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clienteBean.getId());
 			stmt.executeUpdate();
-			
+
 			conn.commit();
-			
+
 		} catch (Exception e) {
 			conn.rollback();
 			System.out.println("--- Erro ao deletar cliente ---" + e.getMessage());
@@ -103,9 +106,9 @@ public class ClienteDAO {
 		}
 	}
 
-	public ClienteBean listarPorId(int idCliente) throws SQLException, ClassNotFoundException {
+	public ClienteBean obterPorId(int idCliente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sqlSelecionar = "SELECT * FROM CatalogoConhecimentos.dbo.cliente WHERE idCliente = ?";
+		String sqlSelecionar = "SELECT * FROM Cliente WHERE idCliente = ?";
 		PreparedStatement ps = conn.prepareStatement(sqlSelecionar);
 		ps.setInt(1, idCliente);
 
@@ -121,6 +124,7 @@ public class ClienteDAO {
 			clienteBean.setNumero(rs.getString("numero"));
 			clienteBean.setCnpj(rs.getString("cnpj"));
 			clienteBean.setEmail(rs.getString("email"));
+			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 			conn.close();
 		}
 
