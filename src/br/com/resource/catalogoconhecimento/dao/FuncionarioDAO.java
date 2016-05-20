@@ -54,14 +54,17 @@ public class FuncionarioDAO {
 		FuncionarioBean funcionario;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
+			CargoBean cargo = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 			funcionario = new FuncionarioBean();
+			
 			funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
-			CargoBean cargo = cargoBusiness.listarPorId(rs.getInt("idCargo"));
 			funcionario.setCargo(cargo);
 			funcionario.setNomeFuncionario(rs.getString("nomeFuncionario"));
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
 			funcionario.setEmail(rs.getString("email"));
+		
+			
 			funcionarios.add(funcionario);
 		}
 
@@ -130,7 +133,7 @@ public class FuncionarioDAO {
 		FuncionarioBean funcionario = null;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.listarPorId(rs.getInt("idCargo"));
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 
 			funcionario = new FuncionarioBean(rs.getInt("idFuncionario"), cargoBean,
 					rs.getString("nomeFuncionario"), rs.getString("nomeUser"), rs.getString("telefone"),

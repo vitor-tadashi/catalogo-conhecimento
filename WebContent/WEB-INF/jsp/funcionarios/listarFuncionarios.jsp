@@ -28,7 +28,7 @@
 				<td>${funcionarios.telefone}</td>
 				<td>${funcionarios.nomeUser}</td>
 				<td>${funcionarios.email}</td>
-				<td>${funcionarios.idCargo}</td>
+				<td>${funcionarios.cargo.getNomeCargo()}</td>
 				<td>
 					<a href="mvc?logica=funcionario.FormularioAlterarLogica&idFuncionario=${funcionarios.idFuncionario}">Alterar</a>
 					<a href="mvc?logica=funcionario.DeletarFuncionarioLogica&idFuncionario=${funcionarios.idFuncionario}">Remover</a>
