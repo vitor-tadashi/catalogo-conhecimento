@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
-import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class NegocioDAO {
@@ -59,18 +56,18 @@ public class NegocioDAO {
 		// ATUALIZA
 		public void atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
 			Connection conexao = ConnectionFactory.createConnection();
-			String sql = "UPDATE CatalogoConhecimentos.dbo.Negocio SET areaAtuacao = '" + negocio.getAreaAtuacao() + "' WHERE idNegocio = ? "
-					+ negocio.getIdNegocio();
+			String sql = "UPDATE CatalogoConhecimentos.dbo.Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
 			PreparedStatement ps = conexao.prepareStatement(sql);
+			ps.setString(1, negocio.getAreaAtuacao());
+			ps.setInt(2, negocio.getIdNegocio());
 
 			ps.executeUpdate();
 			conexao.close();
 		}
-
 		// DELETA
 		public void deletar(int id) throws SQLException, ClassNotFoundException {
 			Connection conexao = ConnectionFactory.createConnection();
-			String sql = "DELETE FROM CatalogoConhecimentos.dbo.negocio WHERE idNegocio = ?";
+			String sql = "DELETE FROM CatalogoConhecimentos.dbo.Negocio WHERE idNegocio = ?";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			
 			ps.setInt(1, id);

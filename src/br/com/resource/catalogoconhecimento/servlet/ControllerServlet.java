@@ -1,4 +1,4 @@
-package br.com.resource.catalogoconhecimento.servlet;
+ package br.com.resource.catalogoconhecimento.servlet;
 
 import java.io.IOException;
 
@@ -37,7 +37,7 @@ public class ControllerServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(pagina).forward(request, response);
 		} catch (Exception e) {
-			throw new ServletException("A lï¿½gica do negï¿½cio causou uma exceï¿½ï¿½o :", e);
+			throw new ServletException("A logica do negocio causou uma exceção: ", e);
 		}
 	}
     

@@ -8,10 +8,10 @@ import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class FormularioAtualizarNegocioLogica implements Logica {
 	
-	@Override
+	@Override 
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("idNegocio"));
 
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio = negocioBusiness.listarPorId(id);
