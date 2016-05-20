@@ -34,7 +34,7 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Tecnologia";
+		String sql = "SELECT * FROM Tecnologia";
 		
 		ArrayList<TecnologiaBean> tecnologias = new ArrayList<TecnologiaBean>(); 
 		TecnologiaBean tecnologia;
