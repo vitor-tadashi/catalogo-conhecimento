@@ -46,6 +46,13 @@ public class ProjetoNegocioBusiness {
 		return null;
 	}
 	
-	
+	public void atualizar(ProjetoBean projeto, List<NegocioBean> negocios){
+		try {
+			projetoNegocioDAO.atualizar(projeto, negocios);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
