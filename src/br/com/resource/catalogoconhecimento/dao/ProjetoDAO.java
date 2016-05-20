@@ -99,11 +99,14 @@ public class ProjetoDAO {
 	public void deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		
 		Connection conn = ConnectionFactory.createConnection();
-
+		ProjetoNegocioDAO projetoNegocio = new ProjetoNegocioDAO();
+		
+		
 		String sql = "Delete from CatalogoConhecimentos.dbo.projeto where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,projeto.getIdProjeto());
 
+		projetoNegocio.deletar(projeto);
 		stmt.executeUpdate();
 		conn.close();
 

@@ -74,21 +74,12 @@ public class ProjetoBusiness {
 	}
 
 	// DELETA NA TABELA PROJETO
-	public boolean deletar(ProjetoBean idProjeto) throws ClassNotFoundException, SQLException {
+	public boolean deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 
 		try {
 
 			ProjetoDAO projetodao = new ProjetoDAO();
-			projetodao.deletar(idProjeto);
-			
-			
-
-			/*if (projetoAux == null) {
-				return true;
-			} else {
-				projetodao.deleta(projetoAux);
-				return false;
-			}*/
+			projetodao.deletar(projeto);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

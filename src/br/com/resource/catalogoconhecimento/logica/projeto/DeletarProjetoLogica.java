@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
+import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class DeletarProjetoLogica implements Logica {
@@ -15,11 +15,10 @@ public class DeletarProjetoLogica implements Logica {
 
 		int idProjeto = Integer.parseInt(request.getParameter("idProjeto"));
 
-		ProjetoBean projetoBean = new ProjetoBean();
-		projetoBean.setIdProjeto(idProjeto);
+		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
+		ProjetoBean projeto = projetoBusiness.obterPorId(idProjeto);
 		
-		ProjetoDAO projetodao= new ProjetoDAO();
-		projetodao.deletar(projetoBean);
+		projetoBusiness.deletar(projeto);
 		
 
 		return "mvc?logica=projeto.ListarProjetoLogica";
