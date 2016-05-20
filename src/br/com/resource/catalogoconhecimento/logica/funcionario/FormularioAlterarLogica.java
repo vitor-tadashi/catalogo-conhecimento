@@ -1,4 +1,4 @@
-package br.com.resource.catalogoconhecimento.funcionario;
+package br.com.resource.catalogoconhecimento.logica.funcionario;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
