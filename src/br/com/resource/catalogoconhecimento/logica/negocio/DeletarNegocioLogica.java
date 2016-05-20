@@ -3,10 +3,7 @@ package br.com.resource.catalogoconhecimento.logica.negocio;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
-import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class DeletarNegocioLogica implements Logica {

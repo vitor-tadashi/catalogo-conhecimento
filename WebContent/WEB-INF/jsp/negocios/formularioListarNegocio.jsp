@@ -13,7 +13,7 @@
 	<table border="1">
 		<tr>
 			<th>Área de Atuação</th>
-			<th>Ações</th>
+			<th colspan="2">Ações</th>
 		</tr>
 		<c:forEach var="negocio" items="${negocios}">
 			<tr>
@@ -28,9 +28,7 @@
 		</c:forEach>
 	</table>
 	<br>
-	<br>
-	<p>
-		<a href="mvc?logica=negocio.FormularioInserirNegocioLogica"> Cadastrar Negócio</a>
-	</p>
+		<a href="mvc?logica=negocio.FormularioInserirNegocioLogica">
+			Cadastrar Negócio</a>
 </body>
 </html>
