@@ -42,11 +42,11 @@ public class CargoBusiness {
 	}
 
 	// LISTA POR ID
-	public CargoBean listarPorId(int idCargo) {
+	public CargoBean obterPorId(int idCargo) {
 		try {
 
 			CargoDAO cargo = new CargoDAO();
-			return cargo.listarPorId(idCargo);
+			return cargo.obterPorId(idCargo);
 
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
@@ -64,14 +64,15 @@ public class CargoBusiness {
 			CargoDAO cargoDao;
 			cargoDao = new CargoDAO();
 
-			CargoBean cargos = cargoDao.listarPorId(cargo.getIdCargo());
+			CargoBean cargos = cargoDao.obterPorId(cargo.getIdCargo());
 
-			if (cargos == null) {
+			if (cargos != null) {
+			
+				cargoDao.atualizar(cargo);
 				return true;
 			} else {
-				cargoDao.atualizar(cargo);
 				return false;
-			}
+		}
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -89,7 +90,7 @@ public class CargoBusiness {
 
 			CargoDAO cargoDao = new CargoDAO();
 
-			CargoBean cargo = this.listarPorId(idCargo);
+			CargoBean cargo = this.obterPorId(idCargo);
 
 			if (cargo != null) {
 				cargoDao.deletar(idCargo);
