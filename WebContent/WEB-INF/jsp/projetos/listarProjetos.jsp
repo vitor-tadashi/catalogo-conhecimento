@@ -38,7 +38,7 @@
 				
 				<td>${projeto.observacao}</td>
 
-				<td><a href="mvc?logica=AtualizarProjetoLogica&idProjeto=${projeto.idProjeto}">Alterar</a></td>
+				<td><a href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.idProjeto}">Alterar</a></td>
 
 				<td><a href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.idProjeto}">Deletar</a></td>
 

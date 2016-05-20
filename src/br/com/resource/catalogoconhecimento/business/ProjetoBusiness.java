@@ -29,7 +29,7 @@ public class ProjetoBusiness {
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
 		try {
 			ProjetoDAO projeto = new ProjetoDAO();
-			return projeto.consultar();
+			return projeto.listar();
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 			return null;
@@ -40,34 +40,29 @@ public class ProjetoBusiness {
 	}
 
 	// ATUALIZAR NA TABELA PROJETO
-	public boolean atualizar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
+	public void atualizar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		try {
 
-			ProjetoDAO projetodao;
-			projetodao = new ProjetoDAO();
+			ProjetoDAO projetoDao;
+			projetoDao = new ProjetoDAO();
 
-			ProjetoBean projetoAux = projetodao.listarPorId(projeto.getIdProjeto());
+			projetoDao.atualizar(projeto);
 
-			if (projetoAux == null) {
-				return true;
-			} else {
-				projetodao.atualizar(projeto);
-				return false;
-			}
+		
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException s) {
 			s.printStackTrace();
 		}
-		return false;
+		
 	}
 
 	// LISTA POR ID
-	public ProjetoBean listarPorId(int idProjeto) throws ClassNotFoundException, SQLException {
+	public ProjetoBean obterPorId(int idProjeto) throws ClassNotFoundException, SQLException {
 		try {
 			ProjetoDAO projeto = new ProjetoDAO();
-			return projeto.listarPorId(idProjeto);
+			return projeto.obterPorId(idProjeto);
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 			return null;
@@ -79,21 +74,12 @@ public class ProjetoBusiness {
 	}
 
 	// DELETA NA TABELA PROJETO
-	public boolean deletar(ProjetoBean idProjeto) throws ClassNotFoundException, SQLException {
+	public boolean deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 
 		try {
 
 			ProjetoDAO projetodao = new ProjetoDAO();
-			projetodao.deletar(idProjeto);
-			
-			
-
-			/*if (projetoAux == null) {
-				return true;
-			} else {
-				projetodao.deleta(projetoAux);
-				return false;
-			}*/
+			projetodao.deletar(projeto);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

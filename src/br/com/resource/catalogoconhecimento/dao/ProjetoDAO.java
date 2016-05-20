@@ -20,7 +20,7 @@ public class ProjetoDAO {
 	Connection conn = null;
 
 	// SELECIONAR NA TABELA PROJETO
-	public List<ProjetoBean> consultar() throws ClassNotFoundException, SQLException {
+	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
 		String sql = "Select * from CatalogoConhecimentos.dbo.Projeto";
@@ -82,9 +82,13 @@ public class ProjetoDAO {
 	public void atualizar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "Update CatalogoConhecimentos.dbo.Projeto set nomeProjeto =? '" + projeto.getNomeProjeto() + "',observacao =?'"
-				+ projeto.getObservacao() + "' where idProjeto = ?" + projeto.getIdProjeto();
+		String sql = "Update CatalogoConhecimentos.dbo.Projeto set idEquipe = ?, idCliente = ?, nomeProjeto = ?, observacao = ? where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, projeto.getEquipe().getIdEquipe());
+		stmt.setInt(2, projeto.getCliente().getId());
+		stmt.setString(3, projeto.getNomeProjeto());
+		stmt.setString(4, projeto.getObservacao());
+		stmt.setInt(5, projeto.getIdProjeto());
 
 		stmt.executeUpdate();
 		conn.close();
@@ -95,18 +99,21 @@ public class ProjetoDAO {
 	public void deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		
 		Connection conn = ConnectionFactory.createConnection();
-
+		ProjetoNegocioDAO projetoNegocio = new ProjetoNegocioDAO();
+		
+		
 		String sql = "Delete from CatalogoConhecimentos.dbo.projeto where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,projeto.getIdProjeto());
 
+		projetoNegocio.deletar(projeto);
 		stmt.executeUpdate();
 		conn.close();
 
 	}
 
 	// LISTAR PROJETO POR IDPROJETO
-	public ProjetoBean listarPorId(int idProjeto) throws SQLException, ClassNotFoundException {
+	public ProjetoBean obterPorId(int idProjeto) throws SQLException, ClassNotFoundException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Projeto WHERE idProjeto = '" + idProjeto + "'";

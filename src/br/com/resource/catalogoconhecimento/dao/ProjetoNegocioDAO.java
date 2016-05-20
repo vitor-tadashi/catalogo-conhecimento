@@ -16,8 +16,9 @@ public class ProjetoNegocioDAO {
 
 	Connection conexao;
 	private final String sqlCriar = "insert into CatalogoConhecimentos.dbo.ProjetoNegocio(idProjeto, idNegocio) values(?,?)";
-	private final String sqlConsultar = "Select * from ProjetoNegocio where idProjetoNegocio where = ?";
-	
+	private final String sqlConsultar = "Select * from ProjetoNegocio where idProjeto = ?";
+	private final String sqlDeletar  ="Delete from CatalogoConhecimentos.dbo.ProjetoNegocio where idProjeto = ?";
+
 	
 	public ProjetoNegocioDAO() throws ClassNotFoundException, SQLException {
 		conexao = ConnectionFactory.createConnection();
@@ -54,6 +55,23 @@ public class ProjetoNegocioDAO {
 		}
 		
 		return negocios;
+	}
+	
+	public void atualizar(ProjetoBean projeto,List<NegocioBean>negocios) throws SQLException{
+		
+		this.deletar(projeto);
+		
+		this.inserir(projeto, negocios);
+		
+		conexao.close();
+		
+	}
+	
+	public void deletar(ProjetoBean projeto) throws SQLException{
+		PreparedStatement ps = conexao.prepareStatement(sqlDeletar);
+		ps.setInt(1, projeto.getIdProjeto());
+		
+		ps.executeUpdate();
 	}
 	
 }
