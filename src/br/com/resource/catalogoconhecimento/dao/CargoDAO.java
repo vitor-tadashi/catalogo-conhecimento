@@ -19,12 +19,11 @@ public class CargoDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Cargo(idCargo, nomeCargo) VALUES(?, ?)";
+		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Cargo( nomeCargo) VALUES(?)";
 
 		PreparedStatement st = conexao.prepareStatement(sql);
 
-		st.setInt(1, cargo.getIdCargo());
-		st.setString(2, cargo.getNomeCargo());
+		st.setString(1, cargo.getNomeCargo());
 
 		st.executeUpdate();
 		st.close();
@@ -82,7 +81,7 @@ public class CargoDAO {
 	}
 
 	// LISTA POR ID
-	public CargoBean listarPorId(int idCargo) throws SQLException, ClassNotFoundException {
+	public CargoBean obterPorId(int idCargo) throws SQLException, ClassNotFoundException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
