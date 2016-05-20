@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class FuncionarioDAO {
@@ -16,16 +19,23 @@ public class FuncionarioDAO {
 	public void inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Funcionario(idFuncionario,idCargo,nomeFuncionario,telefone,nomeUser,email) VALUES(?,?,?,?,?,?)";
-		PreparedStatement st = conexao.prepareStatement(sql);
+		PreparedStatement st = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 		st.setInt(1, funcionario.getIdFuncionario());
-		st.setInt(2, funcionario.getIdCargo());
+		st.setInt(2, funcionario.getCargo().getIdCargo());
 		st.setString(3, funcionario.getNomeFuncionario());
 		st.setString(4, funcionario.getTelefone());
 		st.setString(5, funcionario.getNomeUser());
 		st.setString(6, funcionario.getEmail());
 
 		st.executeUpdate();
+		ResultSet rs = st.getGeneratedKeys();
+		
+		int id = 0;
+		if(rs.next()){
+			id = rs.getInt("idFuncionario");
+		}
+		funcionario.setIdFuncionario(id);
 		st.close();
 		conexao.close();
 	}
@@ -42,11 +52,12 @@ public class FuncionarioDAO {
 
 		ArrayList<FuncionarioBean> funcionarios = new ArrayList<FuncionarioBean>();
 		FuncionarioBean funcionario;
-
+		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
 			funcionario = new FuncionarioBean();
 			funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
-			funcionario.setIdCargo(rs.getInt("idCargo"));
+			CargoBean cargo = cargoBusiness.listarPorId(rs.getInt("idCargo"));
+			funcionario.setCargo(cargo);
 			funcionario.setNomeFuncionario(rs.getString("nomeFuncionario"));
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
@@ -117,9 +128,11 @@ public class FuncionarioDAO {
 		ResultSet rs = ps.executeQuery();
 
 		FuncionarioBean funcionario = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.listarPorId(rs.getInt("idCargo"));
 
-			funcionario = new FuncionarioBean(rs.getInt("idFuncionario"), rs.getInt("idCargo"),
+			funcionario = new FuncionarioBean(rs.getInt("idFuncionario"), cargoBean,
 					rs.getString("nomeFuncionario"), rs.getString("nomeUser"), rs.getString("telefone"),
 					rs.getString("email"));
 		}

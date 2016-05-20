@@ -2,27 +2,27 @@ package br.com.resource.catalogoconhecimento.bean;
 
 public class ConcorrenteBean {
 	
-	private int idConcorrente;
-	private String nomeConcorrente;
+	private int id;
+	private String nome;
     private String descricao;
     
     public ConcorrenteBean(){
     }
 	
-	public int getIdConcorrente() {
-		return idConcorrente;
+	public int getId() {
+		return id;
 	}
 	
-	public void setIdConcorrente(int idConcorrente) {
-		this.idConcorrente = idConcorrente;
+	public void setId(int idConcorrente) {
+		this.id = idConcorrente;
 	}
 	
-	public String getNomeConcorrente() {
-		return nomeConcorrente;
+	public String getNome() {
+		return nome;
 	}
 	
-	public void setNomeConcorrente(String nomeConcorrente) {
-		this.nomeConcorrente = nomeConcorrente;
+	public void setNome(String nomeConcorrente) {
+		this.nome = nomeConcorrente;
 	}
 	
 	public String getDescricao() {

@@ -34,7 +34,7 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Tecnologia";
+		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Tecnologia";
 		
 		ArrayList<TecnologiaBean> tecnologias = new ArrayList<TecnologiaBean>(); 
 		TecnologiaBean tecnologia;
@@ -54,6 +54,30 @@ public class TecnologiaDAO {
 
 		conexao.close();
 		return tecnologias;
+	}
+	
+	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nome);
+		ResultSet rs = ps.executeQuery();
+
+		TecnologiaBean tecnologia = null;
+		
+		while (rs.next()) {
+			int idTecnologia = rs.getInt("idTecnologia");
+			String nomeTecnologia = rs.getString("nomeTecnologia");
+			
+			tecnologia = new TecnologiaBean();
+			tecnologia.setIdTecnologia(idTecnologia);
+			tecnologia.setNomeTecnologia(nomeTecnologia);
+		}
+
+		conexao.close();
+		return tecnologia;
 	}
 
 	// ATUALIZA

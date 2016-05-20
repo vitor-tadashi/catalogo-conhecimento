@@ -23,7 +23,7 @@ public class ProjetoDAO {
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "Select * from CatalogoConhecimentos.dbo.Projeto";
+		String sql = "Select * from Projeto";
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -53,7 +53,7 @@ public class ProjetoDAO {
 	// ADICIONAR NA TABELA PROJETO
 	public void inserir(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "Insert into CatalogoConhecimentos.dbo.Projeto(idEquipe, idCliente, nomeProjeto,observacao) values(?,?, ?, ?)";
+		String sql = "Insert into Projeto(idEquipe, idCliente, nomeProjeto,observacao) values(?,?, ?, ?)";
 
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
@@ -82,7 +82,7 @@ public class ProjetoDAO {
 	public void atualizar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "Update CatalogoConhecimentos.dbo.Projeto set idEquipe = ?, idCliente = ?, nomeProjeto = ?, observacao = ? where idProjeto = ?";
+		String sql = "Update Projeto set idEquipe = ?, idCliente = ?, nomeProjeto = ?, observacao = ? where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, projeto.getEquipe().getIdEquipe());
 		stmt.setInt(2, projeto.getCliente().getId());
@@ -102,7 +102,7 @@ public class ProjetoDAO {
 		ProjetoNegocioDAO projetoNegocio = new ProjetoNegocioDAO();
 		
 		
-		String sql = "Delete from CatalogoConhecimentos.dbo.projeto where idProjeto = ?";
+		String sql = "Delete from projeto where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,projeto.getIdProjeto());
 
@@ -116,7 +116,7 @@ public class ProjetoDAO {
 	public ProjetoBean obterPorId(int idProjeto) throws SQLException, ClassNotFoundException {
 
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Projeto WHERE idProjeto = '" + idProjeto + "'";
+		String sql = "SELECT * FROM Projeto WHERE idProjeto = '" + idProjeto + "'";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		ProjetoBean projeto = null;

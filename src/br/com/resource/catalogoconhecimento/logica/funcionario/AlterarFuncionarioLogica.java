@@ -1,4 +1,4 @@
-package br.com.resource.catalogoconhecimento.funcionario;
+package br.com.resource.catalogoconhecimento.logica.funcionario;
 
 import java.util.List;
 

@@ -38,7 +38,7 @@
 					href="mvc?logica=cliente.FormularioAtualizarClienteLogica&id=${cliente.id}">Atualizar</a>
 				</td>
 				<td>
-					<a href="mvc?logica=concorrente.ListarConcorrenteLogica&id=${cliente.id}">Listar Concorrentes</a>
+					<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}">Listar Concorrentes</a>
 				</td>						
 			</tr>
 		</c:forEach>

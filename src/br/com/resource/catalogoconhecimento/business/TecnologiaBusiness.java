@@ -48,6 +48,19 @@ public class TecnologiaBusiness {
 			return null;
 		}
 	}
+	
+	public TecnologiaBean obterPorNome(String nome) {
+		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+		try {
+			return tecnologiaDao.obterPorNome(nome);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	// ATUALIZA
 	public boolean atualizar(TecnologiaBean tecnologia) {

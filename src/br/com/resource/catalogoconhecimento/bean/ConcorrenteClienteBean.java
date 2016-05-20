@@ -1,7 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class ConcorrenteClienteBean {
-	private int idConcorrenteCliente;
+	private int id;
 	private ClienteBean cliente;
 	private ConcorrenteBean concorrente;
 	private double valorHora;
@@ -10,11 +10,11 @@ public class ConcorrenteClienteBean {
 	}
 
 	public int getIdConcorrenteCliente() {
-		return idConcorrenteCliente;
+		return id;
 	}
 
 	public void setIdConcorrenteCliente(int idConcorrenteCliente) {
-		this.idConcorrenteCliente = idConcorrenteCliente;
+		this.id = idConcorrenteCliente;
 	}
 
 	public ClienteBean getCliente() {
@@ -33,11 +33,11 @@ public class ConcorrenteClienteBean {
 		this.concorrente = concorrente;
 	}
 
-	public double getValorhora() {
+	public double getValorHora() {
 		return valorHora;
 	}
 
-	public void setValorhora(double valorhora) {
+	public void setValorHora(double valorhora) {
 		this.valorHora = valorhora;
 	}
 
