@@ -9,7 +9,7 @@ import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
 
 public class ConcorrenteBusiness {
 
-	public List<ConcorrenteClienteBean> listar() throws SQLException, ClassNotFoundException {
+	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException {
 		try {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 			return concorrenteDao.listar();
@@ -19,7 +19,7 @@ public class ConcorrenteBusiness {
 		}
 	}
 	
-	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
+	public List<ConcorrenteClienteBean> obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
 		try {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 			return concorrenteDao.obterPorId(idConcorrente);
@@ -55,9 +55,9 @@ public class ConcorrenteBusiness {
 		ConcorrenteDAO concorrenteDAO = new ConcorrenteDAO();
 		
 		try {
-			ConcorrenteBean concorrenteAux = this.obterPorId(concorrente.getId());
+			List<ConcorrenteClienteBean> concorrentes = this.obterPorId(concorrente.getId());
 
-			if (concorrenteAux != null) {
+			if (!concorrentes.isEmpty()) {
 				concorrenteDAO.atualizar(concorrente);
 				return true;
 			} else {
@@ -75,9 +75,11 @@ public class ConcorrenteBusiness {
 	public boolean deletar(int idConcorrente) throws SQLException, ClassNotFoundException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 
+		ConcorrenteBean concorrente = new ConcorrenteBean();
+		
 		try {
-			ConcorrenteBean concorrente = this.obterPorId(idConcorrente);
-			if (concorrente != null) {
+			List<ConcorrenteClienteBean> concorrentes = this.obterPorId(idConcorrente);
+			if (!concorrentes.isEmpty()) {
 				concorrenteDao.deletar(concorrente);
 				return true;
 			} else {

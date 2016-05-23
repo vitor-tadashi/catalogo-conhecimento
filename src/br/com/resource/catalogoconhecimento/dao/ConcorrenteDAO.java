@@ -14,15 +14,40 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class ConcorrenteDAO {
 
-	public List<ConcorrenteClienteBean> listar() throws ClassNotFoundException, SQLException {
+	public List<ConcorrenteBean> listar() throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		
-		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente"
-				+ "FROM Concorrente AS CO"
-				+ "INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
-				+ "INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente";
+		String sql = "SELECT * FROM Concorrente";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ConcorrenteBean> concorrentes = new ArrayList<ConcorrenteBean>();
+
+		while (rs.next()) {
+			ConcorrenteBean concorrente = new ConcorrenteBean();
+			concorrente.setId(rs.getInt("idConcorrente"));
+			concorrente.setNome(rs.getString("nomeConcorrente"));
+			concorrente.setDescricao(rs.getString("descricao"));
+			
+			concorrentes.add(concorrente);
+		}
+		
+		conexao.close();
+		return concorrentes;
+	}
+
+	public List<ConcorrenteClienteBean> obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente"
+				+ " FROM Concorrente AS CO"
+				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
+				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
+				+ " WHERE idConcorrente = ?";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, idConcorrente);
 		ResultSet rs = ps.executeQuery();
 		
 		ArrayList<ConcorrenteClienteBean> concorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
@@ -34,7 +59,7 @@ public class ConcorrenteDAO {
 			ConcorrenteBean concorrente = new ConcorrenteBean();
 			concorrente.setId(rs.getInt("idConcorrente"));
 			concorrente.setNome(rs.getString("nomeConcorrente"));
-			concorrente.setdescricao(rs.getString("descricao"));
+			concorrente.setDescricao(rs.getString("descricao"));
 			concorrenteCliente.setConcorrente(concorrente);
 
 			ClienteBean cliente = new ClienteBean();
@@ -46,29 +71,7 @@ public class ConcorrenteDAO {
 		}
 		
 		conexao.close();
-
 		return concorrentesClientes;
-	}
-
-	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "Select * from CatalogoConhecimentos.dbo.Concorrente where idConcorrente = '" + idConcorrente
-				+ "'";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		
-		ConcorrenteBean concorrente = new ConcorrenteBean();
-
-		while (rs.next()) {
-			concorrente.setId(rs.getInt("idConcorrente"));
-			concorrente.setNome(rs.getString("nomeConcorrente"));
-			concorrente.setdescricao(rs.getString("descricao"));
-		}
-
-		conexao.close();
-		return concorrente;
 	}
 
 	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
@@ -93,7 +96,7 @@ public class ConcorrenteDAO {
 			ConcorrenteBean concorrente = new ConcorrenteBean();
 			concorrente.setId(rs.getInt("idConcorrente"));
 			concorrente.setNome(rs.getString("nomeConcorrente"));
-			concorrente.setdescricao(rs.getString("descricao"));
+			concorrente.setDescricao(rs.getString("descricao"));
 			concorrenteCliente.setConcorrente(concorrente);
 
 			ClienteBean cliente = new ClienteBean();

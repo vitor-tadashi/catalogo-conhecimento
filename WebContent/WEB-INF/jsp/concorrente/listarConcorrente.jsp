@@ -4,36 +4,31 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listar Concorrente</title>
-</head>
-<body>
-	<h2>Concorrente</h2>
-	<table border="1">
-		<tr>
-			<th>Nome do Concorrente</th>
-			<th>Descrição</th>
-			<th>Ações</th>
-			
-			
-		</tr>
-
-		<c:forEach var="listarconcorrente" items="${concorrente}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Listar Concorrente</title>
+	</head>
+	<body>
+		<h2>Concorrente</h2>
+		<table border="1">
 			<tr>
-				<td>${listarconcorrente.nomeConcorrente}</td>
-				
-				<td>${listarconcorrente.descricao}</td>
-				
-				<td><a href="mvc?logica=FormularioAlterarLogica&idConcorrente=${listarconcorrente.idConcorrente}">Atualizar</a>
-					
-				<a href="mvc?logica=RemoverConcorrenteLogica&idConcorrente=${listarconcorrente.idConcorrente}">Remover</a>
-					
-			</td>
+				<th>Nome</th>
+				<th>Descrição</th>
+				<th>Ações</th>
 			</tr>
-			
-			
-		</c:forEach>
-	</table>
-</body>
+	
+			<c:forEach var="concorrente" items="${concorrentes}">
+				<tr>
+					<td>${concorrente.nome}</td>
+					<td>${concorrente.descricao}</td>
+					
+					<td>
+						<a href="mvc?logica=FormularioAlterarLogica&id=${concorrente.id}">Atualizar</a>
+						<a href="mvc?logica=RemoverConcorrenteLogica&id=${concorrente.id}">Remover</a>
+						<a href="mvc?logica=ListarClientesPorConcorrente&id=${concorrente.id}">Listar Clientes</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</body>
 </html>
