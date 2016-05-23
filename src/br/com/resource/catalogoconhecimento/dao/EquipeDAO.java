@@ -100,10 +100,7 @@ public class EquipeDAO {
 			stmt2.setInt(1, idEquipe.getIdEquipe());
 			stmt2.executeUpdate();
 
-			String sql3 = "DELETE FROM Projeto WHERE idEquipe= ? ";
-			PreparedStatement stmt3 = conec.prepareStatement(sql3);
-			stmt3.setInt(1, idEquipe.getIdEquipe());
-			stmt3.executeUpdate();
+			
 
 			String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
 			PreparedStatement stmt = conec.prepareStatement(sql);
