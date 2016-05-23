@@ -31,7 +31,7 @@
 				<td>${funcionarios.cargo.getNomeCargo()}</td>
 				<td>
 					<a href="mvc?logica=funcionario.FormularioAlterarLogica&idFuncionario=${funcionarios.idFuncionario}">Alterar</a>
-					<a href="mvc?logica=funcionario.DeletarFuncionarioLogica&idFuncionario=${funcionarios.idFuncionario}">Remover</a>
+					<a href="mvc?logica=funcionario.RemoverFuncionarioLogica&idFuncionario=${funcionarios.idFuncionario}">Remover</a>
 				</td>
 			</tr>
 

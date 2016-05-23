@@ -23,9 +23,7 @@ public class AtualizarEquipeLogica implements Logica {
 
 		EquipeBusiness equipeBusiness = new EquipeBusiness();
 		equipeBusiness.atualizar(equipe);
-		/*
-		request.setAttribute("equipes", equipeBusiness);
-   */
+	
 		return "mvc?logica=equipe.ListarEquipeLogica";
 		
 		
