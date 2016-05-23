@@ -58,7 +58,7 @@ public class CargoBusiness {
 	}
 	
 	// LISTA POR NOME
-		public CargoBean obterPorNome(int nomeCargo) {
+		public CargoBean obterPorNome(String nomeCargo) {
 			try {
 
 				CargoDAO cargo = new CargoDAO();
