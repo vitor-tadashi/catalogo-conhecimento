@@ -48,7 +48,8 @@ public class FuncionarioDAO {
 
 		String sql = "SELECT * FROM Funcionario where ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-
+		ps.setString(1, "s");
+		
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<FuncionarioBean> funcionarios = new ArrayList<FuncionarioBean>();

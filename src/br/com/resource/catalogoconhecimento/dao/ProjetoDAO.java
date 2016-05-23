@@ -23,9 +23,11 @@ public class ProjetoDAO {
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "Select * from Projeto where ativo = s";
+		String sql = "Select * from Projeto where ativo = ?";
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "s");
+		
 		ResultSet rs = stmt.executeQuery();
 
 		List<ProjetoBean> projetos = new ArrayList<ProjetoBean>();
