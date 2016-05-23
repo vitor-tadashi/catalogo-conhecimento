@@ -12,9 +12,9 @@ import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 
 public class EquipeBusiness {
 
-	// ********************************************************************************************************
-	// M�TODO PARA CHAMAR A CLASSE EQUIPEDAO PARA INSERIR NA BASE
-	// ********************************************************************************************************
+
+	// INSERIR NA BASE
+
 	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
@@ -23,9 +23,9 @@ public class EquipeBusiness {
 
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA CHAMAR A CLASSE EQUIPEDAO PARA DELETAR NA BASE
-	// ********************************************************************************************************
+
+	// DELETAR NA BASE
+
 	public void deletar(EquipeBean idEquipe) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
@@ -45,9 +45,8 @@ public class EquipeBusiness {
 		
 	
 
-	// ********************************************************************************************************
-	// M�TODO PARA CHAMAR A CLASSE EQUIPEDAO PARA ATUALIZA NA BASE
-	// ********************************************************************************************************
+	// ATUALIZAR NA BASE
+
 	public void atualizar(EquipeBean observacao) {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
@@ -63,16 +62,19 @@ public class EquipeBusiness {
 		}
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA CHAMAR A CLASSE EQUIPEDAO PARA LISTAR NA BASE
-	// ********************************************************************************************************
+	// LISTAR NA BASE
+
 
 	public List<EquipeBean> listar() throws ClassNotFoundException, SQLException {
 
 		try {
 
 			EquipeDAO equipe = new EquipeDAO();
-			return equipe.listar();
+			if( equipe != null){
+				return equipe.listar();
+			}
+			
+			
 
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
@@ -81,11 +83,11 @@ public class EquipeBusiness {
 			s.printStackTrace();
 			return null;
 		}
+		return null;
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA CHAMAR A CLASSE EQUIPEDAO PARA LISTAR POR ID NA BASE
-	// ********************************************************************************************************
+	// LISTAR POR ID NA BASE
+
 
 	public EquipeBean listarPorId(int idEquipe) throws ClassNotFoundException, SQLException {
 

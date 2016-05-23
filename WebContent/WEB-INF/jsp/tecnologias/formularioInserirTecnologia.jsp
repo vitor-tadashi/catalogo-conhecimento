@@ -10,8 +10,7 @@
 <body class="overflow-hidden">
 				
 	<c:import url="/resources/jspImport/header.jsp"/>
-	
-	
+
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
@@ -22,7 +21,6 @@
 			</ul>
 		</div>
 		<!--breadcrumb-->
-	
 	<div class="padding-md">
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
