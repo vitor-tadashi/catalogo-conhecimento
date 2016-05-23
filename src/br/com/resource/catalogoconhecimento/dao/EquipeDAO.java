@@ -14,9 +14,9 @@ public class EquipeDAO {
 
 	Connection conec = null;
 
-	// ********************************************************************************************************
-	// M�TODO PARA SELECIONAR DADOS NA TABELA DE EQUIPE
-	// ********************************************************************************************************
+
+	// SELECIONAR DADOS NA TABELA DE EQUIPE
+
 	public List<EquipeBean> listar() throws SQLException, ClassNotFoundException {
 
 		Connection conec = ConnectionFactory.createConnection();
@@ -46,9 +46,8 @@ public class EquipeDAO {
 		return equipes;
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA INSERIR DADOS NA TABELA DE EQUIPE
-	// ********************************************************************************************************
+
+	// INSERIR DADOS NA TABELA DE EQUIPE
 	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException {
 
 		Connection conec = ConnectionFactory.createConnection();
@@ -67,9 +66,9 @@ public class EquipeDAO {
 
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA ATUALIZAR DADOS NA TABELA DE EQUIPE
-	// ********************************************************************************************************
+
+	// ATUALIZAR DADOS NA TABELA DE EQUIPE
+
 	public void atualizar(EquipeBean equipe) throws ClassNotFoundException, SQLException {
 
 		Connection conec = ConnectionFactory.createConnection();
@@ -87,9 +86,8 @@ public class EquipeDAO {
 
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA DELETAR DADOS NA TABELA DE EQUIPE
-	// ********************************************************************************************************
+	// DELETAR DADOS NA TABELA DE EQUIPE
+
 	public void deletar(EquipeBean idEquipe) throws SQLException, ClassNotFoundException {
 		Connection conec = ConnectionFactory.createConnection();
 		conec.setAutoCommit(false);
@@ -115,9 +113,8 @@ public class EquipeDAO {
 
 	}
 
-	// ********************************************************************************************************
-	// M�TODO PARA SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
-	// ********************************************************************************************************
+	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
+
 	public EquipeBean listarPorId(int idEquipe) throws SQLException, ClassNotFoundException {
 
 		Connection conec = ConnectionFactory.createConnection();

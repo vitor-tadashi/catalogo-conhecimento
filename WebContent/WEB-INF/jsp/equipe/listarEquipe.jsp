@@ -41,7 +41,9 @@
 	<p>
 		<a href="mvc?logica=equipe.FormularioInserirEquipeLogica&idEquipe=$">Adicionar
 			Equipe </a>
-
 	</p>
+
+
+
 </body>
 </html>
