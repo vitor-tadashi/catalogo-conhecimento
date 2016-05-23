@@ -37,7 +37,8 @@ public class ControllerServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(pagina).forward(request, response);
 		} catch (Exception e) {
-			throw new ServletException("A logica do negocio causou uma exceção: ", e);
+			request.setAttribute("msgErro", e.getMessage());
+			request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
 		}
 	}
     
