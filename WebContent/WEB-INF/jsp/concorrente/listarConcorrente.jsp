@@ -25,7 +25,7 @@
 					<td>
 						<a href="mvc?logica=FormularioAlterarLogica&id=${concorrente.id}">Atualizar</a>
 						<a href="mvc?logica=RemoverConcorrenteLogica&id=${concorrente.id}">Remover</a>
-						<a href="mvc?logica=ListarClientesPorConcorrente&id=${concorrente.id}">Listar Clientes</a>
+						<a href="mvc?logica=concorrente.ListarClientePorConcorrenteLogica&id=${concorrente.id}">Listar Clientes</a>
 					</td>
 				</tr>
 			</c:forEach>

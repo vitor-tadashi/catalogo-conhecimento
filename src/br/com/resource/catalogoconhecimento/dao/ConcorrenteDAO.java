@@ -46,7 +46,7 @@ public class ConcorrenteDAO {
 				+ " FROM Concorrente AS CO"
 				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
 				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
-				+ " WHERE idConcorrente = ?";
+				+ " WHERE CC.idConcorrente = ?";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, idConcorrente);
@@ -83,7 +83,7 @@ public class ConcorrenteDAO {
 				+ " FROM Concorrente AS CO"
 				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
 				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
-				+ " WHERE CL.idCliente = ?";
+				+ " WHERE CC.idCliente = ?";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, idCliente);
