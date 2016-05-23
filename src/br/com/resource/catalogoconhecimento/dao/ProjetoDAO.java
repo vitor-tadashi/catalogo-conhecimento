@@ -37,7 +37,7 @@ public class ProjetoDAO {
 		
 		while(rs.next()) {
 			
-			cliente = clienteBusiness.listarPorId(rs.getInt("idCliente"));
+			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
 			equipe = equipeBusiness.listarPorId( rs.getInt("idEquipe"));
 			
 			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, equipe,
@@ -127,7 +127,7 @@ public class ProjetoDAO {
 		ClienteBean cliente;
 		
 		if(rs.next()) {
-			cliente = clienteBusiness.listarPorId(rs.getInt("idCliente"));
+			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
 			equipe = equipeBusiness.listarPorId( rs.getInt("idEquipe"));
 			
 			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, equipe,
