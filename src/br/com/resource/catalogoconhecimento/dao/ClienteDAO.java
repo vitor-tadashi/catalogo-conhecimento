@@ -33,7 +33,7 @@ public class ClienteDAO {
 	public List<ClienteBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Cliente";
+		String sql = "SELECT * FROM Cliente WHERE ativo = 'S'";
 
 		PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -81,17 +81,7 @@ public class ClienteDAO {
 
 		try {
 
-			String sql1 = "DELETE FROM CatalogoConhecimentos.dbo.ConcorrenteCliente WHERE idCliente= ? ";
-			PreparedStatement stmt1 = conn.prepareStatement(sql1);
-			stmt1.setInt(1, clienteBean.getId());
-			stmt1.executeUpdate();
-
-			String sql2 = "DELETE FROM CatalogoConhecimentos.dbo.Projeto WHERE idCliente= ? ";
-			PreparedStatement stmt2 = conn.prepareStatement(sql2);
-			stmt2.setInt(1, clienteBean.getId());
-			stmt2.executeUpdate();
-
-			String sql = "DELETE FROM CatalogoConhecimentos.dbo.Cliente  WHERE idCliente= ?";
+			String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clienteBean.getId());
 			stmt.executeUpdate();
@@ -108,7 +98,7 @@ public class ClienteDAO {
 
 	public ClienteBean obterPorId(int idCliente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sqlSelecionar = "SELECT * FROM Cliente WHERE idCliente = ?";
+		String sqlSelecionar = "SELECT * FROM Cliente WHERE idCliente = ? AND ativo='s'";
 		PreparedStatement ps = conn.prepareStatement(sqlSelecionar);
 		ps.setInt(1, idCliente);
 
@@ -116,7 +106,6 @@ public class ClienteDAO {
 		ClienteBean clienteBean = new ClienteBean();
 
 		if (rs.next()) {
-
 			clienteBean.setId(rs.getInt("idCliente"));
 			clienteBean.setNome(rs.getString("nomeCliente"));
 			clienteBean.setLogradouro(rs.getString("logradouro"));

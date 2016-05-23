@@ -21,7 +21,6 @@ public class ClienteBusiness {
 		}
 	}
 
-
 	// CONSULTA NA TABELA CLIENTE
 	public List<ClienteBean> listar() throws ClassNotFoundException, SQLException {
 
@@ -37,7 +36,6 @@ public class ClienteBusiness {
 		}
 	}
 
-	
 	// ATUALIZA NA TABELA CLIENTE
 	public boolean atualizar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 
@@ -57,7 +55,6 @@ public class ClienteBusiness {
 		}
 		return false;
 	}
-
 
 	// DELETA NA TABELA CLIENTE
 	public boolean deletar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
@@ -80,8 +77,7 @@ public class ClienteBusiness {
 		return false;
 	}
 
-
-	//LISTA POR ID NA TABELA CLIENTE
+	// LISTA POR ID NA TABELA CLIENTE
 	public ClienteBean listarPorId(int idCliente) throws ClassNotFoundException, SQLException {
 
 		try {

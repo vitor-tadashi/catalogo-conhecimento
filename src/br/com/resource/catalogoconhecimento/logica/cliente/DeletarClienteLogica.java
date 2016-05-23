@@ -11,14 +11,14 @@ public class DeletarClienteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
+
 		ClienteBean clienteBean = new ClienteBean();
-		
+
 		clienteBean.setId(Integer.parseInt(request.getParameter("id")));
-		
+
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
 		clienteBusiness.deletar(clienteBean);
-		
-		return "mvc?logica=ListarClienteLogica";
+
+		return "mvc?logica=cliente.ListarClienteLogica";
 	}
 }
