@@ -5,32 +5,23 @@ public class ConcorrenteBean {
 	private int id;
 	private String nome;
     private String descricao;
-    
-    public ConcorrenteBean(){
-    }
-	
 	public int getId() {
 		return id;
 	}
-	
-	public void setId(int idConcorrente) {
-		this.id = idConcorrente;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
 	public String getNome() {
 		return nome;
 	}
-	
-	public void setNome(String nomeConcorrente) {
-		this.nome = nomeConcorrente;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
 	public String getDescricao() {
 		return descricao;
 	}
-	
-	public void setdescricao(String descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+    
 }

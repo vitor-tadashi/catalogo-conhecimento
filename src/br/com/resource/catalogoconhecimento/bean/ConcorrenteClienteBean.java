@@ -9,12 +9,12 @@ public class ConcorrenteClienteBean {
 	public ConcorrenteClienteBean() {
 	}
 
-	public int getIdConcorrenteCliente() {
+	public int getId() {
 		return id;
 	}
 
-	public void setIdConcorrenteCliente(int idConcorrenteCliente) {
-		this.id = idConcorrenteCliente;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public ClienteBean getCliente() {
