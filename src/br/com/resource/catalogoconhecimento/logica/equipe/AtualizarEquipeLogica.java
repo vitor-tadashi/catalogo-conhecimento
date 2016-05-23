@@ -13,18 +13,20 @@ public class AtualizarEquipeLogica implements Logica {
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+		String nome = request.getParameter("nome");
 		String observacao = request.getParameter("observacao");
 
 		EquipeBean equipe = new EquipeBean();
 		equipe.setIdEquipe(idEquipe);
+		equipe.setNome(nome);
 		equipe.setObservacao(observacao);
 
 		EquipeBusiness equipeBusiness = new EquipeBusiness();
 		equipeBusiness.atualizar(equipe);
-		
+		/*
 		request.setAttribute("equipes", equipeBusiness);
-
-		return "mvc?logica=ListaEquipeLogic";
+   */
+		return "mvc?logica=equipe.ListarEquipeLogica";
 		
 		
 	}
