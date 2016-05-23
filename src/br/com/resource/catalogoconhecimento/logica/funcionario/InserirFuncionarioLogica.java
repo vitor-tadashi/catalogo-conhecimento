@@ -47,10 +47,10 @@ public class InserirFuncionarioLogica implements Logica{
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		funcionarioBusiness.inserir(funcionario);
 		
-		CargoBean cargoBean = new CargoBean();
-		cargoBean.setNomeCargo(cargo);
+		
 		CargoBusiness cargoBusiness = new CargoBusiness();
-		cargoBusiness.inserir(cargoBean);
+		CargoBean cargoBean = cargoBusiness.obterPorNome(cargo);
+		funcionario.setCargo(cargoBean);
 		
 		FuncionarioTecnologiaBusiness funcionariotecnologia = new FuncionarioTecnologiaBusiness();
 		funcionariotecnologia.inserir(funcionario, tecnologiasLista);

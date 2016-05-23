@@ -18,16 +18,16 @@ public class FuncionarioDAO {
 	// CRIA
 	public void inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Funcionario(idFuncionario,idCargo,nomeFuncionario,telefone,nomeUser,email) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo) VALUES(?,?,?,?,?,?)";
 		PreparedStatement st = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-		st.setInt(1, funcionario.getIdFuncionario());
-		st.setInt(2, funcionario.getCargo().getIdCargo());
-		st.setString(3, funcionario.getNomeFuncionario());
-		st.setString(4, funcionario.getTelefone());
-		st.setString(5, funcionario.getNomeUser());
-		st.setString(6, funcionario.getEmail());
-
+		
+		st.setInt(1, funcionario.getCargo().getIdCargo());
+		st.setString(2, funcionario.getNomeFuncionario());
+		st.setString(3, funcionario.getTelefone());
+		st.setString(4, funcionario.getNomeUser());
+		st.setString(5, funcionario.getEmail());
+		st.setString(6, "s");
 		st.executeUpdate();
 		ResultSet rs = st.getGeneratedKeys();
 		
@@ -45,9 +45,10 @@ public class FuncionarioDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Funcionario";
+		String sql = "SELECT * FROM Funcionario where ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-
+		
+		ps.setString(1, "s");
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<FuncionarioBean> funcionarios = new ArrayList<FuncionarioBean>();
@@ -62,7 +63,7 @@ public class FuncionarioDAO {
 			funcionario.setNomeFuncionario(rs.getString("nomeFuncionario"));
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
-			funcionario.setEmail(rs.getString("email"));
+			funcionario.setEmail(rs.getString("email")); 
 		
 			
 			funcionarios.add(funcionario);
@@ -91,40 +92,33 @@ public class FuncionarioDAO {
 		Connection conexao = ConnectionFactory.createConnection();
 		conexao.setAutoCommit(false);
 
-		try {
 			
-			String sql2 = "DELETE FROM CatalogoConhecimentos.dbo.TecnologiaFuncionario WHERE idFuncionario= ? ";
+			String sql2 = "DELETE FROM TecnologiaFuncionario WHERE idFuncionario= ? ";
 			PreparedStatement stmt2 = conexao.prepareStatement(sql2);
 			stmt2.setInt(1, idFuncionario);
 			stmt2.executeUpdate();	
 			
-			String sql3 = "DELETE FROM CatalogoConhecimentos.dbo.EquipeFuncionario WHERE idFuncionario= ? ";
+			String sql3 = "DELETE FROM EquipeFuncionario WHERE idFuncionario= ? ";
 			PreparedStatement stmt3 = conexao.prepareStatement(sql3);
 			stmt3.setInt(1, idFuncionario);
 			stmt3.executeUpdate();
 			
-			String sql1 = "DELETE FROM CatalogoConhecimentos.dbo.Funcionario WHERE idFuncionario= ? ";
+			String sql1 = "update Funcionario set ativo = ? WHERE idFuncionario= ? ";
 			PreparedStatement stmt1 = conexao.prepareStatement(sql1);
-			stmt1.setInt(1, idFuncionario);
+			stmt1.setString(1, "n");
+			stmt1.setInt(2, idFuncionario);
 			stmt1.executeUpdate();
 			
 			
 			conexao.commit();
 			
-		}
-
-		catch (Exception e) {
-			conexao.rollback();
-			System.err.println(" --- Problema ao deletar Funcionario ---" + e.getMessage());
-		} finally {
-			conexao.close();
-		}
+		
 	}
 
 	// LISTA POR ID
 	public FuncionarioBean listarPorId(int idFuncionario) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Funcionario WHERE idFuncionario = '" + idFuncionario
+		String sql = "SELECT * FROM Funcionario WHERE idFuncionario = '" + idFuncionario
 				+ "'";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 

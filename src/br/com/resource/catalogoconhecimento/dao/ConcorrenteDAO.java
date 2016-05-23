@@ -111,28 +111,27 @@ public class ConcorrenteDAO {
 		return concorrentesClientes;
 	}
 
-	public void inserir(ConcorrenteBean concorrente) throws ClassNotFoundException {
+	public void inserir(ConcorrenteBean concorrente) throws ClassNotFoundException, SQLException {
 
-		String sql = "Insert into CatalogoConhecimentos.dbo.concorrente(nomeConcorrente,descricao)values(?,?)";
-		try {
+		String sql = "Insert into concorrente(nomeConcorrente,descricao, ativo)values(?,?,?)";
+		
 			Connection conexao = ConnectionFactory.createConnection();
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			stmt.setString(1, concorrente.getNome());
 			stmt.setString(2, concorrente.getDescricao());
+			stmt.setString(3, "s");
 
 			stmt.executeUpdate();
 			stmt.close();
 			conexao.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		
 	}
 
 	public void atualizar(ConcorrenteBean altconcorrente) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String SQL = ("Update CatalogoConhecimentos.dbo.Concorrente set nomeConcorrente = "
+		String SQL = ("Update Concorrente set nomeConcorrente = "
 				+ altconcorrente.getNome() + "descricaoConcorrente = " + altconcorrente.getDescricao()
 				+ "where idConcorrente = " + altconcorrente.getId());
 
@@ -145,10 +144,11 @@ public class ConcorrenteDAO {
 	public void deletar(ConcorrenteBean concorrentes) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String deleteSQL = "Delete from CatalogoConhecimentos.dbo.Concorrente where idConcorrente = ? ";
+		String deleteSQL = "update Concorrente set ativo = ? where idConcorrente = ? ";
 		PreparedStatement stmt = conexao.prepareStatement(deleteSQL);
 
-		stmt.setInt(1, concorrentes.getId());
+		stmt.setString(1, "n");
+		stmt.setInt(2, concorrentes.getId());
 		stmt.executeQuery();
 
 		conexao.close();
