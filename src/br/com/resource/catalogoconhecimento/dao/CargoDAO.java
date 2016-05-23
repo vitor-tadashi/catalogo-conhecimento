@@ -101,5 +101,29 @@ public class CargoDAO {
 		conexao.close();
 		return cargo;
 	}
+	
+
+
+	// LISTA POR  NOME
+	public CargoBean obterPorNome(int nomeCargo) throws SQLException, ClassNotFoundException {
+
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Cargo WHERE nomeCargo = '" + nomeCargo + "'";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		CargoBean cargo = new CargoBean();
+
+		while (rs.next()) {
+
+			cargo.setIdCargo(rs.getInt("idCargo"));
+			cargo.setNomeCargo(rs.getString("nomeCargo"));
+		}
+		conexao.close();
+		return cargo;
+	}
 
 }

@@ -56,6 +56,22 @@ public class CargoBusiness {
 			return null;
 		}
 	}
+	
+	// LISTA POR NOME
+		public CargoBean obterPorNome(int nomeCargo) {
+			try {
+
+				CargoDAO cargo = new CargoDAO();
+				return cargo.obterPorNome(nomeCargo);
+
+			} catch (ClassNotFoundException c) {
+				c.printStackTrace();
+				return null;
+			} catch (SQLException s) {
+				s.printStackTrace();
+				return null;
+			}
+		}
 
 	// ATUALIZA
 	public boolean atualizar(CargoBean cargo) {
