@@ -26,9 +26,9 @@ public class InserirFuncionarioLogica implements Logica{
 		String[] tecnologias = request.getParameterValues("tecnologiasArray[]");
 		String cargo = request.getParameter("cargo");
 	
-		
-		
-		//cargoBean.setNome(cargo);
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		CargoBean cargoBean = cargoBusiness.obterPorNome(cargo);
+
 		List<TecnologiaBean> tecnologiasLista = new ArrayList<>();
 		TecnologiaBean tecnologia;
 		for(int i =0 ; i < tecnologias.length ; i ++){
@@ -43,14 +43,14 @@ public class InserirFuncionarioLogica implements Logica{
 		funcionario.setEmail(email);
 		funcionario.setNomeUser(nomeUsuario);
 		funcionario.setTelefone(telefone);
+		funcionario.setCargo(cargoBean);
+		
+
+	
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		funcionarioBusiness.inserir(funcionario);
 		
-		
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		CargoBean cargoBean = cargoBusiness.obterPorNome(cargo);
-		funcionario.setCargo(cargoBean);
 		
 		FuncionarioTecnologiaBusiness funcionariotecnologia = new FuncionarioTecnologiaBusiness();
 		funcionariotecnologia.inserir(funcionario, tecnologiasLista);
