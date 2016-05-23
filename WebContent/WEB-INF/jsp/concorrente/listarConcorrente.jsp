@@ -23,7 +23,7 @@
 					<td>${concorrente.descricao}</td>
 					
 					<td>
-						<a href="mvc?logica=FormularioAlterarLogica&id=${concorrente.id}">Atualizar</a>
+						<a href="mvc?logica=FormularioAlterarLogica&id=${concorrente.id}">Alterar</a>
 						<a href="mvc?logica=RemoverConcorrenteLogica&id=${concorrente.id}">Remover</a>
 						<a href="mvc?logica=concorrente.ListarClientePorConcorrenteLogica&id=${concorrente.id}">Listar Clientes</a>
 					</td>

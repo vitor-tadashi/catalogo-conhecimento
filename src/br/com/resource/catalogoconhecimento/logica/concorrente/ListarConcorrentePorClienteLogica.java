@@ -11,17 +11,17 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class ListarConcorrentePorClienteLogica implements Logica{
+public class ListarConcorrentePorClienteLogica implements Logica {
 
 	@Override
-	public String executar(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		List<ConcorrenteClienteBean> concorrentesClientes = new ConcorrenteBusiness().obterPorCliente(Integer.parseInt(req.getParameter("id")));
-		req.setAttribute("concorrentesClientes", concorrentesClientes);
-		
-		ClienteBean cliente = new ClienteBusiness().obterPorId(Integer.parseInt(req.getParameter("id")));
-		req.setAttribute("cliente", cliente);
-		
+	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<ConcorrenteClienteBean> concorrentesClientes = new ConcorrenteBusiness()
+				.obterPorCliente(Integer.parseInt(request.getParameter("id")));
+		request.setAttribute("concorrentesClientes", concorrentesClientes);
+
+		ClienteBean clienteBean = new ClienteBusiness().obterPorId(Integer.parseInt(request.getParameter("id")));
+		request.setAttribute("cliente", clienteBean);
+
 		return "/WEB-INF/jsp/concorrente/listarConcorrentePorCliente.jsp";
 	}
-	
 }

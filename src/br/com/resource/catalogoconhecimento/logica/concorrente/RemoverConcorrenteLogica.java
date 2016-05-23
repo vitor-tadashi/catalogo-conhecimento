@@ -7,26 +7,18 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AlterarConcorrenteLogic implements Logica {
+public class RemoverConcorrenteLogica implements Logica {
 
 	@Override
-	public String executar(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		int id = Integer.parseInt(request.getParameter("id"));
 		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-	
-		
-		concorrenteBean.setId(Integer.parseInt(req.getParameter("idConcorrente")));
-		concorrenteBean.setNome(req.getParameter("nomeConcorrente"));
-		concorrenteBean.setDescricao(req.getParameter("descricaoConcorrente"));
-		
-		
+		concorrenteBean.setId(id);
+
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
-		
-		concorrenteBusiness.atualizar(concorrenteBean);
-		System.out.println("Concorrente Atualizado com Sucesso!");		
-		
+		concorrenteBusiness.remover(concorrenteBean.getId());
+
 		return "mvc?logica=concorrente.ListarConcorrenteLogica";
-		
 	}
-	
 }

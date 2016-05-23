@@ -9,9 +9,9 @@
 <body>
 
 <form method="post" action="mvc">
-	Código: <input type = "text" name = "idConcorrente" value="${listarconcorrente.idConcorrente}"/><br/>
-	Nome Concorrente: <input type = "text" name = "nomeConcorrente" value="${listarconcorrente.nomeConcorrente}" /><br/>
-	Descrição: <input type = "text" name = "descricaoConcorrente" value= "${listarconcorrente.descricaoConcorrente}"/><br/>
+	Código: <input type = "text" name = "id" value="${listarconcorrente.id}"/><br/>
+	Nome Concorrente: <input type = "text" name = "nome" value="${listarconcorrente.nome}" /><br/>
+	Descrição: <input type = "text" name = "descricao" value= "${listarconcorrente.descricao}"/><br/>
 	
 	<input type="hidden" name="logica" value ="AlterarConcorrenteLogica"/>
 	<input type="submit" value ="Alterar">

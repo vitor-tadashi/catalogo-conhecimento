@@ -12,5 +12,4 @@ public class ListarClientesPorConcorrente implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 		return null;
 	}
-
 }

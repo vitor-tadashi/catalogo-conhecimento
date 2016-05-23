@@ -1,5 +1,5 @@
 package br.com.resource.catalogoconhecimento.logica.concorrente;
 
-public class FormularioAlteraConcorrenteLogic {
+public class FormularioAlterarConcorrenteLogica {
 
 }

@@ -9,14 +9,13 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class ListarConcorrenteLogica implements Logica{
+public class ListarConcorrenteLogica implements Logica {
 
 	@Override
-	public String executar(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<ConcorrenteBean> concorrentes = new ConcorrenteBusiness().listar();
-		req.setAttribute("concorrentes", concorrentes);
-		
+		request.setAttribute("concorrentes", concorrentes);
+
 		return "/WEB-INF/jsp/concorrente/listarConcorrente.jsp";
 	}
-
 }
