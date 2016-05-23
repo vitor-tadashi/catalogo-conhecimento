@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form method="POST" action="mvc?logica=cliente.InserirClienteLogica">
+	<form method="POST" action="mvc?logica=cliente.AdicionarClienteLogica">
 		<p>
 			Nome:<input type="text" name="nome">
 		</p>
@@ -27,7 +27,7 @@
 		<p>
 			Email:<input type="text" name="email">
 		</p>
-		<input type="hidden" name="logica" value="cliente.InserirClienteLogica">
+		<input type="hidden" name="logica" value="cliente.AdicionarClienteLogica">
 		<p>
 			<input type="submit" value="Inserir">
 		</p>

@@ -9,11 +9,11 @@ import br.com.resource.catalogoconhecimento.dao.ClienteDAO;
 public class ClienteBusiness {
 
 	// INSERE NA TABELA CLIENTE
-	public void inserir(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
+	public void adicinar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		try {
 			ClienteDAO clienteDao = new ClienteDAO();
 
-			clienteDao.inserir(clienteBean);
+			clienteDao.adicionar(clienteBean);
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
 		} catch (SQLException s) {
@@ -37,7 +37,7 @@ public class ClienteBusiness {
 	}
 
 	// ATUALIZA NA TABELA CLIENTE
-	public boolean atualizar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
+	public boolean alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 
 		ClienteDAO clienteDao = new ClienteDAO();
 		try {
@@ -45,7 +45,7 @@ public class ClienteBusiness {
 			if (cliente == null) {
 				return true;
 			} else {
-				clienteDao.atualizar(clienteBean);
+				clienteDao.alterar(clienteBean);
 				return false;
 			}
 		} catch (ClassNotFoundException e) {
@@ -57,7 +57,7 @@ public class ClienteBusiness {
 	}
 
 	// DELETA NA TABELA CLIENTE
-	public boolean deletar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
+	public boolean remover(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 
 		try {
 			ClienteDAO clienteDao = new ClienteDAO();
@@ -65,7 +65,7 @@ public class ClienteBusiness {
 			if (cliente == null) {
 				return true;
 			} else {
-				clienteDao.deletar(clienteBean);
+				clienteDao.remover(clienteBean);
 				return false;
 			}
 
@@ -78,7 +78,7 @@ public class ClienteBusiness {
 	}
 
 	// LISTA POR ID NA TABELA CLIENTE
-	public ClienteBean listarPorId(int idCliente) throws ClassNotFoundException, SQLException {
+	public ClienteBean obterPorId(int idCliente) throws ClassNotFoundException, SQLException {
 
 		try {
 			ClienteDAO clienteDAO = new ClienteDAO();

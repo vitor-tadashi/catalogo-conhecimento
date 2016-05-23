@@ -44,7 +44,7 @@ public class AtualizarProjetoLogica implements Logica{
 	    EquipeBusiness equipeBusiness = new EquipeBusiness();
 	    EquipeBean equipe = equipeBusiness.listarPorId(idEquipe);
 	    ClienteBusiness clienteBusiness = new ClienteBusiness();
-	    ClienteBean cliente = clienteBusiness.listarPorId(idCliente);
+	    ClienteBean cliente = clienteBusiness.obterPorId(idCliente);
 		
 	    ProjetoBusiness projetoBusiness = new ProjetoBusiness();
 	    

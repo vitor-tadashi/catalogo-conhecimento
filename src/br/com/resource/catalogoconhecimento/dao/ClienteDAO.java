@@ -14,7 +14,7 @@ public class ClienteDAO {
 
 	Connection conn = null;
 
-	public void inserir(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
+	public void adicionar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "INSERT INTO Cliente(nomeCliente, logradouro, CEP, numero, CNPJ, email, ativo) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -58,7 +58,7 @@ public class ClienteDAO {
 		return listaClientes;
 	}
 
-	public void atualizar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
+	public void alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "UPDATE Cliente SET nomeCliente = ?, logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE idCliente = ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class ClienteDAO {
 		conn.close();
 	}
 
-	public void deletar(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
+	public void remover(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
 
 		Connection conn = ConnectionFactory.createConnection();
 		conn.setAutoCommit(false);

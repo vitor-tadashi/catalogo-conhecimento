@@ -40,7 +40,7 @@ public class InserirProjetoLogica implements Logica {
 	    EquipeBusiness equipeBusiness = new EquipeBusiness();
 	    EquipeBean equipe = equipeBusiness.listarPorId(idEquipe);
 	    ClienteBusiness clienteBusiness = new ClienteBusiness();
-	    ClienteBean cliente = clienteBusiness.listarPorId(idCliente);
+	    ClienteBean cliente = clienteBusiness.obterPorId(idCliente);
 		
 		ProjetoBean projeto = new ProjetoBean();
 		projeto.setCliente(cliente);

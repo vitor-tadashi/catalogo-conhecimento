@@ -32,10 +32,10 @@
 
 
 				<td><a
-					href="mvc?logica=cliente.DeletarClienteLogica&id=${cliente.id}">Remover</a>
+					href="mvc?logica=cliente.RemoverClienteLogica&id=${cliente.id}">Remover</a>
 				</td>						 
 				<td><a
-					href="mvc?logica=cliente.FormularioAtualizarClienteLogica&id=${cliente.id}">Atualizar</a>
+					href="mvc?logica=cliente.FormularioAlterarClienteLogica&id=${cliente.id}">Alterar</a>
 				</td>
 				<td>
 					<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}">Listar Concorrentes</a>
@@ -47,7 +47,7 @@
 	<br>
 	<br>
 	<p>
-		<a href="mvc?logica=cliente.FormularioInserirClienteLogica">Adicionar
+		<a href="mvc?logica=cliente.FormularioAdicionarClienteLogica">Adicionar
 			um novo cliente</a>
 	</p>
 </body>

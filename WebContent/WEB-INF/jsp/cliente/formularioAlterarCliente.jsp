@@ -7,7 +7,7 @@
 		<title>Atualizar Cliente</title>
 	</head>
 	<body>
-		<form method="POST" action="mvc?logica=cliente.AtualizarClienteLogica">
+		<form method="POST" action="mvc?logica=cliente.AlterarClienteLogica">
 			<input type="hidden" name="id" value="${cliente.id}">
 			<p>Nome:<input type="text" name="nome" value="${cliente.nome}"></p>
 			<p>Logradouro:<input type="text" name="logradouro" value="${cliente.logradouro}"></p>

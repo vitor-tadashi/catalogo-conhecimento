@@ -7,25 +7,18 @@ import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AtualizarClienteLogica implements Logica {
+public class RemoverClienteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		ClienteBean cliente = new ClienteBean();
+		ClienteBean clienteBean = new ClienteBean();
 
-		cliente.setId(Integer.parseInt(request.getParameter("id")));
-		cliente.setNome(request.getParameter("nome"));
-		cliente.setLogradouro(request.getParameter("logradouro"));
-		cliente.setCep(request.getParameter("cep"));
-		cliente.setNumero(request.getParameter("numero"));
-		cliente.setCnpj(request.getParameter("cnpj"));
-		cliente.setEmail(request.getParameter("email"));
+		clienteBean.setId(Integer.parseInt(request.getParameter("id")));
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		clienteBusiness.atualizar(cliente);
+		clienteBusiness.remover(clienteBean);
 
 		return "mvc?logica=cliente.ListarClienteLogica";
 	}
-
 }

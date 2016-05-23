@@ -1,7 +1,7 @@
 package br.com.resource.catalogoconhecimento.logica.concorrente;
 
 import java.util.List;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,7 +10,6 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-@WebServlet("/ListarClientePorConcorrenteLogica")
 public class ListarClientePorConcorrenteLogica implements Logica {
 
 	@Override

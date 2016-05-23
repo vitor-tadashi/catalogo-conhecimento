@@ -7,7 +7,7 @@ import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioAtualizarClienteLogica implements Logica {
+public class FormularioAlterarClienteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -15,11 +15,11 @@ public class FormularioAtualizarClienteLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		ClienteBean cliente = clienteBusiness.listarPorId(id);
+		ClienteBean clienteBean = clienteBusiness.obterPorId(id);
 
-		request.setAttribute("cliente", cliente);
+		request.setAttribute("cliente", clienteBean);
 
-		return "WEB-INF/jsp/cliente/formularioAtualizarCliente.jsp";
+		return "WEB-INF/jsp/cliente/formularioAlterarCliente.jsp";
 	}
 
 }
