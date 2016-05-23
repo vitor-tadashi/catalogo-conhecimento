@@ -1,8 +1,4 @@
-	
-	
-	
-	
-	<!-- Overlay Div -->
+<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
 	<div id="wrapper" class="preload">
@@ -76,8 +72,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="#"><span class="submenu-label">Listar Negócios</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Negócio</span></a></li>
+								<li><a href="mvc?logica=negocio.ListarNegocioLogica"><span class="submenu-label">Listar Negócios</span></a></li>
+								<li><a href="mvc?logica=negocio.FormularioInserirNegocioLogica"><span class="submenu-label">Cadastrar Negócio</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -91,8 +87,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="#"><span class="submenu-label">Listar Projetos</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Projetos</span></a></li>
+								<li><a href="mvc?logica=projeto.ListarProjetoLogica"><span class="submenu-label">Listar Projetos</span></a></li>
+								<li><a href="mvc?logica=projeto.FormularioInserirProjetoLogica"><span class="submenu-label">Cadastrar Projetos</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -106,12 +102,12 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="#"><span class="submenu-label">Listar Equipes</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Equipe</span></a></li>
-								<li><a href="#"><span class="submenu-label">Listar Funcionários</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Funcionário</span></a></li>
-								<li><a href="#"><span class="submenu-label">Listar Cargos</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Cargo</span></a></li>
+								<li><a href="mvc?logica=equipe.ListarEquipeLogica"><span class="submenu-label">Listar Equipes</span></a></li>
+								<li><a href="mvc?logica=equipe.FormularioInserirEquipeLogica"><span class="submenu-label">Cadastrar Equipe</span></a></li>
+								<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica"><span class="submenu-label">Listar Funcionários</span></a></li>
+								<li><a href="mvc?logica=funcionario.FormularioInserirFuncionarioLogica"><span class="submenu-label">Cadastrar Funcionário</span></a></li>
+								<li><a href="mvc?logica=cargo.ListarCargoLogica"><span class="submenu-label">Listar Cargos</span></a></li>
+								<li><a href="mvc?logica=cargo.FormularioInserirCargoLogica"><span class="submenu-label">Cadastrar Cargo</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -125,8 +121,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="#"><span class="submenu-label">Listar Clientes</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Cliente</span></a></li>
+								<li><a href="mvc?logica=cliente.ListarClienteLogica"><span class="submenu-label">Listar Clientes</span></a></li>
+								<li><a href="mvc?logica=cliente.FormularioInserirClienteLogica"><span class="submenu-label">Cadastrar Cliente</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -140,44 +136,12 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="#"><span class="submenu-label">Listar Concorrentes</span></a></li>
-								<li><a href="#"><span class="submenu-label">Cadastrar Concorrentes</span></a></li>
+								<li><a href="mvc?logica=concorrente.ListarConcorrenteLogica"><span class="submenu-label">Listar Concorrentes</span></a></li>
+								<li><a href="mvc?logica=concorrente.FormularioInserirConcorrenteLogica"><span class="submenu-label">Cadastrar Concorrentes</span></a></li>
 							</ul>
 						</li>
 					</ul>
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner scrollable-sidebar -->
 		</aside>
-		
-			<!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-	<!-- Jquery -->
-	<script src="/resources/js/jquery-1.10.2.min.js"></script>
-	
-	<!-- Bootstrap -->
-    <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
- 
-	<!-- Datatable -->
-	<script src='/resources/js/jquery.dataTables.min.js'></script>	
-	
-	<!-- Modernizr -->
-	<script src='/resources/js/modernizr.min.js'></script>
-	
-	<!-- Pace -->
-	<script src='/resources/js/pace.min.js'></script>
-	
-	<!-- Popup Overlay -->
-	<script src='/resources/js/jquery.popupoverlay.min.js'></script>
-	
-	<!-- Slimscroll -->
-	<script src='/resources/js/jquery.slimscroll.min.js'></script>
-	
-	<!-- Cookie -->
-	<script src='/resources/js/jquery.cookie.min.js'></script>
-
-	<!-- Perfect -->
-	<script src="/resources/js/app/app.js"></script>
-	
 	
