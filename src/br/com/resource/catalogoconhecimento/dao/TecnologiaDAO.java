@@ -25,6 +25,7 @@ public class TecnologiaDAO {
 		PreparedStatement st = conexao.prepareStatement(sql);
 
 		st.setString(1, tecnologia.getNomeTecnologia());
+		st.setString(2, "s");
 
 		st.executeUpdate();
 		conexao.close();
