@@ -15,7 +15,7 @@ public class FormularioAtualizarClienteLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		ClienteBean cliente = clienteBusiness.obterPorId(id);
+		ClienteBean cliente = clienteBusiness.listarPorId(id);
 
 		request.setAttribute("cliente", cliente);
 

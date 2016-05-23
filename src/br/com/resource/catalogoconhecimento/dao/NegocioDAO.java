@@ -16,12 +16,11 @@ public class NegocioDAO {
 			
 			Connection conexao = ConnectionFactory.createConnection();
 			
-			String sql = "INSERT INTO Negocio(areaAtuacao, ativo) VALUES(?, ?)";
+			String sql = "INSERT INTO Negocio(areaAtuacao) VALUES(?)";
 			PreparedStatement st = conexao.prepareStatement(sql);
 			
 			st.setString(1, negocio.getAreaAtuacao());
-			st.setString(2,  "s");
-			
+
 			st.executeUpdate();
 			st.close();
 			conexao.close();
@@ -32,10 +31,9 @@ public class NegocioDAO {
 		
 			Connection conexao = ConnectionFactory.createConnection();
 
-			String sql = "SELECT * FROM Negocio where ativo = ?";
+			String sql = "SELECT * FROM Negocio";
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			ps.setString(1, "s");
-			
+
 			ResultSet rs = ps.executeQuery();
 
 			ArrayList<NegocioBean> negocios = new ArrayList<NegocioBean>();
@@ -69,11 +67,10 @@ public class NegocioDAO {
 		// DELETA
 		public void deletar(int id) throws SQLException, ClassNotFoundException {
 			Connection conexao = ConnectionFactory.createConnection();
-			String sql = "update Negocio set ativo = ? WHERE idNegocio = ?";
+			String sql = "DELETE FROM Negocio WHERE idNegocio = ?";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			
-			ps.setString(1, "n");
-			ps.setInt(2, id);
+			ps.setInt(1, id);
 			ps.executeUpdate();
 			conexao.close();
 		}

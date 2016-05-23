@@ -7,7 +7,7 @@ import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioAtualizarLogica implements Logica{
+public class FormularioAlterarLogica implements Logica{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {

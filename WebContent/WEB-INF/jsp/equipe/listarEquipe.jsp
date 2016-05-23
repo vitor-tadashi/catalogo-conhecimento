@@ -10,7 +10,9 @@
 <title>Catálogo de Conhecimentos</title>
 </head>
 <body>
-	br.com.resource.catalogoconhecimentobusiness.EquipeBusiness dao = new br.com.resource.catalogoconhecimentobusiness.EquipeBusiness();
+
+	<h2>Equipe(Listar)</h2>
+
 	<table border="1px">
 
 		<tr>
@@ -19,9 +21,6 @@
 			<th>Ações</th>
 
 		</tr>
-
-
-
 
 		<c:forEach var="equipe" items="${equipes}">
 			<tr>
@@ -33,7 +32,7 @@
 						Remover </a></td>
 
 				<td><a
-					href="mvc?logica=FormularioAlteraLogic&idEquipe=${equipe.idEquipe}">
+					href="mvc?logica=equipe.FormularioAtualizarEquipeLogica&idEquipe=${equipe.idEquipe}">
 						Atualizar </a></td>
 
 			</tr>

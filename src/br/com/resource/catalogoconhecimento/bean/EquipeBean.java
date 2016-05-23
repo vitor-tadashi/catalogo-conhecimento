@@ -19,9 +19,7 @@ public class EquipeBean {
 		this.nome = nome;
 	}
 
-	public void setId(int idEquipe) {
-		this.idEquipe = idEquipe;
-	}
+	
 
 	public String getObservacao() {
 		return observacao;

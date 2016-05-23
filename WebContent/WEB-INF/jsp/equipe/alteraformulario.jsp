@@ -9,19 +9,28 @@
 </head>
 <body>
 
-	<form></form>
-	<form method="POST" action="mvc?logica=equipe.AlteraEquipeLogic">
-		<c:forEach var="equipe" items="${equipes}">
+	<h2>Equipe(Atualizar)</h2>
 
-			<p>
-				Observação:<input type="text" name="name">
-				value="${equipe.observacao}">
-			</p>
-			<input type="hidden" name="logica" value="AlteraFilmeLogic">
+	<form method="POST" action="mvc">
 
-			<input type="submit" value="Alterar">
 
-		</c:forEach>
+		<p>
+			Id:<input type="text" name="idEquipe" value="${equipes.idEquipe}"
+				readonly>
+		</p>
+		<p>
+			Nome:<input type="text" name="nome" value="${equipes.nome}">
+		</p>
+		<p>
+			Observacao:<input type="text" name="observacao"
+				value="${equipes.observacao}">
+		</p>
+
+
+		<input type="hidden" name="logica"
+			value="equipe.AtualizarEquipeLogica"> <input type="submit"
+			value="Atualizar">
+
 	</form>
 
 </body>

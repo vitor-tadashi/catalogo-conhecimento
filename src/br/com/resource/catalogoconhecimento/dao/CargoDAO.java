@@ -19,12 +19,11 @@ public class CargoDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "INSERT INTO Cargo(nomeCargo, ativo) VALUES(?, ?)";
+		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Cargo( nomeCargo) VALUES(?)";
 
 		PreparedStatement st = conexao.prepareStatement(sql);
 
 		st.setString(1, cargo.getNomeCargo());
-		st.setString(2, "s");
 
 		st.executeUpdate();
 		st.close();
@@ -35,10 +34,9 @@ public class CargoDAO {
 	public List<CargoBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Cargo where ativo = ?";
+		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Cargo";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, "s");
-		
+
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<CargoBean> cargos = new ArrayList<CargoBean>();
@@ -58,7 +56,7 @@ public class CargoDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "UPDATE Cargo SET nomeCargo = '" + cargo.getNomeCargo() + "' WHERE idCargo = "
+		String sql = "UPDATE CatalogoConhecimentos.dbo.Cargo SET nomeCargo = '" + cargo.getNomeCargo() + "' WHERE idCargo = "
 				+ cargo.getIdCargo();
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -72,12 +70,11 @@ public class CargoDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "update Cargo set ativo = ? WHERE idCargo = ?";
+		String sql = "DELETE FROM CatalogoConhecimentos.dbo.Cargo WHERE idCargo = ?";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 
-		ps.setString(1, "n");
-		ps.setInt(2, idCargo);
+		ps.setInt(1, idCargo);
 		ps.executeUpdate();
 		conexao.close();
 		
@@ -108,11 +105,11 @@ public class CargoDAO {
 
 
 	// LISTA POR  NOME
-	public CargoBean obterPorNome(String nomeCargo) throws SQLException, ClassNotFoundException {
+	public CargoBean obterPorNome(int nomeCargo) throws SQLException, ClassNotFoundException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Cargo WHERE nomeCargo = '" + nomeCargo + "'";
+		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Cargo WHERE nomeCargo = '" + nomeCargo + "'";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 

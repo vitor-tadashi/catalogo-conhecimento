@@ -14,8 +14,8 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class FuncionarioTecnologiaDAO {
 	
-	private String sql = "INSERT INTO TecnologiaFuncionario (idTecnologia, idFuncionario) VALUES (?, ?)";
-	private String sqlConsultar = "SELECT * FROM TecnologiaFuncionario WHERE idTecnologiaFuncionario = ?";
+	private String sql = "INSERT INTO CatalogoConhecimentos.dbo.TecnologiaFuncionario (idTecnologia, idFuncionario) VALUES (?, ?)";
+	private String sqlConsultar = "SELECT * FROM CatalogoConhecimentos.dbo.TecnologiaFuncionario WHERE idTecnologiaFuncionario = ?";
 	Connection conexao;
 	
 	public FuncionarioTecnologiaDAO() throws ClassNotFoundException, SQLException {

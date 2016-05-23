@@ -17,7 +17,7 @@ public class AlterarConcorrenteLogic implements Logica {
 		
 		concorrenteBean.setId(Integer.parseInt(req.getParameter("idConcorrente")));
 		concorrenteBean.setNome(req.getParameter("nomeConcorrente"));
-		concorrenteBean.setDescricao(req.getParameter("descricaoConcorrente"));
+		concorrenteBean.setdescricao(req.getParameter("descricaoConcorrente"));
 		
 		
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();

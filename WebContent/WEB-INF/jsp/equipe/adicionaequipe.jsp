@@ -7,6 +7,7 @@
 <title>Inserir Equipe</title>
 </head>
 <body>
+<h2>Equipe(Adicionar)</h2>
 	<form method="POST" action="mvc?logica=equipe.InserirEquipeLogica">
 	
 		<p>Nome:<input type="text" name="nome"></p>

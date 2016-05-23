@@ -78,7 +78,7 @@ public class ClienteBusiness {
 	}
 
 	// LISTA POR ID NA TABELA CLIENTE
-	public ClienteBean obterPorId(int idCliente) throws ClassNotFoundException, SQLException {
+	public ClienteBean listarPorId(int idCliente) throws ClassNotFoundException, SQLException {
 
 		try {
 			ClienteDAO clienteDAO = new ClienteDAO();

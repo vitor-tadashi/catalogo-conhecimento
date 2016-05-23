@@ -21,11 +21,10 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Equipe where ativo = ?";
+		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Equipe";
 
 		PreparedStatement ps = conec.prepareStatement(sql);
-		ps.setString(1, "s");
-		
+
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<EquipeBean> equipes = new ArrayList<EquipeBean>();
@@ -53,13 +52,12 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "INSERT INTO Equipe(observacao,nome, ativo) VALUES(?,?, ?)";
+		String sql = "INSERT INTO CatalogoConhecimentos.dbo.Equipe(observacao,nome) VALUES(?,?)";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
 		stmt.setString(1, equipe.getObservacao());
 		stmt.setString(2, equipe.getNome());
-		stmt.setString(3, "s");
 
 		stmt.executeUpdate();
 		stmt.close();
@@ -74,10 +72,13 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "UPDATE Equipe SET observacao = '" + equipe.getObservacao() + " nome = '"  +  equipe.getNome()
-				+ "'WHERE idEquipe = " + equipe.getIdEquipe();
+		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE idEquipe = ?";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
+
+		stmt.setString(1, equipe.getNome());
+		stmt.setString(2, equipe.getObservacao());
+		stmt.setInt(3, equipe.getIdEquipe());
 
 		stmt.executeUpdate();
 		conec.close();
@@ -89,18 +90,32 @@ public class EquipeDAO {
 	// ********************************************************************************************************
 	public void deletar(EquipeBean idEquipe) throws SQLException, ClassNotFoundException {
 		Connection conec = ConnectionFactory.createConnection();
+		conec.setAutoCommit(false);
+		try {
 
+			String sql2 = "DELETE FROM CatalogoConhecimentos.dbo.EquipeFuncionario WHERE idEquipe= ? ";
+			PreparedStatement stmt2 = conec.prepareStatement(sql2);
+			stmt2.setInt(1, idEquipe.getIdEquipe());
+			stmt2.executeUpdate();
 
-				String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
-				PreparedStatement stmt = conec.prepareStatement(sql);
-				
-				stmt.setString(1, "n");
-				stmt.setInt(2, idEquipe.getIdEquipe());
-				stmt.executeUpdate();
-				
-				conec.commit();
+			String sql3 = "DELETE FROM CatalogoConhecimentos.dbo.Projeto WHERE idEquipe= ? ";
+			PreparedStatement stmt3 = conec.prepareStatement(sql3);
+			stmt3.setInt(1, idEquipe.getIdEquipe());
+			stmt3.executeUpdate();
 
+			String sql = "DELETE FROM CatalogoConhecimentos.dbo.Equipe  WHERE idEquipe= ?";
+			PreparedStatement stmt = conec.prepareStatement(sql);
+			stmt.setInt(1, idEquipe.getIdEquipe());
+			stmt.executeUpdate();
 
+			conec.commit();
+
+		} catch (Exception e) {
+			conec.rollback();
+			System.err.println("Problema ao deletar Equipe >>>" + e.getMessage());
+		} finally {
+			conec.close();
+		}
 
 	}
 
@@ -111,7 +126,7 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Equipe WHERE idEquipe = '" + idEquipe + "'";
+		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Equipe WHERE idEquipe = '" + idEquipe + "'";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
@@ -121,7 +136,7 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			equipe.setId(rs.getInt("idEquipe"));
+			equipe.setIdEquipe(rs.getInt("idEquipe"));
 			equipe.setObservacao(rs.getString("observacao"));
 			equipe.setNome(rs.getString("nome"));
 
