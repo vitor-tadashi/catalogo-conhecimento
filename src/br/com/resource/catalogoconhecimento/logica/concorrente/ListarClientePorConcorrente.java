@@ -7,14 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
+import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 @WebServlet("/ListarClientesPorConcorrente")
-public class ListarClientesPorConcorrente implements Logica {
+public class ListarClientePorConcorrente implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int id = request.getParameter("id");
+//		int id = Integer.parseInt(request.getParameter("id"));
+//		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
+//		
+//		ConcorrenteClienteBean concorrenteCliente = concorrenteBusiness.
+//		
 		return null;
 	}
 
