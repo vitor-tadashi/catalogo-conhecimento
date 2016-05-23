@@ -24,7 +24,7 @@ public class ClienteDAO {
 		ps.setString(4, clienteBean.getNumero());
 		ps.setString(5, clienteBean.getCnpj());
 		ps.setString(6, clienteBean.getEmail());
-		ps.setString(7, String.valueOf(clienteBean.getAtivo()));
+		ps.setString(7, String.valueOf('S'));
 		ps.executeUpdate();
 		ps.close();
 		conn.close();
@@ -68,7 +68,7 @@ public class ClienteDAO {
 		ps.setString(4, clienteBean.getNumero());
 		ps.setString(5, clienteBean.getCnpj());
 		ps.setString(6, clienteBean.getEmail());
-		ps.setString(7, String.valueOf(clienteBean.getAtivo()));
+		ps.setString(7, String.valueOf('S'));
 		ps.setInt(8, clienteBean.getId());
 		ps.executeUpdate();
 		conn.close();
@@ -98,7 +98,7 @@ public class ClienteDAO {
 
 	public ClienteBean obterPorId(int idCliente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sqlSelecionar = "SELECT * FROM Cliente WHERE idCliente = ? AND ativo='s'";
+		String sqlSelecionar = "SELECT * FROM Cliente WHERE idCliente = ? AND ativo = 'S'";
 		PreparedStatement ps = conn.prepareStatement(sqlSelecionar);
 		ps.setInt(1, idCliente);
 
