@@ -108,7 +108,7 @@ public class CargoDAO {
 
 
 	// LISTA POR  NOME
-	public CargoBean obterPorNome(int nomeCargo) throws SQLException, ClassNotFoundException {
+	public CargoBean obterPorNome(String nomeCargo) throws SQLException, ClassNotFoundException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
