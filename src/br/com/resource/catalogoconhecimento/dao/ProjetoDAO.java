@@ -23,9 +23,11 @@ public class ProjetoDAO {
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
-		String sql = "Select * from Projeto";
+		String sql = "Select * from Projeto where ativo = ?";
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "s");
+		
 		ResultSet rs = stmt.executeQuery();
 
 		List<ProjetoBean> projetos = new ArrayList<ProjetoBean>();
@@ -53,7 +55,7 @@ public class ProjetoDAO {
 	// ADICIONAR NA TABELA PROJETO
 	public void inserir(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "Insert into Projeto(idEquipe, idCliente, nomeProjeto,observacao) values(?,?, ?, ?)";
+		String sql = "Insert into Projeto(idEquipe, idCliente, nomeProjeto,observacao, ativo) values(?,?, ?, ?, ?)";
 
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
@@ -61,6 +63,7 @@ public class ProjetoDAO {
 		stmt.setInt(2, projeto.getCliente().getId());
 		stmt.setString(3, projeto.getNomeProjeto());
 		stmt.setString(4, projeto.getObservacao());
+		stmt.setString(5, "s");
 
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
@@ -102,10 +105,10 @@ public class ProjetoDAO {
 		ProjetoNegocioDAO projetoNegocio = new ProjetoNegocioDAO();
 		
 		
-		String sql = "Delete from projeto where idProjeto = ?";
+		String sql = "Update projeto set ativo = ? where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1,projeto.getIdProjeto());
-
+		stmt.setString(1, "n");
+		stmt.setInt(2,projeto.getIdProjeto());
 		projetoNegocio.deletar(projeto);
 		stmt.executeUpdate();
 		conn.close();

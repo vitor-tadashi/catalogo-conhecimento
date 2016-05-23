@@ -11,7 +11,7 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AlterarFuncionarioLogica implements Logica {
+public class AtualizarFuncionarioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
