@@ -21,7 +21,7 @@ public class TecnologiaDAO {
 	// CRIA
 	public void inserir(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO Tecnologia(nomeTecnologia) VALUES(?)";
+		String sql = "INSERT INTO Tecnologia(nomeTecnologia, ativo) VALUES(?, ?)";
 		PreparedStatement st = conexao.prepareStatement(sql);
 
 		st.setString(1, tecnologia.getNomeTecnologia());
@@ -34,12 +34,13 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Tecnologia";
+		String sql = "SELECT * FROM Tecnologia where ativo = ?";
 		
 		ArrayList<TecnologiaBean> tecnologias = new ArrayList<TecnologiaBean>(); 
 		TecnologiaBean tecnologia;
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, "s");
 		ResultSet rs = ps.executeQuery();
 
 		while (rs.next()) {
@@ -95,10 +96,11 @@ public class TecnologiaDAO {
 	// DELETA
 	public void deletar(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "DELETE FROM Tecnologia WHERE idTecnologia = ?";
+		String sql = "update Tecnologia set ativo = ? WHERE idTecnologia = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 
-		ps.setInt(1, id);
+		ps.setString(1, "n");
+		ps.setInt(2, id);
 		ps.executeUpdate();
 		conexao.close();
 	}

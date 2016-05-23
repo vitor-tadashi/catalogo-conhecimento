@@ -14,7 +14,7 @@ public class ListarClientesPorConcorrente implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int id = request.getParameter("id");
+		int id = Integer.parseInt(request.getParameter("id"));
 		return null;
 	}
 

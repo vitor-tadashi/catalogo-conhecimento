@@ -17,7 +17,7 @@ public class InserirConcorrenteLogic implements Logica {
 		
 		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
 		concorrenteBean.setNome(Nomeconcorrente);
-		concorrenteBean.setdescricao(Descricao);
+		concorrenteBean.setDescricao(Descricao);
 		
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
 		concorrenteBusiness.inserir(concorrenteBean);
