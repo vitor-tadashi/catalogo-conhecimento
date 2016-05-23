@@ -17,7 +17,7 @@ public class ListarClienteLogica implements Logica {
 		
 		request.setAttribute("clientes", listaClientes);
 		
-		return "/WEB-INF/jsp/cliente/listarCliente.jsp";
+		return "/WEB-INF/jsp/cliente/listarClientes.jsp";
 				
 	}
 }

@@ -22,7 +22,7 @@ public class FuncionarioDAO {
 		PreparedStatement st = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 		
-		st.setInt(1, funcionario.getCargo().getIdCargo());
+		st.setInt(1, funcionario.getCargo().getId());
 		st.setString(2, funcionario.getNomeFuncionario());
 		st.setString(3, funcionario.getTelefone());
 		st.setString(4, funcionario.getNomeUser());

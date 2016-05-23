@@ -7,18 +7,20 @@ import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioAtualizarCargoLogica implements Logica {
+public class AlterarCargoLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		int idCargo = Integer.parseInt(request.getParameter("idCargo"));
-		
+		int id = Integer.parseInt(request.getParameter("id"));
+		String nome = request.getParameter("nome");
+
+		CargoBean cargoBean = new CargoBean();
+		cargoBean.setId(id);
+		cargoBean.setNome(nome);
+
 		CargoBusiness cargoBusiness = new CargoBusiness();
-		CargoBean cargo = cargoBusiness.obterPorId(idCargo);
+		cargoBusiness.alterar(cargoBean);
 
-		request.setAttribute("cargo", cargo);
-
-		return "/WEB-INF/jsp/cargo/formularioAlteraCargo.jsp";
-		}
+		return "mvc?logica=cargo.ListarCargoLogica";
+	}
 }

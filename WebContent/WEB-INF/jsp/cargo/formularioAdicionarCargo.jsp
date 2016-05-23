@@ -4,13 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Inserir Tecnologia</title>
+<title>Adicionar Cargo</title>
 </head>
 <body>
 	<form method="POST" action="mvc">
-		<p>Cargo:<input type="text" name="nome"></p>
-		<input type="hidden" name="logica" value="cargo.InserirCargoLogica">
-		<p><input type="submit" value="Inserir"></p>
+		<p>
+			Cargo:<input type="text" name="nome">
+		</p>
+		<input type="hidden" name="logica" value="cargo.AdicionarCargoLogica">
+		<p>
+			<input type="submit" value="Inserir">
+		</p>
 	</form>
 </body>
 </html>

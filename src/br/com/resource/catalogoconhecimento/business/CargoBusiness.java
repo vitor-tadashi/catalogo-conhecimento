@@ -4,19 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
-import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
 
 public class CargoBusiness {
 
 	// CRIA
-	public void inserir(CargoBean cargo) throws ClassNotFoundException, SQLException {
+	public void adicionar(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
 		try {
 
 			CargoDAO cargoDAO = new CargoDAO();
 
-			cargoDAO.inserir(cargo);
+			cargoDAO.adicionar(cargoBean);
 
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
@@ -29,8 +27,8 @@ public class CargoBusiness {
 	public List<CargoBean> listar() {
 		try {
 
-			CargoDAO cargo = new CargoDAO();
-			return cargo.listar();
+			CargoDAO cargoDao = new CargoDAO();
+			return cargoDao.listar();
 
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
@@ -42,11 +40,11 @@ public class CargoBusiness {
 	}
 
 	// LISTA POR ID
-	public CargoBean obterPorId(int idCargo) {
+	public CargoBean obterPorId(int id) {
 		try {
 
-			CargoDAO cargo = new CargoDAO();
-			return cargo.obterPorId(idCargo);
+			CargoDAO cargoDao = new CargoDAO();
+			return cargoDao.obterPorId(id);
 
 		} catch (ClassNotFoundException c) {
 			c.printStackTrace();
@@ -58,11 +56,11 @@ public class CargoBusiness {
 	}
 	
 	// LISTA POR NOME
-		public CargoBean obterPorNome(String nomeCargo) {
+		public CargoBean obterPorNome(String nome) {
 			try {
 
-				CargoDAO cargo = new CargoDAO();
-				return cargo.obterPorNome(nomeCargo);
+				CargoDAO cargoDao = new CargoDAO();
+				return cargoDao.obterPorNome(nome);
 
 			} catch (ClassNotFoundException c) {
 				c.printStackTrace();
@@ -74,17 +72,16 @@ public class CargoBusiness {
 		}
 
 	// ATUALIZA
-	public boolean atualizar(CargoBean cargo) {
+	public boolean alterar(CargoBean cargoBean) {
 		try {
 
 			CargoDAO cargoDao;
 			cargoDao = new CargoDAO();
 
-			CargoBean cargos = cargoDao.obterPorId(cargo.getIdCargo());
+			CargoBean cargo = cargoDao.obterPorId(cargoBean.getId());
 
-			if (cargos != null) {
-			
-				cargoDao.atualizar(cargo);
+			if (cargo != null) {
+				cargoDao.alterar(cargoBean);
 				return true;
 			} else {
 				return false;
@@ -100,16 +97,16 @@ public class CargoBusiness {
 	}
 
 	// DELETA
-	public boolean deletar(int idCargo) {
+	public boolean remover(int id) {
 
 		try {
 
 			CargoDAO cargoDao = new CargoDAO();
 
-			CargoBean cargo = this.obterPorId(idCargo);
+			CargoBean cargoBean = this.obterPorId(id);
 
-			if (cargo != null) {
-				cargoDao.deletar(idCargo);
+			if (cargoBean != null) {
+				cargoDao.remover(id);
 				return true;
 			} else {
 				return false;

@@ -45,10 +45,11 @@
 
 	</table>
 	<br>
-	<br>
 	<p>
 		<a href="mvc?logica=cliente.FormularioAdicionarClienteLogica">Adicionar
 			um novo cliente</a>
 	</p>
+	<br>
+	<p><a href="index.html">Retornar a pagina inicial</a><p>
 </body>
 </html>

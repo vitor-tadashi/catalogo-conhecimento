@@ -5,11 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioInserirCargoLogica implements Logica {
-	
+public class FormularioAdicionarCargoLogica implements Logica {
+
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "/WEB-INF/jsp/cargo/formularioInserirCargo.jsp";
-	
+		return "/WEB-INF/jsp/cargo/formularioAdicionarCargo.jsp";
 	}
 }

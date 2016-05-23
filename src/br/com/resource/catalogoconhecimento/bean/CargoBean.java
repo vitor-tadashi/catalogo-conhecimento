@@ -2,33 +2,33 @@ package br.com.resource.catalogoconhecimento.bean;
 
 public class CargoBean {
 
-	private int idCargo;
-	private String nomeCargo;
+	private int id;
+	private String nome;
 
-	public CargoBean(){
-		
+	public CargoBean() {
+
 	}
 
-	public CargoBean(int idCargo, String nomeCargo) {
+	public CargoBean(int id, String nome) {
 		super();
-		this.idCargo = idCargo;
-		this.nomeCargo = nomeCargo;
+		this.id = id;
+		this.nome = nome;
 	}
 
-	public int getIdCargo() {
-		return idCargo;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdCargo(int idCargo) {
-		this.idCargo = idCargo;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getNomeCargo() {
-		return nomeCargo;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeCargo(String nomeCargo) {
-		this.nomeCargo = nomeCargo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

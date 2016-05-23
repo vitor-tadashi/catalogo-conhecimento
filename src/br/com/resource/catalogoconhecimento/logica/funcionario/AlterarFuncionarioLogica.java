@@ -27,7 +27,7 @@ public class AlterarFuncionarioLogica implements Logica {
 		String tecnologia = request.getParameter("tecnologia");
 
 		CargoBean cargoBean = new CargoBean();
-		cargoBean.setNomeCargo(cargo);
+		cargoBean.setNome(cargo);
 		
 
 		TecnologiaBean tecnologiaBean = new TecnologiaBean();

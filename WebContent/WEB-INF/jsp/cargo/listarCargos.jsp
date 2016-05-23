@@ -18,19 +18,19 @@
 		<c:forEach var="cargos" items="${cargos}">
 
 			<tr>
-				<td>${cargos.nomeCargo}</td>
+				<td>${cargos.nome}</td>
 				<td>
-					<a href="mvc?logica=cargo.FormularioAtualizarCargoLogica&idCargo=${cargos.idCargo}">Alterar</a>
-					<a href="mvc?logica=cargo.DeletarCargoLogica&idCargo=${cargos.idCargo}">Remover</a>
+					<a href="mvc?logica=cargo.FormularioAlterarCargoLogica&id=${cargos.id}">Alterar</a>
+					<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargos.id}">Remover</a>
 				</td>
 			</tr>
 
 		</c:forEach>
 	</table>
 
-	<a href="mvc?logica=cargo.FormularioInserirCargoLogica">Cadastrar Novo Cargo</a>
+	<p><a href="mvc?logica=cargo.FormularioAdicionarCargoLogica">Cadastrar Novo Cargo</a></p>
 	<br>
-	<a href="index.html">Retornar a página inicial</a>
+	<p><a href="index.html">Retornar a pagina inicial</a></p>
 
 </body>
 </html>
