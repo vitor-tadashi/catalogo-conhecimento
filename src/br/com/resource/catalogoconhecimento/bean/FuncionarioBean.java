@@ -8,6 +8,21 @@ public class FuncionarioBean {
 	private String telefone;
 	private String nomeUser;
 	private String email;
+	private TecnologiaBean tecnologia;
+
+	/**
+	 * @return the tecnologia
+	 */
+	public TecnologiaBean getTecnologia() {
+		return tecnologia;
+	}
+
+	/**
+	 * @param tecnologia the tecnologia to set
+	 */
+	public void setTecnologia(TecnologiaBean tecnologia) {
+		this.tecnologia = tecnologia;
+	}
 
 	public FuncionarioBean() {
 
