@@ -9,11 +9,11 @@ import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 public class FuncionarioBusiness {
 
 	// CRIA
-	public void inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
+	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		
-			FuncionarioDAO funcionariodao = new FuncionarioDAO();
+			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
 
-			funcionariodao.inserir(funcionario);
+			return funcionarioDao.inserir(funcionario);
 	}
 
 	// LISTA

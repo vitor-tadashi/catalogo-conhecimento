@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import java.util.List;
+
 public class FuncionarioBean {
 
 	private int id;
@@ -8,21 +10,10 @@ public class FuncionarioBean {
 	private String telefone;
 	private String nomeUser;
 	private String email;
-	private TecnologiaBean tecnologia;
+	private List<TecnologiaBean> tecnologia;
 
-	/**
-	 * @return the tecnologia
-	 */
-	public TecnologiaBean getTecnologia() {
-		return tecnologia;
-	}
 
-	/**
-	 * @param tecnologia the tecnologia to set
-	 */
-	public void setTecnologia(TecnologiaBean tecnologia) {
-		this.tecnologia = tecnologia;
-	}
+
 
 	public FuncionarioBean() {
 
@@ -85,5 +76,12 @@ public class FuncionarioBean {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public List<TecnologiaBean> getTecnologia() {
+		return tecnologia;
+	}
+	
+	public void setTecnologia(List<TecnologiaBean> tecnologia) {
+		this.tecnologia = tecnologia;
 	}
 }

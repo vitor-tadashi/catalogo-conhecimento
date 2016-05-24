@@ -16,7 +16,7 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class FuncionarioDAO {
 
 	// CRIA
-	public void inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
+	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "INSERT INTO Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo) VALUES(?,?,?,?,?,?)";
 		PreparedStatement st = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -31,14 +31,15 @@ public class FuncionarioDAO {
 		
 		st.executeUpdate();
 		ResultSet rs = st.getGeneratedKeys();
-		
 		int id = 0;
 		if(rs.next()){
-			id = rs.getInt("idFuncionario");
+			id = rs.getInt(1);
 		}
+		
 		funcionario.setId(id);
 		st.close();
 		conexao.close();
+		return id;
 	}
 
 	// LISTA
