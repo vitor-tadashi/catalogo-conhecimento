@@ -12,6 +12,7 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioTecnologiaBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AdicionarFuncionarioLogica implements Logica{
@@ -34,10 +35,10 @@ public class AdicionarFuncionarioLogica implements Logica{
 		
 
 		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
+		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		TecnologiaBean tecnologia;
 		for(int i =0 ; i < tecnologias.length ; i ++){
-			tecnologia =  new TecnologiaBean();
-			tecnologia.setNome(tecnologias[i]);
+			tecnologia =  tecnologiaBusiness.obterPorNome(tecnologias[i]);
 			listaTecnologia.add(tecnologia);
 		}
 		
@@ -48,10 +49,11 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionario.setNomeUser(nomeUsuario);
 		funcionario.setTelefone(telefone);
 		funcionario.setCargo(cargoBean);
+		funcionario.setTecnologia(listaTecnologia);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-		funcionarioBusiness.inserir(funcionario);
-	
+		int id = funcionarioBusiness.inserir(funcionario);
+		funcionario.setId(id);
 		
 		FuncionarioTecnologiaBusiness funcionariotecnologia = new FuncionarioTecnologiaBusiness();
 		funcionariotecnologia.inserir(funcionario, listaTecnologia);
