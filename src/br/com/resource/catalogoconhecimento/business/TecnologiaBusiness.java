@@ -10,61 +10,39 @@ public class TecnologiaBusiness {
 
 	// CRIA
 	public void inserir(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
-		try {
+		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
 			tecnologiaDao.inserir(tecnologia);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-		} catch (SQLException s) {
-			s.printStackTrace();
-		}
+	
 	}
 
 	// LISTA
-	public List<TecnologiaBean> listar() {
-		try {
+	public List<TecnologiaBean> listar() throws ClassNotFoundException, SQLException {
+		
 			TecnologiaDAO tecnologia = new TecnologiaDAO();
 			return tecnologia.listar();
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	// LISTA POR ID
-	public TecnologiaBean obterPorId(int idTecnologia) {
-		try {
+	public TecnologiaBean obterPorId(int idTecnologia) throws ClassNotFoundException, SQLException {
+		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 			return tecnologiaDao.obterPorId(idTecnologia);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
-		}
+		
 	}
 	
-	public TecnologiaBean obterPorNome(String nome) {
+	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-		try {
+	
 			return tecnologiaDao.obterPorNome(nome);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	// ATUALIZA
-	public boolean atualizar(TecnologiaBean tecnologia) {
-		try {
+	public boolean atualizar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
+		
 			TecnologiaDAO tecnologiaDao;
 			tecnologiaDao = new TecnologiaDAO();
 
@@ -77,19 +55,13 @@ public class TecnologiaBusiness {
 				return false;
 			}
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return false;
-		}
+		
 
 	}
 
 	// DELETA
-	public boolean deletar(int id) {
-		try {
+	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
 			TecnologiaBean tecnologiaAux = this.obterPorId(id);
@@ -100,13 +72,7 @@ public class TecnologiaBusiness {
 				return false;
 			}
 
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return false;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return false;
-		}
+	
 	}
 
 }

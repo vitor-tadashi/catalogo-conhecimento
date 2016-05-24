@@ -22,11 +22,8 @@ public class ConcorrenteClienteBusiness {
 
 		ConcorrenteClienteDAO concorrenteclienteDao = new ConcorrenteClienteDAO();
 
-		try {
 			concorrenteclienteDao.atualizar(altconcorrentecliente);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	/* m�todo para excluir concorrente */
@@ -40,20 +37,12 @@ public class ConcorrenteClienteBusiness {
 
 	public List<ConcorrenteClienteBean> listar() throws ClassNotFoundException {
 
-		
-		
-		
-		try {
-		
-			
+	
 			ConcorrenteClienteDAO concorrenteClienteDao = new ConcorrenteClienteDAO();
 
 			return concorrenteClienteDao.listar();
 
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		}
+		
 	}
 
 }

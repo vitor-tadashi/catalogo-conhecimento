@@ -11,38 +11,27 @@ public class FuncionarioTecnologiaBusiness {
 	
 	FuncionarioTecnologiaDAO funcionarioTecnologiaDAO;
 	
-	public FuncionarioTecnologiaBusiness() {
-		
-		try{
+	public FuncionarioTecnologiaBusiness() throws ClassNotFoundException, SQLException {
+	
 			this.funcionarioTecnologiaDAO = new FuncionarioTecnologiaDAO();
-		}catch(ClassNotFoundException e){
-			System.out.println(e);
-		}catch(SQLException e){
-			System.out.println(e);			
-		}
+	
 	}
 	
-	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias){
+	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws SQLException{
 		int linhasAfetadas=0;
 		
-		try{
-			linhasAfetadas = funcionarioTecnologiaDAO.inserir(funcionario, tecnologias);
-		}catch(SQLException e){
-			System.out.println(e);			
-		}
+		
+	linhasAfetadas = funcionarioTecnologiaDAO.inserir(funcionario, tecnologias);
+	
 		
 		return linhasAfetadas;
 		
 	}
 	
-	public List<TecnologiaBean> listar(FuncionarioBean funcionario){
-		try{
-			return funcionarioTecnologiaDAO.listar(funcionario);
-		}catch(ClassNotFoundException | SQLException e){
-			System.out.println(e);
-		}
+	public List<TecnologiaBean> listar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException{
 		
-		return null;
+			return funcionarioTecnologiaDAO.listar(funcionario);
+	
 		
 	}
 	

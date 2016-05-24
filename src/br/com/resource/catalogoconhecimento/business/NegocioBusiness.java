@@ -16,8 +16,8 @@ public class NegocioBusiness {
 	}
 
 	// Deletar
-	public boolean deletar(int id) {
-		try {
+	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+		
 			NegocioDAO negociodao = new NegocioDAO();
 
 			NegocioBean negocioAux = this.listarPorId(id);
@@ -28,18 +28,12 @@ public class NegocioBusiness {
 				return false;
 			}
 
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return false;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return false;
-		}
+		
 	}
 
 	// Atualizar
-	public boolean atualizar(NegocioBean negocio) {
-		try {
+	public boolean atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
+		
 
 			NegocioDAO negocioDao;
 			negocioDao = new NegocioDAO();
@@ -53,61 +47,31 @@ public class NegocioBusiness {
 				return false;
 			}
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return false;
-		}
+		
 	}
 
 	// Listar
 	public List<NegocioBean> listar() throws ClassNotFoundException, SQLException {
 
-		try {
 
 			NegocioDAO negocio = new NegocioDAO();
 			return negocio.listar();
 
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
-		}
 	}
 
 	// ListarporID
 	public NegocioBean listarPorId(int id) throws ClassNotFoundException, SQLException {
 
-		try {
 			NegocioDAO negociodao = new NegocioDAO();
 			return negociodao.listarPorId(id);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-
-			s.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	// ListarporNome
 	public NegocioBean listarPorNome(String nome) throws ClassNotFoundException, SQLException {
 
-		try {
 			NegocioDAO negociodao = new NegocioDAO();
 			return negociodao.listarPorNome(nome);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-
-			s.printStackTrace();
-			return null;
-		}
+	
 	}
 }

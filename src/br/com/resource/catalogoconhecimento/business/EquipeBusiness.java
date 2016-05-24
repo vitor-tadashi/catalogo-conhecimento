@@ -30,16 +30,8 @@ public class EquipeBusiness {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
 
-		try {
-			
 			equipeDAO.deletar(idEquipe);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 	}
 		
@@ -47,19 +39,13 @@ public class EquipeBusiness {
 
 	// ATUALIZAR NA BASE
 
-	public void atualizar(EquipeBean observacao) {
+	public void atualizar(EquipeBean observacao) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
 
-		try {
+		
 			equipeDAO.atualizar(observacao);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	// LISTAR NA BASE
@@ -67,23 +53,12 @@ public class EquipeBusiness {
 
 	public List<EquipeBean> listar() throws ClassNotFoundException, SQLException {
 
-		try {
+		
 
 			EquipeDAO equipe = new EquipeDAO();
-			if( equipe != null){
-				return equipe.listar();
-			}
+			return equipe.listar();
 			
-			
-
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
-		}
-		return null;
+		
 	}
 
 	// LISTAR POR ID NA BASE
@@ -91,16 +66,9 @@ public class EquipeBusiness {
 
 	public EquipeBean listarPorId(int idEquipe) throws ClassNotFoundException, SQLException {
 
-		try {
+		
 			EquipeDAO equipe = new EquipeDAO();
 			return equipe.listarPorId(idEquipe);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-
-			s.printStackTrace();
-			return null;
-		}
+		
 	}
 }

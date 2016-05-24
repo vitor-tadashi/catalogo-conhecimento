@@ -11,48 +11,32 @@ public class ProjetoNegocioBusiness {
 	
 	ProjetoNegocioDAO projetoNegocioDAO;
 
-	public ProjetoNegocioBusiness() {
+	public ProjetoNegocioBusiness() throws ClassNotFoundException, SQLException {
 		
-		try {
+		
 			this.projetoNegocioDAO = new ProjetoNegocioDAO();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
-	public int insere(ProjetoBean projeto, List<NegocioBean>negocios){
+	public int insere(ProjetoBean projeto, List<NegocioBean>negocios) throws SQLException{
 		int linhasAfetadas = 0;
-		try {
+		
 			linhasAfetadas = projetoNegocioDAO.inserir(projeto, negocios);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 		return linhasAfetadas;
 	}
 	
-	public List<NegocioBean> listar(ProjetoBean projeto){
-		try {
+	public List<NegocioBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
+		
 			return projetoNegocioDAO.listar(projeto);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	
 	}
 	
-	public void atualizar(ProjetoBean projeto, List<NegocioBean> negocios){
-		try {
+	public void atualizar(ProjetoBean projeto, List<NegocioBean> negocios) throws SQLException{
+		
 			projetoNegocioDAO.atualizar(projeto, negocios);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 }

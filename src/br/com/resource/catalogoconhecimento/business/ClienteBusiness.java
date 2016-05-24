@@ -10,37 +10,27 @@ public class ClienteBusiness {
 
 	// INSERE NA TABELA CLIENTE
 	public void adicinar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		try {
+		
 			ClienteDAO clienteDao = new ClienteDAO();
 
 			clienteDao.adicionar(clienteBean);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-		} catch (SQLException s) {
-			s.printStackTrace();
-		}
+	
 	}
 
 	// CONSULTA NA TABELA CLIENTE
 	public List<ClienteBean> listar() throws ClassNotFoundException, SQLException {
 
-		try {
+		
 			ClienteDAO clienteDao = new ClienteDAO();
 			return clienteDao.listar();
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	// ATUALIZA NA TABELA CLIENTE
 	public boolean alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 
 		ClienteDAO clienteDao = new ClienteDAO();
-		try {
+		
 			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 			if (cliente == null) {
 				return true;
@@ -48,18 +38,13 @@ public class ClienteBusiness {
 				clienteDao.alterar(clienteBean);
 				return false;
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException s) {
-			s.printStackTrace();
-		}
-		return false;
+		
 	}
 
 	// DELETA NA TABELA CLIENTE
 	public boolean remover(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 
-		try {
+		
 			ClienteDAO clienteDao = new ClienteDAO();
 			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 			if (cliente == null) {
@@ -69,27 +54,16 @@ public class ClienteBusiness {
 				return false;
 			}
 
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-		} catch (SQLException s) {
-			s.printStackTrace();
-		}
-		return false;
+		
 	}
 
 	// LISTA POR ID NA TABELA CLIENTE
 	public ClienteBean obterPorId(int idCliente) throws ClassNotFoundException, SQLException {
 
-		try {
+		
 			ClienteDAO clienteDAO = new ClienteDAO();
 			return clienteDAO.obterPorId(idCliente);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
-		}
+		
 	}
 
 }
