@@ -118,7 +118,7 @@ public class FuncionarioDAO {
 	}
 
 	// LISTA POR ID
-	public FuncionarioBean listarPorId(int idFuncionario) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorId(int idFuncionario) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE idFuncionario = '" + idFuncionario
 				+ "'";
