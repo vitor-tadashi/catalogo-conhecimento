@@ -15,7 +15,7 @@ public class InserirNegocioLogica implements Logica {
 		String areaAtuacao = request.getParameter("areaAtuacao");
 		
 		if(areaAtuacao.trim().equals("")){
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
+			throw new AtributoNuloException("Infomação duplicada!");
 		}else{       								   
 		
 		
