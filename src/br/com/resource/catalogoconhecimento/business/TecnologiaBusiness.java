@@ -11,7 +11,7 @@ import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 public class TecnologiaBusiness {
 
 	// CRIA
-	public void inserir(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+	public void adicionar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
 		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 			TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologia.getNome());
@@ -21,7 +21,7 @@ public class TecnologiaBusiness {
 			}else if(tecnologiaClone != null){			
 				throw new NomeRepetidoException("Este nome já consta na base de dados");
 			}else{
-				tecnologiaDao.inserir(tecnologia);
+				tecnologiaDao.adicionar(tecnologia);
 			
 			}
 	
@@ -51,7 +51,7 @@ public class TecnologiaBusiness {
 	}
 
 	// ATUALIZA
-	public boolean atualizar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
+	public boolean alterar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
 		
 			TecnologiaDAO tecnologiaDao;
 			tecnologiaDao = new TecnologiaDAO();
@@ -59,7 +59,7 @@ public class TecnologiaBusiness {
 			TecnologiaBean tecnologiaAux = tecnologiaDao.obterPorId(tecnologia.getId());
 
 			if (tecnologiaAux != null) {
-				tecnologiaDao.atualizar(tecnologia);
+				tecnologiaDao.alterar(tecnologia);
 				return true;
 			} else {
 				return false;
@@ -70,13 +70,13 @@ public class TecnologiaBusiness {
 	}
 
 	// DELETA
-	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+	public boolean remover(int id) throws ClassNotFoundException, SQLException {
 		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
 			TecnologiaBean tecnologiaAux = this.obterPorId(id);
 			if (tecnologiaAux != null) {
-				tecnologiaDao.deletar(id);
+				tecnologiaDao.remover(id);
 				return true;
 			} else {
 				return false;

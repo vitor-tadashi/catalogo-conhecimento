@@ -7,18 +7,20 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioAtualizarTecnologiaLogica implements Logica {
+public class AlterarTecnologiaLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int idTecnologia = Integer.parseInt(request.getParameter("idTecnologia"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		String nome = request.getParameter("nome");
+		TecnologiaBean tecnologia = new TecnologiaBean();
+		tecnologia.setId(id);
+		tecnologia.setNome(nome);
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(idTecnologia);
+		tecnologiaBusiness.alterar(tecnologia);
 
-		request.setAttribute("tecnologia", tecnologia);
-
-		return "/WEB-INF/jsp/tecnologias/formularioAtualizarTecnologia.jsp";
+		return "mvc?logica=tecnologia.ListarTecnologiaLogica";
 	}
 
 }
