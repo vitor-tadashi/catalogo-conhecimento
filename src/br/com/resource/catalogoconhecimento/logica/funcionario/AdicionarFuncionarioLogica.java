@@ -49,7 +49,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionario.setNomeUser(nomeUsuario);
 		funcionario.setTelefone(telefone);
 		funcionario.setCargo(cargoBean);
-		funcionario.setTecnologia(listaTecnologia);
+		funcionario.setTecnologias(listaTecnologia);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		int id = funcionarioBusiness.inserir(funcionario);

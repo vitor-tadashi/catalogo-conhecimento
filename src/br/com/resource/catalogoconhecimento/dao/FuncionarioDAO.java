@@ -61,7 +61,7 @@ public class FuncionarioDAO {
 		TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness = new TecnologiaFuncionarioBusiness();
 		while (rs.next()) {
 			CargoBean cargo = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-			List<TecnologiaBean> tecnologia = tecnologiaFuncionarioBusiness.joinTecnologiaFuncionario(rs.getInt("idFuncionario"));
+			List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness.joinTecnologiaFuncionario(rs.getInt("idFuncionario"));
 			
 			funcionario = new FuncionarioBean();
 			
@@ -71,7 +71,7 @@ public class FuncionarioDAO {
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
 			funcionario.setEmail(rs.getString("email"));
-			funcionario.setTecnologia(tecnologia);
+			funcionario.setTecnologias(tecnologias);
 			
 			funcionarios.add(funcionario);
 		}
