@@ -49,6 +49,7 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
+											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioInserirTecnologiaLogica" />
 											<input type="hidden" name="logica" value="tecnologia.InserirTecnologiaLogica">
 										</div>
 										<div class="panel-footer text-left">

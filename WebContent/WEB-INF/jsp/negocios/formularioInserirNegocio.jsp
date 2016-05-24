@@ -8,7 +8,7 @@
 </head>
 <body>											   
 	<form method="POST" action="mvc">
-	             
+	    <input type="hidden" name="logicaAtual" value="negocio.FormularioInserirNegocioLogica" />     
 		<p>Area:<input type="text" name="areaAtuacao" required></p>
 		<input type="hidden" name="logica" value="negocio.InserirNegocioLogica">
 		<p>
