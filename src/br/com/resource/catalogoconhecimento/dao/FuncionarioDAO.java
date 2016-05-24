@@ -10,7 +10,9 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class FuncionarioDAO {
@@ -56,8 +58,11 @@ public class FuncionarioDAO {
 		ArrayList<FuncionarioBean> funcionarios = new ArrayList<FuncionarioBean>();
 		FuncionarioBean funcionario;
 		CargoBusiness cargoBusiness = new CargoBusiness();
+		TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness = new TecnologiaFuncionarioBusiness();
 		while (rs.next()) {
 			CargoBean cargo = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+			List<TecnologiaBean> tecnologia = tecnologiaFuncionarioBusiness.joinTecnologiaFuncionario(rs.getInt("idFuncionario"));
+			
 			funcionario = new FuncionarioBean();
 			
 			funcionario.setId(rs.getInt("idFuncionario"));
@@ -66,7 +71,7 @@ public class FuncionarioDAO {
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
 			funcionario.setEmail(rs.getString("email"));
-		
+			funcionario.setTecnologia(tecnologia);
 			
 			funcionarios.add(funcionario);
 		}

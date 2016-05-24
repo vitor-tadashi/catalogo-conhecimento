@@ -17,6 +17,7 @@
 			<th>Usuário</th>
 			<th>Email</th>
 			<th>Cargo</th>
+			<th>Tecnologia</th>
 			<th>Ações</th>
 			
 		</tr>
@@ -28,7 +29,8 @@
 				<td>${funcionarios.telefone}</td>
 				<td>${funcionarios.nomeUser}</td>
 				<td>${funcionarios.email}</td>
-				<td>${funcionarios.cargo.getNome()}</td>
+				<td>${funcionarios.cargo.nome}</td>
+				<td>${funcionarios.tecnologia.nome}</td>
 				<td>
 					<a href="mvc?logica=funcionario.FormularioAlterarLogica&idFuncionario=${funcionarios.id}">Alterar</a>
 					<a href="mvc?logica=funcionario.RemoverFuncionarioLogica&idFuncionario=${funcionarios.id}">Remover</a>

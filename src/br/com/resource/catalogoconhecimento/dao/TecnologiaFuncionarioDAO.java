@@ -12,13 +12,13 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
-public class FuncionarioTecnologiaDAO {
+public class TecnologiaFuncionarioDAO {
 	
 	private String sql = "INSERT INTO TecnologiaFuncionario (idFuncionario, idTecnologia) VALUES (?, ?)";
 	private String sqlConsultar = "SELECT * FROM TecnologiaFuncionario WHERE idTecnologiaFuncionario = ?";
 	Connection conexao;
 	
-	public FuncionarioTecnologiaDAO() throws ClassNotFoundException, SQLException {
+	public TecnologiaFuncionarioDAO() throws ClassNotFoundException, SQLException {
 		 conexao = ConnectionFactory.createConnection();
 	}
 	
@@ -57,6 +57,33 @@ public class FuncionarioTecnologiaDAO {
 		}
 		
 		return tecnologias;
+	}
+	
+	
+	
+	public List<TecnologiaBean> joinTecnologiaFuncionario(int idFuncionario) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT t.idTecnologia, t.nomeTecnologia "
+				+ "FROM Funcionario as f "
+				+	"inner join TecnologiaFuncionario as tf "
+				+	"on tf.idFuncionario = f.idFuncionario "
+				+		"inner join Tecnologia as t "
+				+		"on t.idTecnologia = tf.idTecnologia "
+				+	"WHERE tf.idFuncionario = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, idFuncionario);
+		
+		ResultSet rs = ps.executeQuery();
+		List<TecnologiaBean> listaTecnologias = new ArrayList<TecnologiaBean>();
+		TecnologiaBean tecnologia = null;
+		while (rs.next()) {
+			tecnologia = new TecnologiaBean();
+			tecnologia.setId(rs.getInt("idTecnologia"));
+			tecnologia.setNome(rs.getString("nomeTecnologia"));
+			listaTecnologias.add(tecnologia);
+		}
+		conexao.close();
+		return listaTecnologias;
 	}
 
 }
