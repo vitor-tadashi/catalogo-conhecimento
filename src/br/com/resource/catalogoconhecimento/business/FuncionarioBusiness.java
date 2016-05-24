@@ -9,11 +9,11 @@ import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 public class FuncionarioBusiness {
 
 	// CRIA
-	public void inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
+	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		
-			FuncionarioDAO funcionariodao = new FuncionarioDAO();
+			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
 
-			funcionariodao.inserir(funcionario);
+			return funcionarioDao.inserir(funcionario);
 	}
 
 	// LISTA
@@ -25,10 +25,10 @@ public class FuncionarioBusiness {
 	}
 
 	// LISTA POR ID
-	public FuncionarioBean listarPorId(int idFuncionario)throws ClassNotFoundException, SQLException {
+	public FuncionarioBean obterPorId(int idFuncionario)throws ClassNotFoundException, SQLException {
 		
 			FuncionarioDAO funcionario = new FuncionarioDAO();
-			return funcionario.listarPorId(idFuncionario);
+			return funcionario.obterPorId(idFuncionario);
 		
 	}
 
@@ -39,7 +39,7 @@ public class FuncionarioBusiness {
 			FuncionarioDAO funcionariodao;
 			funcionariodao = new FuncionarioDAO();
 
-			FuncionarioBean funcionarioAux = funcionariodao.listarPorId(funcionario.getId());
+			FuncionarioBean funcionarioAux = funcionariodao.obterPorId(funcionario.getId());
 
 			if (funcionarioAux == null) {
 				return true;
@@ -58,7 +58,7 @@ public class FuncionarioBusiness {
 		
 			FuncionarioDAO funcionariodao = new FuncionarioDAO();
 
-			FuncionarioBean funcionarioAux = funcionariodao.listarPorId(id);
+			FuncionarioBean funcionarioAux = funcionariodao.obterPorId(id);
 			if (funcionarioAux == null) {
 				return true;
 			} else {

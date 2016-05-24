@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
-import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
+
 
 public class EquipeBusiness {
 
@@ -12,24 +12,18 @@ public class EquipeBusiness {
 
 	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException, Exception {
 
-		EquipeDAO equipeDAO = new EquipeDAO();
-
-		EquipeBean oEquipe = equipeDAO.listarPorId(equipe.getId());
-
-		if (oEquipe.toString().trim().equals("")) {
-			throw new AtributoNuloException();
-		} else {
+			EquipeDAO equipeDAO = new EquipeDAO();
 			equipeDAO.inserir(equipe);
-		}
+		
 
 	}
 
 	// DELETAR NA BASE
 
-	public void deletar(EquipeBean idEquipe) throws ClassNotFoundException, SQLException {
+	public void deletar(EquipeBean id) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
-		equipeDAO.deletar(idEquipe);
+		equipeDAO.deletar(id);
 
 	}
 
@@ -53,10 +47,10 @@ public class EquipeBusiness {
 
 	// LISTAR POR ID NA BASE
 
-	public EquipeBean listarPorId(int idEquipe) throws ClassNotFoundException, SQLException {
+	public EquipeBean listarPorId(int id) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipe = new EquipeDAO();
-		return equipe.listarPorId(idEquipe);
+		return equipe.listarPorId(id);
 
 	}
 }
