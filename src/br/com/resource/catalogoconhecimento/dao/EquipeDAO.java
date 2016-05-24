@@ -14,7 +14,6 @@ public class EquipeDAO {
 
 	Connection conec = null;
 
-
 	// SELECIONAR DADOS NA TABELA DE EQUIPE
 
 	public List<EquipeBean> listar() throws SQLException, ClassNotFoundException {
@@ -46,7 +45,6 @@ public class EquipeDAO {
 		return equipes;
 	}
 
-
 	// INSERIR DADOS NA TABELA DE EQUIPE
 	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException {
 
@@ -59,13 +57,12 @@ public class EquipeDAO {
 		stmt.setString(1, equipe.getObservacao());
 		stmt.setString(2, equipe.getNome());
 		stmt.setString(3, "s");
-		
+
 		stmt.executeUpdate();
 		stmt.close();
 		conec.close();
 
 	}
-
 
 	// ATUALIZAR DADOS NA TABELA DE EQUIPE
 
@@ -91,25 +88,20 @@ public class EquipeDAO {
 	public void deletar(EquipeBean idEquipe) throws SQLException, ClassNotFoundException {
 		Connection conec = ConnectionFactory.createConnection();
 		conec.setAutoCommit(false);
-		
 
-			String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
-			PreparedStatement stmt2 = conec.prepareStatement(sql2);
-			stmt2.setInt(1, idEquipe.getId());
-			stmt2.executeUpdate();
+		String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
+		PreparedStatement stmt2 = conec.prepareStatement(sql2);
+		stmt2.setInt(1, idEquipe.getId());
+		stmt2.executeUpdate();
 
-			
+		String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
+		PreparedStatement stmt = conec.prepareStatement(sql);
 
-			String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
-			PreparedStatement stmt = conec.prepareStatement(sql);
-			
-			stmt.setString(1, "n");
-			stmt.setInt(2, idEquipe.getId());
-			stmt.executeUpdate();
+		stmt.setString(1, "n");
+		stmt.setInt(2, idEquipe.getId());
+		stmt.executeUpdate();
 
-			conec.commit();
-
-	
+		conec.commit();
 
 	}
 
@@ -137,6 +129,35 @@ public class EquipeDAO {
 
 		conec.close();
 		return equipe;
+
+	}
+
+	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Equipe WHERE nome = ?";
+		PreparedStatement stmt = conec.prepareStatement(sql);
+
+		stmt.setString(1, nome);
+		ResultSet rs = stmt.executeQuery();
+		
+		EquipeBean  equipe = null;
+
+		while (rs.next()) {
+
+			int id = rs.getInt("id");
+			String nomeEq = rs.getString("nome");
+
+			EquipeBean oEquipe = new EquipeBean();
+
+			oEquipe.setId(id);
+			oEquipe.setNome(nomeEq);
+
+		}
+		
+		conec.close();
+		return equipe;
+		
 
 	}
 
