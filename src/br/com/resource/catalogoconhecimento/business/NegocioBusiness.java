@@ -16,9 +16,10 @@ public class NegocioBusiness {
 		NegocioDAO negociodao = new NegocioDAO();
 		NegocioBean negocioClone = negociodao.listarPorNome(negocio.getAreaAtuacao());
 		
+		
 		if(negocio.getAreaAtuacao().length() > 50){
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50");
-		}else if(!(negocioClone.getAreaAtuacao().equals(null))){			
+		}else if(negocioClone != null){			
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		}else{
 		negociodao.inserir(negocio);
