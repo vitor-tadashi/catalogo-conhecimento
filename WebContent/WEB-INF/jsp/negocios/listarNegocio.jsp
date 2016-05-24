@@ -15,14 +15,14 @@
 			<th>Área de Atuação</th>
 			<th colspan="2">Ações</th>
 		</tr>
-		<c:forEach var="negocio" items="${negocios}">
+		<c:forEach var="negocios" items="${negocios}">
 			<tr>
-				<td>${negocio.areaAtuacao}</td>
+				<td>${negocios.areaAtuacao}</td>
 				<td><a
-					href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocio.id}">Remover</a>
+					href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocios.id}">Remover</a>
 				</td>
 				<td><a
-					href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocio.id}">Atualizar</a>
+					href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocios.id}">Atualizar</a>
 				</td>
 			</tr>
 		</c:forEach>
