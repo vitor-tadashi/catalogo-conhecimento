@@ -15,7 +15,7 @@ public class FormularioAtualizarEquipeLogica implements Logica {
 		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
 
 		EquipeBean equipe = new EquipeBean();
-		equipe.setIdEquipe(idEquipe);
+		equipe.setId(idEquipe);
 		
 		EquipeDAO equipeDAO = new EquipeDAO();
 		request.setAttribute("equipes", equipeDAO.listarPorId(idEquipe));

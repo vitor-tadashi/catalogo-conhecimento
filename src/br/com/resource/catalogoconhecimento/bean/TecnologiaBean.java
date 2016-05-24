@@ -1,26 +1,26 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class TecnologiaBean {
-	private int idTecnologia;
-	private String nomeTecnologia;
+	private int id;
+	private String nome;
 
 	public TecnologiaBean() {
 	}
 
 	public int getIdTecnologia() {
-		return idTecnologia;
+		return id;
 	}
 
 	public void setIdTecnologia(int idTecnologia) {
-		this.idTecnologia = idTecnologia;
+		this.id = idTecnologia;
 	}
 
 	public String getNomeTecnologia() {
-		return nomeTecnologia;
+		return nome;
 	}
 
 	public void setNomeTecnologia(String nomeTecnologia) {
-		this.nomeTecnologia = nomeTecnologia;
+		this.nome = nomeTecnologia;
 	}
 
 }

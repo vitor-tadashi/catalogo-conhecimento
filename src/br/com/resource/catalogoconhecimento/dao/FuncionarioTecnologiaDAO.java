@@ -27,7 +27,7 @@ public class FuncionarioTecnologiaDAO {
 		int linhasAfetadas =0;
 		
 		for(TecnologiaBean tecnologia: tecnologias){
-			ps.setInt(1, funcionario.getIdFuncionario());
+			ps.setInt(1, funcionario.getId());
 			ps.setInt(2, tecnologia.getIdTecnologia());
 			linhasAfetadas = ps.executeUpdate();
 		}
@@ -44,7 +44,7 @@ public class FuncionarioTecnologiaDAO {
 	
 	public List<TecnologiaBean> listar(FuncionarioBean funcionario) throws SQLException, ClassNotFoundException{
 		PreparedStatement ps = conexao.prepareStatement(sqlConsultar);
-		ps.setInt(1, funcionario.getIdFuncionario());
+		ps.setInt(1, funcionario.getId());
 		
 		ResultSet rs = ps.executeQuery();
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();

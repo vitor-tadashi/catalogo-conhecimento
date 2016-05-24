@@ -18,17 +18,17 @@ public class FormularioInserirFuncionarioLogica implements Logica{
 
 		public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
-			List<TecnologiaBean> tecnologiasLista = new ArrayList<>();
+			List<TecnologiaBean> listaTecnologia = new ArrayList<>();
 			TecnologiaBusiness tecnologiabusiness = new TecnologiaBusiness();
-			tecnologiasLista = tecnologiabusiness.listar();
+			listaTecnologia = tecnologiabusiness.listar();
 			
-			List<CargoBean> cargosLista = new ArrayList<>();
+			List<CargoBean> listaCargo = new ArrayList<>();
 			CargoBusiness cargobusiness = new CargoBusiness();
-			cargosLista = cargobusiness.listar();
+			listaCargo = cargobusiness.listar();
 			
-			request.setAttribute("tecnologias", tecnologiasLista);
+			request.setAttribute("tecnologias", listaTecnologia);
 			
-			request.setAttribute("cargos", cargosLista);
+			request.setAttribute("cargos", listaCargo);
 			
 			
 			return "/WEB-INF/jsp/funcionarios/formularioCriar.jsp";

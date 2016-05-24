@@ -15,7 +15,7 @@
 
 
 		<p>
-			Id:<input type="text" name="idEquipe" value="${equipes.idEquipe}"
+			Id:<input type="text" name="idEquipe" value="${equipes.id}"
 				readonly>
 		</p>
 		<p>

@@ -11,15 +11,15 @@
 
 <form method="post" action="mvc?logica=projeto.AtualizarProjetoLogica">
 
-			<input type="hidden" value="${projeto.idProjeto }" name="id">
+			<input type="hidden" value="${projeto.id}" name="id">
 			<p>
-			Nome do Projeto:<input type="text" name="nomeProjeto" value="${projeto.nomeProjeto}">
+			Nome do Projeto:<input type="text" name="nomeProjeto" value="${projeto.nome}">
 			<br>
 			Observação:<input type="text" name="observacao" value="${projeto.observacao}">
 			<br>
 			Equipe:<select name="equipe">
 			<c:forEach items="${equipes}" var="equipe">
-				<option value="${equipe.idEquipe}">${equipe.idEquipe}</option>
+				<option value="${equipe.id}">${equipe.id}</option>
 			</c:forEach>
 			</select>
 		<br>

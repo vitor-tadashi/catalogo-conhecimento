@@ -28,11 +28,11 @@
 				<td>${equipe.observacao}</td>
 
 				<td><a
-					href="mvc?logica=equipe.DeletarEquipeLogica&idEquipe=${equipe.idEquipe}">
+					href="mvc?logica=equipe.DeletarEquipeLogica&idEquipe=${equipe.id}">
 						Remover </a></td>
 
 				<td><a
-					href="mvc?logica=equipe.FormularioAtualizarEquipeLogica&idEquipe=${equipe.idEquipe}">
+					href="mvc?logica=equipe.FormularioAtualizarEquipeLogica&idEquipe=${equipe.id}">
 						Atualizar </a></td>
 
 			</tr>

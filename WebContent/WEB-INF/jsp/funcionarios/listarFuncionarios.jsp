@@ -24,21 +24,21 @@
 		<c:forEach var="funcionarios" items="${funcionarios}">
 
 			<tr>
-				<td>${funcionarios.nomeFuncionario}</td>
+				<td>${funcionarios.nome}</td>
 				<td>${funcionarios.telefone}</td>
 				<td>${funcionarios.nomeUser}</td>
 				<td>${funcionarios.email}</td>
-				<td>${funcionarios.cargo.getNomeCargo()}</td>
+				<td>${funcionarios.cargo.getNome()}</td>
 				<td>
-					<a href="mvc?logica=funcionario.FormularioAlterarLogica&idFuncionario=${funcionarios.idFuncionario}">Alterar</a>
-					<a href="mvc?logica=funcionario.RemoverFuncionarioLogica&idFuncionario=${funcionarios.idFuncionario}">Remover</a>
+					<a href="mvc?logica=funcionario.FormularioAlterarLogica&idFuncionario=${funcionarios.id}">Alterar</a>
+					<a href="mvc?logica=funcionario.RemoverFuncionarioLogica&idFuncionario=${funcionarios.id}">Remover</a>
 				</td>
 			</tr>
 
 		</c:forEach>
 	</table>
 
-	<a href="mvc?logica=FormularioCriarLogica">Adicionar Funcionario</a>
+	<a href="mvc?logica=funcionario.FormularioCriarLogica">Adicionar Funcionario</a>
 	<br>
 	<a href="index.html">Retornar a página inicial</a>
 

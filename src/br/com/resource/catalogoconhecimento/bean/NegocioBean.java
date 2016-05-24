@@ -1,7 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class NegocioBean {
-	private int idNegocio;
+	private int id;
 	private String areaAtuacao;
 	
 	public NegocioBean(){
@@ -9,17 +9,17 @@ public class NegocioBean {
 	}
 
 	public NegocioBean(int idNegocio, String areaAtuacao) {
-		this.setIdNegocio(idNegocio);
-		this.setAreaAtuacao(areaAtuacao);
+		this.id = idNegocio;
+		this.areaAtuacao = areaAtuacao;
 	}
 	
-	public int getIdNegocio() {
-		return idNegocio;
+	public int getId() {
+		return id;
 	}
 
 
-	public void setIdNegocio(int idNegocio) {
-		this.idNegocio = idNegocio;
+	public void setId(int idNegocio) {
+		this.id = idNegocio;
 	}
 
 

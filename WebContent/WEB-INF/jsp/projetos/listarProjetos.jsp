@@ -28,9 +28,9 @@
 			
 			<tr>
 				
-				<td>${projeto.idProjeto}</td>
+				<td>${projeto.id}</td>
 
-				<td>${projeto.nomeProjeto}</td>
+				<td>${projeto.nome}</td>
 
 				<td>${projeto.cliente.nome}</td>
 
@@ -38,9 +38,9 @@
 				
 				<td>${projeto.observacao}</td>
 
-				<td><a href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.idProjeto}">Alterar</a></td>
+				<td><a href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">Alterar</a></td>
 
-				<td><a href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.idProjeto}">Deletar</a></td>
+				<td><a href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}">Deletar</a></td>
 
 			</tr>
 		

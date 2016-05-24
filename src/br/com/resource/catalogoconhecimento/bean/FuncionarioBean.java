@@ -3,9 +3,9 @@ package br.com.resource.catalogoconhecimento.bean;
 
 public class FuncionarioBean {
 	
-	private int idFuncionario;
+	private int id;
 	private CargoBean cargo;
-	private String nomeFuncionario;
+	private String nome;
 	private String telefone;
     private String nomeUser;
 	private String email;
@@ -19,18 +19,18 @@ public class FuncionarioBean {
 			String email) {
 		
 		
-		this.idFuncionario = idFuncionario;
+		this.id = idFuncionario;
 		this.cargo = cargo;
-		this.nomeFuncionario = nomeFuncionario;
+		this.nome = nomeFuncionario;
 		this.telefone = telefone;
 		this.nomeUser = nomeUser;
 		this.email = email;
 	}
-	public int getIdFuncionario() {
-		return idFuncionario;
+	public int getId() {
+		return id;
 	}
-	public void setIdFuncionario(int idFuncionario) {
-		this.idFuncionario = idFuncionario;
+	public void setId(int idFuncionario) {
+		this.id = idFuncionario;
 	}
 	
 	
@@ -42,11 +42,11 @@ public class FuncionarioBean {
 		this.cargo = cargo;
 	}
 
-	public String getNomeFuncionario() {
-		return nomeFuncionario;
+	public String getNome() {
+		return nome;
 	}
-	public void setNomeFuncionario(String nomeFuncionario) {
-		this.nomeFuncionario = nomeFuncionario;
+	public void setNome(String nomeFuncionario) {
+		this.nome = nomeFuncionario;
 	}
 	public String getTelefone() {
 		return telefone;

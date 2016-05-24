@@ -19,10 +19,10 @@
 			<tr>
 				<td>${negocio.areaAtuacao}</td>
 				<td><a
-					href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocio.idNegocio}">Remover</a>
+					href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocio.id}">Remover</a>
 				</td>
 				<td><a
-					href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocio.idNegocio}">Atualizar</a>
+					href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocio.id}">Atualizar</a>
 				</td>
 			</tr>
 		</c:forEach>

@@ -15,9 +15,9 @@ public class ListarFuncionarioLogica implements Logica {
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 
-		List<FuncionarioBean> funcionarios = new FuncionarioBusiness().listar();
+		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listar();
 	
-		request.setAttribute("funcionarios", funcionarios);
+		request.setAttribute("funcionarios",listaFuncionario);
 		
 		return "/WEB-INF/jsp/funcionarios/listarFuncionarios.jsp";
 		

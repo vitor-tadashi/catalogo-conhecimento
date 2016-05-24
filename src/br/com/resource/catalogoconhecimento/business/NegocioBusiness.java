@@ -44,7 +44,7 @@ public class NegocioBusiness {
 			NegocioDAO negocioDao;
 			negocioDao = new NegocioDAO();
 
-			NegocioBean negocioAux = negocioDao.listarPorId(negocio.getIdNegocio());
+			NegocioBean negocioAux = negocioDao.listarPorId(negocio.getId());
 
 			if (negocioAux != null) {
 				negocioDao.atualizar(negocio);

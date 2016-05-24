@@ -29,8 +29,8 @@ public class ProjetoNegocioDAO {
 		int linhasAfetadas = 0;
 		
 		for(NegocioBean negocio : negocios){
-			ps.setInt(1, projeto.getIdProjeto());
-			ps.setInt(2, negocio.getIdNegocio());
+			ps.setInt(1, projeto.getId());
+			ps.setInt(2, negocio.getId());
 			linhasAfetadas = ps.executeUpdate();
 		}
 		
@@ -42,7 +42,7 @@ public class ProjetoNegocioDAO {
 	
 	public List<NegocioBean> listar(ProjetoBean projeto) throws SQLException, ClassNotFoundException{
 		PreparedStatement ps = conexao.prepareStatement(sqlConsultar);
-		ps.setInt(1, projeto.getIdProjeto());
+		ps.setInt(1, projeto.getId());
 		
 		ResultSet rs = ps.executeQuery();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
@@ -69,7 +69,7 @@ public class ProjetoNegocioDAO {
 	
 	public void deletar(ProjetoBean projeto) throws SQLException{
 		PreparedStatement ps = conexao.prepareStatement(sqlDeletar);
-		ps.setInt(1, projeto.getIdProjeto());
+		ps.setInt(1, projeto.getId());
 		
 		ps.executeUpdate();
 	}

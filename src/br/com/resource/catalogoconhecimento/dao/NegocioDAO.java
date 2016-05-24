@@ -61,7 +61,7 @@ public class NegocioDAO {
 			String sql = "UPDATE Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setString(1, negocio.getAreaAtuacao());
-			ps.setInt(2, negocio.getIdNegocio());
+			ps.setInt(2, negocio.getId());
 
 			ps.executeUpdate();
 			conexao.close();
@@ -90,7 +90,7 @@ public class NegocioDAO {
 			while (rs.next()) {
 
 				negocio = new NegocioBean();
-				negocio.setIdNegocio(rs.getInt("idNegocio"));
+				negocio.setId(rs.getInt("idNegocio"));
 				negocio.setAreaAtuacao(rs.getString("areaAtuacao"));
 			}
 			conexao.close();

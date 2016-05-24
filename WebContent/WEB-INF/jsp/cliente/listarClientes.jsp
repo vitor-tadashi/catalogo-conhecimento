@@ -17,7 +17,7 @@
 			<th>Numero</th>
 			<th>CNPJ</th>
 			<th>E-mail</th>
-			<th>Ações</th>
+			<th colspan = "3">Ações</th>
 		</tr>
 
 		<c:forEach var="cliente" items="${clientes}">

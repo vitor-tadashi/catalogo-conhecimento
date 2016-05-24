@@ -56,7 +56,7 @@ public class FuncionarioBusiness {
 			FuncionarioDAO funcionariodao;
 			funcionariodao = new FuncionarioDAO();
 
-			FuncionarioBean funcionarioAux = funcionariodao.listarPorId(funcionario.getIdFuncionario());
+			FuncionarioBean funcionarioAux = funcionariodao.listarPorId(funcionario.getId());
 
 			if (funcionarioAux == null) {
 				return true;

@@ -23,7 +23,7 @@ public class FuncionarioDAO {
 
 		
 		st.setInt(1, funcionario.getCargo().getId());
-		st.setString(2, funcionario.getNomeFuncionario());
+		st.setString(2, funcionario.getNome());
 		st.setString(3, funcionario.getTelefone());
 		st.setString(4, funcionario.getNomeUser());
 		st.setString(5, funcionario.getEmail());
@@ -36,7 +36,7 @@ public class FuncionarioDAO {
 		if(rs.next()){
 			id = rs.getInt("idFuncionario");
 		}
-		funcionario.setIdFuncionario(id);
+		funcionario.setId(id);
 		st.close();
 		conexao.close();
 	}
@@ -59,9 +59,9 @@ public class FuncionarioDAO {
 			CargoBean cargo = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 			funcionario = new FuncionarioBean();
 			
-			funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
+			funcionario.setId(rs.getInt("idFuncionario"));
 			funcionario.setCargo(cargo);
-			funcionario.setNomeFuncionario(rs.getString("nomeFuncionario"));
+			funcionario.setNome(rs.getString("nomeFuncionario"));
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
 			funcionario.setEmail(rs.getString("email"));
@@ -78,9 +78,9 @@ public class FuncionarioDAO {
 	public void atualizar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "UPDATE Funcionario SET nomeFuncionario = '"
-				+ funcionario.getNomeFuncionario() + "' telefone = '" + funcionario.getTelefone() + "' nomeUser = '"
+				+ funcionario.getNome() + "' telefone = '" + funcionario.getTelefone() + "' nomeUser = '"
 				+ funcionario.getNomeUser() + "' email = '" + funcionario.getEmail() + "' WHERE idTecnologia = ? "
-				+ funcionario.getIdFuncionario();
+				+ funcionario.getId();
 		PreparedStatement ps = conexao.prepareStatement(sql);
 
 		ps.executeUpdate();

@@ -1,10 +1,10 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class ProjetoBean {
-	private int idProjeto;
+	private int id;
 	private EquipeBean equipe;
 	private ClienteBean cliente;
-	private String nomeProjeto;
+	private String nome;
 	private String observacao;
 
 	public ProjetoBean() {
@@ -13,20 +13,20 @@ public class ProjetoBean {
 
 	
 	public ProjetoBean(int idProjeto, ClienteBean cliente,EquipeBean equipe, String nomeProjeto, String observacao) {
-		this.idProjeto = idProjeto;
+		this.id = idProjeto;
 		this.equipe = equipe;
 		this.cliente = cliente;
-		this.nomeProjeto = nomeProjeto;
+		this.nome= nomeProjeto;
 		this.observacao = observacao;
 	}
 
 
-	public int getIdProjeto() {
-		return idProjeto;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdProjeto(int idProjeto) {
-		this.idProjeto = idProjeto;
+	public void setId(int idProjeto) {
+		this.id = idProjeto;
 	}
 
 
@@ -50,12 +50,12 @@ public class ProjetoBean {
 	}
 
 
-	public String getNomeProjeto() {
-		return nomeProjeto;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeProjeto(String nomeProjeto) {
-		this.nomeProjeto = nomeProjeto;
+	public void setNome(String nomeProjeto) {
+		this.nome = nomeProjeto;
 	}
 
 	public String getObservacao() {

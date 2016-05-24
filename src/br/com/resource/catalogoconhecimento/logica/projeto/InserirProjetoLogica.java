@@ -29,12 +29,12 @@ public class InserirProjetoLogica implements Logica {
 		String[] negocios = request.getParameterValues("negociosArray[]");
 		
 		//transferir da String para a lista
-		List<NegocioBean> negocioLista = new ArrayList<>();
+		List<NegocioBean> listaNegocio = new ArrayList<>();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio;
 		for(int i = 0 ; i < negocios.length ; i ++){
 			negocio =  negocioBusiness.listarPorNome(negocios[i]);
-			negocioLista.add(negocio);
+			listaNegocio.add(negocio);
 		}
 		
 	    EquipeBusiness equipeBusiness = new EquipeBusiness();
@@ -45,7 +45,7 @@ public class InserirProjetoLogica implements Logica {
 		ProjetoBean projeto = new ProjetoBean();
 		projeto.setCliente(cliente);
 		projeto.setEquipe(equipe);
-		projeto.setNomeProjeto(nomeProjeto);
+		projeto.setNome(nomeProjeto);
 		projeto.setObservacao(observacao);
 		
 		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
@@ -53,7 +53,7 @@ public class InserirProjetoLogica implements Logica {
 	
 		
 		ProjetoNegocioBusiness projetoNegocio = new ProjetoNegocioBusiness();
-		projetoNegocio.insere(projeto, negocioLista);
+		projetoNegocio.insere(projeto, listaNegocio);
 		
 
 		return "mvc?logica=projeto.ListarProjetoLogica";

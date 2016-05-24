@@ -79,7 +79,7 @@ public class EquipeDAO {
 
 		stmt.setString(1, equipe.getNome());
 		stmt.setString(2, equipe.getObservacao());
-		stmt.setInt(3, equipe.getIdEquipe());
+		stmt.setInt(3, equipe.getId());
 
 		stmt.executeUpdate();
 		conec.close();
@@ -95,7 +95,7 @@ public class EquipeDAO {
 
 			String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
 			PreparedStatement stmt2 = conec.prepareStatement(sql2);
-			stmt2.setInt(1, idEquipe.getIdEquipe());
+			stmt2.setInt(1, idEquipe.getId());
 			stmt2.executeUpdate();
 
 			
@@ -104,7 +104,7 @@ public class EquipeDAO {
 			PreparedStatement stmt = conec.prepareStatement(sql);
 			
 			stmt.setString(1, "n");
-			stmt.setInt(2, idEquipe.getIdEquipe());
+			stmt.setInt(2, idEquipe.getId());
 			stmt.executeUpdate();
 
 			conec.commit();
@@ -129,7 +129,7 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			equipe.setIdEquipe(rs.getInt("idEquipe"));
+			equipe.setId(rs.getInt("idEquipe"));
 			equipe.setObservacao(rs.getString("observacao"));
 			equipe.setNome(rs.getString("nome"));
 

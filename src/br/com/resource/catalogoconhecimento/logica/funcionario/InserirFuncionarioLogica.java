@@ -33,17 +33,17 @@ public class InserirFuncionarioLogica implements Logica{
 				
 		
 
-		List<TecnologiaBean> tecnologiasLista = new ArrayList<>();
+		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
 		TecnologiaBean tecnologia;
 		for(int i =0 ; i < tecnologias.length ; i ++){
 			tecnologia =  new TecnologiaBean();
 			tecnologia.setNomeTecnologia(tecnologias[i]);
-			tecnologiasLista.add(tecnologia);
+			listaTecnologia.add(tecnologia);
 		}
 		
 		
 		FuncionarioBean funcionario = new FuncionarioBean();
-		funcionario.setNomeFuncionario(nomeFuncionario);
+		funcionario.setNome(nomeFuncionario);
 		funcionario.setEmail(email);
 		funcionario.setNomeUser(nomeUsuario);
 		funcionario.setTelefone(telefone);
@@ -54,7 +54,7 @@ public class InserirFuncionarioLogica implements Logica{
 	
 		
 		FuncionarioTecnologiaBusiness funcionariotecnologia = new FuncionarioTecnologiaBusiness();
-		funcionariotecnologia.inserir(funcionario, tecnologiasLista);
+		funcionariotecnologia.inserir(funcionario, listaTecnologia);
 		
 		
 		

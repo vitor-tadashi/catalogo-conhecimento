@@ -15,9 +15,9 @@ public class ListarProjetoLogica implements  Logica{
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		List<ProjetoBean> projetos = new ProjetoBusiness().listar();
+		List<ProjetoBean> listaProjeto = new ProjetoBusiness().listar();
 		
-		request.setAttribute("projetos", projetos);
+		request.setAttribute("projetos", listaProjeto);
 		
 		
 		return "/WEB-INF/jsp/projetos/listarProjetos.jsp";

@@ -34,8 +34,8 @@ public class AlterarFuncionarioLogica implements Logica {
 		tecnologiaBean.setNomeTecnologia(tecnologia);
 
 		FuncionarioBean funcionario = new FuncionarioBean();
-		funcionario.setIdFuncionario(id);
-		funcionario.setNomeFuncionario(nomefuncionario);
+		funcionario.setId(id);
+		funcionario.setNome(nomefuncionario);
 		funcionario.setEmail(email);
 		funcionario.setNomeUser(usuario);
 		funcionario.setTelefone(telefone);
@@ -48,10 +48,10 @@ public class AlterarFuncionarioLogica implements Logica {
 
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 
-		List<FuncionarioBean> funcionarios = funcionarioBusiness.listar();
-		funcionarios.add(funcionario);
+		List<FuncionarioBean> listaFuncionarios = funcionarioBusiness.listar();
+		listaFuncionarios .add(funcionario);
 
-		request.setAttribute("funcionarios", funcionarios);
+		request.setAttribute("funcionarios", listaFuncionarios );
 
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 

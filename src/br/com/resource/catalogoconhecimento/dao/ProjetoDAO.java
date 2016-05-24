@@ -59,9 +59,9 @@ public class ProjetoDAO {
 
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
-		stmt.setInt(1, projeto.getEquipe().getIdEquipe());
+		stmt.setInt(1, projeto.getEquipe().getId());
 		stmt.setInt(2, projeto.getCliente().getId());
-		stmt.setString(3, projeto.getNomeProjeto());
+		stmt.setString(3, projeto.getNome());
 		stmt.setString(4, projeto.getObservacao());
 		stmt.setString(5, "s");
 
@@ -71,7 +71,7 @@ public class ProjetoDAO {
 		
 		if (rs.next()) {
 		   newId = rs.getInt(1);
-		   projeto.setIdProjeto(newId);
+		   projeto.setId(newId);
 		}
 		
 		stmt.close();
@@ -87,11 +87,11 @@ public class ProjetoDAO {
 
 		String sql = "Update Projeto set idEquipe = ?, idCliente = ?, nomeProjeto = ?, observacao = ? where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, projeto.getEquipe().getIdEquipe());
+		stmt.setInt(1, projeto.getEquipe().getId());
 		stmt.setInt(2, projeto.getCliente().getId());
-		stmt.setString(3, projeto.getNomeProjeto());
+		stmt.setString(3, projeto.getNome());
 		stmt.setString(4, projeto.getObservacao());
-		stmt.setInt(5, projeto.getIdProjeto());
+		stmt.setInt(5, projeto.getId());
 
 		stmt.executeUpdate();
 		conn.close();
@@ -109,7 +109,7 @@ public class ProjetoDAO {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		stmt.setString(1, "n");
-		stmt.setInt(2,projeto.getIdProjeto());
+		stmt.setInt(2,projeto.getId());
 
 		projetoNegocio.deletar(projeto);
 		stmt.executeUpdate();

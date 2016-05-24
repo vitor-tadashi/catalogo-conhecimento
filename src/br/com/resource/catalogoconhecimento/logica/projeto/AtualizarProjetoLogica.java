@@ -33,12 +33,12 @@ public class AtualizarProjetoLogica implements Logica{
 		String[] negocios = request.getParameterValues("negociosArray[]");
 		
 		//transferir da String para a lista
-		List<NegocioBean> negocioLista = new ArrayList<>();
+		List<NegocioBean> listaNegocio = new ArrayList<>();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio;
 		for(int i = 0 ; i < negocios.length ; i ++){
 			negocio =  negocioBusiness.listarPorNome(negocios[i]);
-			negocioLista.add(negocio);
+			listaNegocio .add(negocio);
 		}
 		
 	    EquipeBusiness equipeBusiness = new EquipeBusiness();
@@ -51,14 +51,14 @@ public class AtualizarProjetoLogica implements Logica{
 		ProjetoBean projeto = projetoBusiness.obterPorId(id);
 		projeto.setCliente(cliente);
 		projeto.setEquipe(equipe);
-		projeto.setNomeProjeto(nomeProjeto);
+		projeto.setNome(nomeProjeto);
 		projeto.setObservacao(observacao);
 		
 		
 		projetoBusiness.atualizar(projeto);
 		
 		ProjetoNegocioBusiness projetoNegocio = new ProjetoNegocioBusiness();
-		projetoNegocio.atualizar(projeto, negocioLista);
+		projetoNegocio.atualizar(projeto, listaNegocio );
 		
 
 		return "mvc?logica=projeto.ListarProjetoLogica";

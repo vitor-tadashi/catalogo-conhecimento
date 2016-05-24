@@ -17,7 +17,7 @@
 		
 		Cargos:<select name="cargo">
 			<c:forEach items="${cargos}" var="cargos">
-				<option value="${cargos.nomeCargo}">${cargos.nomeCargo}</option>
+				<option value="${cargos.nome}">${cargos.nome}</option>
 			</c:forEach>
 		</select>
 
@@ -25,7 +25,7 @@
 		Tecnologias
 		<c:forEach items="${tecnologias}" var="tecnologia">
 			<br>
-			<input type="checkbox" name="tecnologiasArray[]"value="${tecnologia.nomeTecnologia}" />${tecnologia.nomeTecnologia}
+			<input type="checkbox" name="tecnologiasArray[]"value="${tecnologia.nome}" />${tecnologia.nome}
 			<br>
 		</c:forEach>
 		Email <input type="email" name="email">

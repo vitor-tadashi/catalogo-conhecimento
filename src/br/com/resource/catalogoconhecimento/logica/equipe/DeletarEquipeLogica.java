@@ -24,7 +24,7 @@ public class DeletarEquipeLogica implements Logica {
 		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
 		
 		EquipeBean equipe = new EquipeBean();
-		equipe.setIdEquipe(idEquipe);
+		equipe.setId(idEquipe);
 		
 		EquipeBusiness equipebusiness = new EquipeBusiness();
 		equipebusiness.deletar(equipe);

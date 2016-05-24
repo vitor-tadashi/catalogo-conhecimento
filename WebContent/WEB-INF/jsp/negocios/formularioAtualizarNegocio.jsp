@@ -9,7 +9,7 @@ pageEncoding="ISO-8859-1"%>
 <body>
 
 <form method="POST" action="mvc">
-<p>Id:<input type="text" name="id" value="${negocio.idNegocio}" readonly></p>
+<p>Id:<input type="text" name="id" value="${negocio.id}" readonly></p>
 <p>Area de atuacao:<input type="text" name="areaAtuacao" value="${negocio.areaAtuacao}"></p>
 <input type="hidden" name="logica" value="negocio.AtualizarNegocioLogica">
 <p><input type="submit" value="Atualizar"></p>

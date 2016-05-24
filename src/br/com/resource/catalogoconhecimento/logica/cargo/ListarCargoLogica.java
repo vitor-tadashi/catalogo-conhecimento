@@ -14,8 +14,8 @@ public class ListarCargoLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		List<CargoBean> cargos = new CargoBusiness().listar();
-		request.setAttribute("cargos", cargos);
+		List<CargoBean> listaCargo = new CargoBusiness().listar();
+		request.setAttribute("cargos", listaCargo);
 
 		return "/WEB-INF/jsp/cargo/listarCargos.jsp";
 	}

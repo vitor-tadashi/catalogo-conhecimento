@@ -28,13 +28,13 @@ public class FormularioAtualizarProjetoLogica implements Logica{
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		
-		List<EquipeBean> equipes = equipeBusiness.listar();
-		List<ClienteBean> clientes = clienteBusiness.listar();
-		List<NegocioBean> negocios = negocioBusiness.listar();
+		List<EquipeBean> listaEquipe = equipeBusiness.listar();
+		List<ClienteBean> listaCliente = clienteBusiness.listar();
+		List<NegocioBean> listaNegocio = negocioBusiness.listar();
 		
-		request.setAttribute("equipes", equipes);
-		request.setAttribute("clientes", clientes);
-		request.setAttribute("negocios", negocios);
+		request.setAttribute("equipes",listaEquipe);
+		request.setAttribute("clientes", listaCliente);
+		request.setAttribute("negocios", listaNegocio);
 		request.setAttribute("projeto", projeto);
 		
 		return "WEB-INF/jsp/projetos/formularioAlterarProjetos.jsp";

@@ -18,7 +18,7 @@
 			<br>
 			Equipe:<select name="equipe">
 			<c:forEach items="${equipes}" var="equipe">
-				<option value="${equipe.idEquipe}">${equipe.idEquipe}</option>
+				<option value="${equipe.id}">${equipe.id}</option>
 			</c:forEach>
 			</select>
 		<br>

@@ -14,8 +14,8 @@ public class ListarConcorrenteClienteLogic implements Logica{
 	@Override
 	public String executar(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		List<ConcorrenteClienteBean> listconcorrentecliente = new ConcorrenteClienteBusiness().listar();
-		req.setAttribute("concorrentecliente", listconcorrentecliente);
+		List<ConcorrenteClienteBean> listConcorrenteCliente = new ConcorrenteClienteBusiness().listar();
+		req.setAttribute("concorrentecliente", listConcorrenteCliente);
 		
 		return "/WEB-INF/jsp/concorrentecliente/listarconcorrentecliente.jsp";
 	

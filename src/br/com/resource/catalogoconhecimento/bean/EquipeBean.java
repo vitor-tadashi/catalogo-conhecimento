@@ -1,7 +1,9 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class EquipeBean {
-	private int idEquipe;
+	
+	
+	private int id;
 	private String observacao;
 	private String nome;
 
@@ -11,10 +13,10 @@ public class EquipeBean {
 
 	}
 
-	public EquipeBean(int idEquipe, String observacao, String nome) {
+	public EquipeBean(int id, String observacao, String nome) {
 		super();
 		
-		this.idEquipe = idEquipe;
+		this.id = id;
 		this.observacao = observacao;
 		this.nome = nome;
 	}
@@ -29,12 +31,12 @@ public class EquipeBean {
 		this.observacao = observacao;
 	}
 
-	public int getIdEquipe() {
-		return idEquipe;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdEquipe(int idEquipe) {
-		this.idEquipe = idEquipe;
+	public void setId(int idEquipe) {
+		this.id = idEquipe;
 	}
 	
 	public String getNome() {

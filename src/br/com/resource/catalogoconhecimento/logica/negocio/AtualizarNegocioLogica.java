@@ -14,7 +14,7 @@ public class AtualizarNegocioLogica implements Logica {
 		String areaAtuacao = request.getParameter("areaAtuacao");
 
 		NegocioBean negocio = new NegocioBean();
-		negocio.setIdNegocio(id);
+		negocio.setId(id);
 		negocio.setAreaAtuacao(areaAtuacao);
 		
 		NegocioBusiness negocioBusiness = new NegocioBusiness();

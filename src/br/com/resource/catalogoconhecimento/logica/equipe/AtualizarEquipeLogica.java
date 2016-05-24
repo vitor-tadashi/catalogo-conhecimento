@@ -17,7 +17,7 @@ public class AtualizarEquipeLogica implements Logica {
 		String observacao = request.getParameter("observacao");
 
 		EquipeBean equipe = new EquipeBean();
-		equipe.setIdEquipe(idEquipe);
+		equipe.setId(idEquipe);
 		equipe.setNome(nome);
 		equipe.setObservacao(observacao);
 

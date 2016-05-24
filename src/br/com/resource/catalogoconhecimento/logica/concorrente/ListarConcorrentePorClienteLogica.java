@@ -15,9 +15,9 @@ public class ListarConcorrentePorClienteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<ConcorrenteClienteBean> concorrentesClientes = new ConcorrenteBusiness()
+		List<ConcorrenteClienteBean> listaConcorrentesClientes = new ConcorrenteBusiness()
 				.obterPorCliente(Integer.parseInt(request.getParameter("id")));
-		request.setAttribute("concorrentesClientes", concorrentesClientes);
+		request.setAttribute("concorrentesClientes", listaConcorrentesClientes);
 
 		ClienteBean clienteBean = new ClienteBusiness().obterPorId(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("cliente", clienteBean);
