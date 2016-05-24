@@ -23,6 +23,8 @@
 		<!--breadcrumb-->
 	<div class="padding-md">
 				<div class="row">
+					
+				
 					<div class="col-md-12 col-sm-12">
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
@@ -34,6 +36,11 @@
 										</div>
 										<div class="panel-body">
 											<div class="row">
+												<c:if test="${msgErro != null}">
+													<div class="alert alert-danger">
+														<c:out value="${msgErro}"></c:out>
+													</div> 
+												</c:if>
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">Nome da Tecnologia

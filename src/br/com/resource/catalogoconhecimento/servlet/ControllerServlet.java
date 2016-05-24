@@ -37,8 +37,11 @@ public class ControllerServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(pagina).forward(request, response);
 		} catch (Exception e) {
+			String queryString = request.getHeader("Referer").substring(request.getHeader("Referer").indexOf("?")+1);
+			String url = "/mvc?"+queryString;
+			
 			request.setAttribute("msgErro", e.getMessage());
-			request.getRequestDispatcher("/index.html").forward(request, response);
+			request.getRequestDispatcher(url).forward(request, response);
 		}
 	}
     
