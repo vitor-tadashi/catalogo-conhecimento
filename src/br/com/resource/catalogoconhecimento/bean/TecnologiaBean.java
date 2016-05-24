@@ -1,6 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class TecnologiaBean {
+	
 	private int id;
 	private String nome;
 
@@ -22,7 +23,5 @@ public class TecnologiaBean {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
 
 }
