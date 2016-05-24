@@ -11,15 +11,13 @@ public class ProjetoBean {
 
 	}
 
-	
-	public ProjetoBean(int idProjeto, ClienteBean cliente,EquipeBean equipe, String nomeProjeto, String observacao) {
+	public ProjetoBean(int idProjeto, ClienteBean cliente, EquipeBean equipe, String nomeProjeto, String observacao) {
 		this.id = idProjeto;
 		this.equipe = equipe;
 		this.cliente = cliente;
-		this.nome= nomeProjeto;
+		this.nome = nomeProjeto;
 		this.observacao = observacao;
 	}
-
 
 	public int getId() {
 		return id;
@@ -29,26 +27,21 @@ public class ProjetoBean {
 		this.id = idProjeto;
 	}
 
-
 	public EquipeBean getEquipe() {
 		return equipe;
 	}
-
 
 	public void setEquipe(EquipeBean equipe) {
 		this.equipe = equipe;
 	}
 
-
 	public ClienteBean getCliente() {
 		return cliente;
 	}
 
-
 	public void setCliente(ClienteBean cliente) {
 		this.cliente = cliente;
 	}
-
 
 	public String getNome() {
 		return nome;
@@ -65,7 +58,5 @@ public class ProjetoBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
-
 
 }
