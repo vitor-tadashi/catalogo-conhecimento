@@ -33,7 +33,7 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			int id = rs.getInt("id");
+			int id = rs.getInt("idEquipe");
 			String observacao = rs.getString("observacao");
 			String nome = rs.getString("nome");
 
@@ -70,7 +70,7 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE id = ?";
+		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE idEquipe = ?";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
@@ -89,12 +89,12 @@ public class EquipeDAO {
 		Connection conec = ConnectionFactory.createConnection();
 		conec.setAutoCommit(false);
 
-		String sql2 = "DELETE FROM EquipeFuncionario WHERE id= ? ";
+		String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
 		PreparedStatement stmt2 = conec.prepareStatement(sql2);
 		stmt2.setInt(1, id.getId());
 		stmt2.executeUpdate();
 
-		String sql = "Update Equipe set ativo = ? WHERE id= ?";
+		String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
 		stmt.setString(1, "n");
@@ -111,7 +111,7 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Equipe WHERE id = '" + id + "'";
+		String sql = "SELECT * FROM Equipe WHERE idEquipe = '" + id + "'";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
@@ -121,7 +121,7 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			equipe.setId(rs.getInt("id"));
+			equipe.setId(rs.getInt("idEquipe"));
 			equipe.setObservacao(rs.getString("observacao"));
 			equipe.setNome(rs.getString("nome"));
 
@@ -145,7 +145,7 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			int id = rs.getInt("id");
+			int id = rs.getInt("idEquipe");
 			String nomeEq = rs.getString("nome");
 
 			EquipeBean oEquipe = new EquipeBean();
