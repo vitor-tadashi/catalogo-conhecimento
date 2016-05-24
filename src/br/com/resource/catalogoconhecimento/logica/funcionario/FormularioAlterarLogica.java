@@ -16,7 +16,7 @@ public class FormularioAlterarLogica implements Logica{
 		int id = Integer.parseInt(request.getParameter("id"));
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		
-		FuncionarioBean funcionario = funcionarioBusiness.listarPorId(id);
+		FuncionarioBean funcionario = funcionarioBusiness.obterPorId(id);
 		
 		request.setAttribute("funcionario", funcionario);
 		
