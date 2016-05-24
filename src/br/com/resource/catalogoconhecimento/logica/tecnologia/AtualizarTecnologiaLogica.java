@@ -14,8 +14,8 @@ public class AtualizarTecnologiaLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String nome = request.getParameter("nome");
 		TecnologiaBean tecnologia = new TecnologiaBean();
-		tecnologia.setIdTecnologia(id);
-		tecnologia.setNomeTecnologia(nome);
+		tecnologia.setId(id);
+		tecnologia.setNome(nome);
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		tecnologiaBusiness.atualizar(tecnologia);

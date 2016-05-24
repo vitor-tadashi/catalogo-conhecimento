@@ -28,7 +28,7 @@ public class FuncionarioTecnologiaDAO {
 		
 		for(TecnologiaBean tecnologia: tecnologias){
 			ps.setInt(1, funcionario.getId());
-			ps.setInt(2, tecnologia.getIdTecnologia());
+			ps.setInt(2, tecnologia.getId());
 			linhasAfetadas = ps.executeUpdate();
 		}
 		

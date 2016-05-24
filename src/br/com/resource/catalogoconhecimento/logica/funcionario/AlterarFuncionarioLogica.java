@@ -31,7 +31,7 @@ public class AlterarFuncionarioLogica implements Logica {
 		
 
 		TecnologiaBean tecnologiaBean = new TecnologiaBean();
-		tecnologiaBean.setNomeTecnologia(tecnologia);
+		tecnologiaBean.setNome(tecnologia);
 
 		FuncionarioBean funcionario = new FuncionarioBean();
 		funcionario.setId(id);

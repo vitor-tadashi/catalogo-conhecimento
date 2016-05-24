@@ -46,7 +46,7 @@ public class TecnologiaBusiness {
 			TecnologiaDAO tecnologiaDao;
 			tecnologiaDao = new TecnologiaDAO();
 
-			TecnologiaBean tecnologiaAux = tecnologiaDao.obterPorId(tecnologia.getIdTecnologia());
+			TecnologiaBean tecnologiaAux = tecnologiaDao.obterPorId(tecnologia.getId());
 
 			if (tecnologiaAux != null) {
 				tecnologiaDao.atualizar(tecnologia);

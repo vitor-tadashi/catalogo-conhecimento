@@ -7,20 +7,22 @@ public class TecnologiaBean {
 	public TecnologiaBean() {
 	}
 
-	public int getIdTecnologia() {
+	public int getId() {
 		return id;
 	}
 
-	public void setIdTecnologia(int idTecnologia) {
-		this.id = idTecnologia;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getNomeTecnologia() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setNomeTecnologia(String nomeTecnologia) {
-		this.nome = nomeTecnologia;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
+
+
 
 }

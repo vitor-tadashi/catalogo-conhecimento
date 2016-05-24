@@ -14,7 +14,7 @@ public class InserirTecnologiaLogica implements Logica {
 		
 		String nome = request.getParameter("nome");
 		TecnologiaBean tecnologia = new TecnologiaBean();
-		tecnologia.setNomeTecnologia(nome);
+		tecnologia.setNome(nome);
 		
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		tecnologiaBusiness.inserir(tecnologia);

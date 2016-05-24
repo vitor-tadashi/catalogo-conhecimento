@@ -24,7 +24,7 @@ public class TecnologiaDAO {
 		String sql = "INSERT INTO Tecnologia(nomeTecnologia, ativo) VALUES(?, ?)";
 		PreparedStatement st = conexao.prepareStatement(sql);
 
-		st.setString(1, tecnologia.getNomeTecnologia());
+		st.setString(1, tecnologia.getNome());
 		st.setString(2, "s");
 
 		st.executeUpdate();
@@ -45,12 +45,12 @@ public class TecnologiaDAO {
 		ResultSet rs = ps.executeQuery();
 
 		while (rs.next()) {
-			int idTecnologia = rs.getInt("idTecnologia");
-			String nomeTecnologia = rs.getString("nomeTecnologia");
+			int id = rs.getInt("idTecnologia");
+			String nome = rs.getString("nomeTecnologia");
 			
 			tecnologia = new TecnologiaBean();
-			tecnologia.setIdTecnologia(idTecnologia);
-			tecnologia.setNomeTecnologia(nomeTecnologia);
+			tecnologia.setId(id);
+			tecnologia.setNome(nome);
 			tecnologias.add(tecnologia);
 		}
 
@@ -70,12 +70,12 @@ public class TecnologiaDAO {
 		TecnologiaBean tecnologia = null;
 		
 		while (rs.next()) {
-			int idTecnologia = rs.getInt("idTecnologia");
-			String nomeTecnologia = rs.getString("nomeTecnologia");
+			int id = rs.getInt("idTecnologia");
+			String nomeTec = rs.getString("nomeTecnologia");
 			
 			tecnologia = new TecnologiaBean();
-			tecnologia.setIdTecnologia(idTecnologia);
-			tecnologia.setNomeTecnologia(nomeTecnologia);
+			tecnologia.setId(id);
+			tecnologia.setNome(nomeTec);
 		}
 
 		conexao.close();
@@ -87,8 +87,8 @@ public class TecnologiaDAO {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "UPDATE Tecnologia SET nomeTecnologia = ? WHERE idTecnologia = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, tecnologia.getNomeTecnologia());
-		ps.setInt(2, tecnologia.getIdTecnologia());
+		ps.setString(1, tecnologia.getNome());
+		ps.setInt(2, tecnologia.getId());
 
 		ps.executeUpdate();
 		conexao.close();
@@ -117,8 +117,8 @@ public class TecnologiaDAO {
 		TecnologiaBean tecnologia = null;
 		while (rs.next()) {
 			tecnologia = new TecnologiaBean();
-			tecnologia.setIdTecnologia(rs.getInt("idTecnologia"));
-			tecnologia.setNomeTecnologia(rs.getString("nomeTecnologia"));
+			tecnologia.setId(rs.getInt("idTecnologia"));
+			tecnologia.setNome(rs.getString("nomeTecnologia"));
 		}
 		conexao.close();
 		return tecnologia;

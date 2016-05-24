@@ -16,7 +16,7 @@
 	
 	Email: <input type="email" name="email" value ="${funcionario.email}">
 	
-	Usuario: <input type="text" name="usuario" value = "${funcionario.usuario}">
+	Usuario: <input type="text" name="usuario" value = "${funcionario.nomeUser}">
 	
 	Cargo:<input type="text" name="cargo" value="${funcionario.cargo}">
 	

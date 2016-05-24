@@ -37,7 +37,7 @@ public class InserirFuncionarioLogica implements Logica{
 		TecnologiaBean tecnologia;
 		for(int i =0 ; i < tecnologias.length ; i ++){
 			tecnologia =  new TecnologiaBean();
-			tecnologia.setNomeTecnologia(tecnologias[i]);
+			tecnologia.setNome(tecnologias[i]);
 			listaTecnologia.add(tecnologia);
 		}
 		
