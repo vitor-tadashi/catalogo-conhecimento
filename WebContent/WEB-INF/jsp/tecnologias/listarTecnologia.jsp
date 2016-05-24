@@ -44,12 +44,12 @@
 									<tbody>
 										<c:forEach var="tecnologia" items="${tecnologias}">
 											<tr>
-												<td>${tecnologia.nomeTecnologia}</td>
+												<td>${tecnologia.nome}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=tecnologia.FormularioAtualizarTecnologiaLogica&idTecnologia=${tecnologia.idTecnologia}"><i
+													href="mvc?logica=tecnologia.FormularioAtualizarTecnologiaLogica&idTecnologia=${tecnologia.id}"><i
 														class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=tecnologia.DeletarTecnologiaLogica&idTecnologia=${tecnologia.idTecnologia}"><i
+													href="mvc?logica=tecnologia.DeletarTecnologiaLogica&idTecnologia=${tecnologia.id}"><i
 														class="fa fa-times fa-lg"></a></td>
 											</tr>
 										</c:forEach>
