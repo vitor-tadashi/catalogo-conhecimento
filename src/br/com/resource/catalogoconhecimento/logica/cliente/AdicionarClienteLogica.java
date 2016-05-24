@@ -28,7 +28,7 @@ public class AdicionarClienteLogica implements Logica {
 		clienteBean.setEmail(email);
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		clienteBusiness.adicinar(clienteBean);
+		clienteBusiness.adicionar(clienteBean);
 
 		return "mvc?logica=cliente.ListarClienteLogica";
 
