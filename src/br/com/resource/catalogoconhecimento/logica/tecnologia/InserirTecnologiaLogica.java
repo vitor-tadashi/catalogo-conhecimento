@@ -16,7 +16,7 @@ public class InserirTecnologiaLogica implements Logica {
 		String nome = request.getParameter("nome");
 		
 		if(nome.trim().equals("")){
-			throw new AtributoNuloException();
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		}else{
 		TecnologiaBean tecnologia = new TecnologiaBean();
 		tecnologia.setNome(nome);
