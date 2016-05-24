@@ -38,7 +38,7 @@ public class ControllerServlet extends HttpServlet {
 			request.getRequestDispatcher(pagina).forward(request, response);
 		} catch (Exception e) {
 			request.setAttribute("msgErro", e.getMessage());
-			request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
+			request.getRequestDispatcher("/index.html").forward(request, response);
 		}
 	}
     
