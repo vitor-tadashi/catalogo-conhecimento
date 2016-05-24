@@ -12,12 +12,12 @@ public class AtualizarEquipeLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+		int id = Integer.parseInt(request.getParameter("id"));
 		String nome = request.getParameter("nome");
 		String observacao = request.getParameter("observacao");
 
 		EquipeBean equipe = new EquipeBean();
-		equipe.setId(idEquipe);
+		equipe.setId(id);
 		equipe.setNome(nome);
 		equipe.setObservacao(observacao);
 

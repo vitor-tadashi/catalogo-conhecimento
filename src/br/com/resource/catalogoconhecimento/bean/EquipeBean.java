@@ -30,8 +30,8 @@ public class EquipeBean {
 		return id;
 	}
 
-	public void setId(int idEquipe) {
-		this.id = idEquipe;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
