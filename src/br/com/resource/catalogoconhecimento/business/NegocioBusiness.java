@@ -18,7 +18,7 @@ public class NegocioBusiness {
 		
 		
 		if(negocio.getAreaAtuacao().length() > 50){
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50");
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		}else if(negocioClone != null){			
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		}else{
