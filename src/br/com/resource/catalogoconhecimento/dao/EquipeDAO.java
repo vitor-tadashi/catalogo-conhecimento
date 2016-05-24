@@ -111,7 +111,7 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM CatalogoConhecimentos.dbo.Equipe WHERE idEquipe = '" + idEquipe + "'";
+		String sql = "SELECT * FROM Equipe WHERE idEquipe = '" + idEquipe + "'";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 

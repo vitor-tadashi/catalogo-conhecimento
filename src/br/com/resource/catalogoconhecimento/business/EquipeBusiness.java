@@ -16,7 +16,7 @@ public class EquipeBusiness {
 
 		EquipeBean oEquipe = equipeDAO.listarPorId(equipe.getId());
 
-		if (oEquipe.toString().trim().isEmpty()) {
+		if (oEquipe.toString().trim().equals("")) {
 			throw new AtributoNuloException();
 		} else {
 			equipeDAO.inserir(equipe);
