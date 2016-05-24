@@ -15,13 +15,13 @@
 			<th>Ações</th>
 		</tr>
 
-		<c:forEach var="cargos" items="${cargos}">
+		<c:forEach var="cargo" items="${cargos}">
 
 			<tr>
-				<td>${cargos.nome}</td>
+				<td>${cargo.nome}</td>
 				<td>
-					<a href="mvc?logica=cargo.FormularioAlterarCargoLogica&id=${cargos.id}">Alterar</a>
-					<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargos.id}">Remover</a>
+					<a href="mvc?logica=cargo.FormularioAlterarCargoLogica&id=${cargo.id}">Alterar</a>
+					<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargo.id}">Remover</a>
 				</td>
 			</tr>
 
