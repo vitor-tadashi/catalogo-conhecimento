@@ -33,11 +33,11 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			int idEquipe = rs.getInt("idEquipe");
+			int id = rs.getInt("id");
 			String observacao = rs.getString("observacao");
 			String nome = rs.getString("nome");
 
-			equipe = new EquipeBean(idEquipe, observacao, nome);
+			equipe = new EquipeBean(id, observacao, nome);
 			equipes.add(equipe);
 		}
 
@@ -70,7 +70,7 @@ public class EquipeDAO {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE idEquipe = ?";
+		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE id = ?";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
@@ -85,20 +85,20 @@ public class EquipeDAO {
 
 	// DELETAR DADOS NA TABELA DE EQUIPE
 
-	public void deletar(EquipeBean idEquipe) throws SQLException, ClassNotFoundException {
+	public void deletar(EquipeBean id) throws SQLException, ClassNotFoundException {
 		Connection conec = ConnectionFactory.createConnection();
 		conec.setAutoCommit(false);
 
-		String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
+		String sql2 = "DELETE FROM EquipeFuncionario WHERE id= ? ";
 		PreparedStatement stmt2 = conec.prepareStatement(sql2);
-		stmt2.setInt(1, idEquipe.getId());
+		stmt2.setInt(1, id.getId());
 		stmt2.executeUpdate();
 
-		String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
+		String sql = "Update Equipe set ativo = ? WHERE id= ?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
 		stmt.setString(1, "n");
-		stmt.setInt(2, idEquipe.getId());
+		stmt.setInt(2, id.getId());
 		stmt.executeUpdate();
 
 		conec.commit();
@@ -107,11 +107,11 @@ public class EquipeDAO {
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
 
-	public EquipeBean listarPorId(int idEquipe) throws SQLException, ClassNotFoundException {
+	public EquipeBean listarPorId(int id) throws SQLException, ClassNotFoundException {
 
 		Connection conec = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Equipe WHERE idEquipe = '" + idEquipe + "'";
+		String sql = "SELECT * FROM Equipe WHERE id = '" + id + "'";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
@@ -121,7 +121,7 @@ public class EquipeDAO {
 
 		while (rs.next()) {
 
-			equipe.setId(rs.getInt("idEquipe"));
+			equipe.setId(rs.getInt("id"));
 			equipe.setObservacao(rs.getString("observacao"));
 			equipe.setNome(rs.getString("nome"));
 
