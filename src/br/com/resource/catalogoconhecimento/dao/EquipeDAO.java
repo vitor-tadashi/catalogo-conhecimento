@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
@@ -132,33 +131,22 @@ public class EquipeDAO {
 
 	}
 
-	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
 
-		Connection conec = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Equipe WHERE nome = ?";
-		PreparedStatement stmt = conec.prepareStatement(sql);
+	public EquipeBean listarPorNome(String nome) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Equipe WHERE nome = '" + nome + "'";
+		PreparedStatement ps = conexao.prepareStatement(sql);
 
-		stmt.setString(1, nome);
-		ResultSet rs = stmt.executeQuery();
-		
-		EquipeBean  equipe = null;
+		ResultSet rs = ps.executeQuery();
 
+		EquipeBean equipe = null;
 		while (rs.next()) {
 
-			int id = rs.getInt("idEquipe");
-			String nomeEq = rs.getString("nome");
-
-			EquipeBean oEquipe = new EquipeBean();
-
-			oEquipe.setId(id);
-			oEquipe.setNome(nomeEq);
-
+			equipe = new EquipeBean(rs.getInt("idEquipe"), rs.getString("nome"), rs.getString("observacao"));
 		}
-		
-		conec.close();
+		conexao.close();
 		return equipe;
-		
-
 	}
 
 }
