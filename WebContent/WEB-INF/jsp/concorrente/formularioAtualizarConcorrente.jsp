@@ -4,17 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Alterar Concorrente</title>
+<title>Atualizar Concorrente</title>
 </head>
 <body>
 
 <form method="post" action="mvc">
-	Código: <input type = "text" name = "id" value="${listarconcorrente.id}"/><br/>
+	Código: <input type = "text" name = "id" value="${concorrente.id}" readonly/><br/>
 	Nome Concorrente: <input type = "text" name = "nome" value="${listarconcorrente.nome}" /><br/>
 	Descrição: <input type = "text" name = "descricao" value= "${listarconcorrente.descricao}"/><br/>
 	
-	<input type="hidden" name="logica" value ="AlterarConcorrenteLogica"/>
-	<input type="submit" value ="Alterar">
+	<input type="hidden" name="logica" value ="concorrente.AtualizarConcorrenteLogica"/>
+	<input type="submit" value ="Atualizar">
 
 </body>
 </html>

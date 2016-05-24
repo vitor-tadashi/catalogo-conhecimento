@@ -4,16 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Adicionar Concorrente</title>
+<title>Inserir Concorrente</title>
 </head>
 <body>
 
-	<form method="post" action="AdicionarConcorrenteLogica">
+	<form method="post" action="mvc">
 		<p>Nome Concorrente: <input type="text" name="nome" /></p>
 		<p>Descrição: <input type="text" name="descricao" /></p> 
 		
-		<input type="hidden" name="logica" value="concorrente.AdicionarConcorrenteLogica">
-		<input type="submit" value="Adicionar">
+		<input type="hidden" name="logica" value="concorrente.InserirConcorrenteLogica">
+		<input type="submit" value="Inserir">
 	</form>
 </body>
 </html>

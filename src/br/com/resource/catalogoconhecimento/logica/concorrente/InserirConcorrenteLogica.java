@@ -7,20 +7,20 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AlterarConcorrenteLogica implements Logica {
+public class InserirConcorrenteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
+		String nome = request.getParameter("nome");
+		String descricao = request.getParameter("descricao");
 
-		concorrenteBean.setId(Integer.parseInt(request.getParameter("id")));
-		concorrenteBean.setNome(request.getParameter("nome"));
-		concorrenteBean.setDescricao(request.getParameter("descricao"));
+		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
+		concorrenteBean.setNome(nome);
+		concorrenteBean.setDescricao(descricao);
 
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
-
-		concorrenteBusiness.alterar(concorrenteBean);
+		concorrenteBusiness.adicionar(concorrenteBean);
 
 		return "mvc?logica=concorrente.ListarConcorrenteLogica";
 	}
