@@ -30,5 +30,7 @@
 	<br>
 		<a href="mvc?logica=negocio.FormularioInserirNegocioLogica">
 			Cadastrar Negócio</a>
+			<br>
+			<a href="index.html">Retornar a página inicial</a>
 </body>
 </html>
