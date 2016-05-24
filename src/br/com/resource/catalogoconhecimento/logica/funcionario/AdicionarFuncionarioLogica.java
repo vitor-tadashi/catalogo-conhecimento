@@ -14,16 +14,16 @@ import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioTecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class InserirFuncionarioLogica implements Logica{
+public class AdicionarFuncionarioLogica implements Logica{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		String nomeFuncionario = request.getParameter("nome");
 		String telefone = request.getParameter("telefone");
-		String nomeUsuario = request.getParameter("usuario");
+		String nomeUsuario = request.getParameter("nomeUser");
 		String email = request.getParameter("email");
-		String[] tecnologias = request.getParameterValues("tecnologiasArray[]");
+		String[] tecnologias = request.getParameterValues("tecnologiasArray");
 		String cargo = request.getParameter("cargo");
 		
 		CargoBean cargoBean = new CargoBean();

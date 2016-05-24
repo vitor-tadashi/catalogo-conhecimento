@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<form method="post" action="mvc?logica=funcionario.InserirFuncionarioLogica">
+	<form method="post" action="mvc">
 
 		Nome:<input type="text" name=nome> 
 		
@@ -25,16 +25,16 @@
 		Tecnologias
 		<c:forEach items="${tecnologias}" var="tecnologia">
 			<br>
-			<input type="checkbox" name="tecnologiasArray[]"value="${tecnologia.nome}" />${tecnologia.nome}
+			<input type="checkbox" name="tecnologiasArray"value="${tecnologia.nome}" />${tecnologia.nome}
 			<br>
 		</c:forEach>
 		Email <input type="email" name="email">
 		
-		Nome de usuario: <input type="text" name="usuario">
+		Nome de usuario: <input type="text" name="nomeUser">
 
-		<input type="hidden" name="logica" value="funcionario.AdicionarFuncionarioLogica" />
-
+		<input type="hidden" name="logica" value="funcionario.AdicionarFuncionarioLogica">
 		<input type="submit" value="Adicionar" />
+		
 	</form>
 
 </body>
