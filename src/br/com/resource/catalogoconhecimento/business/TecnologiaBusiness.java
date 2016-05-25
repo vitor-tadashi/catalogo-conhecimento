@@ -58,7 +58,6 @@ public class TecnologiaBusiness {
 	public void alterar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologia.getNome());
-
 		if(tecnologia.getNome().length() > 50){
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		}else if(tecnologiaClone != null && tecnologiaClone.getId() != tecnologia.getId()){

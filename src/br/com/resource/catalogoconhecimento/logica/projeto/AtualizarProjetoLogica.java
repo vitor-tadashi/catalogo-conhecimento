@@ -15,6 +15,7 @@ import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoNegocioBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AtualizarProjetoLogica implements Logica{
@@ -32,12 +33,19 @@ public class AtualizarProjetoLogica implements Logica{
 		int idCliente = Integer.parseInt(request.getParameter("cliente"));
 		String[] negocios = request.getParameterValues("negociosArray[]");
 		
+
+		if(nomeProjeto.trim().equals("")){
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if( observacao.trim().equals("")){
+			throw new AtributoNuloException("Por favor, digite uma observação válida!");
+		}
+		
 		//transferir da String para a lista
 		List<NegocioBean> listaNegocio = new ArrayList<>();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio;
 		for(int i = 0 ; i < negocios.length ; i ++){
-			negocio =  negocioBusiness.listarPorNome(negocios[i]);
+			negocio =  negocioBusiness.obterPorNome(negocios[i]);
 			listaNegocio .add(negocio);
 		}
 		

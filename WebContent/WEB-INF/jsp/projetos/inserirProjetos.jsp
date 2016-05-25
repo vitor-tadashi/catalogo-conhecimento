@@ -36,6 +36,7 @@
 			</select>
 		</p>
 		<input type="hidden" name="logica" value="projeto.InserirProjetoLogica">
+		<input type="hidden" name = "logicaAtual" value = "projeto.FormularioInserirProjetoLogica">
 		<p>
 			<input type="submit" value="Inserir">
 		</p>
