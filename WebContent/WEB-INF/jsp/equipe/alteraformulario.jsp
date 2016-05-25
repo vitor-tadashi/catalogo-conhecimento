@@ -15,21 +15,23 @@
 
 
 		<p>
-			Id:<input type="text" name="idEquipe" value="${equipes.id}"
-				readonly>
+			Id:<input type="text" name="idEquipe" value="${equipes.id}" readonly>
 		</p>
 		<p>
-			Nome:<input type="text" name="nome" value="${equipes.nome}">
+			Nome:<input type="text" name="nome" value="${equipes.nome}" required>
 		</p>
 		<p>
 			Observacao:<input type="text" name="observacao"
-				value="${equipes.observacao}">
+				value="${equipes.observacao}" required>
 		</p>
 
 
 		<input type="hidden" name="logica"
 			value="equipe.AtualizarEquipeLogica"> <input type="submit"
-			value="Atualizar">
+			value="Atualizar"> 
+			
+		<input type="hidden" name="logicaAtual"
+			value="equipe.FormularioAtualizarEquipeLogica">
 
 	</form>
 

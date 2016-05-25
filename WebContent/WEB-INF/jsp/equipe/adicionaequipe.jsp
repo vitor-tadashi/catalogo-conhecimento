@@ -8,14 +8,18 @@
 </head>
 <body>
 <h2>Equipe(Adicionar)</h2>
-	<form method="POST" action="mvc?logica=equipe.InserirEquipeLogica">
+	<form method="POST" action="mvc">
 	
-		<p>Nome:<input type="text" name="nome"></p>
-		<p>Observação:<input type="text" name="observacao"></p>
+		<p>Nome:<input type="text" name="nome" required></p>
+		<p>Observação:<input type="text" name="observacao" required></p>
 		<input type="hidden" name="logica" value="equipe.InserirEquipeLogica">
+		<input type="hidden" name="logicaAtual" value="equipe.FormularioInserirEquipeLogica">
+		
 		<p>
 			<input type="submit" value="Inserir">
 		</p>
+		
+		
 		
 	</form>
 </body>

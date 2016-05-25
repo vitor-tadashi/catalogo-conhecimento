@@ -17,14 +17,14 @@ public class InserirEquipeLogica implements Logica {
 		String observacao = request.getParameter("observacao");
 
 		if (nome.trim().equals("")) {
-			throw new AtributoNuloException();
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (observacao.trim().equals("")) {
 			throw new AtributoNuloException();
 		} else {
 
 			EquipeBean equipe = new EquipeBean();
-			equipe.setObservacao(observacao);
-			equipe.setNome(nome);
+			equipe.setObservacao(observacao.trim());
+			equipe.setNome(nome.trim());
 
 			EquipeBusiness equipeBusiness = new EquipeBusiness();
 			equipeBusiness.inserir(equipe);
