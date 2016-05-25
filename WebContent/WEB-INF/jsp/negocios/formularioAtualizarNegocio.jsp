@@ -50,7 +50,7 @@
 												</div><!-- /.col -->
 											</div><!-- /.row -->
 											<input type="hidden" name="logica" value="negocio.AtualizarNegocioLogica">		
-											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAtualizarNegocioLogica&id=${tecnologia.id}">
+											<input type="hidden" name="logicaAtual" value="negocio.FormularioAtualizarNegocioLogica&id=${negocio.id}">
 									 	</div> 
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" id="submitAlterar" type="submit">Aterar</button>

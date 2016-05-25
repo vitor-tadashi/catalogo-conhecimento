@@ -11,7 +11,7 @@ public class FormularioAtualizarNegocioLogica implements Logica {
 	@Override 
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
-		int id = Integer.parseInt(request.getParameter("idNegocio"));
+		int id = Integer.parseInt(request.getParameter("id"));
 
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio = negocioBusiness.listarPorId(id);

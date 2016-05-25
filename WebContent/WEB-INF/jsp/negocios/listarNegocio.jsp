@@ -46,7 +46,7 @@
 											<tr>
 												<td>${negocios.areaAtuacao}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocios.id}">
+													href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&id=${negocios.id}">
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;"><a
 													href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocios.id}">
@@ -57,7 +57,7 @@
 								</table>
 								<div class="panel-footer text-left">
 									<a
-										href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+										href="mvc?logica=negocio.FormularioInserirNegocioLogica">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Negócio</button>
 									</a>
