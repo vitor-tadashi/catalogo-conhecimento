@@ -33,6 +33,11 @@
 										</div>
 										<div class="panel-body">
 											<div class="row">
+											<c:if test="${msgErro != null}">
+													<div class="alert alert-danger">
+														<c:out value="${msgErro}"></c:out>
+													</div> 
+												</c:if>
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">ID da Tecnologia
