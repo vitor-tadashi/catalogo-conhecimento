@@ -54,7 +54,7 @@
 												</div><!-- /.col -->
 											</div><!-- /.row -->
 											<input type="hidden" name="logica" value="tecnologia.AlterarTecnologiaLogica">		
-											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAlterarTecnologiaLogica&idTecnologia=${tecnologia.id}">		
+											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}">		
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>
