@@ -31,4 +31,9 @@ public class TecnologiaFuncionarioBusiness {
 		return tecnologia.joinTecnologiaFuncionario(idFuncionario);
 	}
 
+	public void atualizar(FuncionarioBean funcionario, List<TecnologiaBean> listaTecnologia) throws SQLException {
+		tecnologiaFuncionarioDAO.atualizar(funcionario, listaTecnologia);
+		
+	}
+
 }

@@ -83,12 +83,15 @@ public class FuncionarioDAO {
 	// ATUALIZA
 	public void atualizar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "UPDATE Funcionario SET nomeFuncionario = '"
-				+ funcionario.getNome() + "' telefone = '" + funcionario.getTelefone() + "' nomeUser = '"
-				+ funcionario.getNomeUser() + "' email = '" + funcionario.getEmail() + "' WHERE idTecnologia = ? "
-				+ funcionario.getId();
+		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?, nomeUser=?, email =? WHERE idFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-
+		ps.setString(1, funcionario.getNome());
+		ps.setString(2, funcionario.getTelefone());
+		ps.setString(3, funcionario.getEmail());
+		ps.setString(4, funcionario.getNomeUser());
+		ps.setInt(5, funcionario.getId());
+		
+		
 		ps.executeUpdate();
 		conexao.close();
 	}
@@ -139,6 +142,31 @@ public class FuncionarioDAO {
 			funcionario = new FuncionarioBean(rs.getInt("idFuncionario"), cargoBean,
 					rs.getString("nomeFuncionario"), rs.getString("nomeUser"), rs.getString("telefone"),
 					rs.getString("email"));
+		}
+		conexao.close();
+		return funcionario;
+	}
+	
+	//OBTER POR NOME
+	public FuncionarioBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nome);
+		ResultSet rs = ps.executeQuery();
+
+		FuncionarioBean funcionario = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			funcionario = new FuncionarioBean();
+			funcionario.setId(rs.getInt("idFuncionario"));
+			funcionario.setNome(rs.getString("nomeFuncionario"));
+			funcionario.setTelefone(rs.getString("telefone"));
+			funcionario.setEmail(rs.getString("email"));
+			funcionario.setNomeUser(rs.getString("nomeUser"));
+			funcionario.setCargo(cargoBean);
 		}
 		conexao.close();
 		return funcionario;
