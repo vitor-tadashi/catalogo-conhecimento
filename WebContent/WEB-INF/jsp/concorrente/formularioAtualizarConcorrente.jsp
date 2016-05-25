@@ -15,6 +15,9 @@
 	
 	<input type="hidden" name="logica" value ="concorrente.AtualizarConcorrenteLogica"/>
 	<input type="submit" value ="Atualizar">
+	<br />
+	<br />
+	<a href="index.html">Retornar a página inicial</a>
 
 </body>
 </html>

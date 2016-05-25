@@ -5,8 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioInserirConcorrenteLogica implements Logica {
-
+public class FormularioAdicionarConcorrenteLogica implements Logica {
+	
+	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return "/WEB-INF/jsp/concorrente/formularioAdicionarConcorrente.jsp";
 	}
