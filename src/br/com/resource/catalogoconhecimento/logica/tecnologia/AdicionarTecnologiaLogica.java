@@ -5,20 +5,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioAtualizarTecnologiaLogica implements Logica {
+public class AdicionarTecnologiaLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int idTecnologia = Integer.parseInt(request.getParameter("idTecnologia"));
-
+		
+		String nome = request.getParameter("nome");
+		
+		if(nome.trim().equals("")){
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else {
+		TecnologiaBean tecnologia = new TecnologiaBean();
+		tecnologia.setNome(nome.trim());
+		
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(idTecnologia);
-
-		request.setAttribute("tecnologia", tecnologia);
-
-		return "/WEB-INF/jsp/tecnologias/formularioAtualizarTecnologia.jsp";
+		tecnologiaBusiness.adicionar(tecnologia);
+		}
+		return "mvc?logica=tecnologia.ListarTecnologiaLogica";
 	}
 
 }

@@ -37,8 +37,8 @@ public class ControllerServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(pagina).forward(request, response);
 		} catch (Exception e) {
-			String queryString = request.getHeader("Referer").substring(request.getHeader("Referer").indexOf("?")+1);
-			String url = "/mvc?"+queryString;
+			String pagina = request.getParameter("logicaAtual");
+			String url = "/mvc?logica="+pagina;
 			
 			request.setAttribute("msgErro", e.getMessage());
 			request.getRequestDispatcher(url).forward(request, response);

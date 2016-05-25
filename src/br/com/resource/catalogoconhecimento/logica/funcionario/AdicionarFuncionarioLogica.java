@@ -11,7 +11,7 @@ import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
-import br.com.resource.catalogoconhecimento.business.FuncionarioTecnologiaBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
@@ -49,13 +49,13 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionario.setNomeUser(nomeUsuario);
 		funcionario.setTelefone(telefone);
 		funcionario.setCargo(cargoBean);
-		funcionario.setTecnologia(listaTecnologia);
+		funcionario.setTecnologias(listaTecnologia);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		int id = funcionarioBusiness.inserir(funcionario);
 		funcionario.setId(id);
 		
-		FuncionarioTecnologiaBusiness funcionariotecnologia = new FuncionarioTecnologiaBusiness();
+		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
 		funcionariotecnologia.inserir(funcionario, listaTecnologia);
 		
 		

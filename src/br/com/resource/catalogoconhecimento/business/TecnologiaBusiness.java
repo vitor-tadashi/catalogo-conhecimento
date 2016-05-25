@@ -5,15 +5,29 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
+import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
+import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class TecnologiaBusiness {
 
 	// CRIA
-	public void inserir(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
+	public void adicionar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
 		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+			TecnologiaBean tecnologiaDesativada = tecnologiaDao.obterNomeDesativado(tecnologia);
+			TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologia.getNome());
 
-			tecnologiaDao.inserir(tecnologia);
+			if(tecnologia.getNome().length() > 50){
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+			}else if(tecnologiaDesativada!= null){			
+					tecnologiaDao.reativar(tecnologia);
+					
+			}else if(tecnologiaClone != null ){
+				throw new NomeRepetidoException("Este nome já consta na base de dados");
+			}else{
+				tecnologiaDao.adicionar(tecnologia);
+			
+			}
 	
 	}
 
@@ -41,36 +55,28 @@ public class TecnologiaBusiness {
 	}
 
 	// ATUALIZA
-	public boolean atualizar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException {
+	public void alterar(TecnologiaBean tecnologia) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologia.getNome());
+
+		if(tecnologia.getNome().length() > 50){
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+		}else if(tecnologiaClone != null && tecnologiaClone.getId() != tecnologia.getId()){
+			throw new NomeRepetidoException("Este nome já exite na base de dados");
+		}else{
+			tecnologiaDao.alterar(tecnologia);
 		
-			TecnologiaDAO tecnologiaDao;
-			tecnologiaDao = new TecnologiaDAO();
-
-			TecnologiaBean tecnologiaAux = tecnologiaDao.obterPorId(tecnologia.getId());
-
-			if (tecnologiaAux != null) {
-				tecnologiaDao.atualizar(tecnologia);
-				return true;
-			} else {
-				return false;
-			}
-
-		
+		}
+			
 
 	}
 
 	// DELETA
-	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+	public void remover(int id) throws ClassNotFoundException, SQLException {
 		
 			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
-			TecnologiaBean tecnologiaAux = this.obterPorId(id);
-			if (tecnologiaAux != null) {
-				tecnologiaDao.deletar(id);
-				return true;
-			} else {
-				return false;
-			}
+			tecnologiaDao.remover(id);
+			
 
 	
 	}

@@ -46,10 +46,10 @@
 											<tr>
 												<td>${tecnologia.nome}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=tecnologia.FormularioAtualizarTecnologiaLogica&idTecnologia=${tecnologia.id}"><i
+													href="mvc?logica=tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}"><i
 														class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=tecnologia.DeletarTecnologiaLogica&idTecnologia=${tecnologia.id}"><i
+													href="mvc?logica=tecnologia.RemoverTecnologiaLogica&id=${tecnologia.id}"><i
 														class="fa fa-times fa-lg"></a></td>
 											</tr>
 										</c:forEach>
@@ -59,7 +59,7 @@
 								</table>
 								<div class="panel-footer text-left">
 									<a
-										href="mvc?logica=tecnologia.FormularioInserirTecnologiaLogica">
+										href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Nova Tecnologia</button>
 									</a>

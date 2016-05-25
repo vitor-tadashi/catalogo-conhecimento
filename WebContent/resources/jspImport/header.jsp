@@ -58,7 +58,7 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="mvc?logica=tecnologia.ListarTecnologiaLogica"><span class="submenu-label">Listar Tecnologias</span></a></li>
-								<li><a href="mvc?logica=tecnologia.FormularioInserirTecnologiaLogica"><span class="submenu-label">Cadastrar Tecnologia</span></a></li>
+								<li><a href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica"><span class="submenu-label">Cadastrar Tecnologia</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -107,7 +107,7 @@
 								<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica"><span class="submenu-label">Listar Funcionários</span></a></li>
 								<li><a href="mvc?logica=funcionario.FormularioInserirFuncionarioLogica"><span class="submenu-label">Cadastrar Funcionário</span></a></li>
 								<li><a href="mvc?logica=cargo.ListarCargoLogica"><span class="submenu-label">Listar Cargos</span></a></li>
-								<li><a href="mvc?logica=cargo.FormularioInserirCargoLogica"><span class="submenu-label">Cadastrar Cargo</span></a></li>
+								<li><a href="mvc?logica=cargo.FormularioAdicionarCargoLogica"><span class="submenu-label">Cadastrar Cargo</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -122,7 +122,7 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="mvc?logica=cliente.ListarClienteLogica"><span class="submenu-label">Listar Clientes</span></a></li>
-								<li><a href="mvc?logica=cliente.FormularioInserirClienteLogica"><span class="submenu-label">Cadastrar Cliente</span></a></li>
+								<li><a href="mvc?logica=cliente.FormularioAdicionarClienteLogica"><span class="submenu-label">Cadastrar Cliente</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -137,7 +137,7 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="mvc?logica=concorrente.ListarConcorrenteLogica"><span class="submenu-label">Listar Concorrentes</span></a></li>
-								<li><a href="mvc?logica=concorrente.FormularioInserirConcorrenteLogica"><span class="submenu-label">Cadastrar Concorrentes</span></a></li>
+								<li><a href="mvc?logica=concorrente.FormularioAdicionarConcorrenteLogica"><span class="submenu-label">Cadastrar Concorrentes</span></a></li>
 							</ul>
 						</li>
 					</ul>

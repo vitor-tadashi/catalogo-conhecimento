@@ -23,24 +23,20 @@
 		<!--breadcrumb-->
 	<div class="padding-md">
 				<div class="row">
-					
-				
 					<div class="col-md-12 col-sm-12">
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
-
 								<div class="panel panel-default">
-									<form class="no-margin" id="formValidate2" data-validate="parsley" novalidate method="POST" action="mvc">
+									<form class="no-margin" id="formAdicionaTecnologia"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Cadastrar Tecnologia</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
-												<c:if test="${msgErro != null}">
-													<div class="alert alert-danger">
-														<c:out value="${msgErro}"></c:out>
-													</div> 
-												</c:if>
+												
+												<!-- Message Erro-->
+												<c:import url="/resources/jspImport/msgErro.jsp"/>
+												
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">Nome da Tecnologia
@@ -49,7 +45,8 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logica" value="tecnologia.InserirTecnologiaLogica">
+											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAdicionarTecnologiaLogica" />
+											<input type="hidden" name="logica" value="tecnologia.AdicionarTecnologiaLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Cadastrar</button>

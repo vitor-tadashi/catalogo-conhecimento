@@ -33,22 +33,28 @@
 										</div>
 										<div class="panel-body">
 											<div class="row">
+											<c:if test="${msgErro != null}">
+													<div class="alert alert-danger">
+														<c:out value="${msgErro}"></c:out>
+													</div> 
+												</c:if>
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">ID da Tecnologia
-															<input type="text" class="form-control input-sm" name="id" value="${tecnologia.idTecnologia}" readonly>
+															<input type="text" class="form-control input-sm" name="id" value="${tecnologia.id}" readonly>
 														</label>
 													</div>
 												</div><!-- /.col -->
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">Nome da Tecnologia
-															<input type="text" class="form-control input-sm" name="nome" value="${tecnologia.nomeTecnologia}">
+															<input type="text" class="form-control input-sm" name="nome" value="${tecnologia.nome}">
 														</label>
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logica" value="tecnologia.AtualizarTecnologiaLogica">		
+											<input type="hidden" name="logica" value="tecnologia.AlterarTecnologiaLogica">		
+											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}">		
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

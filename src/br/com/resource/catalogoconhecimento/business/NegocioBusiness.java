@@ -2,51 +2,53 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.dao.NegocioDAO;
+import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
+import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class NegocioBusiness {
 
 	// Inserir
-	public void inserir(NegocioBean negocio) throws ClassNotFoundException, SQLException {
+	public void inserir(NegocioBean negocio) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException  {
 
 		NegocioDAO negociodao = new NegocioDAO();
+		NegocioBean negocioClone = negociodao.listarPorNome(negocio.getAreaAtuacao());
+		
+		
+		if(negocio.getAreaAtuacao().length() > 50){
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+		}else if(negocioClone != null){			
+			throw new NomeRepetidoException("Este nome já consta na base de dados");
+		}else{
 		negociodao.inserir(negocio);
-
+		
+		}
 	}
 
 	// Deletar
-	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+	public void deletar(int id) throws ClassNotFoundException, SQLException {
 		
 			NegocioDAO negociodao = new NegocioDAO();
-
-			NegocioBean negocioAux = this.listarPorId(id);
-			if (negocioAux != null) {
-				negociodao.deletar(id);
-				return true;
-			} else {
-				return false;
-			}
+			negociodao.deletar(id);
+			
 
 		
 	}
 
 	// Atualizar
-	public boolean atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
+	public void atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException, TamanhoCampoException {
 		
 
-			NegocioDAO negocioDao;
-			negocioDao = new NegocioDAO();
-
-			NegocioBean negocioAux = negocioDao.listarPorId(negocio.getId());
-
-			if (negocioAux != null) {
+			NegocioDAO negocioDao =  new NegocioDAO();
+			if(negocio.getAreaAtuacao().length() > 50){
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50");
+			}else{			
 				negocioDao.atualizar(negocio);
-				return true;
-			} else {
-				return false;
 			}
-
+				
+		
 		
 	}
 

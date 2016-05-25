@@ -75,12 +75,10 @@ public class ClienteDAO {
 	}
 
 	public void remover(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
-
 		Connection conn = ConnectionFactory.createConnection();
 		conn.setAutoCommit(false);
 
 		try {
-
 			String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clienteBean.getId());
@@ -98,8 +96,8 @@ public class ClienteDAO {
 
 	public ClienteBean obterPorId(int idCliente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sqlSelecionar = "SELECT * FROM Cliente WHERE idCliente = ? AND ativo = 'S'";
-		PreparedStatement ps = conn.prepareStatement(sqlSelecionar);
+		String sql = "SELECT * FROM Cliente WHERE idCliente = ? AND ativo = 'S'";
+		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, idCliente);
 
 		ResultSet rs = ps.executeQuery();
@@ -116,8 +114,21 @@ public class ClienteDAO {
 			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 			conn.close();
 		}
-
 		return clienteBean;
+	}
+
+	public boolean verificarPorCnpj(String cnpj) throws ClassNotFoundException, SQLException {
+		Connection conn = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Cliente WHERE cnpj = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, cnpj);
+
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+			return true;
+		} else
+			return false;
 	}
 
 }

@@ -10,7 +10,7 @@ public class FuncionarioBean {
 	private String telefone;
 	private String nomeUser;
 	private String email;
-	private List<TecnologiaBean> tecnologia;
+	private List<TecnologiaBean> tecnologias;
 
 
 
@@ -77,11 +77,20 @@ public class FuncionarioBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public List<TecnologiaBean> getTecnologia() {
-		return tecnologia;
+
+	/**
+	 * @return the tecnologias
+	 */
+	public List<TecnologiaBean> getTecnologias() {
+		return tecnologias;
+	}
+
+	/**
+	 * @param tecnologias the tecnologias to set
+	 */
+	public void setTecnologias(List<TecnologiaBean> tecnologias) {
+		this.tecnologias = tecnologias;
 	}
 	
-	public void setTecnologia(List<TecnologiaBean> tecnologia) {
-		this.tecnologia = tecnologia;
-	}
+	
 }
