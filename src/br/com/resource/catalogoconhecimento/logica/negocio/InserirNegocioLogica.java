@@ -17,8 +17,8 @@ public class InserirNegocioLogica implements Logica {
 		if(areaAtuacao.trim().equals("")){
 			throw new AtributoNuloException("Infomação duplicada!");
 		}else{       								   
-		
-		
+			
+			
 		NegocioBean negocioBean = new NegocioBean();
 		negocioBean.setAreaAtuacao(areaAtuacao);
 		

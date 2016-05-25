@@ -14,7 +14,7 @@ public class NegocioBusiness {
 	public void inserir(NegocioBean negocio) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException  {
 
 		NegocioDAO negociodao = new NegocioDAO();
-		NegocioBean negocioClone = negociodao.listarPorNome(negocio.getAreaAtuacao());
+		NegocioBean negocioClone = negociodao.obterPorNome(negocio.getAreaAtuacao());
 		
 		
 		if(negocio.getAreaAtuacao().length() > 50){
@@ -33,23 +33,20 @@ public class NegocioBusiness {
 			NegocioDAO negociodao = new NegocioDAO();
 			negociodao.deletar(id);
 			
-
-		
 	}
 
 	// Atualizar
-	public void atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException, TamanhoCampoException {
-		
-
+	public void atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
 			NegocioDAO negocioDao =  new NegocioDAO();
+			NegocioBean negocioClone = negocioDao.obterPorNome(negocio.getAreaAtuacao());
+			
 			if(negocio.getAreaAtuacao().length() > 50){
 				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50");
-			}else{			
+			}else if(negocioClone != null && negocioClone.getId() != negocio.getId()){
+				throw new NomeRepetidoException("Este nome já exite na base de dados");
+			}else{
 				negocioDao.atualizar(negocio);
 			}
-				
-		
-		
 	}
 
 	// Listar
@@ -69,11 +66,11 @@ public class NegocioBusiness {
 		
 	}
 
-	// ListarporNome
+	/*// ListarporNome
 	public NegocioBean listarPorNome(String nome) throws ClassNotFoundException, SQLException {
 
 			NegocioDAO negociodao = new NegocioDAO();
-			return negociodao.listarPorNome(nome);
+			return negociodao.obterPorNome(nome);
 	
-	}
+	}*/
 }

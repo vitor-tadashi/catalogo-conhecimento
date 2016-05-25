@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AtualizarNegocioLogica implements Logica {
@@ -13,13 +14,17 @@ public class AtualizarNegocioLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String areaAtuacao = request.getParameter("areaAtuacao");
 
-		NegocioBean negocio = new NegocioBean();
-		negocio.setId(id);
-		negocio.setAreaAtuacao(areaAtuacao);
-		
-		NegocioBusiness negocioBusiness = new NegocioBusiness();
-		negocioBusiness.atualizar(negocio);
+		if (areaAtuacao.trim().equals("")) {
+			throw new AtributoNuloException("Negocio já existe! Por favor, verificar");
+		} else {
 
+			NegocioBean negocio = new NegocioBean();
+			negocio.setId(id);
+			negocio.setAreaAtuacao(areaAtuacao);
+
+			NegocioBusiness negocioBusiness = new NegocioBusiness();
+			negocioBusiness.atualizar(negocio);
+		}
 		return "mvc?logica=negocio.ListarNegocioLogica";
 	}
 }
