@@ -122,8 +122,10 @@ public class ProjetoDAO {
 	public ProjetoBean obterPorId(int idProjeto) throws SQLException, ClassNotFoundException {
 
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Projeto WHERE idProjeto = '" + idProjeto + "'";
+		String sql = "SELECT * FROM Projeto WHERE idProjeto = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, idProjeto);
+		
 		ResultSet rs = ps.executeQuery();
 		ProjetoBean projeto = null;
 		
