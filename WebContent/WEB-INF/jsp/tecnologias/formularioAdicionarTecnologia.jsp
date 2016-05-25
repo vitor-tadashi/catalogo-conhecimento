@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Adicionar Tecnologia</title>
+	<title>Cadastrar Tecnologia</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body class="overflow-hidden">
@@ -17,22 +17,19 @@
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
 				<li>Tecnologias</li>
-				<li class="active">Adicionar Tecnologia</li>
+				<li class="active">Cadastrar Tecnologia</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
 	<div class="padding-md">
 				<div class="row">
-					
-				
 					<div class="col-md-12 col-sm-12">
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
-
 								<div class="panel panel-default">
-									<form class="no-margin" id="formValidate2" data-validate="parsley" novalidate method="POST" action="mvc">
+									<form class="no-margin" id="formAdicionaTecnologia"  method="POST" action="mvc">
 										<div class="panel-heading">
-											<h3>Adicionar Tecnologia</h3>
+											<h3>Cadastrar Tecnologia</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
