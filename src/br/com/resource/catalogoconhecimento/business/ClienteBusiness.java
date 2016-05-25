@@ -63,7 +63,7 @@ public class ClienteBusiness {
 		ClienteDAO clienteDao = new ClienteDAO();
 		ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 
-		if (cliente == null) {
+		if (cliente != null) {
 			clienteDao.remover(clienteBean);
 		}
 	}
