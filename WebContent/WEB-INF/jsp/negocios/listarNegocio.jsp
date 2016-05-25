@@ -46,43 +46,41 @@
 											<tr>
 												<td>${negocios.areaAtuacao}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocios.id}"><i
-														class="fa fa-edit fa-lg"></a></td>
+													href="mvc?logica=negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocios.id}">
+													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocios.id}"><i
-														class="fa fa-times fa-lg"></a></td>
+													href="mvc?logica=negocio.DeletarNegocioLogica&idNegocio=${negocios.id}">
+													<i	class="fa fa-times fa-lg"></a></td>
 												</tr>
 										</c:forEach>
 									</tbody>
-
-
 								</table>
-						  		</div>
-							</div>
+								<div class="panel-footer text-left">
+									<a
+										href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+										<button class="btn btn-success" type="submit">Cadastrar
+											Novo Negócio</button>
+									</a>
+									
+								</div>
 							<!-- /.padding-md -->
-						</div>
+							</div>
 						<!-- /panel -->
-					</div>
+						</div>
 					<!-- /tab2 -->
-
-				</div>
+					</div>
 				<!-- /tab-content -->
-			</div>
+				</div>
 			<!-- /.col -->
-
-		</div>
+			</div>
 		<!-- /.padding-md -->
-
-	</div>
+		</div>
 	<!-- /main-container -->
-	</div>
-	<!-- /wrapper -->
+	</div> 
 	
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
-	
-
 </body>
 </html>

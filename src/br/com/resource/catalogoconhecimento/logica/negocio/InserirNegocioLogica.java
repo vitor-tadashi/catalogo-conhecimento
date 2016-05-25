@@ -12,12 +12,11 @@ public class InserirNegocioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String areaAtuacao = request.getParameter("areaAtuacao");
+		String areaAtuacao = request.getParameter("areaAtuacao").trim();
 		
-		if(areaAtuacao.trim().equals("")){
-			throw new AtributoNuloException("Infomação duplicada!");
+		if(areaAtuacao.equals("")){
+			throw new AtributoNuloException("Por favor, digite um valor válido");
 		}else{       								   
-			
 			
 		NegocioBean negocioBean = new NegocioBean();
 		negocioBean.setAreaAtuacao(areaAtuacao);

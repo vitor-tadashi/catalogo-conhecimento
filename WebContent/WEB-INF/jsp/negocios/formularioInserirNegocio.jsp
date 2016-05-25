@@ -27,7 +27,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdicionaTecnologia"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdicionarNegocio"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Cadastrar Negócio</h3>
 										</div>

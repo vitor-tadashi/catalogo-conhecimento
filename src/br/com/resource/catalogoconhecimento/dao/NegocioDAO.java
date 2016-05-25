@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class NegocioDAO {
@@ -154,4 +155,6 @@ public class NegocioDAO {
 		conexao.close();
 		return negocio;
 	}
+	
 }
+

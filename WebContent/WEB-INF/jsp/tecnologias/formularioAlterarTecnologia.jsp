@@ -27,28 +27,21 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formValidate2" data-validate="parsley" novalidate method="POST" action="mvc">
+									<form class="no-margin" id="formAlterarTecnologia" data-validate="parsley" novalidate method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Alterar Tecnologia</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
-											<c:if test="${msgErro != null}">
-													<div class="alert alert-danger">
-														<c:out value="${msgErro}"></c:out>
-													</div> 
-												</c:if>
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">ID da Tecnologia
-															<input type="text" class="form-control input-sm" name="id" value="${tecnologia.id}" readonly>
-														</label>
-													</div>
-												</div><!-- /.col -->
+											
+												<!-- Message Erro-->
+												<c:import url="/resources/jspImport/msgErro.jsp"/>
+												
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">Nome da Tecnologia
 															<input type="text" class="form-control input-sm" name="nome" value="${tecnologia.nome}">
+															<input type="hidden" class="form-control input-sm" name="id" value="${tecnologia.id}" readonly>
 														</label>
 													</div>
 												</div><!-- /.col -->

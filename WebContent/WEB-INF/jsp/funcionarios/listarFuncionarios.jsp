@@ -44,7 +44,7 @@
 		</c:forEach>
 	</table>
 
-	<a href="mvc?logica=funcionario.FormularioCriarLogica">Adicionar Funcionario</a>
+	<a href="mvc?logica=funcionario.FormularioInserirFuncionarioLogica">Adicionar Funcionario</a>
 	<br>
 	<a href="index.html">Retornar a página inicial</a>
 
