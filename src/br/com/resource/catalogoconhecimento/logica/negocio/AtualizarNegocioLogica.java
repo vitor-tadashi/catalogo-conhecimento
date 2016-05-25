@@ -12,10 +12,10 @@ public class AtualizarNegocioLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int id = Integer.parseInt(request.getParameter("id"));
-		String areaAtuacao = request.getParameter("areaAtuacao");
+		String areaAtuacao = request.getParameter("areaAtuacao").trim();
 
 		if (areaAtuacao.trim().equals("")) {
-			throw new AtributoNuloException("Negocio já existe! Por favor, verificar");
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else {
 
 			NegocioBean negocio = new NegocioBean();
