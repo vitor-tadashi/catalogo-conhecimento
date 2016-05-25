@@ -21,7 +21,7 @@ public class AlterarTecnologiaLogica implements Logica {
 		
 		TecnologiaBean tecnologia = new TecnologiaBean();
 		tecnologia.setId(id);
-		tecnologia.setNome(nome);
+		tecnologia.setNome(nome.trim());
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		tecnologiaBusiness.alterar(tecnologia);
