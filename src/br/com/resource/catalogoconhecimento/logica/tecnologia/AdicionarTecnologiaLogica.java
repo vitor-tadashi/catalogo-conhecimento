@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
-import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AdicionarTecnologiaLogica implements Logica {
@@ -15,15 +14,12 @@ public class AdicionarTecnologiaLogica implements Logica {
 		
 		String nome = request.getParameter("nome");
 		
-		if(nome.trim().equals("")){
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else {
 		TecnologiaBean tecnologia = new TecnologiaBean();
 		tecnologia.setNome(nome.trim());
 		
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		tecnologiaBusiness.adicionar(tecnologia);
-		}
+		
 		return "mvc?logica=tecnologia.ListarTecnologiaLogica";
 	}
 

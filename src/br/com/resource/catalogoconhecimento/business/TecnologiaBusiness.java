@@ -5,22 +5,25 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
+import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class TecnologiaBusiness {
 
 	public void adicionar(TecnologiaBean tecnologiaBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		TecnologiaBean tecnologiaDesativada = this.obterNomeDesativado(tecnologiaBean);
 		TecnologiaBean tecnologiaClone = this.obterPorNome(tecnologiaBean.getNome());
 
-		if (tecnologiaBean.getNome().length() > 50) {
+		if(tecnologiaBean.getNome().equals("")){
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (tecnologiaBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (tecnologiaDesativada != null) {
-			tecnologiaDao.reativar(tecnologiaBean);
-		} else if (tecnologiaClone != null) {
+			this.reativar(tecnologiaBean);
+		} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else {
 			tecnologiaDao.adicionar(tecnologiaBean);
@@ -53,14 +56,18 @@ public class TecnologiaBusiness {
 	}
 
 	public void alterar(TecnologiaBean tecnologiaBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
+		TecnologiaBean tecnologiaDesativada = this.obterNomeDesativado(tecnologiaBean);
 		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
 
-		if (tecnologiaBean.getNome().length() > 50) {
-
+		if(tecnologiaBean.getNome().equals("")){
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (tecnologiaBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+		} else if (tecnologiaDesativada != null) {
+			this.remover(tecnologiaBean.getId());
+			this.reativar(tecnologiaDesativada);
 		} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
 			throw new NomeRepetidoException("Este nome já exite na base de dados");
 		} else {
@@ -72,6 +79,12 @@ public class TecnologiaBusiness {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		
 		tecnologiaDao.remover(id);
+	}
+	
+	public void reativar(TecnologiaBean tecnologia) throws SQLException, ClassNotFoundException{
+		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+		
+		tecnologiaDao.reativar(tecnologia);
 	}
 
 }

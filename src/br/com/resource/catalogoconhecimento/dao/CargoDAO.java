@@ -12,8 +12,6 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class CargoDAO {
 
-	Connection conexao = null;
-
 	public void adicionar(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -86,8 +84,9 @@ public class CargoDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		CargoBean cargoBean = new CargoBean();
+		CargoBean cargoBean = null;
 		while (rs.next()) {
+			cargoBean = new CargoBean();
 			cargoBean.setId(rs.getInt("idCargo"));
 			cargoBean.setNome(rs.getString("nomeCargo"));
 		}
@@ -110,6 +109,7 @@ public class CargoDAO {
 
 		ResultSet rs = ps.executeQuery();
 
+		cargoBean = null;
 		while (rs.next()) {
 			cargoBean = new CargoBean();
 			cargoBean.setId(rs.getInt("idCargo"));

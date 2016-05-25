@@ -19,4 +19,5 @@ public class ListarCargoLogica implements Logica {
 
 		return "/WEB-INF/jsp/cargo/listarCargos.jsp";
 	}
+	
 }

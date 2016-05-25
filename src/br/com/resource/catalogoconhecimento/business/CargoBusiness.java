@@ -4,24 +4,26 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
+import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class CargoBusiness {
 
 	public void adicionar(CargoBean cargoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		CargoDAO cargoDao = new CargoDAO();
 		CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 		CargoBean cargoClone = this.obterPorNome(cargoBean.getNome());
 
-		if (cargoBean.getNome().length() > 80) {
+		if (cargoBean.getNome().equals("")) {
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (cargoBean.getNome().length() > 80) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.80)");
 		} else if (cargoDesativada != null) {
-			cargoDao.reativar(cargoBean);
-		} else if (cargoClone != null) {
+			this.reativar(cargoBean);
+		} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else {
 			cargoDao.adicionar(cargoBean);
@@ -53,12 +55,18 @@ public class CargoBusiness {
 	}
 	
 	public void alterar(CargoBean cargoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		CargoDAO cargoDao = new CargoDAO();
+		CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 		CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
 
-		if (cargoBean.getNome().length() > 80) {
+		if (cargoBean.getNome().equals("")) {
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (cargoBean.getNome().length() > 80) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.80)");
+		} else if (cargoDesativada != null) {
+			this.remover(cargoBean.getId());
+			this.reativar(cargoDesativada);
 		} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
 			throw new NomeRepetidoException("Este nome já exite na base de dados");
 		} else {
@@ -70,6 +78,12 @@ public class CargoBusiness {
 		CargoDAO cargoDao = new CargoDAO();
 		
 		cargoDao.remover(id);
+	}
+	
+	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException{
+		CargoDAO cargoDao = new CargoDAO();
+		
+		cargoDao.reativar(cargoBean);
 	}
 
 }
