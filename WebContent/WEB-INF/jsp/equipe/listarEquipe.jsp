@@ -34,6 +34,10 @@
 				<td><a
 					href="mvc?logica=equipe.FormularioAtualizarEquipeLogica&idEquipe=${equipe.id}">
 						Atualizar </a></td>
+						
+				<td><a
+					href="mvc?logica=equipe.ListarFuncionariosPorEquipeLogica&idEquipe=${equipe.id}">
+						Listar Funcionários </a></td>
 
 			</tr>
 		</c:forEach>
