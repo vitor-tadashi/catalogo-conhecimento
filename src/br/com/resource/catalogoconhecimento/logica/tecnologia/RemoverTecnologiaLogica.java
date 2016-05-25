@@ -11,10 +11,10 @@ public class RemoverTecnologiaLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 				
-		int idTecnologia = Integer.parseInt(request.getParameter("idTecnologia"));
+		int id = Integer.parseInt(request.getParameter("idTecnologia"));
 				
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		tecnologiaBusiness.remover(idTecnologia);
+		tecnologiaBusiness.remover(id);
 		
 		return "mvc?logica=tecnologia.ListarTecnologiaLogica";
 	}

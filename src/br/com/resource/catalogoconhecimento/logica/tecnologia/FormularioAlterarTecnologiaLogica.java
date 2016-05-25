@@ -11,10 +11,10 @@ public class FormularioAlterarTecnologiaLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int idTecnologia = Integer.parseInt(request.getParameter("idTecnologia"));
+		int id = Integer.parseInt(request.getParameter("idTecnologia"));
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(idTecnologia);
+		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(id);
 
 		request.setAttribute("tecnologia", tecnologia);
 
