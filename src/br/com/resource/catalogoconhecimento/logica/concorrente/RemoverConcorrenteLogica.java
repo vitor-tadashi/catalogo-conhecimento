@@ -7,7 +7,7 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class DeletarConcorrenteLogica implements Logica {
+public class RemoverConcorrenteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {

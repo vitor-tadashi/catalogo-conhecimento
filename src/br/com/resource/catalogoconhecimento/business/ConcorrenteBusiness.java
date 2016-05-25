@@ -9,61 +9,88 @@ import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
 
 public class ConcorrenteBusiness {
 
+	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
+		try {
+			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+			concorrenteDao.adicionar(concorrenteBean);
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		}
+	}
+
 	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException {
-		
+		try {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 			return concorrenteDao.listar();
-		
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return null;
+		} catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}
 	}
 
-	public List<ConcorrenteClienteBean> obterPorId(int id) throws SQLException, ClassNotFoundException {
-		
+	public List<ConcorrenteClienteBean> obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
+		try {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-			return concorrenteDao.obterPorId(id);
-		
+			return concorrenteDao.obterPorId(idConcorrente);
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return null;
+		} catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}
 	}
 
-	public List<ConcorrenteClienteBean> obterPorCliente(int id) throws ClassNotFoundException, SQLException {
-		
+	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) {
+		try {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-			return concorrenteDao.obterPorCliente(id);
-		
-	}
-
-	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-		concorrenteDao.adicionar(concorrenteBean);
+			return concorrenteDao.obterPorCliente(idCliente);
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return null;
+		} catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}
 	}
 
 	public boolean alterar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
 		ConcorrenteDAO concorrenteDAO = new ConcorrenteDAO();
-
-		
-			List<ConcorrenteClienteBean> concorrentes = this.obterPorId(concorrenteBean.getId());
-
-			if (!concorrentes.isEmpty()) {
+		try {
+			List<ConcorrenteClienteBean> listaConcorrentes = this.obterPorId(concorrenteBean.getId());
+			if (!listaConcorrentes.isEmpty()) {
 				concorrenteDAO.alterar(concorrenteBean);
 				return true;
 			} else {
 				return false;
 			}
-		
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public boolean remover(int id) throws SQLException, ClassNotFoundException {
+	public boolean remover(int idConcorrente) throws ClassNotFoundException, SQLException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-
-		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-
-		
-			List<ConcorrenteClienteBean> concorrentes = this.obterPorId(id);
-			if (!concorrentes.isEmpty()) {
-				concorrenteDao.remover(concorrenteBean);
-				return true;
-			} else {
-				return false;
-			}
-
-		
+		try {
+			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
+			concorrenteBean.setId(idConcorrente);
+			concorrenteDao.remover(concorrenteBean);
+			return true;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
