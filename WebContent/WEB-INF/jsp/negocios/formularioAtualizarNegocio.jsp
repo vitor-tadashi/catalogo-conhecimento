@@ -53,7 +53,7 @@
 											<input type="hidden" name="logicaAtual" value="negocio.FormularioAtualizarNegocioLogica&id=${negocio.id}">
 									 	</div> 
 										<div class="panel-footer text-left">
-											<button class="btn btn-success" id="submitAlterar" type="submit">Aterar</button>
+											<button class="btn btn-success" id="submitAlterar" type="submit">Alterar</button>
 										</div> 
 									</form>
 								</div><!-- /panel -->
