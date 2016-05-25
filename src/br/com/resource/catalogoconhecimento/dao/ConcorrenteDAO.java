@@ -43,33 +43,20 @@ public class ConcorrenteDAO {
 		return listaConcorrentes;
 	}
 
-	public List<ConcorrenteClienteBean> obterPorId(int id) throws SQLException, ClassNotFoundException {
+	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente" + " FROM Concorrente AS CO"
-				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
-				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
-				+ " WHERE CC.idConcorrente = ? AND CC.ativo = ?";
+		String sql = "SELECT * FROM CONCORRENTE WHERE idConcorrente = ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, id);
-		ps.setString(2, "s");
+		ps.setInt(1, idConcorrente);
 		ResultSet rs = ps.executeQuery();
-		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
+		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
 		while (rs.next()) {
-			ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
-			concorrenteClienteBean.setValorHora(rs.getDouble("valorHora"));
-			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
 			concorrenteBean.setId(rs.getInt("idConcorrente"));
 			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
 			concorrenteBean.setDescricao(rs.getString("descricao"));
-			concorrenteClienteBean.setConcorrente(concorrenteBean);
-			ClienteBean clienteBean = new ClienteBean();
-			clienteBean.setId(rs.getInt("idCliente"));
-			clienteBean.setNome(rs.getString("nomeCliente"));
-			concorrenteClienteBean.setCliente(clienteBean);
-			listaConcorrentesClientes.add(concorrenteClienteBean);
 		}
 		conn.close();
-		return listaConcorrentesClientes;
+		return concorrenteBean;
 	}
 
 	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
@@ -101,9 +88,9 @@ public class ConcorrenteDAO {
 		return listaConcorrentesClientes;
 	}
 
-	public void alterar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
+	public void atualizar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String SQL = "UPDATE CONCORRENTE SET nomeConcorrente = ?, descricaoConcorrente = ?, WHERE idConcorrente = ?";
+		String SQL = "UPDATE CONCORRENTE SET nomeConcorrente = ?, descricao = ? WHERE idConcorrente = ?";
 		PreparedStatement ps = conn.prepareStatement(SQL);
 		ps.setString(1, concorrenteBean.getNome());
 		ps.setString(2, concorrenteBean.getDescricao());
@@ -113,12 +100,13 @@ public class ConcorrenteDAO {
 		conn.close();
 	}
 
-	public void remover(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
+	public void remover(int idConcorrente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		String deleteSQL = "DELETE FROM CONCORRENTE WHERE idConcorrente = ?";
+		String deleteSQL = "UPDATE CONCORRENTE SET ATIVO = ? WHERE idConcorrente = ?";
 		PreparedStatement ps = conn.prepareStatement(deleteSQL);
-		ps.setInt(1, concorrenteBean.getId());
-		ps.executeQuery();
+		ps.setString(1, "n");
+		ps.setInt(2, idConcorrente);
+		ps.executeUpdate();
 		conn.close();
 	}
 }
