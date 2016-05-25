@@ -19,7 +19,7 @@ public class AdicionarTecnologiaLogica implements Logica {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else {
 		TecnologiaBean tecnologia = new TecnologiaBean();
-		tecnologia.setNome(nome);
+		tecnologia.setNome(nome.trim());
 		
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		tecnologiaBusiness.adicionar(tecnologia);

@@ -13,5 +13,6 @@ public class FormularioInserirEquipeLogica implements Logica {
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return "WEB-INF/jsp/equipe/adicionaequipe.jsp";
 	
+	
 	}
 }
