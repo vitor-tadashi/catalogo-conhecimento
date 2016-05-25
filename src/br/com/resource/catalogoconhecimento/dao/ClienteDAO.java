@@ -80,12 +80,10 @@ public class ClienteDAO {
 
 	public void remover(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		// conn.setAutoCommit(false);
 		String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, clienteBean.getId());
 		stmt.executeUpdate();
-		// conn.commit();
 		conn.close();
 	}
 
