@@ -33,11 +33,10 @@
 										</div>
 										<div class="panel-body">
 											<div class="row">
-												<c:if test="${msgErro != null}">
-													<div class="alert alert-danger">
-														<c:out value="${msgErro}"></c:out>
-													</div> 
-												</c:if>
+												
+												<!-- Message Erro-->
+												<c:import url="/resources/jspImport/msgErro.jsp"/>
+												
 												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">Nome da Tecnologia
