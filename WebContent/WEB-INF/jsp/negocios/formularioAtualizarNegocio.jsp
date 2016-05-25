@@ -9,7 +9,18 @@
 </head>
 <body>
 
+<<<<<<< HEAD
+<form method="POST" action="mvc">
+<p>Id:<input type="text" name="id" value="${negocio.id}" readonly></p>
+<p>Area de atuacao:<input type="text" name="areaAtuacao" value="${negocio.areaAtuacao}"></p>
+<input type="hidden" name="logica" value="negocio.AtualizarNegocioLogica">
+
+<input type="hidden" name = "logicaAtual" value = "negocio.FormularioAtualizarNegocioLogica&idNegocio=${negocio.id}">
+<p><input type="submit" value="Atualizar"></p>
+</form>
+=======
 	<c:import url="/resources/jspImport/header.jsp"></c:import>
+>>>>>>> 0c50882d4264ef35b11fbba7cb80bf016d66fff5
 
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
