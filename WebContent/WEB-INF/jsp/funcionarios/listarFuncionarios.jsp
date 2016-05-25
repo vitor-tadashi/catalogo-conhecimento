@@ -36,7 +36,7 @@
 					</c:forEach>
 				</td>		
 				<td>
-					<a href="mvc?logica=funcionario.FormularioAlterarLogica&idFuncionario=${funcionario.id}">Alterar</a>
+					<a href="mvc?logica=funcionario.FormularioAlterarLogica&nomeFuncionario=${funcionario.nome}">Alterar</a>
 					<a href="mvc?logica=funcionario.RemoverFuncionarioLogica&idFuncionario=${funcionario.id}">Remover</a>
 				</td>
 			</tr>

@@ -14,8 +14,9 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class TecnologiaFuncionarioDAO {
 	
-	private String sql = "INSERT INTO TecnologiaFuncionario (idFuncionario, idTecnologia) VALUES (?, ?)";
+	private String sqlInserir = "INSERT INTO TecnologiaFuncionario (idFuncionario, idTecnologia) VALUES (?, ?)";
 	private String sqlConsultar = "SELECT * FROM TecnologiaFuncionario WHERE idTecnologiaFuncionario = ?";
+	private final String sqlDeletar  ="Delete from TecnologiaFuncionario where idFuncionario = ?";
 	Connection conexao;
 	
 	public TecnologiaFuncionarioDAO() throws ClassNotFoundException, SQLException {
@@ -23,7 +24,7 @@ public class TecnologiaFuncionarioDAO {
 	}
 	
 	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean>tecnologias) throws SQLException{
-		PreparedStatement ps = conexao.prepareStatement(sql);
+		PreparedStatement ps = conexao.prepareStatement(sqlInserir);
 		int linhasAfetadas =0;
 		
 		for(TecnologiaBean tecnologia: tecnologias){
@@ -84,6 +85,21 @@ public class TecnologiaFuncionarioDAO {
 		}
 		conexao.close();
 		return listaTecnologias;
+	}
+
+	public void atualizar(FuncionarioBean funcionario, List<TecnologiaBean> listaTecnologia) throws SQLException {
+		this.deletar(funcionario);
+		
+		this.inserir(funcionario, listaTecnologia);
+		
+	}
+
+	private void deletar(FuncionarioBean funcionario) throws SQLException {
+		PreparedStatement ps = conexao.prepareStatement(sqlDeletar);
+		ps.setInt(1, funcionario.getId());
+		
+		ps.executeUpdate();
+		
 	}
 
 }

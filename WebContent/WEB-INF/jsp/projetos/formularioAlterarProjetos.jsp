@@ -36,6 +36,8 @@
 			</c:forEach>
 			</select>
 		</p>
+		
+		<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
 		<p>
 			<input type="submit" value="Atualizar">
 		</p>

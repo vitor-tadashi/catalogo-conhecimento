@@ -36,15 +36,14 @@ public class FuncionarioBusiness {
 	public boolean atualizar(FuncionarioBean funcionario)throws ClassNotFoundException, SQLException {
 		
 
-			FuncionarioDAO funcionariodao;
-			funcionariodao = new FuncionarioDAO();
+			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
 
-			FuncionarioBean funcionarioAux = funcionariodao.obterPorId(funcionario.getId());
+			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionario.getId());
 
 			if (funcionarioAux == null) {
 				return true;
 			} else {
-				funcionariodao.atualizar(funcionario);
+				funcionarioDao.atualizar(funcionario);
 				return false;
 			}
 
@@ -68,5 +67,13 @@ public class FuncionarioBusiness {
 
 		
 	}
+	
+	//OBTER POR NOME
+	public FuncionarioBean obterPorNome(String nome)throws ClassNotFoundException, SQLException {
+		
+		FuncionarioDAO funcionario = new FuncionarioDAO();
+		return funcionario.obterPorNome(nome);
+	
+}
 
 }

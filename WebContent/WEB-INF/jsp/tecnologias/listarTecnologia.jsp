@@ -54,8 +54,6 @@
 											</tr>
 										</c:forEach>
 									</tbody>
-
-
 								</table>
 								<div class="panel-footer text-left">
 									<a
@@ -81,8 +79,7 @@
 
 	</div>
 	<!-- /main-container -->
-	</div>
-	<!-- /wrapper -->
+	</div> 
 	
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
 	
