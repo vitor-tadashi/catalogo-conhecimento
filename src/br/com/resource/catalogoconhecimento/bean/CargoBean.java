@@ -6,11 +6,9 @@ public class CargoBean {
 	private String nome;
 
 	public CargoBean() {
-
 	}
 
 	public CargoBean(int id, String nome) {
-		super();
 		this.id = id;
 		this.nome = nome;
 	}

@@ -9,19 +9,19 @@ import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AdicionarCargoLogica implements Logica {
-	
+
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		String nome = request.getParameter("nome");
-		if(nome.trim().equals("")){
-			throw new AtributoNuloException();
-		}else{
-		CargoBean cargoBean = new CargoBean();
-		cargoBean.setNome(nome);
-		
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		cargoBusiness.adicionar(cargoBean);
+
+		String nome = request.getParameter("nome").trim();
+		if (nome.equals("")) {
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else {
+			CargoBean cargoBean = new CargoBean();
+			cargoBean.setNome(nome);
+
+			CargoBusiness cargoBusiness = new CargoBusiness();
+			cargoBusiness.adicionar(cargoBean);
 		}
 		return "mvc?logica=cargo.ListarCargoLogica";
 	}
