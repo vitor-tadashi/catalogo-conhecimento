@@ -66,11 +66,11 @@ public class NegocioBusiness {
 		
 	}
 
-	/*// ListarporNome
-	public NegocioBean listarPorNome(String nome) throws ClassNotFoundException, SQLException {
+	 
+	public NegocioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 
 			NegocioDAO negociodao = new NegocioDAO();
 			return negociodao.obterPorNome(nome);
 	
-	}*/
+	}
 }

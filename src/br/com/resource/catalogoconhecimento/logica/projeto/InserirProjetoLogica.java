@@ -41,7 +41,7 @@ public class InserirProjetoLogica implements Logica {
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio;
 		for(int i = 0 ; i < negocios.length ; i ++){
-			negocio =  negocioBusiness.listarPorNome(negocios[i]);
+			negocio =  negocioBusiness.obterPorNome(negocios[i]);
 			listaNegocio.add(negocio);
 		}
 		
