@@ -8,7 +8,7 @@
 	<title>Listar Projetos</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
 </head>
-<body>
+<body class="overflow-hidden">
 
 	<c:import url="/resources/jspImport/header.jsp"></c:import> 
 	
@@ -56,8 +56,7 @@
 													<c:forEach var="negocio" items = "${projeto.listaNegocio}">
 														<option>${negocio.areaAtuacao}</option>
 													</c:forEach>
-													</select>
-												<c:out value="${myVar}"/>												
+													</select>												
 												</td>							
 												<td>${projeto.cliente.nome}</td>							
 												<td>${projeto.equipe.nome}</td>											
