@@ -11,8 +11,8 @@ public class AdicionarConcorrenteLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-		concorrenteBean.setNome(request.getParameter("nome"));
-		concorrenteBean.setDescricao(request.getParameter("descricao"));
+		concorrenteBean.setNome(request.getParameter("nome").trim());
+		concorrenteBean.setDescricao(request.getParameter("descricao").trim());
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
 		concorrenteBusiness.adicionar(concorrenteBean);
 		return "mvc?logica=concorrente.ListarConcorrenteLogica";
