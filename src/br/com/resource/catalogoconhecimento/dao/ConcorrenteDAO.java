@@ -42,7 +42,36 @@ public class ConcorrenteDAO {
 		conn.close();
 		return listaConcorrentes;
 	}
-
+	// ESSE AQUI
+	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int id) throws SQLException, ClassNotFoundException {
+		Connection conn = ConnectionFactory.createConnection();
+		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente" + " FROM Concorrente AS CO"
+				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
+				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
+				+ " WHERE CC.idConcorrente = ? AND CC.ativo = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ps.setString(2, "s");
+		ResultSet rs = ps.executeQuery();
+		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
+		while (rs.next()) {
+			ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
+			concorrenteClienteBean.setValorHora(rs.getDouble("valorHora"));
+			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
+			concorrenteBean.setId(rs.getInt("idConcorrente"));
+			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
+			concorrenteBean.setDescricao(rs.getString("descricao"));
+			concorrenteClienteBean.setConcorrente(concorrenteBean);
+			ClienteBean clienteBean = new ClienteBean();
+			clienteBean.setId(rs.getInt("idCliente"));
+			clienteBean.setNome(rs.getString("nomeCliente"));
+			concorrenteClienteBean.setCliente(clienteBean);
+			listaConcorrentesClientes.add(concorrenteClienteBean);
+		}
+		conn.close();
+		return listaConcorrentesClientes;
+	}
+	
 	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM CONCORRENTE WHERE idConcorrente = ?";
