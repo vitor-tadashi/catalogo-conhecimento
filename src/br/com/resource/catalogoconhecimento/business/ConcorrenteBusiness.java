@@ -6,6 +6,7 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
@@ -13,24 +14,26 @@ public class ConcorrenteBusiness {
 
 	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
+		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
-		} else if (this.obterNomeDesativado(concorrenteBean) != null) {
+		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
-		} else if (this.obterPorNome(concorrenteBean.getNome()) != null
-				&& this.obterPorNome(concorrenteBean.getNome()).getId() != concorrenteBean.getId()) {
-			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else {
-			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 			concorrenteDao.adicionar(concorrenteBean);
 		}
 	}
 
-	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException {
+	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException, ConsultaNulaException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-		return concorrenteDao.listar();
+		List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
+		if (listaConcorrente.isEmpty()) {
+			throw new ConsultaNulaException("Não há concorrentes cadastrados!");
+		} else {
+			return listaConcorrente;
+		}
 	}
 
 	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente)
@@ -49,10 +52,10 @@ public class ConcorrenteBusiness {
 		return concorrenteDao.obterPorNome(nomeConcorrente);
 	}
 
-	public ConcorrenteBean obterNomeDesativado(ConcorrenteBean concorrenteBean)
+	public boolean existe(ConcorrenteBean concorrenteBean)
 			throws SQLException, ClassNotFoundException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-		return concorrenteDao.obterNomeDesativado(concorrenteBean);
+		return concorrenteDao.existe(concorrenteBean);
 	}
 
 	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
@@ -60,21 +63,20 @@ public class ConcorrenteBusiness {
 		return concorrenteDao.obterPorCliente(idCliente);
 	}
 
-	public void atualizar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
+	public void alterar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
-		ConcorrenteBean concorrenteDesativado = this.obterNomeDesativado(concorrenteBean);
 		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
-		} else if (concorrenteDesativado != null) {
+		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-			throw new NomeRepetidoException("Este nome já consta na base de dados");
+			throw new NomeRepetidoException("Este nome já está cadastrado!");
 		} else {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-			concorrenteDao.atualizar(concorrenteBean);
+			concorrenteDao.alterar(concorrenteBean);
 		}
 	}
 

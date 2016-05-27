@@ -6,7 +6,7 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AtualizarConcorrenteLogica implements Logica {
+public class AlterarConcorrenteLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ConcorrenteBean concorrenteBean = new ConcorrenteBean();
@@ -14,7 +14,7 @@ public class AtualizarConcorrenteLogica implements Logica {
 		concorrenteBean.setNome(request.getParameter("nome").trim());
 		concorrenteBean.setDescricao(request.getParameter("descricao").trim());
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
-		concorrenteBusiness.atualizar(concorrenteBean);
+		concorrenteBusiness.alterar(concorrenteBean);
 		return "mvc?logica=concorrente.ListarConcorrenteLogica";
 	}
 

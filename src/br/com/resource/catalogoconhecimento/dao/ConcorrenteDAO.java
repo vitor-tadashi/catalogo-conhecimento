@@ -72,6 +72,20 @@ public class ConcorrenteDAO {
 		return listaConcorrentesClientes;
 	}
 	
+	public boolean existe(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException{
+		Connection conn = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Concorrente WHERE nomeConcorrente = ? and ativo  = ?";
+		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		preparedStatement.setString(1, concorrenteBean.getNome());
+		preparedStatement.setString(2, "n");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		if (!resultSet.isBeforeFirst() ) {    
+			return false; 
+		} else {
+			return true;
+		}
+	}
+	
 	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM CONCORRENTE WHERE idConcorrente = ?";
@@ -105,24 +119,6 @@ public class ConcorrenteDAO {
 		return concorrenteBean;
 	}
 
-	public ConcorrenteBean obterNomeDesativado(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException{
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Concorrente WHERE nomeConcorrente = ? and ativo  = ?";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, concorrenteBean.getNome());
-		ps.setString(2, "n");
-		ResultSet rs = ps.executeQuery();
-		concorrenteBean = null;
-		while (rs.next()) {
-			concorrenteBean = new ConcorrenteBean();
-			concorrenteBean.setId(rs.getInt("idConcorrente"));
-			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
-		}
-		ps.close();
-		conn.close();
-		return concorrenteBean;
-	}
-	
 	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente" + " FROM Concorrente AS CO"
@@ -152,7 +148,7 @@ public class ConcorrenteDAO {
 		return listaConcorrentesClientes;
 	}
 
-	public void atualizar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
+	public void alterar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 		String SQL = "UPDATE CONCORRENTE SET nomeConcorrente = ?, descricao = ? WHERE idConcorrente = ?";
 		PreparedStatement ps = conn.prepareStatement(SQL);
