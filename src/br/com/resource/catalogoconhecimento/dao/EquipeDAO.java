@@ -9,12 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.resource.catalogoconhecimento.bean.ClienteBean;
-import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
-import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
+
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class EquipeDAO {
