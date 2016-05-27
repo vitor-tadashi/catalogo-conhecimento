@@ -10,8 +10,8 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
@@ -38,6 +38,8 @@ public class ProjetoDAO {
 		EquipeBean equipe;
 		ClienteBean cliente;
 		
+		List<NegocioBean> listaNegocio = null;
+		
 		while(rs.next()) {
 			
 			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
@@ -45,6 +47,9 @@ public class ProjetoDAO {
 			
 			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, equipe,
 					rs.getString("nomeProjeto"), rs.getString("observacao"));
+			
+			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
+			projeto.setListaNegocio(listaNegocio);
 			projetos.add(projeto);
 		}
 

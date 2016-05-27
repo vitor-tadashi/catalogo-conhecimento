@@ -5,7 +5,6 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Adicionar Cliente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
@@ -77,7 +76,6 @@
 				</div><!-- /.row -->
 			</div><!-- /.padding-md -->
 		</div><!-- /main-container -->
-	</div><!-- /wrapper -->
 
 	<!-- Import Logout Action -->
 	<c:import url="/resources/jspImport/logout.jsp" />
