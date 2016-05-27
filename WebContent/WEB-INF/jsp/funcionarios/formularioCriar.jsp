@@ -8,7 +8,7 @@
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
   <script>
   	$(function() {
-    	$("#dataNascimento").datepicker();
+    	$("#dataNascimento").datepicker({ dateFormat: 'dd/mm/yy' });
   	});
   </script>
 </head>
