@@ -39,6 +39,7 @@
 											<th>Identificação</th>
 											<th>Nome do Projeto</th>
 											<th>Área de Atuação</th>
+											<th>Tecnologia</th>
 											<th>Cliente</th>
 											<th>Equipe</th>
 											<th>Observação</th>
@@ -57,7 +58,15 @@
 														<option>${negocio.areaAtuacao}</option>
 													</c:forEach>
 													</select>
-												<c:out value="${myVar}"/>												
+																							
+												</td>	
+												<td>
+													<select>
+													<c:forEach var="tecnologia" items = "${projeto.listaTecnologia}">
+														<option>${tecnologia.nome}</option>
+													</c:forEach>
+													</select>
+																							
 												</td>							
 												<td>${projeto.cliente.nome}</td>							
 												<td>${projeto.equipe.nome}</td>											

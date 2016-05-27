@@ -51,7 +51,7 @@
 													</div>
 												</div><!-- /.col -->
 												 
- 												<div class="col-md-4">
+ 												<div class="col-md-3">
 													<div class="form-group">
 														<label class="control-label">Equipe:
 															<select class="form-control input-sm" name="equipe">
@@ -62,7 +62,7 @@
 														</label>
 													</div>
 												</div><!-- /.col -->  
-												<div class="col-md-4">
+												<div class="col-md-3">
 													<div class="form-group">
 														<label class="control-label">Negócio:
 														</label>
@@ -78,7 +78,23 @@
 														</div>	
 													</div>
 												</div><!-- /.col --> 
-												<div class="col-md-4">
+															<div class="col-md-3">
+													<div class="form-group">
+														<label class="control-label">Tecnologia:
+														</label>
+														<div class="checkbox">
+															<c:forEach items="${tecnologias}" var="tecnologia">
+																<label class="control-label">		
+																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologia.nome}"/>
+																	<span class="custom-checkbox"></span>
+																	${tecnologia.nome}
+																</label>
+																<br>
+															</c:forEach>
+														</div>	
+													</div>
+												</div><!-- /.col --> 
+												<div class="col-md-3">
 													<div class="form-group">
 														<label class="control-label">Cliente
 															<select class="form-control input-sm" name="cliente">

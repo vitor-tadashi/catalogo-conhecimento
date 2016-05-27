@@ -10,9 +10,11 @@ public class ProjetoBean {
 	private String nome;
 	private String observacao;
 	private List<NegocioBean> listaNegocio;
+	private List<TecnologiaBean>listaTecnologia;
 
 	public ProjetoBean() {
 		listaNegocio = new ArrayList<>();
+		listaTecnologia = new ArrayList<>();
 	}
 
 	public ProjetoBean(int idProjeto, ClienteBean cliente, EquipeBean equipe, String nomeProjeto, String observacao) {
@@ -22,6 +24,7 @@ public class ProjetoBean {
 		this.nome = nomeProjeto;
 		this.observacao = observacao;
 		listaNegocio = new ArrayList<>();
+		listaTecnologia = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -71,6 +74,15 @@ public class ProjetoBean {
 	public void setListaNegocio(List<NegocioBean> listaNegocio) {
 		this.listaNegocio = listaNegocio;
 	}
+
+	public List<TecnologiaBean> getListaTecnologia() {
+		return listaTecnologia;
+	}
+
+	public void setListaTecnologia(List<TecnologiaBean> listaProjeto) {
+		this.listaTecnologia = listaProjeto;
+	}
+	
 	
  
 
