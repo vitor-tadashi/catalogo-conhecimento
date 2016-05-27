@@ -115,6 +115,9 @@ public class CargoDAO {
 
 			listaFuncionario.add(funcionarioBean);
 		}
+		
+		ps.close();
+		conexao.close();
 
 		return listaFuncionario;
 	}

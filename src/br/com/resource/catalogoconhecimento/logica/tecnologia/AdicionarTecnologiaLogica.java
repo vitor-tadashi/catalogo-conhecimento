@@ -11,14 +11,13 @@ public class AdicionarTecnologiaLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		String nome = request.getParameter("nome");
 		
-		TecnologiaBean tecnologia = new TecnologiaBean();
-		tecnologia.setNome(nome.trim());
+		TecnologiaBean tecnologiaBean = new TecnologiaBean();
+		tecnologiaBean.setNome(nome.trim());
 		
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		tecnologiaBusiness.adicionar(tecnologia);
+		tecnologiaBusiness.adicionar(tecnologiaBean);
 		
 		return "mvc?logica=tecnologia.ListarTecnologiaLogica";
 	}
