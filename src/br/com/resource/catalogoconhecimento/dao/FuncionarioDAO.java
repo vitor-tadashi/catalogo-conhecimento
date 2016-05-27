@@ -76,7 +76,7 @@ public class FuncionarioDAO {
 			funcionario.setEmail(rs.getString("email"));
 			funcionario.setCpf(rs.getString("CPF"));
 			funcionario.setRg(rs.getString("RG"));
-			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));
+			funcionario.setDataNascimento(rs.getDate("dataNascimento"));
 			funcionario.setTecnologias(tecnologias);
 
 			funcionarios.add(funcionario);
