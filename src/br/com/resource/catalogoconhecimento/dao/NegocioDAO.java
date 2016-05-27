@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
+import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class NegocioDAO {
@@ -154,6 +155,34 @@ public class NegocioDAO {
 		}
 		conexao.close();
 		return negocio;
+	}
+	
+	public List<NegocioBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "select" 
+					+"	n.areaAtuacao"
+					+"  from"
+					+"	Projeto as p inner join ProjetoNegocio as pn" 
+					+"	on p.idProjeto = pn.idProjeto"
+					+"	inner join Negocio as n"
+					+"	on n.idNegocio = pn.idNegocio"
+					+"  where p.idProjeto = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, projeto.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<NegocioBean> listaNegocio =  new ArrayList<>();
+		NegocioBean negocio = null;
+		while(rs.next()){
+			negocio = new NegocioBean();
+			negocio.setAreaAtuacao(rs.getString("areaAtuacao"));
+			listaNegocio.add(negocio);
+		}
+		
+		return listaNegocio;
+		
 	}
 	
 }

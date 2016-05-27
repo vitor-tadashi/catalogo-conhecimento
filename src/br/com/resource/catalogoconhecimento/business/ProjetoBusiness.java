@@ -43,7 +43,7 @@ public class ProjetoBusiness {
 		 if(listaProjeto == null){
 			 throw new ConsultaNulaException("Não há projetos cadastrados!");
 		 }else{
-			 return listaProjeto;
+			 return listaProjeto; 
 		 }
 
 	}

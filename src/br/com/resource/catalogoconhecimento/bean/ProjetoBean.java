@@ -1,14 +1,18 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjetoBean {
 	private int id;
 	private EquipeBean equipe;
 	private ClienteBean cliente;
 	private String nome;
 	private String observacao;
+	private List<NegocioBean> listaNegocio;
 
 	public ProjetoBean() {
-
+		listaNegocio = new ArrayList<>();
 	}
 
 	public ProjetoBean(int idProjeto, ClienteBean cliente, EquipeBean equipe, String nomeProjeto, String observacao) {
@@ -17,6 +21,7 @@ public class ProjetoBean {
 		this.cliente = cliente;
 		this.nome = nomeProjeto;
 		this.observacao = observacao;
+		listaNegocio = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -58,5 +63,15 @@ public class ProjetoBean {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+
+	public List<NegocioBean> getListaNegocio() {
+		return listaNegocio;
+	}
+
+	public void setListaNegocio(List<NegocioBean> listaNegocio) {
+		this.listaNegocio = listaNegocio;
+	}
+	
+ 
 
 }
