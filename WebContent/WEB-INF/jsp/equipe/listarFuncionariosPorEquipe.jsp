@@ -17,31 +17,32 @@
 				<th>Tecnologia</th>
 			</tr>
 
-			<c:forEach var="Funcionario" items="${Funcionarios}">
-				<tr>
-						<td>${funcionario.nomeFuncionario}</td>
-						<td>${funcionario.email}</td>
+			<c:forEach var="funcionarioEquipe" items="${funcionarioEquipe}">
 
-				</tr>
+			<tr>
+				<td>${funcionarioEquipe.nome}</td>
+				<td>${funcionarioEquipe.email}</td>		
+				<td>
+					<c:forEach var="tecnologia" items="${funcionarioEquipe.tecnologias}">
+						<c:out value="${tecnologia.nome}" /> 
+					</c:forEach>
 			</c:forEach>
 		</table>
-	
+		<form name="" method="POST" action="mvc">
 				<p>
 			<input type="submit" value="Inserir">
 				</p>
 					
-					
-					<select size="1" name="D1">			
-					<option selected value="Selecione">Funcionários</option>
-					<option value="${funcionario.nomeFuncionario}">Lucas Pagialai</option>
-					<option value="${funcionario.nomeFuncionario}">Rodrigo Ribeiro Nascimento</option>
-					<option value="${funcionario.nomeFuncionario}">André Luiz Da Silva De Oliveira</option>
-					<option value="${funcionario.nomeFuncionario}">Pedro Henrique Sobrinho De Jesus</option>
-					<option value="${funcionario.nomeFuncionario}">José Silva De Araújo e Silva</option>
-					<option value="${funcionario.nomeFuncionario}">Juliana Almeida Francisco Carapicuiba</option>
-							
-					</select>
-
+			<select class="form-control input-sm" name="equipe">
+				<c:forEach var="funcionario" items="${funcionarios}">	
+					<option value="${funcionario.id}">${funcionario.nome}</option>
+				</c:forEach>
+			</select>
+			<input type="hidden" name="logicaAtual" value="equipe.ListarFuncionariosPorEquipeLogica" />
+			<input type="hidden" name="logica" value="equipe.InserirNegocioLogica">
+										
+			
+		</form>
 				
 	</body>
 </html>
