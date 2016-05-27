@@ -1,6 +1,6 @@
 package br.com.resource.catalogoconhecimento.exceptions;
 
-public class AtributoNuloException extends Exception {
+public class AtributoNuloException extends BusinessException {
 
 	/**
 	 * 
