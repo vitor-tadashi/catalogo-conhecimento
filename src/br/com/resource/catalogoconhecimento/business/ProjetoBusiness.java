@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
@@ -35,10 +36,15 @@ public class ProjetoBusiness {
 	}
 
 	// CONSULTA NA TABELA PROJETO
-	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
+	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 
 		ProjetoDAO projeto = new ProjetoDAO();
-		return projeto.listar();
+		List<ProjetoBean>listaProjeto = projeto.listar();
+		 if(listaProjeto == null){
+			 throw new ConsultaNulaException("Não há projetos cadastrados!");
+		 }else{
+			 return listaProjeto;
+		 }
 
 	}
 
