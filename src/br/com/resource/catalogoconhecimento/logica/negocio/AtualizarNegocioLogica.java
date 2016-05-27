@@ -23,7 +23,7 @@ public class AtualizarNegocioLogica implements Logica {
 			negocio.setAreaAtuacao(areaAtuacao);
 
 			NegocioBusiness negocioBusiness = new NegocioBusiness();
-			negocioBusiness.atualizar(negocio);
+			negocioBusiness.alterar(negocio);
 		}
 		return "mvc?logica=negocio.ListarNegocioLogica";
 	}

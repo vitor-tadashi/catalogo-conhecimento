@@ -14,7 +14,7 @@ public class FormularioAtualizarNegocioLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
-		NegocioBean negocio = negocioBusiness.listarPorId(id);
+		NegocioBean negocio = negocioBusiness.obterPorId(id);
 
 
 		request.setAttribute("negocio", negocio);

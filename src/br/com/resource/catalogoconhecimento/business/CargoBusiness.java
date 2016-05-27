@@ -86,10 +86,10 @@ public class CargoBusiness {
 		CargoDAO cargoDao = new CargoDAO();
 		List<FuncionarioBean> listaFuncionario = cargoDao.obterPorFuncionario(id);
 		
-		if (listaFuncionario == null) {
+		if (listaFuncionario.isEmpty()) {
 			cargoDao.remover(id);
 		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido pois encontra-se vinculado com outro registro");
+			throw new RegistroVinculadoException("Registro não pode ser removido");
 		}
 		
 		cargoDao.remover(id);
