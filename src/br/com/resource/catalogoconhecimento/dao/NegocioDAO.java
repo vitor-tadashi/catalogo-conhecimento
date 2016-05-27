@@ -159,7 +159,7 @@ public class NegocioDAO {
 	
 	public List<NegocioBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "select" 
+		String sql = "  select" 
 					+"	n.areaAtuacao"
 					+"  from"
 					+"	Projeto as p inner join ProjetoNegocio as pn" 
@@ -184,6 +184,7 @@ public class NegocioDAO {
 		return listaNegocio;
 		
 	}
+	
 	
 }
 

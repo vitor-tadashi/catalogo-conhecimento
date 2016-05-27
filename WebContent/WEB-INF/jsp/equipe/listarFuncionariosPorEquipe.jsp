@@ -8,13 +8,14 @@
 		<title>Listar Funcionarios Por Equipe</title>
 	</head>
 	<body>
-		<h2>Equipe ${equipe.nome}</h2>
+		<h2>Equipe</h2>
 
 		<table border="1">
 			<tr>
 				<th>Funcionário</th>
 				<th>E-mail</th>
 				<th>Tecnologia</th>
+				<th>Excluir</th>
 			</tr>
 
 			<c:forEach var="funcionarioEquipe" items="${funcionarioEquipe}">
@@ -26,6 +27,10 @@
 					<c:forEach var="tecnologia" items="${funcionarioEquipe.tecnologias}">
 						<c:out value="${tecnologia.nome}" /> 
 					</c:forEach>
+			
+				</td>
+				<td><a href="equipe.DeletarFuncionarioEquipeLogica">X</a></td>
+			</tr>
 			</c:forEach>
 		</table>
 		<form name="" method="POST" action="mvc">
@@ -33,14 +38,14 @@
 			<input type="submit" value="Inserir">
 				</p>
 					
-			<select class="form-control input-sm" name="equipe">
+			<select class="form-control input-sm" name="idFuncionario">
 				<c:forEach var="funcionario" items="${funcionarios}">	
 					<option value="${funcionario.id}">${funcionario.nome}</option>
 				</c:forEach>
 			</select>
 			<input type="hidden" name="logicaAtual" value="equipe.ListarFuncionariosPorEquipeLogica" />
-			<input type="hidden" name="logica" value="equipe.InserirNegocioLogica">
-										
+			<input type="hidden" name="logica" value="equipe.FormularioInserirFuncionarioPorEquipeLogica">
+			<input type="hidden" name="idEquipe" value="${idEquipe}">							
 			
 		</form>
 				

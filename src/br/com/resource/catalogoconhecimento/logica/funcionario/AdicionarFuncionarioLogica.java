@@ -1,6 +1,8 @@
 package br.com.resource.catalogoconhecimento.logica.funcionario;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,13 @@ public class AdicionarFuncionarioLogica implements Logica {
 		String email = request.getParameter("email");
 		String[] tecnologias = request.getParameterValues("tecnologiasArray");
 		String cargo = request.getParameter("cargo");
+		String cpf = request.getParameter("cpf");
+		String rg = request.getParameter("rg");
+		String data = request.getParameter("dataNascimento");
+
+		// CONVERTENDO A DATA
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataFormatada = formatador.parse(data);
 
 		CargoBean cargoBean = new CargoBean();
 		CargoBusiness cargoBusiness = new CargoBusiness();
@@ -45,6 +54,10 @@ public class AdicionarFuncionarioLogica implements Logica {
 		funcionario.setNomeUser(nomeUsuario);
 		funcionario.setTelefone(telefone);
 		funcionario.setCargo(cargoBean);
+		funcionario.setCpf(cpf);
+		funcionario.setRg(rg);
+		funcionario.setDataNascimento(dataFormatada);
+
 		funcionario.setTecnologias(listaTecnologia);
 
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
