@@ -13,27 +13,25 @@ import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioAlterarLogica implements Logica{
+public class FormularioAlterarFuncionarioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		
+
 		String nome = request.getParameter("nomeFuncionario");
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		CargoBusiness cargoBusiness = new CargoBusiness();
-		
+
 		FuncionarioBean funcionario = funcionarioBusiness.obterPorNome(nome);
-		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar() ;
+		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<CargoBean> listaCargo = cargoBusiness.listar();
-		
-		
+
 		request.setAttribute("funcionario", funcionario);
 		request.setAttribute("tecnologias", listaTecnologia);
 		request.setAttribute("cargos", listaCargo);
-		
-		return "/WEB-INF/jsp/funcionarios/formularioAlterar.jsp";
+
+		return "/WEB-INF/jsp/funcionarios/formularioAlterarFuncionario.jsp";
 	}
 
 }
