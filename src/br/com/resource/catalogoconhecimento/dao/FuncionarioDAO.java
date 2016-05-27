@@ -20,7 +20,7 @@ public class FuncionarioDAO {
 	// CRIA
 	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo, CPF, RG, dataNascimetno) VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo, CPF, RG, dataNascimento) VALUES(?,?,?,?,?,?,?,?,?)";
 		PreparedStatement st = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 		st.setInt(1, funcionario.getCargo().getId());
@@ -51,7 +51,7 @@ public class FuncionarioDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Funcionario where ativo = ?";
+		String sql = "SELECT *, CONVERT(VARCHAR,CONVERT(date, dataNascimento, 100), 103) AS Data_Nascimento FROM Funcionario where ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, "s");
 
@@ -76,7 +76,7 @@ public class FuncionarioDAO {
 			funcionario.setEmail(rs.getString("email"));
 			funcionario.setCpf(rs.getString("CPF"));
 			funcionario.setRg(rs.getString("RG"));
-			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));
+			funcionario.setDataNascimento(rs.getDate("dataNascimento"));
 			funcionario.setTecnologias(tecnologias);
 
 			funcionarios.add(funcionario);
@@ -89,7 +89,7 @@ public class FuncionarioDAO {
 	// ATUALIZA
 	public void atualizar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?, nomeUser=?, email =?, CPF = ?, RG = ?, dataNascimetno = ? WHERE idFuncionario = ?";
+		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?, nomeUser=?, email =?, CPF = ?, RG = ?, dataNascimento = ? WHERE idFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, funcionario.getNome());
 		ps.setString(2, funcionario.getTelefone());
@@ -155,7 +155,7 @@ public class FuncionarioDAO {
 			funcionario.setEmail(rs.getString("email"));
 			funcionario.setCpf(rs.getString("CPF"));
 			funcionario.setRg(rs.getString("RG"));
-			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));	
+			funcionario.setDataNascimento(rs.getDate("dataNascimento"));	
 
 		}
 		
@@ -185,7 +185,7 @@ public class FuncionarioDAO {
 			funcionario.setEmail(rs.getString("email"));
 			funcionario.setCpf(rs.getString("CPF"));
 			funcionario.setRg(rs.getString("RG"));
-			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));
+			funcionario.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 		
 		conexao.close();
