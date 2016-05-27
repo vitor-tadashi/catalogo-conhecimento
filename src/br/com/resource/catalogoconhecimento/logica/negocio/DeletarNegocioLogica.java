@@ -14,7 +14,7 @@ public class DeletarNegocioLogica implements Logica {
 		int idNegocio = Integer.parseInt(request.getParameter("idNegocio"));
 
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
-		negocioBusiness.deletar(idNegocio);
+		negocioBusiness.remover(idNegocio);
 
 
 		return "mvc?logica=negocio.ListarNegocioLogica";

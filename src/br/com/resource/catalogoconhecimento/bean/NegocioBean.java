@@ -6,7 +6,6 @@ public class NegocioBean {
 	private String areaAtuacao;
 
 	public NegocioBean() {
-
 	}
 
 	public NegocioBean(int idNegocio, String areaAtuacao) {
