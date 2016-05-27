@@ -20,7 +20,7 @@ public class FuncionarioDAO {
 	// CRIA
 	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo, CPF, RG, dataNascimetno) VALUES(?,?,?,?,?,?,?,?,?)";
 		PreparedStatement st = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 		
@@ -30,6 +30,9 @@ public class FuncionarioDAO {
 		st.setString(4, funcionario.getNomeUser());
 		st.setString(5, funcionario.getEmail());
 		st.setString(6, "s");
+		st.setString(7, funcionario.getCpf());
+		st.setString(8, funcionario.getRg());
+		st.setDate(9, new java.sql.Date(funcionario.getDataNascimento().getTime()));
 		
 		st.executeUpdate();
 		ResultSet rs = st.getGeneratedKeys();
@@ -71,6 +74,9 @@ public class FuncionarioDAO {
 			funcionario.setNomeUser(rs.getString("nomeUser"));
 			funcionario.setTelefone(rs.getString("telefone"));
 			funcionario.setEmail(rs.getString("email"));
+			funcionario.setCpf(rs.getString("CPF"));
+			funcionario.setRg(rs.getString("RG"));
+			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));
 			funcionario.setTecnologias(tecnologias);
 			
 			funcionarios.add(funcionario);
@@ -83,13 +89,16 @@ public class FuncionarioDAO {
 	// ATUALIZA
 	public void atualizar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?, nomeUser=?, email =? WHERE idFuncionario = ?";
+		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?, nomeUser=?, email =?, CPF = ?, RG = ?, dataNascimetno = ? WHERE idFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, funcionario.getNome());
 		ps.setString(2, funcionario.getTelefone());
-		ps.setString(3, funcionario.getEmail());
-		ps.setString(4, funcionario.getNomeUser());
-		ps.setInt(5, funcionario.getId());
+		ps.setString(3, funcionario.getNomeUser());
+		ps.setString(4, funcionario.getEmail());
+		ps.setString(5, funcionario.getCpf());
+		ps.setString(6, funcionario.getRg());
+		ps.setDate(7, new java.sql.Date(funcionario.getDataNascimento().getTime()));
+		ps.setInt(8, funcionario.getId());
 		
 		
 		ps.executeUpdate();
@@ -128,21 +137,27 @@ public class FuncionarioDAO {
 	// LISTA POR ID
 	public FuncionarioBean obterPorId(int idFuncionario) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE idFuncionario = '" + idFuncionario
-				+ "'";
+		String sql = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-
+		ps.setInt(1, idFuncionario);
 		ResultSet rs = ps.executeQuery();
 
 		FuncionarioBean funcionario = null;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
 			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			funcionario = new FuncionarioBean(rs.getInt("idFuncionario"), cargoBean,
-					rs.getString("nomeFuncionario"), rs.getString("nomeUser"), rs.getString("telefone"),
-					rs.getString("email"));
+			funcionario = new FuncionarioBean();
+			funcionario.setId(rs.getInt("idFuncionario"));
+			funcionario.setCargo(cargoBean);
+			funcionario.setNome(rs.getString("nomeFuncionario"));
+			funcionario.setTelefone(rs.getString("telefone"));
+			funcionario.setNomeUser(rs.getString("nomeUser"));
+			funcionario.setEmail(rs.getString("email"));
+			funcionario.setCpf(rs.getString("CPF"));
+			funcionario.setRg(rs.getString("RG"));
+			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));	
 		}
+		
 		conexao.close();
 		return funcionario;
 	}
@@ -162,14 +177,20 @@ public class FuncionarioDAO {
 
 			funcionario = new FuncionarioBean();
 			funcionario.setId(rs.getInt("idFuncionario"));
+			funcionario.setCargo(cargoBean);
 			funcionario.setNome(rs.getString("nomeFuncionario"));
 			funcionario.setTelefone(rs.getString("telefone"));
-			funcionario.setEmail(rs.getString("email"));
 			funcionario.setNomeUser(rs.getString("nomeUser"));
-			funcionario.setCargo(cargoBean);
+			funcionario.setEmail(rs.getString("email"));
+			funcionario.setCpf(rs.getString("CPF"));
+			funcionario.setRg(rs.getString("RG"));
+			funcionario.setDataNascimento(rs.getDate("dataNascimetno"));
 		}
+		
 		conexao.close();
 		return funcionario;
 	}
+	
+	
 
 }

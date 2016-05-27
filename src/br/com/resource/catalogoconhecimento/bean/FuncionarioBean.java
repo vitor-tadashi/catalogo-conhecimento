@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+
+import java.util.Date;
 import java.util.List;
 
 public class FuncionarioBean {
@@ -11,6 +13,9 @@ public class FuncionarioBean {
 	private String nomeUser;
 	private String email;
 	private List<TecnologiaBean> tecnologias;
+	private String cpf;
+	private String rg;
+	private Date dataNascimento;
 
 
 
@@ -20,7 +25,7 @@ public class FuncionarioBean {
 	}
 
 	public FuncionarioBean(int idFuncionario, CargoBean cargo, String nomeFuncionario, String telefone, String nomeUser,
-			String email) {
+			String email, String cpf, String rg, Date dataNascimento) {
 
 		this.id = idFuncionario;
 		this.cargo = cargo;
@@ -28,7 +33,11 @@ public class FuncionarioBean {
 		this.telefone = telefone;
 		this.nomeUser = nomeUser;
 		this.email = email;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.dataNascimento = dataNascimento;
 	}
+
 
 	public int getId() {
 		return id;
@@ -91,6 +100,32 @@ public class FuncionarioBean {
 	public void setTecnologias(List<TecnologiaBean> tecnologias) {
 		this.tecnologias = tecnologias;
 	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public String getRg() {
+		return rg;
+	}
+	
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
+	
 	
 	
 }
