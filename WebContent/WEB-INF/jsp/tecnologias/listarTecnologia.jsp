@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Listar Tecnologias</title>
+	<title>Lista de Tecnologias</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body class="overflow-hidden">
@@ -18,7 +18,7 @@
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
 				<li>Tecnologias</li>
-				<li class="active">Listar Tecnologias</li>
+				<li class="active">Lista de Tecnologias</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -28,7 +28,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Listar Tecnologias</h3>
+								<h3>Lista de Tecnologias</h3>
 								<span class="label label-info pull-right">${fn:length(tecnologias)}
 									registros</span>
 							</div>

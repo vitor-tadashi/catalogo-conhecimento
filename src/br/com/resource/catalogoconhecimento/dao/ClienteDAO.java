@@ -60,8 +60,11 @@ public class ClienteDAO {
 
 	public void alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
+
 		String sql = "UPDATE Cliente SET nomeCliente = ?, logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE idCliente = ?";
+
 		PreparedStatement ps = conn.prepareStatement(sql);
+
 		ps.setString(1, clienteBean.getNome());
 		ps.setString(2, clienteBean.getLogradouro());
 		ps.setString(3, clienteBean.getCep());
@@ -70,28 +73,18 @@ public class ClienteDAO {
 		ps.setString(6, clienteBean.getEmail());
 		ps.setString(7, String.valueOf('S'));
 		ps.setInt(8, clienteBean.getId());
+
 		ps.executeUpdate();
 		conn.close();
 	}
 
 	public void remover(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
-		conn.setAutoCommit(false);
-
-		try {
-			String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, clienteBean.getId());
-			stmt.executeUpdate();
-
-			conn.commit();
-
-		} catch (Exception e) {
-			conn.rollback();
-			System.out.println("--- Erro ao deletar cliente ---" + e.getMessage());
-		} finally {
-			conn.close();
-		}
+		String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, clienteBean.getId());
+		stmt.executeUpdate();
+		conn.close();
 	}
 
 	public ClienteBean obterPorId(int idCliente) throws SQLException, ClassNotFoundException {

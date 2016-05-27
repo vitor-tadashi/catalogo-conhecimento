@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Cadastrar Tecnologia</title>
+	<title>Adicionar Tecnologia</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body class="overflow-hidden">
@@ -17,7 +17,7 @@
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
 				<li>Tecnologias</li>
-				<li class="active">Cadastrar Tecnologia</li>
+				<li class="active">Adicionar Tecnologia</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -29,7 +29,7 @@
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAdicionaTecnologia"  method="POST" action="mvc">
 										<div class="panel-heading">
-											<h3>Cadastrar Tecnologia</h3>
+											<h3>Adicionar Tecnologia</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
@@ -49,7 +49,7 @@
 											<input type="hidden" name="logica" value="tecnologia.AdicionarTecnologiaLogica">
 										</div>
 										<div class="panel-footer text-left">
-											<button class="btn btn-success" type="submit">Cadastrar</button>
+											<button class="btn btn-success" type="submit">Adicionar</button>
 										</div>
 									</form>
 								</div><!-- /panel -->

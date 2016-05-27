@@ -14,13 +14,13 @@ public class AlterarClienteLogica implements Logica {
 
 		ClienteBean clienteBean = new ClienteBean();
 
-		clienteBean.setId(Integer.parseInt(request.getParameter("id")));
-		clienteBean.setNome(request.getParameter("nome"));
-		clienteBean.setLogradouro(request.getParameter("logradouro"));
-		clienteBean.setCep(request.getParameter("cep"));
-		clienteBean.setNumero(request.getParameter("numero"));
-		clienteBean.setCnpj(request.getParameter("cnpj"));
-		clienteBean.setEmail(request.getParameter("email"));
+		clienteBean.setId(Integer.parseInt(request.getParameter("id").trim()));
+		clienteBean.setNome(request.getParameter("nome").trim());
+		clienteBean.setLogradouro(request.getParameter("logradouro").trim());
+		clienteBean.setCep(request.getParameter("cep").trim());
+		clienteBean.setNumero(request.getParameter("numero").trim());
+		clienteBean.setCnpj(request.getParameter("cnpj").trim());
+		clienteBean.setEmail(request.getParameter("email").trim());
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
 		clienteBusiness.alterar(clienteBean);

@@ -16,11 +16,12 @@ public class AlterarCargoLogica implements Logica {
 
 		CargoBean cargoBean = new CargoBean();
 		cargoBean.setId(id);
-		cargoBean.setNome(nome);
+		cargoBean.setNome(nome.trim());
 
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		cargoBusiness.alterar(cargoBean);
 
 		return "mvc?logica=cargo.ListarCargoLogica";
 	}
+	
 }

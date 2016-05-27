@@ -16,69 +16,71 @@
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="index.html">
-					Projetos</li>
+						Principal</a></li>
+				<li>Projetos</li>
 				<li class="active">Listar Projetos</li>
 			</ul>
 		</div>
-	<Section width="100%" height="auto">
-		<h3>Lista de projetos</h3>
-	</Section>
-
-	<table border="1">
-	
-		<tr>
-			
-			<th>Identificação</th>
-			<th>Nome do Projeto</th>
-			<th>Cliente</th>
-			<th>Equipe</th>
-			<th>Observação</th>
-			<th colspan="2">Ações</th>
-		</tr>
-
-		<c:forEach var="projeto" items="${projetos}">
-		
-			
-			<tr>
-				
-				<td>${projeto.id}</td>
-
-				<td>${projeto.nome}</td>
-
-				<td>${projeto.cliente.nome}</td>
-
-				<td>${projeto.equipe.nome}</td>
-				
-				<td>${projeto.observacao}</td>
-
-				<td><a href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">Alterar</a></td>
-
-				<td><a href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}">Deletar</a></td>
-
-			</tr>
-		
-		</c:forEach>
-
-		<br>
-		<a href="index.html">Retornar a página inicial</a>
-		</div>
-							
-							
-							
+		<!--breadcrumb-->
+		<div class="padding-md">
+			<div class="col-md-12 col-sm-12">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="research">
+						<div class="panel panel-default table-responsive">
+							<div class="panel-heading">
+								<h3>Listar Projetos</h3>
+								<span class="label label-info pull-right">${fn:length(projetos)}
+									registros</span>
+							</div>
+							<div class="padding-md clearfix">
+								<table class="table table-striped" id="dataTable">
+									<thead>
+										<tr>
+											<th>Identificação</th>
+											<th>Nome do Projeto</th>
+											<th>Cliente</th>
+											<th>Equipe</th>
+											<th>Observação</th>
+											<th style="width: 20px;">Alterar</th>
+											<th style="width: 20px;">Excluir</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="projeto" items="${projetos}">
+											<tr>
+												<td>${projeto.id}</td>							
+												<td>${projeto.nome}</td>							
+												<td>${projeto.cliente.nome}</td>							
+												<td>${projeto.equipe.nome}</td>											
+												<td>${projeto.observacao}</td>	
+												<td style="text-align: center;"><a
+													href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
+													<i class="fa fa-edit fa-lg"></a></td>
+												<td style="text-align: center;"><a
+													href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}">
+													<i	class="fa fa-times fa-lg"></a></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<div class="panel-footer text-left">
+									<a href="mvc?logica=projeto.FormularioInserirProjetoLogica">
+										<button class="btn btn-success" type="submit">Cadastrar
+										Novo Projeto</button>
+										</a>
+									</div> 
+								</div>
 							<!-- /.padding-md -->
 						</div>
 						<!-- /panel -->
 					</div>
 					<!-- /tab2 -->
-
 				</div>
 				<!-- /tab-content -->
 			</div>
 			<!-- /.col -->
-
 		</div>
 		<!-- /.padding-md -->
-
 	</div>
 	<!-- /main-container -->
 	</div> 

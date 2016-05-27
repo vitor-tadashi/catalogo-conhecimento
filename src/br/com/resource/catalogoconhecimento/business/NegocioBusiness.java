@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.dao.NegocioDAO;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
@@ -62,11 +63,17 @@ public class NegocioBusiness {
 	}
 
 	// Listar
-	public List<NegocioBean> listar() throws ClassNotFoundException, SQLException {
+	public List<NegocioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 
 
 		NegocioDAO negocio = new NegocioDAO();
-		return negocio.listar();
+		List<NegocioBean>listaNegocio = negocio.listar();
+		
+		if(listaNegocio == null){
+			throw new ConsultaNulaException("Não há negócios cadastrados");
+		}else{
+			return listaNegocio;
+		}
 
 	}
 

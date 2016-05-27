@@ -17,4 +17,5 @@ public class RemoverCargoLogica implements Logica {
 
 		return "mvc?logica=cargo.ListarCargoLogica";
 	}
+	
 }

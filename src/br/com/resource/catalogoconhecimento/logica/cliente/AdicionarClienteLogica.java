@@ -20,12 +20,12 @@ public class AdicionarClienteLogica implements Logica {
 
 		ClienteBean clienteBean = new ClienteBean();
 
-		clienteBean.setNome(nome);
-		clienteBean.setLogradouro(logradouro);
-		clienteBean.setCep(cep);
-		clienteBean.setNumero(numero);
-		clienteBean.setCnpj(cnpj);
-		clienteBean.setEmail(email);
+		clienteBean.setNome(nome.trim());
+		clienteBean.setLogradouro(logradouro.trim());
+		clienteBean.setCep(cep.trim());
+		clienteBean.setNumero(numero.trim());
+		clienteBean.setCnpj(cnpj.trim());
+		clienteBean.setEmail(email.trim());
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
 		clienteBusiness.adicionar(clienteBean);
