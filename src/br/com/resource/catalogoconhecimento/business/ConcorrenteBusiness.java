@@ -32,6 +32,19 @@ public class ConcorrenteBusiness {
 			return null;
 		}
 	}
+	// ESSE AQUI
+	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente) throws SQLException, ClassNotFoundException {
+		try {
+			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+			return concorrenteDao.listarConcorrenteCliente(idConcorrente);
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return null;
+		} catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}
+	}
 
 	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
 		try {
