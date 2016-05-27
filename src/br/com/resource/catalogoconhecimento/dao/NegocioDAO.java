@@ -13,64 +13,122 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class NegocioDAO {
 
-	// CRIA
-	public void adicionar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
-
+	public void adicionar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "INSERT INTO Negocio(areaAtuacao, ativo) VALUES(?,?)";
-		PreparedStatement st = conexao.prepareStatement(sql);
+		String sql = "INSERT INTO Negocio(areaAtuacao, ativo) VALUES(?, ?)";
+		PreparedStatement ps = conexao.prepareStatement(sql);
 
-		st.setString(1, negocio.getAreaAtuacao());
-		st.setString(2, "s");
+		ps.setString(1, negocioBean.getAreaAtuacao());
+		ps.setString(2, "s");
 
-		st.executeUpdate();
-		st.close();
+		ps.executeUpdate();
+
+		ps.close();
 		conexao.close();
 	}
 
-	// LISTA
 	public List<NegocioBean> listar() throws SQLException, ClassNotFoundException {
-
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Negocio where ativo = ?";
+		String sql = "SELECT * FROM Negocio WHERE ativo = ?";
+
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, "s");
 
 		ResultSet rs = ps.executeQuery();
 
-		ArrayList<NegocioBean> negocios = new ArrayList<NegocioBean>();
-		NegocioBean negocio;
-
+		ArrayList<NegocioBean> listaNegocio = new ArrayList<NegocioBean>();
+		NegocioBean negocioBean;
 		while (rs.next()) {
-
-			int idNegocio = rs.getInt("idNegocio");
-
-			String areaAtuacao = rs.getString("areaAtuacao");
-
-			negocio = new NegocioBean(idNegocio, areaAtuacao);
-			negocios.add(negocio);
+			negocioBean = new NegocioBean();
+			negocioBean.setId(rs.getInt("idNegocio"));
+			negocioBean.setAreaAtuacao(rs.getString("areaAtuacao"));
+			listaNegocio.add(negocioBean);
 		}
 
+		ps.close();
 		conexao.close();
-		return negocios;
+
+		return listaNegocio;
 	}
 
-	// ATUALIZA
-	public void alterar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
+	public NegocioBean obterPorId(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "UPDATE Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
+		
+		String sql = "SELECT * FROM Negocio WHERE idNegocio = ?";
+		
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, negocio.getAreaAtuacao());
-		ps.setInt(2, negocio.getId());
+		ps.setInt(1, id);
 
-		ps.executeUpdate();
+		ResultSet rs = ps.executeQuery();
+
+		NegocioBean negocioBean = null;
+		while (rs.next()) {
+			negocioBean = new NegocioBean();
+			negocioBean.setId(rs.getInt("idNegocio"));
+			negocioBean.setAreaAtuacao(rs.getString("areaAtuacao"));
+		}
+		
+		ps.close();
 		conexao.close();
+		
+		return negocioBean;
+	}
+
+	public NegocioBean obterPorNome(String areaAtuacao) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT * FROM Negocio WHERE areaAtuacao = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, areaAtuacao);
+		
+		ResultSet rs = ps.executeQuery();
+
+		NegocioBean negocioBean = null;
+		while (rs.next()) {
+			negocioBean = new NegocioBean();
+			negocioBean.setId(rs.getInt("idNegocio"));
+			negocioBean.setAreaAtuacao(rs.getString("areaAtuacao"));
+		}
+		
+		ps.close();
+		conexao.close();
+		
+		return negocioBean;
+	}
+
+	public List<NegocioBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT n.areaAtuacao FROM	"
+				+ "Projeto AS p INNER JOIN ProjetoNegocio AS pn ON p.idProjeto = pn.idProjeto "
+				+ "INNER JOIN Negocio AS n ON n.idNegocio = pn.idNegocio "
+				+ "WHERE p.idProjeto = ?";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, projeto.getId());
+
+		ResultSet rs = ps.executeQuery();
+
+		List<NegocioBean> listaNegocio = new ArrayList<>();
+		NegocioBean negocioBean = null;
+		while (rs.next()) {
+			negocioBean = new NegocioBean();
+			negocioBean.setAreaAtuacao(rs.getString("areaAtuacao"));
+			listaNegocio.add(negocioBean);
+		}
+		
+		ps.close();
+		conexao.close();
+
+		return listaNegocio;
 	}
 
 	public NegocioBean obterNomeDesativado(NegocioBean negocioBean) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
+		
 		String sql = "SELECT * FROM Negocio WHERE areaAtuacao = ? AND ativo = ?";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -78,112 +136,63 @@ public class NegocioDAO {
 		ps.setString(2, "n");
 		ResultSet rs = ps.executeQuery();
 
-		NegocioBean negocio = null;
-
+		NegocioBean negocioObtido = null;
 		while (rs.next()) {
-			int id = rs.getInt("idNegocio");
-			String nomeNeg = rs.getString("areaAtuacao");
-			negocio = new NegocioBean();
-			negocio.setId(id);
-			negocio.setAreaAtuacao(nomeNeg);
+			negocioObtido = new NegocioBean();
+			negocioObtido.setId(rs.getInt("idNegocio"));
+			negocioObtido.setAreaAtuacao(rs.getString("areaAtuacao"));
 		}
+		
+		ps.close();
 		conexao.close();
-		return negocio;
+		
+		return negocioObtido;
+	}
+	
+	public void alterar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "UPDATE Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, negocioBean.getAreaAtuacao());
+		ps.setInt(2, negocioBean.getId());
+
+		ps.executeUpdate();
+		
+		ps.close();
+		conexao.close();
 	}
 
-	// DELETA
 	public void remover(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "update Negocio set ativo = ? WHERE idNegocio = ?";
+		
+		String sql = "UPDATE Negocio SET ativo = ? WHERE idNegocio = ?";
+		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 
 		ps.setString(1, "n");
 		ps.setInt(2, id);
+		
 		ps.executeUpdate();
+		
+		ps.close();
 		conexao.close();
 	}
 
-	public void reativar(NegocioBean negocio) throws SQLException, ClassNotFoundException {
+	public void reativar(NegocioBean negocioBean) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "UPDATE Negocio SET ativo = ? WHERE areaAtuacao = ?";
+		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, "s");
-		ps.setString(2, negocio.getAreaAtuacao());
+		ps.setString(2, negocioBean.getAreaAtuacao());
 
 		ps.executeUpdate();
+		
+		ps.close();
 		conexao.close();
 	}
 
-	// LISTA POR ID
-	public NegocioBean obterPorId(int idNegocio) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Negocio WHERE idNegocio = '" + idNegocio + "'";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ResultSet rs = ps.executeQuery();
-
-		NegocioBean negocio = null;
-		while (rs.next()) {
-
-			negocio = new NegocioBean();
-			negocio.setId(rs.getInt("idNegocio"));
-			negocio.setAreaAtuacao(rs.getString("areaAtuacao"));
-		}
-		conexao.close();
-		return negocio;
-	}
-
-	// LISTA POR NOME
-	public NegocioBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Negocio WHERE areaAtuacao = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ps.setString(1, nome);
-		ResultSet rs = ps.executeQuery();
-
-		NegocioBean negocio = null;
-
-		while (rs.next()) {
-			int id = rs.getInt("idNegocio");
-			String nomeNeg = rs.getString("areaAtuacao");
-
-			negocio = new NegocioBean();
-			negocio.setId(id);
-			negocio.setAreaAtuacao(nomeNeg);
-		}
-		conexao.close();
-		return negocio;
-	}
-	
-	public List<NegocioBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "select" 
-					+"	n.areaAtuacao"
-					+"  from"
-					+"	Projeto as p inner join ProjetoNegocio as pn" 
-					+"	on p.idProjeto = pn.idProjeto"
-					+"	inner join Negocio as n"
-					+"	on n.idNegocio = pn.idNegocio"
-					+"  where p.idProjeto = ?";
-		
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, projeto.getId());
-		
-		ResultSet rs = ps.executeQuery();
-		
-		List<NegocioBean> listaNegocio =  new ArrayList<>();
-		NegocioBean negocio = null;
-		while(rs.next()){
-			negocio = new NegocioBean();
-			negocio.setAreaAtuacao(rs.getString("areaAtuacao"));
-			listaNegocio.add(negocio);
-		}
-		
-		return listaNegocio;
-		
-	}
-	
 }
-
