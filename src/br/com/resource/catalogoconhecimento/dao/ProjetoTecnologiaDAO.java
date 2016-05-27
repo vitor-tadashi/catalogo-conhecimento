@@ -7,30 +7,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
+import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
-public class ProjetoNegocioDAO {
-
+public class ProjetoTecnologiaDAO {
 	Connection conexao;
-	private final String sqlCriar = "insert into ProjetoNegocio(idProjeto, idNegocio) values(?,?)";
+	private final String sqlCriar = "insert into ProjetoTecnologia(idProjeto, idTecnologia) values(?,?)";
 	private final String sqlConsultar = "Select * from ProjetoNegocio where idProjeto = ?";
 	private final String sqlDeletar  ="Delete from ProjetoNegocio where idProjeto = ?";
-
 	
-	public ProjetoNegocioDAO() throws ClassNotFoundException, SQLException {
+	
+	public ProjetoTecnologiaDAO() throws ClassNotFoundException, SQLException {
 		conexao = ConnectionFactory.createConnection();
 	}
 	
-	public int inserir(ProjetoBean projeto,List<NegocioBean>negocios) throws SQLException{
+	public int inserir(ProjetoBean projeto,List<TecnologiaBean>listaTecnologia) throws SQLException{
 		PreparedStatement ps = conexao.prepareStatement(sqlCriar);
 		int linhasAfetadas = 0;
 		
-		for(NegocioBean negocio : negocios){
+		for(TecnologiaBean tecnologia : listaTecnologia){
 			ps.setInt(1, projeto.getId());
-			ps.setInt(2, negocio.getId());
+			ps.setInt(2, tecnologia.getId());
 			linhasAfetadas = ps.executeUpdate();
 		}
 		
@@ -40,28 +39,29 @@ public class ProjetoNegocioDAO {
 		
 	}
 	
-	public List<NegocioBean> listar(ProjetoBean projeto) throws SQLException, ClassNotFoundException{
+	public List<TecnologiaBean> listar(ProjetoBean projeto) throws SQLException, ClassNotFoundException{
 		PreparedStatement ps = conexao.prepareStatement(sqlConsultar);
 		ps.setInt(1, projeto.getId());
 		
 		ResultSet rs = ps.executeQuery();
-		NegocioBusiness negocioBusiness = new NegocioBusiness();
-		List<NegocioBean>negocios = new ArrayList<>();
+		TecnologiaBusiness TecnologiaBusiness = new TecnologiaBusiness();
+		List<TecnologiaBean>listaTecnologia = new ArrayList<>();
+		TecnologiaBean tecnologia = null;
 		while(rs.next()){
-			NegocioBean negocio = new NegocioBean();
-			int id = rs.getInt("idNegocio");
-			negocio = negocioBusiness.obterPorId(id);
-			negocios.add(negocio);
+			tecnologia = new TecnologiaBean();
+			int id = rs.getInt("idTecnologia");
+			tecnologia = TecnologiaBusiness.obterPorId(id);
+			listaTecnologia.add(tecnologia);
 		}
 		
-		return negocios;
+		return listaTecnologia;
 	}
 	
-	public void atualizar(ProjetoBean projeto,List<NegocioBean>negocios) throws SQLException{
+	public void atualizar(ProjetoBean projeto,List<TecnologiaBean>listaTecnologia) throws SQLException{
 		
 		this.deletar(projeto);
 		
-		this.inserir(projeto, negocios);
+		this.inserir(projeto, listaTecnologia);
 		
 		conexao.close();
 		
@@ -73,5 +73,8 @@ public class ProjetoNegocioDAO {
 		
 		ps.executeUpdate();
 	}
+	
+	
+	
 	
 }

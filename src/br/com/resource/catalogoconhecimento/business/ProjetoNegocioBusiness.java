@@ -18,7 +18,7 @@ public class ProjetoNegocioBusiness {
 		
 	}
 	
-	public int insere(ProjetoBean projeto, List<NegocioBean>negocios) throws SQLException{
+	public int inserir(ProjetoBean projeto, List<NegocioBean>negocios) throws SQLException{
 		int linhasAfetadas = 0;
 		
 			linhasAfetadas = projetoNegocioDAO.inserir(projeto, negocios);

@@ -13,11 +13,15 @@ public class ListarNegocioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		List<NegocioBean> negocios = new NegocioBusiness().listar();
-		request.setAttribute("negocios", negocios);
+		try {
+			NegocioBusiness negocioBusiness = new NegocioBusiness();
+			List<NegocioBean> listaNegocio = negocioBusiness.listar();
+			
+			request.setAttribute("listaNegocio", listaNegocio);
+		} catch (Exception e) {
+			request.setAttribute("msgErro", e.getMessage());
+		}
 
 		return "/WEB-INF/jsp/negocios/listarNegocio.jsp";
-		
 	}
 }
