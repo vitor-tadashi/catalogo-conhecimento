@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.logica.equipe;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +13,13 @@ public class ListarFuncionariosPorEquipeLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listar();
+		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
 		
-		request.setAttribute("funcionarios",listaFuncionario);
-
-
+		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listar();
+		List<FuncionarioBean> funcionarioEquipe = new FuncionarioBusiness().obterPorEquipe(idEquipe);
+		
+		request.setAttribute("funcionarios", listaFuncionario);
+		request.setAttribute("funcionarioEquipe", funcionarioEquipe);
 
 		return "/WEB-INF/jsp/equipe/listarFuncionariosPorEquipe.jsp";
 	}
