@@ -3,46 +3,113 @@
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<head> 
+	<title>Atualizar Projeto</title>
+	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body>
 
-<form method="post" action="mvc?logica=projeto.AtualizarProjetoLogica">
-
-			<input type="hidden" value="${projeto.id}" name="id">
-			<p>
-			Nome do Projeto:<input type="text" name="nomeProjeto" value="${projeto.nome}">
-			<br>
-			Observação:<input type="text" name="observacao" value="${projeto.observacao}">
-			<br>
-			Equipe:<select name="equipe">
-			<c:forEach items="${equipes}" var="equipe">
-				<option value="${equipe.id}">${equipe.id}</option>
-			</c:forEach>
-			</select>
-		<br>
-		Negócio
-		<br>
-		<c:forEach items="${negocios}" var="negocios">
-			<input type="checkbox" name="negociosArray[]"value="${negocios.areaAtuacao}" />${negocios.areaAtuacao}
-			<br>
-		</c:forEach>
-		
-		Cliente:<select name="cliente">
-			<c:forEach items="${clientes}" var="cliente">
-				<option value="${cliente.id}">${cliente.nome}</option>
-			</c:forEach>
-			</select>
-		</p>
-		
-		<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
-		<p>
-			<input type="submit" value="Atualizar">
-		</p>
-
-</form>
-
+	<c:import url="/resources/jspImport/header.jsp"></c:import>
+	<div id="main-container" style="width: auto">
+		<div id="breadcrumb">
+			<ul class="breadcrumb">
+				<li><i class="fa fa-home"></i><a href="index.html">Principal</a></li>
+				<li>Projetos</li>
+				<li class="active">Cadastrar Projeto</li>
+			</ul>
+		</div>
+		<!--breadcrumb-->
+		<div class="padding-md">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="research">
+								<div class="panel panel-default">
+									<form class="no-margin" id="formAlterarProjeto" method="POST" action="mvc">
+										<div class="panel-heading">
+											<h3>Cadastrar Projeto</h3>
+										</div>
+										<div class="panel-body">
+											<div class="row">
+											
+												<!-- Message Erro-->
+												<c:import url="/resources/jspImport/msgErro.jsp"/>
+	
+												<div class="col-md-4">
+													<div class="form-group"> 
+														<label class="control-label">Nome do Projeto
+															<input type="hidden" value="${projeto.id}" name="id">
+															<input type="text" class="form-control input-sm"  name="nomeProjeto" value="${projeto.nome}">
+														</label>
+													</div>
+												</div><!-- /.col --> 	
+												<div class="col-md-4">
+													<div class="form-group"> 
+														<label class="control-label">Observação
+															<input type="text" class="form-control input-sm" name="observacao" value="${projeto.observacao}">
+														</label>
+													</div>
+												</div><!-- /.col -->
+												 
+ 												<div class="col-md-4">
+													<div class="form-group">
+														<label class="control-label">Equipe:
+															<select class="form-control input-sm" name="equipe">
+																<c:forEach items="${equipes}" var="equipe">
+																	<option value="${equipe.id}">${equipe.nome}</option>
+																</c:forEach>
+															</select>
+														</label>
+													</div>
+												</div><!-- /.col -->  
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="control-label">Negócio:
+														</label>
+														<div class="checkbox">
+															<c:forEach items="${negocios}" var="negocios">
+																<label class="control-label">		
+																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}"/>
+																		<span class="custom-checkbox"></span>
+																		${negocios.areaAtuacao}
+																</label>
+																	<br>
+															</c:forEach>
+														</div>	
+													</div>
+												</div><!-- /.col --> 
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="control-label">Cliente
+															<select class="form-control input-sm" name="cliente">
+																<c:forEach items="${clientes}" var="cliente">
+																	<option value="${cliente.id}">${cliente.nome}</option>
+																</c:forEach>
+															</select>
+														</label>
+													</div>
+												</div><!-- /.col --> 
+											</div>	
+											<input type="hidden" name="logica" value="projeto.AtualizarProjetoLogica">		
+											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
+										</div>
+										<div class="panel-footer text-left">
+											<button class="btn btn-success" type="submit">Alterar</button>
+										</div>
+									</form> 
+								</div><!-- /panel -->
+							</div>
+						</div><!-- /tab-content -->
+					</div><!-- /.col -->
+				</div><!-- /.row -->	
+			</div><!-- /.padding-md -->
+		</div><!-- /main-container -->
+	</div><!-- /wrapper -->
+	
+	<!-- Import Logout Action -->
+	<c:import url="/resources/jspImport/logout.jsp" />
+	
+	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+	
 </body>
 </html>
