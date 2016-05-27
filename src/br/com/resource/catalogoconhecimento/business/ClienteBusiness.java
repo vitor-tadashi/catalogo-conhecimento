@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ClienteDAO;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 
 public class ClienteBusiness {
 
@@ -31,9 +32,15 @@ public class ClienteBusiness {
 		}
 	}
 
-	public List<ClienteBean> listar() throws ClassNotFoundException, SQLException {
+	public List<ClienteBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		ClienteDAO clienteDao = new ClienteDAO();
-		return clienteDao.listar();
+		List<ClienteBean> listaCliente = clienteDao.listar();
+		
+		if (listaCliente == null) {
+			throw new ConsultaNulaException("Não há negócios cadastrados");
+		} else {
+			return listaCliente;
+		}
 	}
 
 	public void alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException, Exception {

@@ -5,7 +5,6 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Adicionar Cliente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
@@ -37,13 +36,13 @@
 										<div class="panel-body">
 											<div class="row">
 												
-												<!-- Message Erro-->
+												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
 												<div class="col-md-2">
 													<div class="form-group">
 														<label class="control-label">Nome
-															<input type="text" class="form-control input-md"  name="nome">
+															<input type="text" class="form-control input-sm"  name="nome">
 														</label>
 														<label class="control-label">CNPJ
 															<input type="text" class="form-control input-sm"  name="cnpj">
@@ -63,7 +62,7 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="cliente.FormularioAdicionarClienteLogica" />
+											<input type="hidden" name="logicaAtual" value="cliente.FormularioAdicionarClienteLogica">
 											<input type="hidden" name="logica" value="cliente.AdicionarClienteLogica">
 										</div>
 										<div class="panel-footer text-left">
@@ -77,7 +76,6 @@
 				</div><!-- /.row -->
 			</div><!-- /.padding-md -->
 		</div><!-- /main-container -->
-	</div><!-- /wrapper -->
 
 	<!-- Import Logout Action -->
 	<c:import url="/resources/jspImport/logout.jsp" />

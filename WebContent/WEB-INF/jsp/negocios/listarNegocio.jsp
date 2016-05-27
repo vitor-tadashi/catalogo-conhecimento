@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Listar Negócios</title>
+	<title>Lista de Negócios</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body>
@@ -19,7 +19,7 @@
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
 				<li>Negócios</li>
-				<li class="active">Listar Negócios</li>
+				<li class="active">Lista de Negócios</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -29,7 +29,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Listar Negócios</h3>
+								<h3>Lista de Negócios</h3>
 								<span class="label label-info pull-right">${fn:length(negocios)} registros</span>
 							</div>
 							<div class="padding-md clearfix">

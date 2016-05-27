@@ -15,7 +15,7 @@
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="index.html">Principal</a></li>
 				<li>Projetos</li>
-				<li class="active">Atualizar Projeto</li>
+				<li class="active">Cadastrar Projeto</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
