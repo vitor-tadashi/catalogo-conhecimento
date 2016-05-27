@@ -5,7 +5,6 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Alterar Cliente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
@@ -30,20 +29,21 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlteraCliente"  method="POST" action="mvc?logica=cliente.AlterarClienteLogica">
+									<form class="no-margin" id="formAlteraCliente"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Alterar Cliente</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
 												
-												<!-- Message Erro-->
+												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
 												<div class="col-md-2">
 													<div class="form-group">
+														<input type="hidden" class="form-control input-sm" name="id" value="${cliente.id}" readonly>
 														<label class="control-label">Nome
-															<input type="text" class="form-control input-md"  name="nome" value="${cliente.nome}">
+															<input type="text" class="form-control input-sm"  name="nome" value="${cliente.nome}">
 														</label>
 														<label class="control-label">CNPJ
 															<input type="text" class="form-control input-sm"  name="cnpj" value="${cliente.cnpj}">
@@ -63,7 +63,7 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="cliente.FormularioAlterarClienteLogica&id=${cliente.id}"/>
+											<input type="hidden" name="logicaAtual" value="cliente.FormularioAlterarClienteLogica&id=${cliente.id}">
 											<input type="hidden" name="logica" value="cliente.AlterarClienteLogica">
 										</div>
 										<div class="panel-footer text-left">
@@ -77,7 +77,6 @@
 				</div><!-- /.row -->
 			</div><!-- /.padding-md -->
 		</div><!-- /main-container -->
-	</div><!-- /wrapper -->
 
 	<!-- Import Logout Action -->
 	<c:import url="/resources/jspImport/logout.jsp" />

@@ -4,9 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
+import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
+import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class CargoBusiness {
@@ -30,10 +33,15 @@ public class CargoBusiness {
 		}
 	}
 
-	public List<CargoBean> listar() throws ClassNotFoundException, SQLException {
+	public List<CargoBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		CargoDAO cargoDao = new CargoDAO();
+		List<CargoBean> listaCargo = cargoDao.listar();
 		
-		return cargoDao.listar();
+		if (listaCargo == null) {
+			throw new ConsultaNulaException("Não há negócios cadastrados");
+		} else {
+			return listaCargo;
+		}
 	}
 
 	public CargoBean obterPorId(int id) throws ClassNotFoundException, SQLException {
@@ -55,7 +63,7 @@ public class CargoBusiness {
 	}
 	
 	public void alterar(CargoBean cargoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
+			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException, RegistroVinculadoException {
 		CargoDAO cargoDao = new CargoDAO();
 		CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 		CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
@@ -74,8 +82,15 @@ public class CargoBusiness {
 		}
 	}
 
-	public void remover(int id) throws ClassNotFoundException, SQLException {
+	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
 		CargoDAO cargoDao = new CargoDAO();
+		List<FuncionarioBean> listaFuncionario = cargoDao.obterPorFuncionario(id);
+		
+		if (listaFuncionario == null) {
+			cargoDao.remover(id);
+		} else {
+			throw new RegistroVinculadoException("Registro não pode ser removido pois encontra-se vinculado com outro registro");
+		}
 		
 		cargoDao.remover(id);
 	}

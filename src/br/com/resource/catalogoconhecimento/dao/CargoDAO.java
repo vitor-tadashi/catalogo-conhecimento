@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
+import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class CargoDAO {
@@ -95,6 +96,27 @@ public class CargoDAO {
 		conexao.close();
 		
 		return cargoBean;
+	}
+	
+	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT * FROM Funcionario WHERE idCargo = ?";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
+		while (rs.next()) {
+			FuncionarioBean funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+
+			listaFuncionario.add(funcionarioBean);
+		}
+
+		return listaFuncionario;
 	}
 	
 	public CargoBean obterNomeDesativado(CargoBean cargoBean)

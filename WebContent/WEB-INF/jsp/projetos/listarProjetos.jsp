@@ -38,6 +38,7 @@
 										<tr>
 											<th>Identificação</th>
 											<th>Nome do Projeto</th>
+											<th>Área de Atuação</th>
 											<th>Cliente</th>
 											<th>Equipe</th>
 											<th>Observação</th>
@@ -49,7 +50,15 @@
 										<c:forEach var="projeto" items="${projetos}">
 											<tr>
 												<td>${projeto.id}</td>							
-												<td>${projeto.nome}</td>							
+												<td>${projeto.nome}</td>
+												<td>
+													<select>
+													<c:forEach var="negocio" items = "${projeto.listaNegocio}">
+														<option>${negocio.areaAtuacao}</option>
+													</c:forEach>
+													</select>
+												<c:out value="${myVar}"/>												
+												</td>							
 												<td>${projeto.cliente.nome}</td>							
 												<td>${projeto.equipe.nome}</td>											
 												<td>${projeto.observacao}</td>	
