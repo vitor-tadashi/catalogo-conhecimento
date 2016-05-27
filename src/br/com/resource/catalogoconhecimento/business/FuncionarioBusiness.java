@@ -75,5 +75,11 @@ public class FuncionarioBusiness {
 		return funcionario.obterPorNome(nome);
 	
 }
+	public List<FuncionarioBean> obterPorEquipe(int id) throws ClassNotFoundException, SQLException{
+		
+		FuncionarioDAO funcionario = new FuncionarioDAO();
+		return funcionario.obterPorEquipe(id);
+		
+	}
 
 }
