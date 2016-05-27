@@ -19,7 +19,7 @@
 			<th>Cargo</th>
 			<th>CPF</th>
 			<th>RG</th>			
-			<th>Data de Nascimetno</th>
+			<th>Data de Nascimento</th>
 			<th>Tecnologia</th>
 			<th>Ações</th>
 			
