@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
+import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -26,6 +27,12 @@ public class EquipeBusiness {
 			equipeDAO.inserir(equipe);
 		}
 
+	}
+	
+	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException{
+		EquipeDAO equipeDAO = new EquipeDAO();
+		equipeDAO.inserirPorEquipe(equipe,funcionario);
+		
 	}
 
 	// DELETAR NA BASE
@@ -73,5 +80,10 @@ public class EquipeBusiness {
 		EquipeDAO equipe = new EquipeDAO();
 		return equipe.listarPorId(id);
 
+	}
+
+	public void deletarPorEquipe() {
+		// TODO Auto-generated method stub
+		
 	}
 }

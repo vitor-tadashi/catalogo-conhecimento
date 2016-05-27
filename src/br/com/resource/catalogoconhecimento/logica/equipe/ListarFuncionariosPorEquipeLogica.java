@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
-
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
@@ -20,6 +19,7 @@ public class ListarFuncionariosPorEquipeLogica implements Logica {
 		
 		request.setAttribute("funcionarios", listaFuncionario);
 		request.setAttribute("funcionarioEquipe", funcionarioEquipe);
+		request.setAttribute("idEquipe", idEquipe);
 
 		return "/WEB-INF/jsp/equipe/listarFuncionariosPorEquipe.jsp";
 	}

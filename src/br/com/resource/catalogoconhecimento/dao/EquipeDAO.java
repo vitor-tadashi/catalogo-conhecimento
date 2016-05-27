@@ -1,5 +1,4 @@
 
-
 package br.com.resource.catalogoconhecimento.dao;
 
 import java.sql.Connection;
@@ -8,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
@@ -47,7 +44,6 @@ public class EquipeDAO {
 		conec.close();
 		return equipes;
 	}
-	
 
 	// INSERIR DADOS NA TABELA DE EQUIPE
 	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException {
@@ -152,6 +148,21 @@ public class EquipeDAO {
 		}
 		conexao.close();
 		return equipe;
+	}
+
+	public void inserirPorEquipe(int equipe, int funcionario)
+			throws ClassNotFoundException, SQLException {
+
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "INSERT INTO EquipeFuncionario (idEquipe, idFuncionario) VALUES (?,?)";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+
+		ps.setInt(1, equipe);
+		ps.setInt(2, funcionario);
+
+		ps.executeUpdate();
+		ps.close();
+		conexao.close();
 	}
 
 }

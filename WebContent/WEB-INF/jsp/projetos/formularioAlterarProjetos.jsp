@@ -7,7 +7,7 @@
 	<title>Atualizar Projeto</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
-<body>
+<body class="overflow-hidden">
 
 	<c:import url="/resources/jspImport/header.jsp"></c:import>
 	<div id="main-container" style="width: auto">
@@ -67,11 +67,11 @@
 														<label class="control-label">Negócio:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocios">
+															<c:forEach items="${negocios}" var="negocio">
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}"/>
+																	<input type="checkbox" name="negociosArray[]" value="${negocio.areaAtuacao}"/>
 																		<span class="custom-checkbox"></span>
-																		${negocios.areaAtuacao}
+																		${negocio.areaAtuacao}
 																</label>
 																	<br>
 															</c:forEach>

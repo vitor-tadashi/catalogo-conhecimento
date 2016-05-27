@@ -28,9 +28,9 @@ public class NegocioBusiness {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (negocioDesativado != null) {
 				this.reativar(negocioBean);
-		} else if (negocioClone != null && negocioClone.getId() != negocioBean.getId()) {			
-			throw new NomeRepetidoException("Este nome já consta na base de dados");
-		} else {
+		} else if (negocioClone != null) {
+			throw new NomeRepetidoException("Este nome já exite na base de dados");
+		} else{
 			negocioDao.adicionar(negocioBean);
 		}
 	}
@@ -53,10 +53,10 @@ public class NegocioBusiness {
 		return negociodao.obterPorId(id);
 	}
 	
-	public NegocioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+	public NegocioBean obterPorNome(String areaAtuacao) throws ClassNotFoundException, SQLException {
 		NegocioDAO negociodao = new NegocioDAO();
 		
-		return negociodao.obterPorNome(nome);
+		return negociodao.obterPorNome(areaAtuacao);
 	}
 
 	public NegocioBean obterNomeDesativado(NegocioBean negocioBean) throws ClassNotFoundException, SQLException{
@@ -86,14 +86,17 @@ public class NegocioBusiness {
 	
 	public void remover(int id) throws ClassNotFoundException, SQLException {
 		NegocioDAO negocioDao = new NegocioDAO();
+		
 		negocioDao.remover(id);
 		
 		
 		
 	}
 	
-	public void reativar(NegocioBean negocio) throws ClassNotFoundException, SQLException{
-		new NegocioDAO().reativar(negocio);
+	public void reativar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException{
+		NegocioDAO negocioDao = new NegocioDAO();
+		
+		negocioDao.reativar(negocioBean);
 	}
 
 }
