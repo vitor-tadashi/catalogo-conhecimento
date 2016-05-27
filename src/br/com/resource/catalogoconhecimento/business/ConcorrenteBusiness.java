@@ -15,12 +15,15 @@ public class ConcorrenteBusiness {
 	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
+		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
+			throw new NomeRepetidoException("Este nome já está cadastrado!");
 		} else {
 			concorrenteDao.adicionar(concorrenteBean);
 		}

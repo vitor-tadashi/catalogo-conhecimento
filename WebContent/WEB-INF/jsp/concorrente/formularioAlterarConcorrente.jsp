@@ -51,8 +51,8 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAtualizarConcorrenteLogica">
-											<input type="hidden" name="logica" value="concorrente.AtualizarConcorrenteLogica">
+											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAlterarConcorrenteLogica&id=${concorrente.id}">
+											<input type="hidden" name="logica" value="concorrente.AlterarConcorrenteLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>
