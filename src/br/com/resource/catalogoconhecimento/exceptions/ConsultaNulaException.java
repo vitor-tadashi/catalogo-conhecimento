@@ -1,10 +1,7 @@
 package br.com.resource.catalogoconhecimento.exceptions;
 
 public class ConsultaNulaException extends Exception {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public ConsultaNulaException() {

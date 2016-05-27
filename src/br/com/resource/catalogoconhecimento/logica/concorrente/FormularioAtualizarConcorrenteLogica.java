@@ -3,9 +3,7 @@ package br.com.resource.catalogoconhecimento.logica.concorrente;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
-import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class FormularioAtualizarConcorrenteLogica implements Logica {
