@@ -73,7 +73,7 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="mvc?logica=negocio.ListarNegocioLogica"><span class="submenu-label">Listar Negócios</span></a></li>
-								<li><a href="mvc?logica=negocio.FormularioInserirNegocioLogica"><span class="submenu-label">Cadastrar Negócio</span></a></li>
+								<li><a href="mvc?logica=negocio.FormularioAdicionarNegocioLogica"><span class="submenu-label">Cadastrar Negócio</span></a></li>
 							</ul>
 						</li>
 						<li class="openable open">
