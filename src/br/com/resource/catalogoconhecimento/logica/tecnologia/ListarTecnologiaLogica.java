@@ -13,9 +13,14 @@ public class ListarTecnologiaLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<TecnologiaBean> listaTecnologia = new TecnologiaBusiness().listar();
-		
-		request.setAttribute("tecnologias",listaTecnologia);
+		try {
+			TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness(); 
+			List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
+			
+			request.setAttribute("tecnologias",listaTecnologia);
+		} catch (Exception e) {
+			request.setAttribute("msgErro", e.getMessage());
+		}
 		
 		return "/WEB-INF/jsp/tecnologias/listarTecnologia.jsp";
 	}

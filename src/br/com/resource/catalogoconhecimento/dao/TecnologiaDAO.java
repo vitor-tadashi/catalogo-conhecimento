@@ -117,6 +117,9 @@ public class TecnologiaDAO {
 
 			listaFuncionario.add(funcionarioBean);
 		}
+		
+		ps.close();
+		conexao.close();
 
 		return listaFuncionario;
 	}
@@ -138,6 +141,9 @@ public class TecnologiaDAO {
 
 			listaProjeto.add(projetoBean);
 		}
+		
+		ps.close();
+		conexao.close();
 
 		return listaProjeto;
 	}

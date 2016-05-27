@@ -38,7 +38,7 @@ public class TecnologiaBusiness {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listar();
 
-		if (listaTecnologia == null) {
+		if (listaTecnologia.isEmpty()) {
 			throw new ConsultaNulaException("Não há negócios cadastrados");
 		} else {
 			return listaTecnologia;
@@ -95,10 +95,10 @@ public class TecnologiaBusiness {
 		List<FuncionarioBean> listaFuncionario = tecnologiaDao.obterPorFuncionario(id);
 		List<ProjetoBean> listaProjeto = tecnologiaDao.obterPorProjeto(id);
 		
-		if (listaFuncionario == null && listaProjeto == null) {
+		if (listaFuncionario.isEmpty() && listaProjeto.isEmpty()) {
 			tecnologiaDao.remover(id);
 		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido pois encontra-se vinculado com outro registro");
+			throw new RegistroVinculadoException("Registro não pode ser removido");
 		}
 	}
 

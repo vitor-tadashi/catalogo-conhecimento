@@ -1,6 +1,6 @@
 package br.com.resource.catalogoconhecimento.exceptions;
 
-public class NomeRepetidoException extends Exception {
+public class NomeRepetidoException extends BusinessException  {
 
 	public NomeRepetidoException() {
 		// TODO Auto-generated constructor stub

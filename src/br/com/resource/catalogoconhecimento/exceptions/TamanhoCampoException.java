@@ -1,6 +1,6 @@
 package br.com.resource.catalogoconhecimento.exceptions;
 
-public class TamanhoCampoException extends Exception {
+public class TamanhoCampoException extends BusinessException  {
 
 	public TamanhoCampoException() {
 		

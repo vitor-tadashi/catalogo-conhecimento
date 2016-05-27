@@ -14,7 +14,7 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class NegocioDAO {
 
 	// CRIA
-	public void inserir(NegocioBean negocio) throws ClassNotFoundException, SQLException {
+	public void adicionar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -58,7 +58,7 @@ public class NegocioDAO {
 	}
 
 	// ATUALIZA
-	public void atualizar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
+	public void alterar(NegocioBean negocio) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "UPDATE Negocio SET areaAtuacao = ? WHERE idNegocio = ? ";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class NegocioDAO {
 	}
 
 	// DELETA
-	public void deletar(int id) throws SQLException, ClassNotFoundException {
+	public void remover(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "update Negocio set ativo = ? WHERE idNegocio = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -116,7 +116,7 @@ public class NegocioDAO {
 	}
 
 	// LISTA POR ID
-	public NegocioBean listarPorId(int idNegocio) throws SQLException, ClassNotFoundException {
+	public NegocioBean obterPorId(int idNegocio) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Negocio WHERE idNegocio = '" + idNegocio + "'";
 		PreparedStatement ps = conexao.prepareStatement(sql);

@@ -70,10 +70,8 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a
-										href="mvc?logica=cliente.FormularioAdicionarClienteLogica">
-										<button class="btn btn-success" type="submit">Adicionar
-											Novo Cliente</button>
+									<a href="mvc?logica=cliente.FormularioAdicionarClienteLogica">
+										<button class="btn btn-success" type="submit">Adicionar Novo Cliente</button>
 									</a>
 								</div>
 							</div>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 /**
@@ -28,20 +29,24 @@ public class ControllerServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String parametro = request.getParameter("logica");
 		String nomeDaClasse = "br.com.resource.catalogoconhecimento.logica." + parametro;
+		String logicaAtual = request.getParameter("logicaAtual");
+		String pagina = "/mvc?logica="+logicaAtual;
+		
+		if(logicaAtual == null){
+			pagina = "/index.html";
+		}
 		
 		try {
-			Class classe = Class.forName(nomeDaClasse);
+			Class<?> classe = Class.forName(nomeDaClasse);
 			
 			Logica logica = (Logica) classe.newInstance();
-			String pagina = logica.executar(request, response);
-			
-			request.getRequestDispatcher(pagina).forward(request, response);
-		} catch (Exception e) {
-			String pagina = request.getParameter("logicaAtual");
-			String url = "/mvc?logica="+pagina;
-			
+			pagina = logica.executar(request, response);
+		} catch (BusinessException  e) {
 			request.setAttribute("msgErro", e.getMessage());
-			request.getRequestDispatcher(url).forward(request, response);
+		} catch(Exception e){
+			request.setAttribute("msgErro", "Sistema indisponível no momento");
+		} finally {
+			request.getRequestDispatcher(pagina).forward(request, response);
 		}
 	}
     

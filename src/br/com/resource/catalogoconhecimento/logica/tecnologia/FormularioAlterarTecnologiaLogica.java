@@ -12,11 +12,11 @@ public class FormularioAlterarTecnologiaLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int id = Integer.parseInt(request.getParameter("id"));
-
+		
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-		TecnologiaBean tecnologia = tecnologiaBusiness.obterPorId(id);
+		TecnologiaBean tecnologiaBean = tecnologiaBusiness.obterPorId(id);
 
-		request.setAttribute("tecnologia", tecnologia);
+		request.setAttribute("tecnologia", tecnologiaBean);
 
 		return "/WEB-INF/jsp/tecnologias/formularioAlterarTecnologia.jsp";
 	}
