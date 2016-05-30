@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
+import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -27,11 +28,17 @@ public class EquipeBusiness {
 		}
 
 	}
-	
-	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException{
+
+	public void inserirPorEquipe(int equipe, int funcionario)
+			throws ClassNotFoundException, SQLException, NomeRepetidoException {
 		EquipeDAO equipeDAO = new EquipeDAO();
-		equipeDAO.inserirPorEquipe(equipe,funcionario);
-		
+		EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
+
+		if (equipeFuncionario != null) {
+			throw new NomeRepetidoException("Este nome já consta nessa Equipe");
+		} else {
+			equipeDAO.inserirPorEquipe(equipe, funcionario);
+		}
 	}
 
 	// DELETAR NA BASE

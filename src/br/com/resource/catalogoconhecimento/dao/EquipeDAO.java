@@ -8,8 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
+<<<<<<< HEAD
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
+=======
+import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
+import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+>>>>>>> deaba227c8c765b969fdc0a2158b3fff5db8f712
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class EquipeDAO {
@@ -178,8 +185,7 @@ public class EquipeDAO {
 		return equipe;
 	}
 
-	public void inserirPorEquipe(int equipe, int funcionario)
-			throws ClassNotFoundException, SQLException {
+	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "INSERT INTO EquipeFuncionario (idEquipe, idFuncionario) VALUES (?,?)";
@@ -194,20 +200,47 @@ public class EquipeDAO {
 	}
 
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
-		
+
 		Connection conec = ConnectionFactory.createConnection();
 
 		String sql = "DELETE FROM EquipeFuncionario WHERE idEquipe=? and idFuncionario =?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 		stmt.setInt(1, idEquipe);
 		stmt.setInt(2, idFuncionario);
-		
+
 		stmt.executeUpdate();
 		stmt.close();
 		conec.close();
+	}
 
+	public EquipeFuncionarioBean listarPorEquipe(int idEquipe, int idFuncionario)
+			throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe=" + idEquipe + " and idFuncionario="
+				+ idFuncionario;
+		PreparedStatement stmt = conec.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+
+		EquipeFuncionarioBean equipeFuncionario = null;
+
+		while (rs.next()) {
+			equipeFuncionario = new EquipeFuncionarioBean();
+			EquipeBusiness equipeBusiness = new EquipeBusiness();
+			EquipeBean equipeBean = equipeBusiness.listarPorId(rs.getInt("idEquipe"));
+			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+			FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(rs.getInt("idFuncionario"));
+
+			equipeFuncionario.setId(rs.getInt("idEquipeFuncionario"));
+			equipeFuncionario.setEquipe(equipeBean);
+			equipeFuncionario.setFuncionario(funcionarioBean);
+
+		}
 		
+		stmt.close();
+		conec.close();
 		
+		return equipeFuncionario;
+
 	}
 	
 	public List<EquipeBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{

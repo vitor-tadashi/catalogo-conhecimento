@@ -24,12 +24,12 @@ public class FormularioAlterarLogica implements Logica{
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		
-		FuncionarioBean funcionario = funcionarioBusiness.obterPorNome(nome);
+		FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorNome(nome);
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar() ;
 		List<CargoBean> listaCargo = cargoBusiness.listar();
 		
 		
-		request.setAttribute("funcionario", funcionario);
+		request.setAttribute("funcionario", funcionarioBean);
 		request.setAttribute("tecnologias", listaTecnologia);
 		request.setAttribute("cargos", listaCargo);
 		
