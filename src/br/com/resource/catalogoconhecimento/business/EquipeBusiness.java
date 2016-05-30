@@ -17,8 +17,8 @@ public class EquipeBusiness {
 		EquipeDAO equipeDAO = new EquipeDAO();
 		EquipeBean equipeigual = equipeDAO.listarPorNome(equipe.getNome());
 
-		if (equipe.getNome().length() > 100) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.100)");
+		if (equipe.getNome().length() > 200) {
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
 		} else if (equipeigual != null) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else if (equipe.getObservacao().length() > 500) {
@@ -29,6 +29,8 @@ public class EquipeBusiness {
 
 	}
 
+	//INSERIR O FUNCIONÁRIO NA BASE
+	
 	public void inserirPorEquipe(int equipe, int funcionario)
 			throws ClassNotFoundException, SQLException, NomeRepetidoException {
 		EquipeDAO equipeDAO = new EquipeDAO();
@@ -88,11 +90,15 @@ public class EquipeBusiness {
 
 	}
 	
+	// LISTAR POR NOME NA BASE
+	
 	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException{
 		EquipeDAO equipe = new EquipeDAO();
 		return equipe.obterPorNome(nome);
 	}
-
+ 
+	//DELETAR POR EQUIPE NA BASE
+	
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		EquipeDAO equipeDAO = new EquipeDAO();

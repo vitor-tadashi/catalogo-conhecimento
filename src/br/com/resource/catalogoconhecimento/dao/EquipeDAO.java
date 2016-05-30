@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-
-import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
@@ -53,6 +51,7 @@ public class EquipeDAO {
 	}
 
 	// INSERIR DADOS NA TABELA DE EQUIPE
+	
 	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException {
 
 		Connection conec = ConnectionFactory.createConnection();
@@ -139,6 +138,8 @@ public class EquipeDAO {
 
 	}
 	
+	//SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
+	
 	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
 		
 		Connection conec = ConnectionFactory.createConnection();
@@ -183,6 +184,8 @@ public class EquipeDAO {
 		return equipe;
 	}
 
+	//INSERIR DADOS NA TABELA POR EQUIPE
+	
 	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException {
 
 		Connection conexao = ConnectionFactory.createConnection();
@@ -197,6 +200,8 @@ public class EquipeDAO {
 		conexao.close();
 	}
 
+	//DELETAR DADOS NA TABELA POR EQUIPE
+	
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
 
 		Connection conec = ConnectionFactory.createConnection();
@@ -211,6 +216,8 @@ public class EquipeDAO {
 		conec.close();
 	}
 
+	//SELECIONAR DADOS NA TABELA POR EQUIPE
+	
 	public EquipeFuncionarioBean listarPorEquipe(int idEquipe, int idFuncionario)
 			throws ClassNotFoundException, SQLException {
 		Connection conec = ConnectionFactory.createConnection();
@@ -240,6 +247,8 @@ public class EquipeDAO {
 		return equipeFuncionario;
 
 	}
+	
+	//SELECIONAR DADOS NA TABELA POR PROJETO
 	
 	public List<EquipeBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
 		Connection conexao = ConnectionFactory.createConnection();

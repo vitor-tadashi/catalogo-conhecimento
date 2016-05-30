@@ -62,7 +62,7 @@ public class FuncionarioDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT *, CONVERT(VARCHAR,CONVERT(date, dataNascimento, 100), 103) AS Data_Nascimento FROM Funcionario where ativo = ?";
+		String sql = "SELECT *, CONVERT(VARCHAR,CONVERT(date, dataNascimento, 100), 103) AS Data_Nascimento FROM Funcionario where ativo = ? ORDER BY nomeFuncionario ASC";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, "s");
 
