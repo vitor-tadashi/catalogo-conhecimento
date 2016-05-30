@@ -15,7 +15,7 @@
 				<th>Funcionário</th>
 				<th>E-mail</th>
 				<th>Tecnologia</th>
-				<th>Excluir</th>
+				<th>Ação</th>
 			</tr>
 
 			<c:forEach var="funcionarioEquipe" items="${funcionarioEquipe}">
