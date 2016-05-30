@@ -82,8 +82,9 @@ public class EquipeBusiness {
 
 	}
 
-	public void deletarPorEquipe() {
+	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		
+		EquipeDAO equipeDAO = new EquipeDAO();
+		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
 	}
 }
