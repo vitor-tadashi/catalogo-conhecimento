@@ -20,7 +20,7 @@ public class AlterarFuncionarioLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int id = Integer.parseInt(request.getParameter("id"));
-		String nomeFuncionario = request.getParameter("nome");
+		String nome = request.getParameter("nome");
 		String telefone = request.getParameter("telefone");
 		String nomeUsuario = request.getParameter("nomeUser");
 		String email = request.getParameter("email");
@@ -44,24 +44,21 @@ public class AlterarFuncionarioLogica implements Logica {
 		}
 		
 		
-		FuncionarioBean funcionario = new FuncionarioBean();
-		funcionario.setId(id);
-		funcionario.setNome(nomeFuncionario);
-		funcionario.setTelefone(telefone);
-		funcionario.setNomeUser(nomeUsuario);
-		funcionario.setEmail(email);
-		funcionario.setCargo(cargoBean);
-		funcionario.setTecnologias(listaTecnologia);
+		FuncionarioBean funcionarioBean = new FuncionarioBean();
+		funcionarioBean.setId(id);
+		funcionarioBean.setNome(nome);
+		funcionarioBean.setTelefone(telefone);
+		funcionarioBean.setNomeUser(nomeUsuario);
+		funcionarioBean.setEmail(email);
+		funcionarioBean.setCargo(cargoBean);
+		funcionarioBean.setTecnologias(listaTecnologia);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-		funcionarioBusiness.atualizar(funcionario);
+		funcionarioBusiness.atualizar(funcionarioBean);
 		
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
-		funcionariotecnologia.atualizar(funcionario, listaTecnologia);
+		funcionariotecnologia.atualizar(funcionarioBean, listaTecnologia);
 		
-		
-		
-			
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 	}
 

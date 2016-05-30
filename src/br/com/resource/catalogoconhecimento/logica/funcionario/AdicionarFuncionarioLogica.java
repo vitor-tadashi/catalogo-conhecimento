@@ -22,7 +22,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		String nomeFuncionario = request.getParameter("nome");
+		String nome = request.getParameter("nome");
 		String telefone = request.getParameter("telefone");
 		String nomeUsuario = request.getParameter("nomeUser");
 		String email = request.getParameter("email");
@@ -32,7 +32,9 @@ public class AdicionarFuncionarioLogica implements Logica{
 		String rg = request.getParameter("rg");
 		String data = request.getParameter("dataNascimento");
 		
-		//CONVERTENDO A DATA 
+		/**
+		 * CONVETER DATA
+		 */
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataFormatada = formatador.parse(data);
 		
@@ -52,24 +54,24 @@ public class AdicionarFuncionarioLogica implements Logica{
 		}
 		
 		
-		FuncionarioBean funcionario = new FuncionarioBean();
-		funcionario.setNome(nomeFuncionario);
-		funcionario.setEmail(email);
-		funcionario.setNomeUser(nomeUsuario);
-		funcionario.setTelefone(telefone);
-		funcionario.setCargo(cargoBean);
-		funcionario.setCpf(cpf);
-		funcionario.setRg(rg);
-		funcionario.setDataNascimento(dataFormatada);
+		FuncionarioBean funcionarioBean = new FuncionarioBean();
+		funcionarioBean.setNome(nome);
+		funcionarioBean.setEmail(email);
+		funcionarioBean.setNomeUser(nomeUsuario);
+		funcionarioBean.setTelefone(telefone);
+		funcionarioBean.setCargo(cargoBean);
+		funcionarioBean.setCpf(cpf);
+		funcionarioBean.setRg(rg);
+		funcionarioBean.setDataNascimento(dataFormatada);
 		
-		funcionario.setTecnologias(listaTecnologia);
+		funcionarioBean.setTecnologias(listaTecnologia);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-		int id = funcionarioBusiness.inserir(funcionario);
-		funcionario.setId(id);
+		int id = funcionarioBusiness.adicionar(funcionarioBean);
+		funcionarioBean.setId(id);
 		
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
-		funcionariotecnologia.inserir(funcionario, listaTecnologia);
+		funcionariotecnologia.inserir(funcionarioBean, listaTecnologia);
 		
 		
 		

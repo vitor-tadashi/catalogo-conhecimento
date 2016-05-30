@@ -23,8 +23,8 @@
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
-				<li>Tecnologias</li>
-				<li class="active">Adicionar Tecnologia</li>
+				<li>Funcionário</li>
+				<li class="active">Adicionar Funcionário</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -130,7 +130,7 @@
 												</div><!-- /.col -->
 											</div><!-- /.row -->
 
-											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioInserirFuncionarioLogica" />
+											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAdicionarFuncionarioLogica" />
 											<input type="hidden" name="logica" value="funcionario.AdicionarFuncionarioLogica">
 										</div>
 										<div class="panel-footer text-left">

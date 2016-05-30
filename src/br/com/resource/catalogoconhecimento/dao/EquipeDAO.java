@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
@@ -184,31 +182,34 @@ public class EquipeDAO {
 		conec.close();
 	}
 
-	public  EquipeBean listarPorEquipe(int idEquipe) throws ClassNotFoundException, SQLException {
+	public EquipeFuncionarioBean listarPorEquipe(int idEquipe, int idFuncionario)
+			throws ClassNotFoundException, SQLException {
 		Connection conec = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe='" + idEquipe + "'";
+		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe=" + idEquipe + " and idFuncionario="
+				+ idFuncionario;
 		PreparedStatement stmt = conec.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 
-		EquipeFuncionarioBean equipefuncionario = new EquipeFuncionarioBean();
+		EquipeFuncionarioBean equipeFuncionario = null;
 
-		EquipeBean equipes = null;
 		while (rs.next()) {
-			EquipeBusiness equipebusiness = new EquipeBusiness();
-			EquipeBean equipebean = equipebusiness.listarPorId(rs.getInt("idEquipe"));
+			equipeFuncionario = new EquipeFuncionarioBean();
+			EquipeBusiness equipeBusiness = new EquipeBusiness();
+			EquipeBean equipeBean = equipeBusiness.listarPorId(rs.getInt("idEquipe"));
+			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+			FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(rs.getInt("idFuncionario"));
 
-			FuncionarioBusiness funcionariobusiness = new FuncionarioBusiness();
-			FuncionarioBean funcionariobean = funcionariobusiness.obterPorId(rs.getInt("idFuncionario"));
+			equipeFuncionario.setId(rs.getInt("idEquipeFuncionario"));
+			equipeFuncionario.setEquipe(equipeBean);
+			equipeFuncionario.setFuncionario(funcionarioBean);
 
-			equipefuncionario.setId(rs.getInt("idEquipeFuncionario"));
-			equipefuncionario.setEquipe(equipebean);
-			equipefuncionario.setFuncionario(funcionariobean);
-			
 		}
-			stmt.close();
-			conec.close();
-			return equipes;
-			
+		
+		stmt.close();
+		conec.close();
+		
+		return equipeFuncionario;
+
 	}
 
 }

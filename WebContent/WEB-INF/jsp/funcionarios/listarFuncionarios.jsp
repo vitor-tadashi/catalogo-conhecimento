@@ -18,8 +18,8 @@
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
-				<li>Projetos</li>
-				<li class="active">Listar Projetos</li>
+				<li>Funcionários</li>
+				<li class="active">Listar Funcionários</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -81,7 +81,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="mvc?logica=funcionario.FormularioInserirFuncionarioLogica">
+									<a href="mvc?logica=funcionario.FormularioAdicionarFuncionarioLogica">
 										<button class="btn btn-success" type="submit">Cadastrar
 										Novo Funcionário</button>
 										</a>

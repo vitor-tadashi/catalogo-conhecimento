@@ -13,7 +13,7 @@ import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class FormularioInserirFuncionarioLogica implements Logica{
+public class FormularioAdicionarFuncionarioLogica implements Logica{
 
 
 		public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -31,7 +31,7 @@ public class FormularioInserirFuncionarioLogica implements Logica{
 			request.setAttribute("cargos", listaCargo);
 			
 			
-			return "/WEB-INF/jsp/funcionarios/formularioCriar.jsp";
+			return "/WEB-INF/jsp/funcionarios/formularioAdicionar.jsp";
 		}
 	}
 

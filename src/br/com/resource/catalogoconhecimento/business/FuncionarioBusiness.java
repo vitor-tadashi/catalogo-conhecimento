@@ -8,78 +8,108 @@ import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 
 public class FuncionarioBusiness {
 
-	// CRIA
-	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
+	private FuncionarioDAO funcionarioDao;
+	
+	public FuncionarioBusiness() {
 		
-			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-
-			return funcionarioDao.inserir(funcionario);
+		funcionarioDao = new FuncionarioDAO();
+	}
+	
+	/**
+	 * Adiciona um novo funionário na base
+	 * @param funcionarioBean
+	 * @return id, criado no bd, do novo funcionário adicionado
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public int adicionar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
+		
+			int id = funcionarioDao.adicionar(funcionarioBean);
+			return id;
 	}
 
-	// LISTA
+	/**
+	 * Lista todos os funcionários ativos
+	 * @return Lista de funcionários
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException {
 		
-			FuncionarioDAO funcionario = new FuncionarioDAO();
-			return funcionario.listar();
-		
+			return funcionarioDao.listar();
 	}
 
-	// LISTA POR ID
+	/**
+	 * Obtem todas informações de um funcinário por id 
+	 * @param idFuncionario
+	 * @return informações de um funcinário
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public FuncionarioBean obterPorId(int idFuncionario)throws ClassNotFoundException, SQLException {
 		
-			FuncionarioDAO funcionario = new FuncionarioDAO();
-			return funcionario.obterPorId(idFuncionario);
-		
+			return funcionarioDao.obterPorId(idFuncionario);
 	}
 
-	// ATUALIZA
-	public boolean atualizar(FuncionarioBean funcionario)throws ClassNotFoundException, SQLException {
-		
+	/**
+	 * Atualiza informações de um funcionário
+	 * @param funcionario
+	 * @return boolean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean atualizar(FuncionarioBean funcionarioBean)throws ClassNotFoundException, SQLException {
 
-			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-
-			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionario.getId());
+			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionarioBean.getId());
 
 			if (funcionarioAux == null) {
-				return true;
+				return true ;
 			} else {
-				funcionarioDao.atualizar(funcionario);
+				funcionarioDao.alterar(funcionarioBean);
 				return false;
 			}
-
-		
-
 	}
 
-	// DELETA
+	/**
+	 * Remove logicamente um funcionário
+	 * @param id
+	 * @return boolean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public boolean deletar(int id)throws ClassNotFoundException, SQLException {
 
-		
-			FuncionarioDAO funcionariodao = new FuncionarioDAO();
-
-			FuncionarioBean funcionarioAux = funcionariodao.obterPorId(id);
+			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(id);
 			if (funcionarioAux == null) {
 				return true;
 			} else {
-				funcionariodao.deletar(id);
+				funcionarioDao.remover(id);
 				return false;
 			}
-
-		
 	}
 	
-	//OBTER POR NOME
+	/**
+	 * Obtem todas informações de um funcionário pelo nome
+	 * @param nome
+	 * @return todas informações de um funcionário
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public FuncionarioBean obterPorNome(String nome)throws ClassNotFoundException, SQLException {
-		
-		FuncionarioDAO funcionario = new FuncionarioDAO();
-		return funcionario.obterPorNome(nome);
+
+		return funcionarioDao.obterPorNome(nome);
+	}
 	
-}
+	/**
+	 * Obtem informações específicas de um funcionário pelo idEquipe
+	 * @param id
+	 * @return informações específicas de um funcionário
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<FuncionarioBean> obterPorEquipe(int id) throws ClassNotFoundException, SQLException{
 		
-		FuncionarioDAO funcionario = new FuncionarioDAO();
-		return funcionario.obterPorEquipe(id);
-		
+		return funcionarioDao.obterPorEquipe(id);
 	}
-
+	
 }
