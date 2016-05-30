@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
+
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
+import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
@@ -111,7 +114,7 @@ public class EquipeDAO {
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
 
-	public EquipeBean listarPorId(int id) throws SQLException, ClassNotFoundException {
+	public EquipeBean obterPorId(int id) throws SQLException, ClassNotFoundException {
 
 		Connection conec = ConnectionFactory.createConnection();
 
@@ -134,6 +137,32 @@ public class EquipeDAO {
 		conec.close();
 		return equipe;
 
+	}
+	
+	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
+		
+		Connection conec = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT * FROM Equipe WHERE nome = ?";
+		
+		PreparedStatement stmt = conec.prepareStatement(sql);
+		stmt.setString(1, nome);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		EquipeBean equipe = new EquipeBean();
+		
+		while (rs.next()) {
+			
+			equipe.setId(rs.getInt("idEquipe"));
+			equipe.setObservacao(rs.getString("observacao"));
+			equipe.setNome(rs.getString("nome"));
+			
+		}
+		
+		conec.close();
+		return equipe;
+		
 	}
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
@@ -195,7 +224,7 @@ public class EquipeDAO {
 		while (rs.next()) {
 			equipeFuncionario = new EquipeFuncionarioBean();
 			EquipeBusiness equipeBusiness = new EquipeBusiness();
-			EquipeBean equipeBean = equipeBusiness.listarPorId(rs.getInt("idEquipe"));
+			EquipeBean equipeBean = equipeBusiness.obterPorId(rs.getInt("idEquipe"));
 			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 			FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(rs.getInt("idFuncionario"));
 
@@ -210,6 +239,35 @@ public class EquipeDAO {
 		
 		return equipeFuncionario;
 
+	}
+	
+	public List<EquipeBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "  select" 
+					+"	e.nome, e.observacao"
+					+"  from"
+					+"	Projeto as p inner join ProjetoEquipe as pe" 
+					+"	on p.idProjeto = pe.idProjeto"
+					+"	inner join Equipe as e"
+					+"	on e.idEquipe = pe.idEquipe"
+					+"  where p.idProjeto = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, projeto.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<EquipeBean> listaEquipe =  new ArrayList<>();
+		EquipeBean equipe = null;
+		while(rs.next()){
+			equipe = new EquipeBean();
+			equipe.setNome(rs.getString("nome"));
+			equipe.setObservacao(rs.getString("observacao"));
+			listaEquipe.add(equipe);
+		}
+		
+		return listaEquipe;
+		
 	}
 
 }

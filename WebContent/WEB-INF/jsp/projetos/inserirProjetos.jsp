@@ -52,9 +52,14 @@
 												<div class="col-md-3">
 													<div class="form-group">
 														<label class="control-label">Equipe:
-															<select class="form-control input-sm" name="equipe">
+					
 																<c:forEach items="${equipes}" var="equipe">
-																	<option value="${equipe.id}">${equipe.nome}</option>
+																	<label class="control-label">		
+																	<input type="checkbox" name="equipesArray[]" value="${equipe.nome}"/>
+																	<span class="custom-checkbox"></span>
+																	${equipe.nome}
+																</label>
+																<br>
 																</c:forEach>
 															</select>
 														</label>
