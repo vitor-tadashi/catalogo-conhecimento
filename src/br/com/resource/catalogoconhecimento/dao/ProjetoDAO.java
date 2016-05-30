@@ -193,5 +193,50 @@ public class ProjetoDAO {
 		ps.executeUpdate();
 		conexao.close();
 	}
+	
+	public List<ProjetoBean> obterPorTecnologia(TecnologiaBean tecnologia) throws SQLException, ClassNotFoundException{
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "select" 
+				+"	p.*"
+				+"  from"
+				+"	Projeto as p inner join ProjetoTecnologia as pt" 
+				+"	on p.idProjeto = pt.idProjeto"
+				+"	inner join Tecnologia as t"
+				+"	on t.idTecnologia = pt.idTecnologia"
+				+"  where t.idTecnologia = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		
+		ps.setInt(1, tecnologia.getId());
+		ResultSet rs = ps.executeQuery();
+		
+		List<ProjetoBean> projetos = new ArrayList<ProjetoBean>();
+		ProjetoBean projeto;
+		EquipeBusiness equipeBusiness = new EquipeBusiness();
+		ClienteBusiness clienteBusiness = new ClienteBusiness();
+		EquipeBean equipe;
+		ClienteBean cliente;
+		
+		List<NegocioBean> listaNegocio = null;
+		List<TecnologiaBean> listaTecnologia = null;
+		
+		while(rs.next()){
+			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
+			equipe = equipeBusiness.listarPorId( rs.getInt("idEquipe"));
+			
+			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, equipe,
+					rs.getString("nomeProjeto"), rs.getString("observacao"));
+			
+			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
+			listaTecnologia = new TecnologiaDAO().obterPorIdDeProjeto(projeto);
+			projeto.setListaNegocio(listaNegocio);
+			projeto.setListaTecnologia(listaTecnologia);
+			projetos.add(projeto);
+		}
+		
+		return projetos;
+		
+	}
 
 }
