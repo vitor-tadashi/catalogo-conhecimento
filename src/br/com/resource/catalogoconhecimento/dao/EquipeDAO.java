@@ -7,7 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
+import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
+import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class EquipeDAO {
@@ -150,8 +156,7 @@ public class EquipeDAO {
 		return equipe;
 	}
 
-	public void inserirPorEquipe(int equipe, int funcionario)
-			throws ClassNotFoundException, SQLException {
+	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "INSERT INTO EquipeFuncionario (idEquipe, idFuncionario) VALUES (?,?)";
@@ -166,20 +171,44 @@ public class EquipeDAO {
 	}
 
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
-		
+
 		Connection conec = ConnectionFactory.createConnection();
 
 		String sql = "DELETE FROM EquipeFuncionario WHERE idEquipe=? and idFuncionario =?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 		stmt.setInt(1, idEquipe);
 		stmt.setInt(2, idFuncionario);
-		
+
 		stmt.executeUpdate();
 		stmt.close();
 		conec.close();
+	}
 
-		
-		
+	public  EquipeBean listarPorEquipe(int idEquipe) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe='" + idEquipe + "'";
+		PreparedStatement stmt = conec.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+
+		EquipeFuncionarioBean equipefuncionario = new EquipeFuncionarioBean();
+
+		EquipeBean equipes = null;
+		while (rs.next()) {
+			EquipeBusiness equipebusiness = new EquipeBusiness();
+			EquipeBean equipebean = equipebusiness.listarPorId(rs.getInt("idEquipe"));
+
+			FuncionarioBusiness funcionariobusiness = new FuncionarioBusiness();
+			FuncionarioBean funcionariobean = funcionariobusiness.obterPorId(rs.getInt("idFuncionario"));
+
+			equipefuncionario.setId(rs.getInt("idEquipeFuncionario"));
+			equipefuncionario.setEquipe(equipebean);
+			equipefuncionario.setFuncionario(funcionariobean);
+			
+		}
+			stmt.close();
+			conec.close();
+			return equipes;
+			
 	}
 
 }
