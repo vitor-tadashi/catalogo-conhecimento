@@ -74,11 +74,16 @@ public class EquipeBusiness {
 
 	// LISTAR POR ID NA BASE
 
-	public EquipeBean listarPorId(int id) throws ClassNotFoundException, SQLException {
+	public EquipeBean obterPorId(int id) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipe = new EquipeDAO();
-		return equipe.listarPorId(id);
+		return equipe.obterPorId(id);
 
+	}
+	
+	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException{
+		EquipeDAO equipe = new EquipeDAO();
+		return equipe.obterPorNome(nome);
 	}
 
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {

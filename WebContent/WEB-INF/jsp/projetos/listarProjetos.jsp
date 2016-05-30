@@ -69,7 +69,14 @@
 																							
 												</td>							
 												<td>${projeto.cliente.nome}</td>							
-												<td>${projeto.equipe.nome}</td>											
+												<td>
+												<select>
+													<c:forEach var="equipe" items = "${projeto.listaEquipe}">
+														<option>${equipe.nome}</option>
+													</c:forEach>
+													</select>
+												
+												</td>											
 												<td>${projeto.observacao}</td>	
 												<td style="text-align: center;"><a
 													href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">

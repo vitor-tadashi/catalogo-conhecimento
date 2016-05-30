@@ -18,7 +18,7 @@ public class FormularioAtualizarEquipeLogica implements Logica {
 		equipe.setId(idEquipe);
 		
 		EquipeDAO equipeDAO = new EquipeDAO();
-		request.setAttribute("equipes", equipeDAO.listarPorId(idEquipe));
+		request.setAttribute("equipes", equipeDAO.obterPorId(idEquipe));
 
 		return "WEB-INF/jsp/equipe/alteraformulario.jsp";
 			   

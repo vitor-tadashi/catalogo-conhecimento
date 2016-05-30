@@ -54,7 +54,7 @@ public class ProjetoBusiness {
 
 		if(projetoBean.getNome().length() > 150){
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
-		}else if((projetoClone != null && projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) && projetoBean.getId() == projetoClone.getId()){
+		}else if((projetoClone != null && projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) && projetoBean.getId() != projetoClone.getId()){
 			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "+projetoClone.getCliente().getNome());
 		}else{
 			projetoDAO.atualizar(projetoBean);
@@ -81,10 +81,11 @@ public class ProjetoBusiness {
 	}
 
 
-	public List<ProjetoBean> obterPorTecnologia(TecnologiaBean tecnologia) throws ConsultaNulaException, ClassNotFoundException, SQLException{
-		ProjetoDAO projeto = new ProjetoDAO();
-		List<ProjetoBean>listaProjeto = projeto.obterPorTecnologia(tecnologia);
-		 if(listaProjeto == null){
+	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias) throws ConsultaNulaException, ClassNotFoundException, SQLException{
+		ProjetoDAO projetoDAO = new ProjetoDAO();
+		List<ProjetoBean>listaProjeto = projetoDAO.obterPorTecnologias(nomeTecnologias);
+		 
+		if(listaProjeto == null){
 			 throw new ConsultaNulaException("Não há projetos cadastrados!");
 		 }else{
 			 return listaProjeto; 
