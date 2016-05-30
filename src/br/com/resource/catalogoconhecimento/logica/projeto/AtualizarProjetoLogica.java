@@ -72,8 +72,8 @@ public class AtualizarProjetoLogica implements Logica{
 		ProjetoBean projeto = projetoBusiness.obterPorId(id);
 		projeto.setCliente(cliente);
 		projeto.setEquipe(equipe);
-		projeto.setNome(nomeProjeto);
-		projeto.setObservacao(observacao);
+		projeto.setNome(nomeProjeto.trim());
+		projeto.setObservacao(observacao.trim());
 
 		
 		projetoBusiness.atualizar(projeto);
