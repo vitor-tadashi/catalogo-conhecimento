@@ -155,7 +155,7 @@ public class ConcorrenteDAO {
 		ps.setString(1, concorrenteBean.getNome());
 		ps.setString(2, concorrenteBean.getDescricao());
 		ps.setInt(3, concorrenteBean.getId());
-		ps.executeQuery();
+		ps.executeUpdate();
 		ps.close();
 		conn.close();
 	}

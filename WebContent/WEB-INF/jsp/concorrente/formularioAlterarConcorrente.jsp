@@ -46,7 +46,7 @@
 															<input type="text" class="form-control input-sm"  name="nome" value= "${concorrente.nome}">
 														</label>
 														<label class="control-label">Descrição
-															<input type="text" class="form-control input-lg"  value= "${concorrente.descricao}"></textarea>
+															<input type="text" class="form-control input-lg" name="descricao" value= "${concorrente.descricao}"></textarea>
 														</label>
 													</div>
 												</div><!-- /.col -->
