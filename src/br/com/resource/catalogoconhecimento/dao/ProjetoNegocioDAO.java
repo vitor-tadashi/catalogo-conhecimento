@@ -15,9 +15,9 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class ProjetoNegocioDAO {
 
 	Connection conexao;
-	private final String sqlCriar = "insert into CatalogoConhecimentos.dbo.ProjetoNegocio(idProjeto, idNegocio) values(?,?)";
+	private final String sqlCriar = "insert into ProjetoNegocio(idProjeto, idNegocio) values(?,?)";
 	private final String sqlConsultar = "Select * from ProjetoNegocio where idProjeto = ?";
-	private final String sqlDeletar  ="Delete from CatalogoConhecimentos.dbo.ProjetoNegocio where idProjeto = ?";
+	private final String sqlDeletar  ="Delete from ProjetoNegocio where idProjeto = ?";
 
 	
 	public ProjetoNegocioDAO() throws ClassNotFoundException, SQLException {
