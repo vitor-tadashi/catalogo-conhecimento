@@ -27,7 +27,7 @@
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAlterarProjeto" method="POST" action="mvc">
 										<div class="panel-heading">
-											<h3>Cadastrar Projeto</h3>
+											<h3>Alterar Projeto</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
