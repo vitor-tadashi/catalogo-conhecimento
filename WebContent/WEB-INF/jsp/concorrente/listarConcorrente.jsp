@@ -41,6 +41,9 @@
 										<tr>
 											<th>Nome</th>
 											<th>Descrição</th>
+											<th style="width: 20px;">Alterar</th>
+											<th style="width: 20px;">Excluir</th>
+											<th style="width: 20px;">Listar Clientes</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -54,8 +57,16 @@
 												<td style="text-align: center;"><a
 													href="mvc?logica=concorrente.RemoverConcorrenteLogica&id=${concorrente.id}"><i class="fa fa-times fa-lg"></i></a>
 												</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.ListarClientePorConcorrenteLogica&id=${concorrente.id}">Listar Clientes</a></td>
+												<td style="text-align: center;">	
+													<a href="mvc?logica=concorrente.ListarClientePorConcorrenteLogica&id=${concorrente.id}">
+														<i class="fa fa-users fa-lg" ></i></a>
+												</td>
+											
+											
+											
+											
+											
+											
 											</tr>
 										</c:forEach>
 									</tbody>
