@@ -21,6 +21,19 @@
 	<link href="resources/css/app.min.css" rel="stylesheet">
 	<link href="resources/css/app-skin.css" rel="stylesheet">
 
+	<script type="text/javascript">
+	
+	$(document).ready(function(e){
+	    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+			e.preventDefault();
+			var param = $(this).attr("href").replace("#","");
+			var concept = $(this).text();
+			$('.search-panel span#search_concept').text(concept);
+			$('.input-group #search_param').val(param);
+		});
+	});
+	</script>
+	
 <body class="overflow-hidden">
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
@@ -129,7 +142,7 @@
 								<li><a href="mvc?logica=equipe.ListarEquipeLogica"><span class="submenu-label">Listar Equipes</span></a></li>
 								<li><a href="mvc?logica=equipe.FormularioInserirEquipeLogica"><span class="submenu-label">Cadastrar Equipe</span></a></li>
 								<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica"><span class="submenu-label">Listar Funcionários</span></a></li>
-								<li><a href="mvc?logica=funcionario.FormularioInserirFuncionarioLogica"><span class="submenu-label">Cadastrar Funcionário</span></a></li>
+								<li><a href="mvc?logica=funcionario.FormularioAdicionarFuncionarioLogica"><span class="submenu-label">Cadastrar Funcionário</span></a></li>
 								<li><a href="mvc?logica=cargo.ListarCargoLogica"><span class="submenu-label">Listar Cargos</span></a></li>
 								<li><a href="mvc?logica=cargo.FormularioAdicionarCargoLogica"><span class="submenu-label">Cadastrar Cargo</span></a></li>
 							</ul>
@@ -183,16 +196,39 @@
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default table-responsive">
 								<div class="padding-md clearfix" style="text-align:center">
-	 								<img src="https://media.licdn.com/media/AAEAAQAAAAAAAAGeAAAAJGViNmRhNDgyLWVjMjEtNGQwOS05ZTYwLWUyNWJlMmQ4YmE4YQ.png">
+	 								<img src="https://media.licdn.com/media/AAEAAQAAAAAAAAGeAAAAJGViNmRhNDgyLWVjMjEtNGQwOS05ZTYwLWUyNWJlMmQ4YmE4YQ.png"/>
 			
-									<form class="navbar-form navbar-left" role="search">
-    									<div class="form-group">
-        									<input type="text" class="form-control" placeholder="Search">
-    									 	<button type="submit" class="btn btn-default"><i class="fa fa-search fa"></i></button>
-										</div>
-									</form>
-			
-		</div><!-- /main-container -->
+								</div>
+							    <div class="row">    
+							        <div class="col-xs-8 col-xs-offset-2">
+									    <div class="input-group">
+							                <div class="input-group-btn search-panel">
+							                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							                    	<span id="search_concept">Buscar por</span> <span class="caret"></span>
+							                    </button>
+							                    <ul class="dropdown-menu" role="menu">
+							                      <li><a href="#tecnologia">Tecnologia</a></li>
+							                      <li><a href="#funcionario">Funcionario</a></li>
+							                      <li><a href="#projeto">Projeto </a></li>
+							                      <li><a href="#cliente">Cliente </a></li>
+							                      <li class="divider"></li>
+							                      <li><a href="#all">Anything</a></li>
+							                    </ul>
+							                </div>
+							                <input type="hidden" name="search_param" value="all" id="search_param">         
+							                <input type="text" class="form-control" name="search" placeholder="Pesquisar...">
+							                <span class="input-group-btn">
+							                    <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+							                </span>
+							            </div>
+							        </div>
+								</div> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+	</div><!-- /main-container -->
 	</div><!-- /wrapper -->
 
 	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
