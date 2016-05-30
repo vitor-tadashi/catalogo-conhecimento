@@ -39,24 +39,44 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-2">
+												<div class="col-md-4">
 													<div class="form-group">
 														<input type="hidden" class="form-control input-sm" name="id" value="${cliente.id}" readonly>
 														<label class="control-label">Nome
 															<input type="text" class="form-control input-sm"  name="nome" value="${cliente.nome}">
 														</label>
+													</div>	
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">		
 														<label class="control-label">CNPJ
 															<input type="text" class="form-control input-sm"  name="cnpj" value="${cliente.cnpj}">
 														</label>
+													</div>	
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
 														<label class="control-label">E-mail
 															<input type="text" class="form-control input-sm"  name="email" value="${cliente.email}">
 														</label>
+													</div>	
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
 														<label class="control-label">Logradouro
 															<input type="text" class="form-control input-sm"  name="logradouro" value="${cliente.logradouro}">
 														</label>
+													</div>	
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
 														<label class="control-label">Número
 															<input type="text" class="form-control input-sm"  name="numero" value="${cliente.numero}">
 														</label>
+													</div>	
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
 														<label class="control-label">CEP
 															<input type="text" class="form-control input-sm"  name="cep" value="${cliente.cep}">
 														</label>
