@@ -22,7 +22,7 @@ public class TecnologiaFuncionarioDAO {
 		 conexao = ConnectionFactory.createConnection();
 	}
 	
-	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean>tecnologias) throws SQLException{
+	public int adicionar(FuncionarioBean funcionario, List<TecnologiaBean>tecnologias) throws SQLException{
 		PreparedStatement ps = conexao.prepareStatement(sqlInserir);
 		int linhasAfetadas =0;
 		
@@ -31,9 +31,6 @@ public class TecnologiaFuncionarioDAO {
 			ps.setInt(2, tecnologia.getId());
 			linhasAfetadas = ps.executeUpdate();
 		}
-		
-		
-		
 		
 		
 		ps.close();
@@ -85,19 +82,19 @@ public class TecnologiaFuncionarioDAO {
 		conexao.close();
 		return listaTecnologias;
 	}
-
-	public void atualizar(FuncionarioBean funcionario, List<TecnologiaBean> listaTecnologia) throws SQLException {
-		this.deletar(funcionario);
-		
-		this.inserir(funcionario, listaTecnologia);
-		
-	}
-
-	private void deletar(FuncionarioBean funcionario) throws SQLException {
+	
+	private void remover(FuncionarioBean funcionario) throws SQLException {
 		PreparedStatement ps = conexao.prepareStatement(sqlDeletar);
 		ps.setInt(1, funcionario.getId());
 		
 		ps.executeUpdate();
+		
+	}
+
+	public void atualizar(FuncionarioBean funcionarioBean, List<TecnologiaBean> listaTecnologia) throws SQLException {
+		this.remover(funcionarioBean);
+		
+		this.adicionar(funcionarioBean, listaTecnologia);
 		
 	}
 

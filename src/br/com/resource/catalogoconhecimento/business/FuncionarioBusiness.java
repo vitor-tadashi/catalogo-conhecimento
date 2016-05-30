@@ -58,15 +58,15 @@ public class FuncionarioBusiness {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean atualizar(FuncionarioBean funcionario)throws ClassNotFoundException, SQLException {
+	public boolean atualizar(FuncionarioBean funcionarioBean)throws ClassNotFoundException, SQLException {
 
-			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionario.getId());
+			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionarioBean.getId());
 
-			if (funcionarioAux != null) {
-				return false;
+			if (funcionarioAux == null) {
+				return true ;
 			} else {
-				funcionarioDao.alterar(funcionario);
-				return true;
+				funcionarioDao.alterar(funcionarioBean);
+				return false;
 			}
 	}
 
@@ -80,11 +80,11 @@ public class FuncionarioBusiness {
 	public boolean deletar(int id)throws ClassNotFoundException, SQLException {
 
 			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(id);
-			if (funcionarioAux != null) {
-				return false;
+			if (funcionarioAux == null) {
+				return true;
 			} else {
 				funcionarioDao.remover(id);
-				return true;
+				return false;
 			}
 	}
 	
