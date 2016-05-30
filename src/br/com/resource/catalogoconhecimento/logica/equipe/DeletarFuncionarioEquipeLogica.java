@@ -22,6 +22,8 @@ public class DeletarFuncionarioEquipeLogica implements Logica {
 	
 		return url;
 		
+	
+		
 		
 	}
 

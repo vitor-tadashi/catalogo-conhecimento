@@ -29,7 +29,7 @@
 					</c:forEach>
 			
 				</td>
-				<td><a href="equipe.DeletarFuncionarioEquipeLogica&idEquipe=${idEquipe}">Excluir</a></td>
+				<td><a href="mvc?logica=equipe.DeletarFuncionarioEquipeLogica&idEquipe=${idEquipe}&idFuncionario=${funcionarioEquipe.id}">Excluir</a></td>
 			</tr>
 			</c:forEach>
 		</table>

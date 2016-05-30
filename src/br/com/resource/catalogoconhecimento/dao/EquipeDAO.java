@@ -168,9 +168,8 @@ public class EquipeDAO {
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
 		
 		Connection conec = ConnectionFactory.createConnection();
-		conec.setAutoCommit(false);
 
-		String sql = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? and idFuncionario =?";
+		String sql = "DELETE FROM EquipeFuncionario WHERE idEquipe=? and idFuncionario =?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 		stmt.setInt(1, idEquipe);
 		stmt.setInt(2, idFuncionario);
