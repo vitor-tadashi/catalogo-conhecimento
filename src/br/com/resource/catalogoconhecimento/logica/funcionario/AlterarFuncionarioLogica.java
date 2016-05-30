@@ -19,13 +19,12 @@ public class AlterarFuncionarioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
 		int id = Integer.parseInt(request.getParameter("id"));
 		String nomeFuncionario = request.getParameter("nome");
 		String telefone = request.getParameter("telefone");
 		String nomeUsuario = request.getParameter("nomeUser");
 		String email = request.getParameter("email");
-		int cargo = Integer.parseInt(request.getParameter("cargos"));
+		int cargo = Integer.parseInt(request.getParameter("cargo"));
 		String[] tecnologias = request.getParameterValues("tecnologiasArray");
 
 		
