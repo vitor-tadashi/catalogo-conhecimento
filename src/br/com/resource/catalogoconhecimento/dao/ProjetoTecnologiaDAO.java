@@ -15,8 +15,8 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class ProjetoTecnologiaDAO {
 	Connection conexao;
 	private final String sqlCriar = "insert into ProjetoTecnologia(idProjeto, idTecnologia) values(?,?)";
-	private final String sqlConsultar = "Select * from ProjetoNegocio where idProjeto = ?";
-	private final String sqlDeletar  ="Delete from ProjetoNegocio where idProjeto = ?";
+	private final String sqlConsultar = "Select * from ProjetoTecnologia where idProjeto = ?";
+	private final String sqlDeletar  ="Delete from ProjetoTecnologia where idProjeto = ?";
 	
 	
 	public ProjetoTecnologiaDAO() throws ClassNotFoundException, SQLException {
