@@ -33,7 +33,7 @@
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAdicionaTecnologia"  method="POST" action="mvc">
 										<div class="panel-heading">
-											<h3>Adicionar Funcionário</h3>
+											<h3>Alterar Funcionário</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
