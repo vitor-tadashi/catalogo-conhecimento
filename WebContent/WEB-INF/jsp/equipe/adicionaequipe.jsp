@@ -42,11 +42,9 @@
 																<input type="text" class="form-control input-sm"  name="nome" required>
 															</label>
 														</div>
-													</div><!-- /.col -->
-													<div class="col-md-4">
 														<div class="form-group">
 															<label class="control-label">Observações
-																<input type="text" class="form-control input-sm"  name="observacao" required>
+																<textarea class="form-control input-sm"  name="observacao"></textarea>
 															</label>
 														</div>
 													</div><!-- /.col -->

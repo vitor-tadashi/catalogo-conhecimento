@@ -3,9 +3,8 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
-import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
@@ -29,22 +28,17 @@ public class EquipeBusiness {
 		}
 
 	}
-	
-	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException, NomeRepetidoException{
-		
-		
-		EquipeBean equipebean = new EquipeBean();
-		EquipeDAO equipeDAO = new EquipeDAO();
 
-		EquipeBean funcionarioigual = equipeDAO.listarPorEquipe(equipebean.getId());
-		
-		if(funcionarioigual != null){
+	public void inserirPorEquipe(int equipe, int funcionario)
+			throws ClassNotFoundException, SQLException, NomeRepetidoException {
+		EquipeDAO equipeDAO = new EquipeDAO();
+		EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
+
+		if (equipeFuncionario != null) {
 			throw new NomeRepetidoException("Este nome já consta nessa Equipe");
-		}else{
-			equipeDAO.inserirPorEquipe(equipe,funcionario);
+		} else {
+			equipeDAO.inserirPorEquipe(equipe, funcionario);
 		}
-		
-		
 	}
 
 	// DELETAR NA BASE
@@ -87,11 +81,16 @@ public class EquipeBusiness {
 
 	// LISTAR POR ID NA BASE
 
-	public EquipeBean listarPorId(int id) throws ClassNotFoundException, SQLException {
+	public EquipeBean obterPorId(int id) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipe = new EquipeDAO();
-		return equipe.listarPorId(id);
+		return equipe.obterPorId(id);
 
+	}
+	
+	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException{
+		EquipeDAO equipe = new EquipeDAO();
+		return equipe.obterPorNome(nome);
 	}
 
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {

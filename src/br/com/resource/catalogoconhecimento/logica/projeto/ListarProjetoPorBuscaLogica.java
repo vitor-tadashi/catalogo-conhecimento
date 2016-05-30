@@ -22,11 +22,20 @@ public class ListarProjetoPorBuscaLogica implements Logica {
 		
 		List<String> palavras = Arrays.asList(array);
 		TecnologiaBean tecnologia = null;
-		List<ProjetoBean> projetos = new ArrayList<>();
-		for(String s:palavras){
-			tecnologia = new TecnologiaBusiness().obterPorNome(s);
-			projetos.addAll(new ProjetoBusiness().obterPorTecnologia(tecnologia));
+		String nomeTecnologias = "";
+		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
+		
+		for(int i = 0; i < array.length; i ++){
+			if(tecnologiaBusiness.obterPorNome(array[i]) != null){
+				if(nomeTecnologias.isEmpty()){
+					nomeTecnologias += "'"+array[i]+"'";
+				}else{
+					nomeTecnologias += ",'"+array[i]+"'";
+				}
+			}
 		}
+		
+		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);
 		
 		request.setAttribute("projetos", projetos);
 		

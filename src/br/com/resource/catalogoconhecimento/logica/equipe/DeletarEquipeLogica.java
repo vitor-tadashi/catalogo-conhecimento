@@ -31,7 +31,7 @@ public class DeletarEquipeLogica implements Logica {
 				
 		
 		EquipeDAO equipeDAO = new EquipeDAO();
-		equipeDAO.listarPorId(idEquipe);
+		equipeDAO.obterPorId(idEquipe);
 		equipeDAO.deletar(equipe);
 		
 		

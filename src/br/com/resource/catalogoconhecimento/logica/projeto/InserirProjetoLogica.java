@@ -15,40 +15,44 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
+import br.com.resource.catalogoconhecimento.business.ProjetoEquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoTecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class InserirProjetoLogica implements Logica {
+public class InserirProjetoLogica implements Logica{
+
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+
+
 
 		String nomeProjeto = request.getParameter("nomeProjeto");
 		String observacao = request.getParameter("observacao");
-		int idEquipe = Integer.parseInt(request.getParameter("equipe"));
 		int idCliente = Integer.parseInt(request.getParameter("cliente"));
 		String[] negocios = request.getParameterValues("negociosArray[]");
 		String[] tecnologias = request.getParameterValues("tecnologiasArray[]");
-		
+		String [] equipes = request.getParameterValues("equipesArray[]");
 
 		if(nomeProjeto.trim().equals("")){
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if( observacao.trim().equals("")){
 			throw new AtributoNuloException("Por favor, digite uma observação válida!");
 		}
-		
+
 		//transferir da String para a lista
 		List<NegocioBean> listaNegocio = new ArrayList<>();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		NegocioBean negocio;
 		for(int i = 0 ; i < negocios.length ; i ++){
 			negocio =  negocioBusiness.obterPorNome(negocios[i]);
-			listaNegocio.add(negocio);
+			listaNegocio .add(negocio);
 		}
-		
+
 		//transferir da String para a lista
 		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
@@ -57,30 +61,39 @@ public class InserirProjetoLogica implements Logica {
 			tecnologia =  tecnologiaBusiness.obterPorNome(tecnologias[i]);
 			listaTecnologia.add(tecnologia);
 		}
-		
-	    EquipeBusiness equipeBusiness = new EquipeBusiness();
-	    EquipeBean equipe = equipeBusiness.listarPorId(idEquipe);
-	    ClienteBusiness clienteBusiness = new ClienteBusiness();
-	    ClienteBean cliente = clienteBusiness.obterPorId(idCliente);
-		
+		//transferir da String para a lista
+		List<EquipeBean> listaEquipe = new ArrayList<>();
+		EquipeBusiness equipeBusiness = new EquipeBusiness();
+		EquipeBean equipe;
+		for(int i = 0 ; i < equipes.length ; i ++){
+			equipe =  equipeBusiness.obterPorNome(equipes[i]);
+			listaEquipe.add(equipe);
+		}
+
+		ClienteBusiness clienteBusiness = new ClienteBusiness();
+		ClienteBean cliente = clienteBusiness.obterPorId(idCliente);
+
+		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
+
 		ProjetoBean projeto = new ProjetoBean();
 		projeto.setCliente(cliente);
-		projeto.setEquipe(equipe);
 		projeto.setNome(nomeProjeto.trim());
 		projeto.setObservacao(observacao.trim());
-		
-		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
+
+
 		projetoBusiness.inserir(projeto);
-	
-		
+
 		ProjetoNegocioBusiness projetoNegocio = new ProjetoNegocioBusiness();
 		projetoNegocio.inserir(projeto, listaNegocio);
-		
+
 		ProjetoTecnologiaBusiness projetoTecnologia = new ProjetoTecnologiaBusiness();
 		projetoTecnologia.inserir(projeto, listaTecnologia);
 		
+		ProjetoEquipeBusiness projetoEquipe = new ProjetoEquipeBusiness();
+		projetoEquipe.inserir(projeto, listaEquipe);
+
 
 		return "mvc?logica=projeto.ListarProjetoLogica";
-		
 	}
+
 }
