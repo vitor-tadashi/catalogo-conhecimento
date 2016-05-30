@@ -8,15 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-<<<<<<< HEAD
+
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-=======
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
->>>>>>> deaba227c8c765b969fdc0a2158b3fff5db8f712
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class EquipeDAO {
@@ -226,7 +224,7 @@ public class EquipeDAO {
 		while (rs.next()) {
 			equipeFuncionario = new EquipeFuncionarioBean();
 			EquipeBusiness equipeBusiness = new EquipeBusiness();
-			EquipeBean equipeBean = equipeBusiness.listarPorId(rs.getInt("idEquipe"));
+			EquipeBean equipeBean = equipeBusiness.obterPorId(rs.getInt("idEquipe"));
 			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 			FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(rs.getInt("idFuncionario"));
 
