@@ -49,7 +49,7 @@
 												<td>${concorrente.nome}</td>
 												<td>${concorrente.descricao}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.FormularioAtualizarConcorrenteLogica&id=${concorrente.id}"><i class="fa fa-edit fa-lg"></i></a>
+													href="mvc?logica=concorrente.FormularioAlterarConcorrenteLogica&id=${concorrente.id}"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;"><a
 													href="mvc?logica=concorrente.RemoverConcorrenteLogica&id=${concorrente.id}"><i class="fa fa-times fa-lg"></i></a>

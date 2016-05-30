@@ -18,10 +18,8 @@ public class ListarConcorrentePorClienteLogica implements Logica {
 		List<ConcorrenteClienteBean> listaConcorrentesClientes = new ConcorrenteBusiness()
 				.obterPorCliente(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("concorrentesClientes", listaConcorrentesClientes);
-
 		ClienteBean clienteBean = new ClienteBusiness().obterPorId(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("cliente", clienteBean);
-
 		return "/WEB-INF/jsp/concorrente/listarConcorrentePorCliente.jsp";
 	}
 }

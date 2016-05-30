@@ -46,13 +46,13 @@
 															<input type="text" class="form-control input-sm"  name="nome" value= "${concorrente.nome}">
 														</label>
 														<label class="control-label">Descrição
-															<input type="text" class="form-control input-lg"  value= "${concorrente.descricao}"></textarea>
+															<input type="text" class="form-control input-lg" name="descricao" value= "${concorrente.descricao}"></textarea>
 														</label>
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAtualizarConcorrenteLogica">
-											<input type="hidden" name="logica" value="concorrente.AtualizarConcorrenteLogica">
+											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAlterarConcorrenteLogica&id=${concorrente.id}">
+											<input type="hidden" name="logica" value="concorrente.AlterarConcorrenteLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

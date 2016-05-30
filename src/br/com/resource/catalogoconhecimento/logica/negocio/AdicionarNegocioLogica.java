@@ -14,7 +14,7 @@ public class AdicionarNegocioLogica implements Logica {
 		String areaAtuacao = request.getParameter("areaAtuacao");
 		
 		NegocioBean negocioBean = new NegocioBean();
-		negocioBean.setAreaAtuacao(areaAtuacao);
+		negocioBean.setAreaAtuacao(areaAtuacao.trim());
 		
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		negocioBusiness.adicionar(negocioBean);

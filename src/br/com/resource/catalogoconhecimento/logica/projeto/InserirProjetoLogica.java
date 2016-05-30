@@ -66,8 +66,8 @@ public class InserirProjetoLogica implements Logica {
 		ProjetoBean projeto = new ProjetoBean();
 		projeto.setCliente(cliente);
 		projeto.setEquipe(equipe);
-		projeto.setNome(nomeProjeto);
-		projeto.setObservacao(observacao);
+		projeto.setNome(nomeProjeto.trim());
+		projeto.setObservacao(observacao.trim());
 		
 		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
 		projetoBusiness.inserir(projeto);

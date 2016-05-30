@@ -15,7 +15,7 @@
 				<th>Funcionário</th>
 				<th>E-mail</th>
 				<th>Tecnologia</th>
-				<th>Excluir</th>
+				<th>Ação</th>
 			</tr>
 
 			<c:forEach var="funcionarioEquipe" items="${funcionarioEquipe}">
@@ -29,7 +29,7 @@
 					</c:forEach>
 			
 				</td>
-				<td><a href="equipe.DeletarFuncionarioEquipeLogica&idEquipe=${idEquipe}">Excluir</a></td>
+				<td><a href="mvc?logica=equipe.DeletarFuncionarioEquipeLogica&idEquipe=${idEquipe}&idFuncionario=${funcionarioEquipe.id}">Excluir</a></td>
 			</tr>
 			</c:forEach>
 		</table>
