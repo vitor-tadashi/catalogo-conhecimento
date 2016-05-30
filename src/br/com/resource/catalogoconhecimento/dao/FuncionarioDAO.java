@@ -260,5 +260,53 @@ public class FuncionarioDAO {
 		return listafuncionarios;
 
 	}
+	/**
+	 * Método para obter informações de um funcionário caso ele já tenha sido removido
+	 * @param nome
+	 * @return informações do funcionário removido
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public FuncionarioBean obterFuncionarioDesatviado(String nome) throws SQLException, ClassNotFoundException{
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? ANDA ativo =?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nome);
+		ps.setString(2, "n");
+		ResultSet rs = ps.executeQuery();
+		
+		FuncionarioBean funcionarioBean = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			funcionarioBean  = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+		}
+		
+		conexao.close();
+		return funcionarioBean;
+		
+	}
+	
+	public void reativar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException{
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "UPDATE Funcionario SET ativo = ? WHERE CPF = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1,"s");
+		ps.setString(2, funcionarioBean.getCpf());
+		
+		ps.executeUpdate();
+		conexao.close();
+	}
 
 }
