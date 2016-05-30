@@ -33,7 +33,7 @@ public class TecnologiaFuncionarioBusiness {
 
 	public void atualizar(FuncionarioBean funcionarioBean, List<TecnologiaBean> listaTecnologia) throws SQLException {
 		tecnologiaFuncionarioDAO.atualizar(funcionarioBean, listaTecnologia);
-		
+
 	}
 
 }

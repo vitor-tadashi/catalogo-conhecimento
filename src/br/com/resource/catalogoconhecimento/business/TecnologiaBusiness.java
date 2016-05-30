@@ -39,7 +39,7 @@ public class TecnologiaBusiness {
 		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listar();
 
 		if (listaTecnologia.isEmpty()) {
-			throw new ConsultaNulaException("Não há negócios cadastrados");
+			throw new ConsultaNulaException("Não há tecnologias cadastrados");
 		} else {
 			return listaTecnologia;
 		}
@@ -94,7 +94,7 @@ public class TecnologiaBusiness {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		List<FuncionarioBean> listaFuncionario = tecnologiaDao.obterPorFuncionario(id);
 		List<ProjetoBean> listaProjeto = tecnologiaDao.obterPorProjeto(id);
-		
+
 		if (listaFuncionario.isEmpty() && listaProjeto.isEmpty()) {
 			tecnologiaDao.remover(id);
 		} else {

@@ -19,6 +19,7 @@ public class FuncionarioDAO {
 
 	/**
 	 * Método para adicionar um novo funcionário
+	 * 
 	 * @param funcionarioBean
 	 * @return id, criado no bd, do novo funcionário adicionado
 	 * @throws ClassNotFoundException
@@ -38,7 +39,7 @@ public class FuncionarioDAO {
 		st.setString(7, funcionarioBean.getCpf());
 		st.setString(8, funcionarioBean.getRg());
 		st.setDate(9, new java.sql.Date(funcionarioBean.getDataNascimento().getTime()));
-		
+
 		st.executeUpdate();
 		ResultSet rs = st.getGeneratedKeys();
 		int id = 0;
@@ -54,6 +55,7 @@ public class FuncionarioDAO {
 
 	/**
 	 * Método para listar todos os funcionários ativos
+	 * 
 	 * @return Lista de funcionários
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -95,10 +97,11 @@ public class FuncionarioDAO {
 
 		conexao.close();
 		return listaFuncionarios;
-	} 
+	}
 
 	/**
 	 * método para alterar informações de um funcionário
+	 * 
 	 * @param funcionarioBean
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -112,8 +115,6 @@ public class FuncionarioDAO {
 		ps.setString(3, funcionarioBean.getNomeUser());
 		ps.setString(4, funcionarioBean.getEmail());
 		ps.setInt(5, funcionarioBean.getId());
-		
-		
 
 		ps.executeUpdate();
 		conexao.close();
@@ -121,6 +122,7 @@ public class FuncionarioDAO {
 
 	/**
 	 * Método para remover logicamente um funcionário
+	 * 
 	 * @param id
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -152,6 +154,7 @@ public class FuncionarioDAO {
 
 	/**
 	 * Método para obter informações de um funcionário por Id
+	 * 
 	 * @param id
 	 * @return Todas informações do funcionário
 	 * @throws SQLException
@@ -169,7 +172,7 @@ public class FuncionarioDAO {
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
 			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-			
+
 			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
 			funcionarioBean.setCargo(cargoBean);
@@ -179,16 +182,17 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));	
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 
 		}
-		
+
 		conexao.close();
 		return funcionarioBean;
 	}
 
 	/**
 	 * Método para obter informações de um funcionário por nome
+	 * 
 	 * @param nome
 	 * @return Todas informações do funcionário
 	 * @throws SQLException
@@ -206,7 +210,7 @@ public class FuncionarioDAO {
 		while (rs.next()) {
 			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 
-			funcionarioBean  = new FuncionarioBean();
+			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
 			funcionarioBean.setCargo(cargoBean);
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
@@ -217,16 +221,16 @@ public class FuncionarioDAO {
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
-		
+
 		conexao.close();
 		return funcionarioBean;
 	}
-	
-	
+
 	/**
 	 * Método para obter informações específicas funcionários por idEquipe
+	 * 
 	 * @param idEquipe
-	 * @return Lista de funcionários com informações específicas 
+	 * @return Lista de funcionários com informações específicas
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -239,7 +243,7 @@ public class FuncionarioDAO {
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setInt(1, idEquipe);
 		ResultSet rs = stmt.executeQuery();
-		List<FuncionarioBean> listafuncionarios = new ArrayList<FuncionarioBean>();
+		List<FuncionarioBean> listaFuncionarios = new ArrayList<FuncionarioBean>();
 
 		TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness = new TecnologiaFuncionarioBusiness();
 
@@ -251,36 +255,40 @@ public class FuncionarioDAO {
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
 			funcionarioBean.setEmail(rs.getString("email"));
 
-			List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness.joinTecnologiaFuncionario(funcionarioBean.getId());
+			List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness
+					.joinTecnologiaFuncionario(funcionarioBean.getId());
 			funcionarioBean.setTecnologias(tecnologias);
 
-			listafuncionarios.add(funcionarioBean);
+			listaFuncionarios.add(funcionarioBean);
 		}
 		conexao.close();
-		return listafuncionarios;
+		return listaFuncionarios;
 
 	}
+
 	/**
-	 * Método para obter informações de um funcionário caso ele já tenha sido removido
+	 * Método para obter informações de um funcionário caso ele já tenha sido
+	 * removido
+	 * 
 	 * @param nome
 	 * @return informações do funcionário removido
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterFuncionarioDesatviado(String nome) throws SQLException, ClassNotFoundException{
+	public FuncionarioBean obterFuncionarioDesatviado(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? ANDA ativo =?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nome);
 		ps.setString(2, "n");
 		ResultSet rs = ps.executeQuery();
-		
+
 		FuncionarioBean funcionarioBean = null;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
 			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 
-			funcionarioBean  = new FuncionarioBean();
+			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
 			funcionarioBean.setCargo(cargoBean);
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
@@ -291,20 +299,20 @@ public class FuncionarioDAO {
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
-		
+
 		conexao.close();
 		return funcionarioBean;
-		
+
 	}
-	
-	public void reativar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException{
+
+	public void reativar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		
+
 		String sql = "UPDATE Funcionario SET ativo = ? WHERE CPF = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1,"s");
+		ps.setString(1, "s");
 		ps.setString(2, funcionarioBean.getCpf());
-		
+
 		ps.executeUpdate();
 		conexao.close();
 	}
