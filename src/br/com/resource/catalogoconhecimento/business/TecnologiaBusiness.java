@@ -3,8 +3,6 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
-import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
@@ -61,13 +59,13 @@ public class TecnologiaBusiness {
 			throws SQLException, ClassNotFoundException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
-		return tecnologiaDao.obterNomeDesativado(tecnologiaBean);
+		return tecnologiaDao.obterDesativado(tecnologiaBean);
 	}
 
-	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+	public List<TecnologiaBean> obterPorFuncionario(int idFuncionario) throws SQLException, ClassNotFoundException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
-		return tecnologiaDao.obterPorFuncionario(id);
+		return tecnologiaDao.listarPorFuncionario(idFuncionario);
 	}
 
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
@@ -92,13 +90,11 @@ public class TecnologiaBusiness {
 
 	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-		List<FuncionarioBean> listaFuncionario = tecnologiaDao.obterPorFuncionario(id);
-		List<ProjetoBean> listaProjeto = tecnologiaDao.obterPorProjeto(id);
 
-		if (listaFuncionario.isEmpty() && listaProjeto.isEmpty()) {
+		if (tecnologiaDao.verificarPorFuncionario(id) && tecnologiaDao.verificarPorProjeto(id)) {
 			tecnologiaDao.remover(id);
 		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido");
+			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
 		}
 	}
 
@@ -107,5 +103,5 @@ public class TecnologiaBusiness {
 
 		tecnologiaDao.reativar(tecnologia);
 	}
-
+	
 }

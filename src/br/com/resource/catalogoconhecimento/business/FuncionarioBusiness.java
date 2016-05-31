@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 
 public class FuncionarioBusiness {
 
@@ -37,8 +38,26 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 */
 	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException {
-
 		return funcionarioDao.listar();
+	}
+	
+	/**
+	 * Lista todos os funcionários que possuem as tecnologias especificadas
+	 * 
+	 * @param nomeTecnologias
+	 * @return List<FuncionarioBean>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConsultaNulaException
+	 */
+	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorTecnologias(nomeTecnologias);
+		
+		if (listaFuncionario.isEmpty()) {
+			throw new ConsultaNulaException("Não há funcionários cadastrados");
+		} else {
+			return listaFuncionario;
+		}
 	}
 
 	/**

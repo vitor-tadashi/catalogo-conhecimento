@@ -275,9 +275,9 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterFuncionarioDesatviado(String nome) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterFuncionarioDesativado(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? ANDA ativo =?";
+		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? AND ativo =?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nome);
 		ps.setString(2, "n");
@@ -302,7 +302,55 @@ public class FuncionarioDAO {
 
 		conexao.close();
 		return funcionarioBean;
+	}
+	
+	/**
+	 * Lista todos os funcionários de uma tecnologia específica
+	 * 
+	 * @param nomeTecnologias
+	 * @return List<FuncionarioBean>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
 
+		String sql = "SELECT f.* FROM Funcionario f "
+				+ "INNER JOIN TecnologiaFuncionario tf ON tf.idFuncionario = f.idFuncionario "
+				+ "INNER JOIN Tecnologia t ON tf.idTecnologia = t.idTecnologia "
+				+ "WHERE t.nomeTecnologia IN (?) AND f.ativo = 's' AND t.ativo = 's' "
+				+ "GROUP BY	f.CPF, f.RG, f.ativo, f.dataNascimento, f.email, f.idCargo, "
+				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone "
+				+ "HAVING COUNT(f.idFuncionario) > 1";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nomeTecnologias);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			FuncionarioBean funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+			
+			listaFuncionario.add(funcionarioBean);
+		}
+
+		ps.close();
+		conexao.close();
+		
+		return listaFuncionario;
 	}
 
 	public void reativar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {

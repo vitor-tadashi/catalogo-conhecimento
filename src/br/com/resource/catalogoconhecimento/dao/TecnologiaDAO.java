@@ -7,13 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class TecnologiaDAO {
 
+	/**
+	 * Adicionar uma tecnologia
+	 * 
+	 * @param tecnologiaBean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void adicionar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -29,6 +35,13 @@ public class TecnologiaDAO {
 		conexao.close();
 	}
 
+	/**
+	 * Listar todas as tecnologias disponíveis
+	 * 
+	 * @return List<TecnologiaBean>
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -53,7 +66,84 @@ public class TecnologiaDAO {
 
 		return listaTecnologia;
 	}
+	
+	/**
+	 * Lista todas as tecnologias de um funcionário
+	 * 
+	 * @param idFuncionario
+	 * @return List<TecnologiaBean> 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<TecnologiaBean> listarPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT * FROM TecnologiaFuncionario AS tf "
+				+ "INNER JOIN Tecnologia AS t ON tf.idTecnologia = t.idTecnologia "
+				+ "WHERE tf.idTecnologia = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, idFuncionario);
+		
+		ResultSet rs = ps.executeQuery();
 
+		List<TecnologiaBean> listaTecnologia = new ArrayList<TecnologiaBean>();
+		while (rs.next()) {
+			TecnologiaBean tecnologiaBean = new TecnologiaBean();
+			tecnologiaBean.setId(rs.getInt("idTecnologia"));
+			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
+
+			listaTecnologia.add(tecnologiaBean);
+		}
+		
+		ps.close();
+		conexao.close();
+
+		return listaTecnologia;
+	}
+	
+	/**
+	 * Lista todas as tecnologias de um projeto
+	 * 
+	 * @param projeto
+	 * @return List<TecnologiaBean>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT t.nomeTecnologia"
+				+"  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" 
+				+"	ON p.idProjeto = pt.idProjeto"
+				+"	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
+				+"  WHERE p.idProjeto = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, projeto.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<TecnologiaBean>listaTecnologia = new ArrayList<>();
+		TecnologiaBean tecnologiaBean = null;
+		while(rs.next()){
+			tecnologiaBean = new TecnologiaBean();
+			tecnologiaBean.setId(rs.getInt("idTecnologia"));
+			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
+			listaTecnologia.add(tecnologiaBean);
+		}
+		
+		return listaTecnologia;
+	}
+
+	/**
+	 * Pesquisa uma tecnologia pelo seu id
+	 * 
+	 * @param id
+	 * @return TecnologiaBean
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public TecnologiaBean obterPorId(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -77,6 +167,14 @@ public class TecnologiaDAO {
 		return tecnologiaBean;
 	}
 
+	/**
+	 * Pesquisa uma tecnologia pelo seu nome
+	 * 
+	 * @param nome
+	 * @return TecnologiaBean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -100,81 +198,15 @@ public class TecnologiaDAO {
 		return tecnologiaBean;
 	}
 
-	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM TecnologiaFuncionario WHERE idTecnologia = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, id);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
-		while (rs.next()) {
-			FuncionarioBean funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-
-			listaFuncionario.add(funcionarioBean);
-		}
-		
-		ps.close();
-		conexao.close();
-
-		return listaFuncionario;
-	}
-
-	public List<ProjetoBean> obterPorProjeto(int id) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM ProjetoTecnologia WHERE idTecnologia = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, id);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<ProjetoBean> listaProjeto = new ArrayList<ProjetoBean>();
-		while (rs.next()) {
-			ProjetoBean projetoBean = new ProjetoBean();
-			projetoBean.setId(rs.getInt("idProjeto"));
-
-			listaProjeto.add(projetoBean);
-		}
-		
-		ps.close();
-		conexao.close();
-
-		return listaProjeto;
-	}
-	
-	
-	public List<TecnologiaBean> obterNomePorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
-		Connection conexao = ConnectionFactory.createConnection();
-		
-		String sql = "SELECT t.nomeTecnologia"
-				+"  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" 
-				+"	ON p.idProjeto = pt.idProjeto"
-				+"	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
-				+"  WHERE p.idProjeto = ?";
-		
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, projeto.getId());
-		
-		ResultSet rs = ps.executeQuery();
-		
-		List<TecnologiaBean>listaTecnologias = new ArrayList<>();
-		TecnologiaBean tecnologiaBean = null;
-		while(rs.next()){
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-			listaTecnologias.add(tecnologiaBean);
-		}
-		
-		return listaTecnologias;
-	}
-
-	public TecnologiaBean obterNomeDesativado(TecnologiaBean tecnologiaBean)
+	/**
+	 * Obtem uma tecnologia desativada
+	 * 
+	 * @param tecnologiaBean
+	 * @return TecnologiaBean
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public TecnologiaBean obterDesativado(TecnologiaBean tecnologiaBean)
 			throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -199,6 +231,13 @@ public class TecnologiaDAO {
 		return tecnologiaBean;
 	}
 
+	/**
+	 * Altera um tecnologia
+	 * 
+	 * @param tecnologiaBean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -214,6 +253,13 @@ public class TecnologiaDAO {
 		conexao.close();
 	}
 
+	/**
+	 * Remove uma tecnologia
+	 * 
+	 * @param id
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void remover(int id) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -244,5 +290,47 @@ public class TecnologiaDAO {
 		conexao.close();
 	}
 
+	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT * FROM TecnologiaFuncionario WHERE idTecnologia = ?";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		boolean check = false;
+		while (rs.next()) {
+			check = true;
+		}
+		
+		ps.close();
+		conexao.close();
+
+		return check;
+	}
+	
+
+	public boolean verificarPorProjeto(int id) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT * FROM ProjetoTecnologia WHERE idTecnologia = ?";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		boolean check = false;
+		while (rs.next()) {
+			check = true;
+		}
+		
+		ps.close();
+		conexao.close();
+
+		return check;
+	}
 
 }
