@@ -29,6 +29,8 @@
 							<div class="panel panel-default table-responsive">
 								<div class="panel-heading">
 									<h3>Lista de Tecnologias</h3>
+									<!-- Message Erro-->
+									<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
 									<span class="label label-info pull-right">${fn:length(tecnologias)}
 										registros</span>
 								</div>

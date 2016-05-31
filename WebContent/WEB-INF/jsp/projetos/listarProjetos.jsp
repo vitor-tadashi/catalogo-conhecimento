@@ -32,6 +32,10 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Listar Projetos</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
 								<span class="label label-info pull-right">${fn:length(projetos)}
 									registros</span>
 							</div>
