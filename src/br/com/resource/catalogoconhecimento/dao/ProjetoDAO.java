@@ -50,7 +50,7 @@ public class ProjetoDAO {
 					rs.getString("nomeProjeto"), rs.getString("observacao"));
 			
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
-			listaTecnologia = new TecnologiaDAO().obterPorIdDeProjeto(projeto);
+			listaTecnologia = new TecnologiaDAO().obterNomePorProjeto(projeto);
 			listaEquipe = new EquipeDAO().obterPorProjeto(projeto);
 			
 			projeto.setListaNegocio(listaNegocio);
@@ -222,7 +222,7 @@ public class ProjetoDAO {
 					rs.getString("nomeProjeto"), rs.getString("observacao"));
 			
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
-			listaTecnologia = new TecnologiaDAO().obterPorIdDeProjeto(projeto);
+			listaTecnologia = new TecnologiaDAO().obterNomePorProjeto(projeto);
 			listaEquipes = new EquipeDAO().obterPorProjeto(projeto);
 			
 			projeto.setListaEquipe(listaEquipes);
