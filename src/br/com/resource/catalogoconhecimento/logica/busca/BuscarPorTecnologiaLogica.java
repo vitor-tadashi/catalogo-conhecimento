@@ -1,14 +1,15 @@
-package br.com.resource.catalogoconhecimento.logica.projeto;
+package br.com.resource.catalogoconhecimento.logica.busca;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
+import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
@@ -38,10 +39,11 @@ public class BuscarPorTecnologiaLogica implements Logica {
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);
 		
 		
-		//List<FuncionarioBean> listaFuncionario = new TecnologiaBusiness().obterPorFuncionario(id);
+		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorTecnologias(nomeTecnologias);
 		
 		
 		request.setAttribute("projetos", projetos);
+		request.setAttribute("funcionarios", listaFuncionario);
 		
 		return "WEB-INF/jsp/projetos/listarProjetos.jsp";
 	}
