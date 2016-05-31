@@ -14,7 +14,7 @@ import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class BuscarPorTecnologiaLogica implements Logica {
+public class BuscarPorTecnologiaAjaxLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {

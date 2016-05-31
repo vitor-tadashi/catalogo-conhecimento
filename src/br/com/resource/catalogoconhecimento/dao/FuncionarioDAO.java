@@ -324,7 +324,6 @@ public class FuncionarioDAO {
 				+ "HAVING COUNT(f.idFuncionario) > 1";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, nomeTecnologias);
 
 		ResultSet rs = ps.executeQuery();
 
