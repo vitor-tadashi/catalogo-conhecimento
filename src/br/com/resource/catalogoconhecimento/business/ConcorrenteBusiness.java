@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 
 public class ConcorrenteBusiness {
 
@@ -20,20 +21,20 @@ public class ConcorrenteBusiness {
 		}
 	}
 
-	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException {
-		try {
-			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-			return concorrenteDao.listar();
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return null;
-		} catch (SQLException s) {
-			s.printStackTrace();
-			return null;
+	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException, ConsultaNulaException {
+		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+		List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
+
+		if (listaConcorrente.isEmpty()) {
+			throw new ConsultaNulaException("Não há tecnologias cadastradas");
+		} else {
+			return listaConcorrente;
 		}
 	}
+
 	// ESSE AQUI
-	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente) throws SQLException, ClassNotFoundException {
+	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente)
+			throws SQLException, ClassNotFoundException {
 		try {
 			ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 			return concorrenteDao.listarConcorrenteCliente(idConcorrente);
@@ -79,10 +80,12 @@ public class ConcorrenteBusiness {
 			if (concorrenteAux != null) {
 				concorrenteDAO.atualizar(concorrenteBean);
 				return true;
-			/*List<ConcorrenteClienteBean> listaConcorrentes = this.obterPorId(concorrenteBean.getId());
-			if (!listaConcorrentes.isEmpty()) {
-				concorrenteDAO.alterar(concorrenteBean);
-				return true;*/
+				/*
+				 * List<ConcorrenteClienteBean> listaConcorrentes =
+				 * this.obterPorId(concorrenteBean.getId()); if
+				 * (!listaConcorrentes.isEmpty()) {
+				 * concorrenteDAO.alterar(concorrenteBean); return true;
+				 */
 			} else {
 				return false;
 			}

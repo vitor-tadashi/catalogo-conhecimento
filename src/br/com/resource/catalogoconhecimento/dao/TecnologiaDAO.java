@@ -32,7 +32,7 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Tecnologia where ativo = ?";
+		String sql = "SELECT * FROM Tecnologia WHERE ativo = ?";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, "s");
@@ -147,6 +147,32 @@ public class TecnologiaDAO {
 
 		return listaProjeto;
 	}
+	
+	
+	public List<TecnologiaBean> obterNomePorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT t.nomeTecnologia"
+				+"  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" 
+				+"	ON p.idProjeto = pt.idProjeto"
+				+"	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
+				+"  WHERE p.idProjeto = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, projeto.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<TecnologiaBean>listaTecnologias = new ArrayList<>();
+		TecnologiaBean tecnologiaBean = null;
+		while(rs.next()){
+			tecnologiaBean = new TecnologiaBean();
+			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
+			listaTecnologias.add(tecnologiaBean);
+		}
+		
+		return listaTecnologias;
+	}
 
 	public TecnologiaBean obterNomeDesativado(TecnologiaBean tecnologiaBean)
 			throws SQLException, ClassNotFoundException {
@@ -217,33 +243,6 @@ public class TecnologiaDAO {
 		ps.close();
 		conexao.close();
 	}
-	
-	public List<TecnologiaBean> obterPorIdDeProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "select" 
-				+"	t.nomeTecnologia"
-				+"  from"
-				+"	Projeto as p inner join ProjetoTecnologia as pt" 
-				+"	on p.idProjeto = pt.idProjeto"
-				+"	inner join Tecnologia as t"
-				+"	on t.idTecnologia = pt.idTecnologia"
-				+"  where p.idProjeto = ?";
-		
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, projeto.getId());
-		
-		ResultSet rs = ps.executeQuery();
-		List<TecnologiaBean>listaTecnologias = new ArrayList<>();
-		TecnologiaBean tecnologiaBean = null;
-		
-		while(rs.next()){
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-			listaTecnologias.add(tecnologiaBean);
-		}
-		
-		return listaTecnologias;
-		
-	}
+
 
 }

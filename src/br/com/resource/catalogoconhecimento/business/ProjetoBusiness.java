@@ -26,7 +26,7 @@ public class ProjetoBusiness {
 		}else if(projetoClone != null && projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())){
 			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + "no "+projetoClone.getCliente().getNome());
 		}else{
-			projetoDAO.inserir(projetoBean);
+			projetoDAO.adicionar(projetoBean);
 		}
 
 

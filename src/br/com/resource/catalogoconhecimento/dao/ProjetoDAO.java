@@ -19,93 +19,90 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class ProjetoDAO {
 
-	Connection conn = null;
-
-	// SELECIONAR NA TABELA PROJETO
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
+		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "Select * from Projeto where ativo = ?";
+		String sql = "SELECT * FROM Projeto WHERE ativo = ?";
 
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, "s");
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, "s");
 		
-		ResultSet rs = stmt.executeQuery();
+		ResultSet rs = ps.executeQuery();
 
-		List<ProjetoBean> projetos = new ArrayList<ProjetoBean>();
-		ProjetoBean projeto;
 		EquipeBusiness equipeBusiness = new EquipeBusiness();
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		EquipeBean equipe;
-		ClienteBean cliente;
+		ProjetoBean projetoBean;
+		EquipeBean equipeBean;
+		ClienteBean clienteBean;
 		
+		List<ProjetoBean> listaProjeto = new ArrayList<ProjetoBean>();
 		List<NegocioBean> listaNegocio = null;
 		List<TecnologiaBean> listaTecnologia = null;
 		
 		while(rs.next()) {
+			clienteBean = clienteBusiness.obterPorId(rs.getInt("idCliente"));
+			equipeBean = equipeBusiness.listarPorId( rs.getInt("idEquipe"));
 			
-			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
-			equipe = equipeBusiness.listarPorId( rs.getInt("idEquipe"));
-			
-			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, equipe,
+			projetoBean = new ProjetoBean(rs.getInt("idProjeto"), clienteBean, equipeBean,
 					rs.getString("nomeProjeto"), rs.getString("observacao"));
+			listaNegocio = new NegocioDAO().obterPorProjeto(projetoBean);
+			listaTecnologia = new TecnologiaDAO().obterNomePorProjeto(projetoBean);
 			
-			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
-			listaTecnologia = new TecnologiaDAO().obterPorIdDeProjeto(projeto);
-			projeto.setListaNegocio(listaNegocio);
-			projeto.setListaTecnologia(listaTecnologia);
-			projetos.add(projeto);
+			projetoBean.setListaNegocio(listaNegocio);
+			projetoBean.setListaTecnologia(listaTecnologia);
+			
+			listaProjeto.add(projetoBean);
 		}
 
-		conn.close();
-		return projetos;
-
+		ps.close();
+		conexao.close();
+		
+		return listaProjeto;
 	}
 
-	// ADICIONAR NA TABELA PROJETO
-	public void inserir(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "Insert into Projeto(idEquipe, idCliente, nomeProjeto,observacao, ativo) values(?,?,?,?,?)";
-
-		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	public void adicionar(ProjetoBean projetoBean) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
 		
-		stmt.setInt(1, projeto.getEquipe().getId());
-		stmt.setInt(2, projeto.getCliente().getId());
-		stmt.setString(3, projeto.getNome());
-		stmt.setString(4, projeto.getObservacao());
-		stmt.setString(5, "s");
+		String sql = "INSERT INTO Projeto(idEquipe, idCliente, nomeProjeto,observacao, ativo) VALUES (?,?,?,?,?)";
 
-		stmt.executeUpdate();
-		ResultSet rs = stmt.getGeneratedKeys();
+		PreparedStatement ps = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		ps.setInt(1, projetoBean.getEquipe().getId());
+		ps.setInt(2, projetoBean.getCliente().getId());
+		ps.setString(3, projetoBean.getNome());
+		ps.setString(4, projetoBean.getObservacao());
+		ps.setString(5, "s");
+
+		ps.executeUpdate();
+		
+		ResultSet rs = ps.getGeneratedKeys();
+		
 		int newId = 0;
 		
 		if (rs.next()) {
 		   newId = rs.getInt(1);
-		   projeto.setId(newId);
+		   projetoBean.setId(newId);
 		}
 		
-		stmt.close();
-		conn.close();
-
-		
-		
+		ps.close();
+		conexao.close();
 	}
 
-	// ATUALIZAR NA TABELA PROJETO
-	public void atualizar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
+	public void atualizar(ProjetoBean projetoBean) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "Update Projeto set idEquipe = ?, idCliente = ?, nomeProjeto = ?, observacao = ? where idProjeto = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, projeto.getEquipe().getId());
-		stmt.setInt(2, projeto.getCliente().getId());
-		stmt.setString(3, projeto.getNome());
-		stmt.setString(4, projeto.getObservacao());
-		stmt.setInt(5, projeto.getId());
+		String sql = "UPDATE Projeto SET idEquipe = ?, idCliente = ?, nomeProjeto = ?, observacao = ? WHERE idProjeto = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, projetoBean.getEquipe().getId());
+		ps.setInt(2, projetoBean.getCliente().getId());
+		ps.setString(3, projetoBean.getNome());
+		ps.setString(4, projetoBean.getObservacao());
+		ps.setInt(5, projetoBean.getId());
 
-		stmt.executeUpdate();
-		conn.close();
-
+		ps.executeUpdate();
+		
+		ps.close();
+		conexao.close();
 	}
 
 	// DELETA NA TABELA PROJETO

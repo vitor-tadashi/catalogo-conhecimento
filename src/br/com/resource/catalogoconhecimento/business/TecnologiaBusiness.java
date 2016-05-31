@@ -39,7 +39,7 @@ public class TecnologiaBusiness {
 		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listar();
 
 		if (listaTecnologia.isEmpty()) {
-			throw new ConsultaNulaException("Não há negócios cadastrados");
+			throw new ConsultaNulaException("Não há tecnologias cadastradas");
 		} else {
 			return listaTecnologia;
 		}
