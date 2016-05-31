@@ -29,6 +29,10 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Lista de Equipes</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
 								<span class="label label-info pull-right">${fn:length(equipes)}
 									registros</span>
 							</div>

@@ -30,6 +30,10 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Listar Funcionários</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
 								<span class="label label-info pull-right">${fn:length(funcionarios)}
 									registros</span>
 							</div>
