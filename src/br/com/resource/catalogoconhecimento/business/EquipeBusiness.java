@@ -16,6 +16,8 @@ public class EquipeBusiness {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
 		EquipeBean equipeigual = equipeDAO.listarPorNome(equipe.getNome());
+		
+		
 
 		if (equipe.getNome().length() > 200) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
