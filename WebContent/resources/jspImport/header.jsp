@@ -49,7 +49,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-tag fa-lg"></i> 
+									<i class="fa fa-code fa-lg"></i> 
 								</span>
 								<span class="text">
 									Tecnologias
@@ -64,7 +64,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-tag fa-lg"></i> 
+									<i class="fa fa-cogs fa-lg"></i> 
 								</span>
 								<span class="text">
 									Negócios
@@ -79,7 +79,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-tag fa-lg"></i> 
+									<i class="fa fa-sitemap fa-lg"></i> 
 								</span>
 								<span class="text">
 									Projetos
@@ -94,7 +94,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-tag fa-lg"></i> 
+									<i class="fa fa-group fa-lg"></i> 
 								</span>
 								<span class="text">
 									Equipes
@@ -113,7 +113,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-tag fa-lg"></i> 
+									<i class="fa fa-flag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Clientes
@@ -128,7 +128,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-tag fa-lg"></i> 
+									<i class="fa fa-globe fa-lg"></i> 
 								</span>
 								<span class="text">
 									Concorrentes
