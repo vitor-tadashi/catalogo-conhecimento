@@ -113,7 +113,7 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
 		Connection conexao = ConnectionFactory.createConnection();
 		
-		String sql = "SELECT t.nomeTecnologia"
+		String sql = "SELECT t.idTecnologia, t.nomeTecnologia"
 				+"  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" 
 				+"	ON p.idProjeto = pt.idProjeto"
 				+"	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
