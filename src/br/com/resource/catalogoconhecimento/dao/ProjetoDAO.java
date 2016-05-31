@@ -195,12 +195,12 @@ public class ProjetoDAO {
 	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias) throws SQLException, ClassNotFoundException{
 		Connection conexao = ConnectionFactory.createConnection();
 		
-		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao, p.idEquipe"
+		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
 				  + " FROM Projeto p"
 			      + " INNER JOIN ProjetoTecnologia pt ON p.idProjeto = pt.idProjeto"
 			      + " INNER JOIN Tecnologia t on pt.idTecnologia = t.idTecnologia"
 				  +	" WHERE t.nomeTecnologia IN ("+ nomeTecnologias +") "
-				  + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao, p.idEquipe"
+				  + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
 				  + " HAVING COUNT(p.idProjeto) > 1";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
