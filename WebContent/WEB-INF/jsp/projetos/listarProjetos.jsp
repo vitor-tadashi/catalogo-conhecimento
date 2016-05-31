@@ -5,8 +5,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 	<title>Listar Projetos</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
+		
+	
 </head>
 <body>
 
@@ -29,6 +32,10 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Listar Projetos</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
 								<span class="label label-info pull-right">${fn:length(projetos)}
 									registros</span>
 							</div>
@@ -61,7 +68,7 @@
 																							
 												</td>	
 												<td>
-													<select>
+												<select>
 													<c:forEach var="tecnologia" items = "${projeto.listaTecnologia}">
 														<option>${tecnologia.nome}</option>
 													</c:forEach>

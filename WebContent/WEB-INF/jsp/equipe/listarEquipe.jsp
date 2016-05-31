@@ -29,6 +29,10 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Lista de Equipes</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
 								<span class="label label-info pull-right">${fn:length(equipes)}
 									registros</span>
 							</div>
@@ -64,7 +68,7 @@
 								</table>
 								<div class="panel-footer text-left">
 									<a href="mvc?logica=equipe.FormularioInserirEquipeLogica&idEquipe=${equipe.id}">
-										<button class="btn btn-success" type="submit">Cadastrar Novo Projeto</button>
+										<button class="btn btn-success" type="submit">Cadastrar Nova Equipe</button>
 										</a>
 									</div> 
 								</div>

@@ -12,21 +12,21 @@ public class EquipeBusiness {
 
 	// INSERIR NA BASE
 
-	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException, Exception {
+	public void inserir(EquipeBean equipeBean) throws ClassNotFoundException, SQLException, Exception {
 
 		EquipeDAO equipeDAO = new EquipeDAO();
-		EquipeBean equipeigual = equipeDAO.listarPorNome(equipe.getNome());
+		EquipeBean equipeigual = equipeDAO.listarPorNome(equipeBean.getNome());
 		
 		
 
-		if (equipe.getNome().length() > 200) {
+		if (equipeBean.getNome().length() > 200) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
-		} else if (equipeigual != null) {
+		} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
-		} else if (equipe.getObservacao().length() > 500) {
+		} else if (equipeBean.getObservacao().length() > 500) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 		} else {
-			equipeDAO.inserir(equipe);
+			equipeDAO.inserir(equipeBean);
 		}
 
 	}
@@ -64,7 +64,7 @@ public class EquipeBusiness {
 
 		if (equipe.getNome().length() > 100) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.100)");
-		} else if (equipeigual != null) {
+		} else if (equipeigual != null && equipeigual.getId() != equipe.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else if (equipe.getObservacao().length() > 500) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");

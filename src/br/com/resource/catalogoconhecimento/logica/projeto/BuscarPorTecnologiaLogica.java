@@ -13,7 +13,7 @@ import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class ListarProjetoPorBuscaLogica implements Logica {
+public class BuscarPorTecnologiaLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -36,6 +36,10 @@ public class ListarProjetoPorBuscaLogica implements Logica {
 		}
 		
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);
+		
+		
+		//List<FuncionarioBean> listaFuncionario = new TecnologiaBusiness().obterPorFuncionario(id);
+		
 		
 		request.setAttribute("projetos", projetos);
 		
