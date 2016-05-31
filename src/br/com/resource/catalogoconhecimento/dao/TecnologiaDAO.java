@@ -100,7 +100,7 @@ public class TecnologiaDAO {
 		return tecnologiaBean;
 	}
 
-	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+	public List<FuncionarioBean> obterFuncionarioPorTecnologia(int id) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT * FROM TecnologiaFuncionario WHERE idTecnologia = ?";

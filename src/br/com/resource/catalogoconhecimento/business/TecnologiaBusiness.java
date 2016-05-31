@@ -64,10 +64,10 @@ public class TecnologiaBusiness {
 		return tecnologiaDao.obterNomeDesativado(tecnologiaBean);
 	}
 
-	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+	public List<FuncionarioBean> obterFuncionarioPorTecnologia(int id) throws ClassNotFoundException, SQLException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 
-		return tecnologiaDao.obterPorFuncionario(id);
+		return tecnologiaDao.obterFuncionarioPorTecnologia(id);
 	}
 
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
@@ -92,7 +92,7 @@ public class TecnologiaBusiness {
 
 	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-		List<FuncionarioBean> listaFuncionario = tecnologiaDao.obterPorFuncionario(id);
+		List<FuncionarioBean> listaFuncionario = tecnologiaDao.obterFuncionarioPorTecnologia(id);
 		List<ProjetoBean> listaProjeto = tecnologiaDao.obterPorProjeto(id);
 
 		if (listaFuncionario.isEmpty() && listaProjeto.isEmpty()) {

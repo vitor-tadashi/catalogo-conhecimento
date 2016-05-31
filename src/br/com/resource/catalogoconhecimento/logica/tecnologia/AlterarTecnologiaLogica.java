@@ -13,14 +13,14 @@ public class AlterarTecnologiaLogica implements Logica {
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String nome = request.getParameter("nome");
-		
+
 		TecnologiaBean tecnologiaBean = new TecnologiaBean();
 		tecnologiaBean.setId(id);
 		tecnologiaBean.setNome(nome.trim());
 
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		tecnologiaBusiness.alterar(tecnologiaBean);
-		
+
 		return "mvc?logica=tecnologia.ListarTecnologiaLogica";
 	}
 

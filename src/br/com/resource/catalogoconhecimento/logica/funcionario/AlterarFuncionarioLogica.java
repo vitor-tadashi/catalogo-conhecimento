@@ -27,23 +27,19 @@ public class AlterarFuncionarioLogica implements Logica {
 		int cargo = Integer.parseInt(request.getParameter("cargo"));
 		String[] tecnologias = request.getParameterValues("tecnologiasArray");
 
-		
 		CargoBean cargoBean = new CargoBean();
 		CargoBusiness cargoBusiness = new CargoBusiness();
-		
+
 		cargoBean = cargoBusiness.obterPorId(cargo);
-				
-		
 
 		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		TecnologiaBean tecnologia;
-		for(int i =0 ; i < tecnologias.length ; i ++){
-			tecnologia =  tecnologiaBusiness.obterPorNome(tecnologias[i]);
+		for (int i = 0; i < tecnologias.length; i++) {
+			tecnologia = tecnologiaBusiness.obterPorNome(tecnologias[i]);
 			listaTecnologia.add(tecnologia);
 		}
-		
-		
+
 		FuncionarioBean funcionarioBean = new FuncionarioBean();
 		funcionarioBean.setId(id);
 		funcionarioBean.setNome(nome);
@@ -52,13 +48,13 @@ public class AlterarFuncionarioLogica implements Logica {
 		funcionarioBean.setEmail(email);
 		funcionarioBean.setCargo(cargoBean);
 		funcionarioBean.setTecnologias(listaTecnologia);
-		
+
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		funcionarioBusiness.atualizar(funcionarioBean);
-		
+
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
 		funcionariotecnologia.atualizar(funcionarioBean, listaTecnologia);
-		
+
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 	}
 

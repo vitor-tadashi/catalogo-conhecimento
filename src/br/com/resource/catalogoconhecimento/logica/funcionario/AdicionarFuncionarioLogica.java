@@ -17,11 +17,11 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusine
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AdicionarFuncionarioLogica implements Logica{
+public class AdicionarFuncionarioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
+
 		String nome = request.getParameter("nome");
 		String telefone = request.getParameter("telefone");
 		String nomeUsuario = request.getParameter("nomeUser");
@@ -31,29 +31,26 @@ public class AdicionarFuncionarioLogica implements Logica{
 		String cpf = request.getParameter("cpf");
 		String rg = request.getParameter("rg");
 		String data = request.getParameter("dataNascimento");
-		
+
 		/**
 		 * CONVETER DATA
 		 */
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataFormatada = formatador.parse(data);
-		
+
 		CargoBean cargoBean = new CargoBean();
 		CargoBusiness cargoBusiness = new CargoBusiness();
-		
+
 		cargoBean = cargoBusiness.obterPorNome(cargo);
-				
-		
 
 		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		TecnologiaBean tecnologia;
-		for(int i =0 ; i < tecnologias.length ; i ++){
-			tecnologia =  tecnologiaBusiness.obterPorNome(tecnologias[i]);
+		for (int i = 0; i < tecnologias.length; i++) {
+			tecnologia = tecnologiaBusiness.obterPorNome(tecnologias[i]);
 			listaTecnologia.add(tecnologia);
 		}
-		
-		
+
 		FuncionarioBean funcionarioBean = new FuncionarioBean();
 		funcionarioBean.setNome(nome);
 		funcionarioBean.setEmail(email);
@@ -63,19 +60,16 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionarioBean.setCpf(cpf);
 		funcionarioBean.setRg(rg);
 		funcionarioBean.setDataNascimento(dataFormatada);
-		
+
 		funcionarioBean.setTecnologias(listaTecnologia);
-		
+
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		int id = funcionarioBusiness.adicionar(funcionarioBean);
 		funcionarioBean.setId(id);
-		
+
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
 		funcionariotecnologia.inserir(funcionarioBean, listaTecnologia);
-		
-		
-		
-			
+
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 	}
 
