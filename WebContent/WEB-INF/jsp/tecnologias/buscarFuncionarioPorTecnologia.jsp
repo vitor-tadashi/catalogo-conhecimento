@@ -2,8 +2,13 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
+	<title>Listar Funcionários</title>
+	<c:import url="/resources/jspImport/head.jsp"></c:import> 
+</head>
 	<head>
 		<title>Lista de Funcionários por Tecnologia</title>
 		<c:import url="/resources/jspImport/head.jsp"></c:import>
@@ -35,29 +40,44 @@
 									<span class="label label-info pull-right">${fn:length(funcionarios)}
 										registros</span>
 								</div>
-								<div class="padding-md clearfix">
-									<table class="table table-striped" id="dataTable">
-										<thead>
+							<div class="padding-md clearfix">
+								<table class="table table-striped" id="dataTable">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>Telefone</th>
+											<th>Tecnologia(s)</th>
+											<th>Usuário</th>
+											<th>Email</th>
+											<th>Cargo</th>
+											<th>CPF</th>
+											<th>RG</th>
+											<th>Data de Nascimento</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="funcionario" items="${funcionarios}">
 											<tr>
-												<th>Tecnologia</th>
-												<th style="width: 20px;">Alterar</th>
-												<th style="width: 20px;">Excluir</th>
+												<td>${funcionario.nome}</td>							
+												<td>${funcionario.telefone}</td>
+													
+												<td>
+													<select>
+													<c:forEach var="tecnologia" items="${funcionario.tecnologias}">
+														<option>${tecnologia.nome}</option>
+													</c:forEach>
+													</select>										
+												</td>							
+												<td>${funcionario.nomeUser}</td>							
+												<td>${funcionario.email}</td>											
+												<td>${funcionario.cargo.nome}</td>
+												<td>${funcionario.cpf}</td>
+												<td>${funcionario.rg}</td>
+												<td><fmt:formatDate pattern="dd/MM/yyyy" value="${funcionario.dataNascimento}" /></td>
 											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="tecnologia" items="${tecnologias}">
-												<tr>
-													<td>${tecnologia.nome}</td>
-													<td style="text-align: center;"><a
-														href="mvc?logica=tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}"><i
-															class="fa fa-edit fa-lg"></a></td>
-													<td style="text-align: center;"><a
-														href="mvc?logica=tecnologia.RemoverTecnologiaLogica&id=${tecnologia.id}"><i
-															class="fa fa-times fa-lg"></a></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
+										</c:forEach>
+									</tbody>
+								</table>
 								</div>
 								<!-- /.padding-md -->
 							</div>
