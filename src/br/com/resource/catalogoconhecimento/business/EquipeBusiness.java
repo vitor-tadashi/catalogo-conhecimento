@@ -21,7 +21,7 @@ public class EquipeBusiness {
 
 		if (equipeBean.getNome().length() > 200) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
-		} else if (equipeigual != null) {
+		} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else if (equipeBean.getObservacao().length() > 500) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
@@ -64,7 +64,7 @@ public class EquipeBusiness {
 
 		if (equipe.getNome().length() > 100) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.100)");
-		} else if (equipeigual != null) {
+		} else if (equipeigual != null && equipeigual.getId() != equipe.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else if (equipe.getObservacao().length() > 500) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");

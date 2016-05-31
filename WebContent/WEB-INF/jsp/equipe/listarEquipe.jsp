@@ -68,7 +68,7 @@
 								</table>
 								<div class="panel-footer text-left">
 									<a href="mvc?logica=equipe.FormularioInserirEquipeLogica&idEquipe=${equipe.id}">
-										<button class="btn btn-success" type="submit">Cadastrar Novo Projeto</button>
+										<button class="btn btn-success" type="submit">Cadastrar Nova Equipe</button>
 										</a>
 									</div> 
 								</div>
