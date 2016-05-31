@@ -57,8 +57,24 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=tecnologia.ListarTecnologiaLogica"><span class="submenu-label">Listar Tecnologias</span></a></li>
-								<li><a href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica"><span class="submenu-label">Cadastrar Tecnologia</span></a></li>
+								<li><a href="mvc?logica=tecnologia.ListarTecnologiaLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Tecnologias
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Tecnologia
+									</span>
+									</a>
+								</li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -72,8 +88,24 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=negocio.ListarNegocioLogica"><span class="submenu-label">Listar Negócios</span></a></li>
-								<li><a href="mvc?logica=negocio.FormularioAdicionarNegocioLogica"><span class="submenu-label">Cadastrar Negócio</span></a></li>
+								<li><a href="mvc?logica=negocio.ListarNegocioLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Negócios
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=negocio.FormularioAdicionarNegocioLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Negócio
+									</span>
+									</a>
+								</li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -87,8 +119,24 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=projeto.ListarProjetoLogica"><span class="submenu-label">Listar Projetos</span></a></li>
-								<li><a href="mvc?logica=projeto.FormularioInserirProjetoLogica"><span class="submenu-label">Cadastrar Projetos</span></a></li>
+								<li><a href="mvc?logica=projeto.ListarProjetoLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Projetos
+										</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=projeto.FormularioInserirProjetoLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Projetos
+									</span>
+									</a>
+								</li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -102,12 +150,60 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=equipe.ListarEquipeLogica"><span class="submenu-label">Listar Equipes</span></a></li>
-								<li><a href="mvc?logica=equipe.FormularioInserirEquipeLogica"><span class="submenu-label">Cadastrar Equipe</span></a></li>
-								<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica"><span class="submenu-label">Listar Funcionários</span></a></li>
-								<li><a href="mvc?logica=funcionario.FormularioInserirFuncionarioLogica"><span class="submenu-label">Cadastrar Funcionário</span></a></li>
-								<li><a href="mvc?logica=cargo.ListarCargoLogica"><span class="submenu-label">Listar Cargos</span></a></li>
-								<li><a href="mvc?logica=cargo.FormularioAdicionarCargoLogica"><span class="submenu-label">Cadastrar Cargo</span></a></li>
+								<li><a href="mvc?logica=equipe.ListarEquipeLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Equipes
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=equipe.FormularioInserirEquipeLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Equipe
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Funcionários
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=funcionario.FormularioAdicionarFuncionarioLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Funcionário
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=cargo.ListarCargoLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Cargos
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=cargo.FormularioAdicionarCargoLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Cargo
+									</span>
+									</a>
+								</li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -121,8 +217,24 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=cliente.ListarClienteLogica"><span class="submenu-label">Listar Clientes</span></a></li>
-								<li><a href="mvc?logica=cliente.FormularioAdicionarClienteLogica"><span class="submenu-label">Cadastrar Cliente</span></a></li>
+								<li><a href="mvc?logica=cliente.ListarClienteLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+									    </span>
+									    Listar Clientes
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=cliente.FormularioAdicionarClienteLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Cliente
+									</span>
+									</a>
+								</li>
 							</ul>
 						</li>
 						<li class="openable open">
@@ -136,12 +248,27 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=concorrente.ListarConcorrenteLogica"><span class="submenu-label">Listar Concorrentes</span></a></li>
-								<li><a href="mvc?logica=concorrente.FormularioAdicionarConcorrenteLogica"><span class="submenu-label">Cadastrar Concorrentes</span></a></li>
+								<li><a href="mvc?logica=concorrente.ListarConcorrenteLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Listar Concorrentes
+									</span>
+									</a>
+								</li>
+								<li><a href="mvc?logica=concorrente.FormularioAdicionarConcorrenteLogica">
+									<span class="submenu-label">
+										<span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i> 
+										</span>
+										Cadastrar Concorrentes
+									</span>
+									</a>
+								</li>
 							</ul>
 						</li>
 					</ul>
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner scrollable-sidebar -->
 		</aside>
-	
