@@ -1,5 +1,5 @@
 aside.skin-1 {
-  background: #efefef;
+  background:#34495e;
 }
 aside.skin-1 .brand {
   background: #3c8dbc;
@@ -66,11 +66,11 @@ aside.skin-1 .main-menu > ul > li.display > a {
   background: #f9f9f9;
 }
 aside.skin-1 .main-menu > ul > li > a {
-  color: #777;
+  color: #fff;
 }
 aside.skin-1 .main-menu > ul > li > a:hover,
 aside.skin-1 .main-menu > ul > li > a:focus {
-  background: #f9f9f9;
+  background: #223E59;
 }
 aside.skin-1 .main-menu > ul > li > a .menu-hover {
   background: #3c8dbc;
@@ -79,10 +79,10 @@ aside.skin-1 .main-menu > ul > li > a .menu-hover {
   -webkit-box-shadow: 0 0 10px 0px #439bce;
 }
 aside.skin-1 .main-menu > ul > li > .submenu  li  a{
-  background-color: #e6e6e6;
+  background-color: #3A4856;
 }
 aside.skin-1 .main-menu > ul > li > .submenu  li a .submenu-label{
-  color: #777;
+  color: #fff;
 }
 aside.skin-1 .main-menu > ul > li > .submenu  li a:hover .submenu-label,
 aside.skin-1 .main-menu > ul > li > .submenu  li a:focus .submenu-label {
@@ -106,30 +106,24 @@ aside.skin-1 .main-menu > ul > li > .submenu  li.active a .submenu-label{
     }
 }
 #top-nav.skin-1 {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
-	border-bottom: 1px solid #cccccc;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2c3e50+0,000000+100 */
+background: #2c3e50; /* Old browsers */
+background: -moz-linear-gradient(top,  #2c3e50 0%, #000000 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #2c3e50 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #2c3e50 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c3e50', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+border-bottom: 1px solid #cccccc;
 }
 #top-nav.skin-1 .navbar-toggle .icon-bar {
   background-color: #fff;
 }
 #top-nav.skin-1 .brand {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2c3e50+0,000000+100 */
+background: #2c3e50; /* Old browsers */
+background: -moz-linear-gradient(top,  #2c3e50 0%, #000000 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #2c3e50 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #2c3e50 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c3e50', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 #top-nav.skin-1 .page-title {
   color: #c3e3f5;

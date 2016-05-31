@@ -10,6 +10,7 @@ import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
+
 public class ConcorrenteBusiness {
 
 	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
@@ -32,6 +33,7 @@ public class ConcorrenteBusiness {
 	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException, ConsultaNulaException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
+
 		if (listaConcorrente.isEmpty()) {
 			throw new ConsultaNulaException("Não há concorrentes cadastrados!");
 		} else {
@@ -42,16 +44,19 @@ public class ConcorrenteBusiness {
 	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente)
 			throws SQLException, ClassNotFoundException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+		
 		return concorrenteDao.listarConcorrenteCliente(idConcorrente);
 	}
 
 	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+		
 		return concorrenteDao.obterPorId(idConcorrente);
 	}
 
 	public ConcorrenteBean obterPorNome(String nomeConcorrente) throws ClassNotFoundException, SQLException {
 		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+		
 		return concorrenteDao.obterPorNome(nomeConcorrente);
 	}
 
