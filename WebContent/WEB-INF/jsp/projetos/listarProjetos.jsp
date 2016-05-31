@@ -22,7 +22,7 @@
 			</ul>
 		</div>
 		<!--breadcrumb-->
-		<div class="padding-md">
+		<div class="padding-sm">
 			<div class="col-md-12 col-sm-12">
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="research">
@@ -69,7 +69,14 @@
 																							
 												</td>							
 												<td>${projeto.cliente.nome}</td>							
-												<td>${projeto.equipe.nome}</td>											
+												<td>
+												<select>
+													<c:forEach var="equipe" items = "${projeto.listaEquipe}">
+														<option>${equipe.nome}</option>
+													</c:forEach>
+													</select>
+												
+												</td>											
 												<td>${projeto.observacao}</td>	
 												<td style="text-align: center;"><a
 													href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">

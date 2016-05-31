@@ -39,20 +39,22 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-2">
+												<div class="col-md-4">
 													<div class="form-group">
 														<input type="hidden" class="form-control input-sm" name="id" value="${concorrente.id}" readonly>
 														<label class="control-label">Nome
 															<input type="text" class="form-control input-sm"  name="nome" value= "${concorrente.nome}">
 														</label>
+													</div>
+													<div class="form-group">	
 														<label class="control-label">Descrição
-															<input type="text" class="form-control input-lg"  value= "${concorrente.descricao}"></textarea>
+															<textarea class="form-control" name="descricao">${concorrente.descricao}</textarea>
 														</label>
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAtualizarConcorrenteLogica">
-											<input type="hidden" name="logica" value="concorrente.AtualizarConcorrenteLogica">
+											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAlterarConcorrenteLogica&id=${concorrente.id}">
+											<input type="hidden" name="logica" value="concorrente.AlterarConcorrenteLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

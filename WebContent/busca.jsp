@@ -1,4 +1,74 @@
-<!-- Overlay Div -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head> 
+    <meta charset="utf-8">
+    <title>Catálogo de Conhecimentos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+	<!-- Jquery -->
+	<script src="resources/js/jquery-1.10.2.min.js"></script>
+
+	<!-- Bootstrap -->
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Datatable -->
+	<script src='resources/js/jquery.dataTables.min.js'></script>
+
+	<!-- Modernizr -->
+	<script src='resources/js/modernizr.min.js'></script>
+
+	<!-- Pace -->
+	<script src='resources/js/pace.min.js'></script>
+
+	<!-- Popup Overlay -->
+	<script src='resources/js/jquery.popupoverlay.min.js'></script>
+
+	<!-- Slimscroll -->
+	<script src='resources/js/jquery.slimscroll.min.js'></script>
+
+	<!-- Cookie -->
+	<script src='resources/js/jquery.cookie.min.js'></script>
+
+	<!-- Perfect -->
+	<script src="resources/js/app/app.js"></script>
+
+
+
+	<!-- JQuery Tag it plugin -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="resources/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+	<link href="resources/bootstrap/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+	
+	<!-- Font Awesome -->
+	<link href="resources/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Datatable -->
+	<link href="resources/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+
+	<!-- Perfect -->
+	<link href="resources/css/app.min.css" rel="stylesheet">
+	<link href="resources/css/app-skin.css" rel="stylesheet">
+	
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        $("#txtTeste").tagit();
+	    });
+	</script>
+
+
+<body class="overflow-hidden">
+	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
 	<div id="wrapper" class="preload">
@@ -49,7 +119,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-code fa-lg"></i> 
+									<i class="fa fa-tag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Tecnologias
@@ -64,7 +134,21 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-cogs fa-lg"></i> 
+									<i class="fa fa-tag fa-lg"></i> 
+								</span>
+								<span class="text">
+									Busca
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<li><a href="busca.jsp"><span class="submenu-label">Pesquisar</span></a></li>
+							</ul>
+						</li>
+						<li class="openable open">
+							<a href="#">
+								<span class="menu-icon">
+									<i class="fa fa-tag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Negócios
@@ -79,7 +163,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-sitemap fa-lg"></i> 
+									<i class="fa fa-tag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Projetos
@@ -94,7 +178,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-group fa-lg"></i> 
+									<i class="fa fa-tag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Equipes
@@ -113,7 +197,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-flag fa-lg"></i> 
+									<i class="fa fa-tag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Clientes
@@ -128,7 +212,7 @@
 						<li class="openable open">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-globe fa-lg"></i> 
+									<i class="fa fa-tag fa-lg"></i> 
 								</span>
 								<span class="text">
 									Concorrentes
@@ -144,4 +228,40 @@
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner scrollable-sidebar -->
 		</aside>
-	
+
+		<!-- Conteúdo-->
+		<div id="main-container" style="width:auto">
+			<div id="breadcrumb">
+				<ul class="breadcrumb">
+					 <li><i class="fa fa-home"></i><a href="index.html"> Principal</a></li> 
+				</ul>
+				
+				 
+				
+				<form class="navbar-form" role="search" method="post" action="mvc?logica=projeto.ListarProjetoPorBuscaLogica">
+					<div class="input-group">
+						<input type="text" name="tags" id="txtTeste">
+						<input type="submit" value="Buscar">		
+					</div>
+				</form>
+			</div><!--breadcrumb-->
+		</div><!-- /main-container -->
+	</div><!-- /wrapper -->
+
+	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+	<!-- Logout confirmation -->
+	<div class="custom-popup width-100" id="logoutConfirm">
+		<div class="padding-md">
+			<h4 class="m-top-none"> Do you want to logout?</h4>
+		</div>
+
+		<div class="text-center">
+			<a class="btn btn-success m-right-sm" href="login.html">Logout</a>
+			<a class="btn btn-danger logoutConfirm_close">Cancel</a>
+		</div>
+	</div>
+
+
+</body>
+</html>

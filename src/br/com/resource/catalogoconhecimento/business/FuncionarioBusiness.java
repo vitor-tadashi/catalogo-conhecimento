@@ -8,78 +8,115 @@ import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 
 public class FuncionarioBusiness {
 
-	// CRIA
-	public int inserir(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
-		
-			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+	private FuncionarioDAO funcionarioDao;
 
-			return funcionarioDao.inserir(funcionario);
+	public FuncionarioBusiness() {
+
+		funcionarioDao = new FuncionarioDAO();
 	}
 
-	// LISTA
+	/**
+	 * Adiciona um novo funionário na base
+	 * 
+	 * @param funcionarioBean
+	 * @return id, criado no bd, do novo funcionário adicionado
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public int adicionar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
+
+		int id = funcionarioDao.adicionar(funcionarioBean);
+		return id;
+	}
+
+	/**
+	 * Lista todos os funcionários ativos
+	 * 
+	 * @return Lista de funcionários
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException {
-		
-			FuncionarioDAO funcionario = new FuncionarioDAO();
-			return funcionario.listar();
-		
+
+		return funcionarioDao.listar();
 	}
 
-	// LISTA POR ID
-	public FuncionarioBean obterPorId(int idFuncionario)throws ClassNotFoundException, SQLException {
-		
-			FuncionarioDAO funcionario = new FuncionarioDAO();
-			return funcionario.obterPorId(idFuncionario);
-		
+	/**
+	 * Obtem todas informações de um funcinário por id
+	 * 
+	 * @param idFuncionario
+	 * @return informações de um funcinário
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public FuncionarioBean obterPorId(int idFuncionario) throws ClassNotFoundException, SQLException {
+
+		return funcionarioDao.obterPorId(idFuncionario);
 	}
 
-	// ATUALIZA
-	public boolean atualizar(FuncionarioBean funcionario)throws ClassNotFoundException, SQLException {
-		
+	/**
+	 * Atualiza informações de um funcionário
+	 * 
+	 * @param funcionario
+	 * @return boolean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean atualizar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
 
-			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+		FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionarioBean.getId());
 
-			FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionario.getId());
-
-			if (funcionarioAux == null) {
-				return true;
-			} else {
-				funcionarioDao.atualizar(funcionario);
-				return false;
-			}
-
-		
-
+		if (funcionarioAux == null) {
+			return true;
+		} else {
+			funcionarioDao.alterar(funcionarioBean);
+			return false;
+		}
 	}
 
-	// DELETA
-	public boolean deletar(int id)throws ClassNotFoundException, SQLException {
+	/**
+	 * Remove logicamente um funcionário
+	 * 
+	 * @param id
+	 * @return boolean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
 
-		
-			FuncionarioDAO funcionariodao = new FuncionarioDAO();
-
-			FuncionarioBean funcionarioAux = funcionariodao.obterPorId(id);
-			if (funcionarioAux == null) {
-				return true;
-			} else {
-				funcionariodao.deletar(id);
-				return false;
-			}
-
-		
+		FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(id);
+		if (funcionarioAux == null) {
+			return true;
+		} else {
+			funcionarioDao.remover(id);
+			return false;
+		}
 	}
-	
-	//OBTER POR NOME
-	public FuncionarioBean obterPorNome(String nome)throws ClassNotFoundException, SQLException {
-		
-		FuncionarioDAO funcionario = new FuncionarioDAO();
-		return funcionario.obterPorNome(nome);
-	
-}
-	public List<FuncionarioBean> obterPorEquipe(int id) throws ClassNotFoundException, SQLException{
-		
-		FuncionarioDAO funcionario = new FuncionarioDAO();
-		return funcionario.obterPorEquipe(id);
-		
+
+	/**
+	 * Obtem todas informações de um funcionário pelo nome
+	 * 
+	 * @param nome
+	 * @return todas informações de um funcionário
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public FuncionarioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+
+		return funcionarioDao.obterPorNome(nome);
+	}
+
+	/**
+	 * Obtem informações específicas de um funcionário pelo idEquipe
+	 * 
+	 * @param id
+	 * @return informações específicas de um funcionário
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<FuncionarioBean> obterPorEquipe(int id) throws ClassNotFoundException, SQLException {
+
+		return funcionarioDao.obterPorEquipe(id);
 	}
 
 }

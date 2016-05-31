@@ -39,13 +39,15 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-2">
+												<div class="col-md-4">
 													<div class="form-group">
 														<label class="control-label">Nome
 															<input type="text" class="form-control input-sm"  name="nome">
-														</label>
+														</label> 
+												</div>	 
+													<div class="form-group">
 														<label class="control-label">Descrição
-															<input type="text" class="form-control input-lg" name="descricao"></textarea>
+															<textarea class="form-control" name="descricao"></textarea>
 														</label>
 													</div>
 												</div><!-- /.col -->

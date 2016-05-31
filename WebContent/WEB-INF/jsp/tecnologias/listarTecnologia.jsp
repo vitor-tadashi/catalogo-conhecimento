@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 			<!--breadcrumb-->
-			<div class="padding-md">
+		<div class="padding-sm">
 				<div class="col-md-12 col-sm-12">
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">

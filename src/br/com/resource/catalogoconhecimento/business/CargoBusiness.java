@@ -14,8 +14,8 @@ import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class CargoBusiness {
 
-	public void adicionar(CargoBean cargoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
+	public void adicionar(CargoBean cargoBean) throws ClassNotFoundException, SQLException, TamanhoCampoException,
+			NomeRepetidoException, AtributoNuloException {
 		CargoDAO cargoDao = new CargoDAO();
 		CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 		CargoBean cargoClone = this.obterPorNome(cargoBean.getNome());
@@ -36,9 +36,9 @@ public class CargoBusiness {
 	public List<CargoBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		CargoDAO cargoDao = new CargoDAO();
 		List<CargoBean> listaCargo = cargoDao.listar();
-		
+
 		if (listaCargo == null) {
-			throw new ConsultaNulaException("Não há negócios cadastrados");
+			throw new ConsultaNulaException("Não há cargos cadastrados");
 		} else {
 			return listaCargo;
 		}
@@ -46,24 +46,24 @@ public class CargoBusiness {
 
 	public CargoBean obterPorId(int id) throws ClassNotFoundException, SQLException {
 		CargoDAO cargoDao = new CargoDAO();
-		
+
 		return cargoDao.obterPorId(id);
 	}
 
 	public CargoBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 		CargoDAO cargoDao = new CargoDAO();
-		
+
 		return cargoDao.obterPorNome(nome);
 	}
 
 	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
 		CargoDAO cargoDao = new CargoDAO();
-		
+
 		return cargoDao.obterNomeDesativado(cargoBean);
 	}
-	
-	public void alterar(CargoBean cargoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException, RegistroVinculadoException {
+
+	public void alterar(CargoBean cargoBean) throws ClassNotFoundException, SQLException, TamanhoCampoException,
+			NomeRepetidoException, AtributoNuloException, RegistroVinculadoException {
 		CargoDAO cargoDao = new CargoDAO();
 		CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 		CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
@@ -85,19 +85,19 @@ public class CargoBusiness {
 	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
 		CargoDAO cargoDao = new CargoDAO();
 		List<FuncionarioBean> listaFuncionario = cargoDao.obterPorFuncionario(id);
-		
+
 		if (listaFuncionario.isEmpty()) {
 			cargoDao.remover(id);
 		} else {
 			throw new RegistroVinculadoException("Registro não pode ser removido");
 		}
-		
+
 		cargoDao.remover(id);
 	}
-	
-	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException{
+
+	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
 		CargoDAO cargoDao = new CargoDAO();
-		
+
 		cargoDao.reativar(cargoBean);
 	}
 

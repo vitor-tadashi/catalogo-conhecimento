@@ -5,26 +5,26 @@ import java.util.List;
 
 public class ProjetoBean {
 	private int id;
-	private EquipeBean equipe;
 	private ClienteBean cliente;
 	private String nome;
 	private String observacao;
 	private List<NegocioBean> listaNegocio;
 	private List<TecnologiaBean>listaTecnologia;
+	private List<EquipeBean> listaEquipe;
 
 	public ProjetoBean() {
 		listaNegocio = new ArrayList<>();
 		listaTecnologia = new ArrayList<>();
 	}
 
-	public ProjetoBean(int idProjeto, ClienteBean cliente, EquipeBean equipe, String nomeProjeto, String observacao) {
+	public ProjetoBean(int idProjeto, ClienteBean cliente, String nomeProjeto, String observacao) {
 		this.id = idProjeto;
-		this.equipe = equipe;
 		this.cliente = cliente;
 		this.nome = nomeProjeto;
 		this.observacao = observacao;
 		listaNegocio = new ArrayList<>();
 		listaTecnologia = new ArrayList<>();
+		listaEquipe = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -33,14 +33,6 @@ public class ProjetoBean {
 
 	public void setId(int idProjeto) {
 		this.id = idProjeto;
-	}
-
-	public EquipeBean getEquipe() {
-		return equipe;
-	}
-
-	public void setEquipe(EquipeBean equipe) {
-		this.equipe = equipe;
 	}
 
 	public ClienteBean getCliente() {
@@ -81,6 +73,14 @@ public class ProjetoBean {
 
 	public void setListaTecnologia(List<TecnologiaBean> listaProjeto) {
 		this.listaTecnologia = listaProjeto;
+	}
+
+	public List<EquipeBean> getListaEquipe() {
+		return listaEquipe;
+	}
+
+	public void setListaEquipe(List<EquipeBean> listaEquipe) {
+		this.listaEquipe = listaEquipe;
 	}
 	
 	

@@ -46,8 +46,8 @@
 									<tbody>
 										<c:forEach var="concorrente" items="${concorrentesClientes}">
 											<tr>
-												<td>${concorrenteCliente.cliente.nome}</td>
-												<td>${concorrenteCliente.valorHora}</td>
+												<td>${concorrente.cliente.nome}</td>
+												<td>${concorrente.valorHora}</td>
 											</tr>
 										</c:forEach>
 									</tbody>

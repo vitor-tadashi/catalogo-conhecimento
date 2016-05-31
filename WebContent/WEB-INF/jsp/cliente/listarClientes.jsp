@@ -45,6 +45,9 @@
 											<th>Logradouro</th>
 											<th>Número</th>
 											<th>CEP</th>
+											<th style="width: 20px;">Alterar</th>
+											<th style="width: 20px;">Excluir</th>
+											<th style="width: 20px;">Listar Concorrentes</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -61,10 +64,11 @@
 												</td>
 												<td style="text-align: center;"><a
 													href="mvc?logica=cliente.RemoverClienteLogica&id=${cliente.id}"><i class="fa fa-times fa-lg"></i></a>
-												</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}">Listar
-														Concorrentes</a></td>
+												</td> 
+												<td style="text-align: center;">	
+													<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}">
+														<i class="fa fa-users fa-lg" ></i></a>
+												</td>													
 											</tr>
 										</c:forEach>
 									</tbody>

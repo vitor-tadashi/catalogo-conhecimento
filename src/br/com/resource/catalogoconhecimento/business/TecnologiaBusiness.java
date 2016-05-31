@@ -94,7 +94,7 @@ public class TecnologiaBusiness {
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		List<FuncionarioBean> listaFuncionario = tecnologiaDao.obterPorFuncionario(id);
 		List<ProjetoBean> listaProjeto = tecnologiaDao.obterPorProjeto(id);
-		
+
 		if (listaFuncionario.isEmpty() && listaProjeto.isEmpty()) {
 			tecnologiaDao.remover(id);
 		} else {

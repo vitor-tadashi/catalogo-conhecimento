@@ -3,7 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -17,8 +17,8 @@ public class EquipeBusiness {
 		EquipeDAO equipeDAO = new EquipeDAO();
 		EquipeBean equipeigual = equipeDAO.listarPorNome(equipe.getNome());
 
-		if (equipe.getNome().length() > 100) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.100)");
+		if (equipe.getNome().length() > 200) {
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
 		} else if (equipeigual != null) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else if (equipe.getObservacao().length() > 500) {
@@ -28,11 +28,19 @@ public class EquipeBusiness {
 		}
 
 	}
+
+	//INSERIR O FUNCIONÁRIO NA BASE
 	
-	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException{
+	public void inserirPorEquipe(int equipe, int funcionario)
+			throws ClassNotFoundException, SQLException, NomeRepetidoException {
 		EquipeDAO equipeDAO = new EquipeDAO();
-		equipeDAO.inserirPorEquipe(equipe,funcionario);
-		
+		EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
+
+		if (equipeFuncionario != null) {
+			throw new NomeRepetidoException("Este nome já consta nessa Equipe");
+		} else {
+			equipeDAO.inserirPorEquipe(equipe, funcionario);
+		}
 	}
 
 	// DELETAR NA BASE
@@ -75,13 +83,22 @@ public class EquipeBusiness {
 
 	// LISTAR POR ID NA BASE
 
-	public EquipeBean listarPorId(int id) throws ClassNotFoundException, SQLException {
+	public EquipeBean obterPorId(int id) throws ClassNotFoundException, SQLException {
 
 		EquipeDAO equipe = new EquipeDAO();
-		return equipe.listarPorId(id);
+		return equipe.obterPorId(id);
 
 	}
-
+	
+	// LISTAR POR NOME NA BASE
+	
+	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException{
+		EquipeDAO equipe = new EquipeDAO();
+		return equipe.obterPorNome(nome);
+	}
+ 
+	//DELETAR POR EQUIPE NA BASE
+	
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		EquipeDAO equipeDAO = new EquipeDAO();

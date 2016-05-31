@@ -50,7 +50,7 @@
 											<input type="hidden" name="logicaAtual" value="cargo.FormularioAlterarCargoLogica">
 										</div>
 										<div class="panel-footer text-left">
-											<button class="btn btn-success" type="submit">Adicionar</button>
+											<button class="btn btn-success" type="submit">Alterar</button>
 										</div>
 									</form>
 								</div><!-- /panel -->

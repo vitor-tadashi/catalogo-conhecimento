@@ -27,7 +27,7 @@
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAlterarProjeto" method="POST" action="mvc">
 										<div class="panel-heading">
-											<h3>Cadastrar Projeto</h3>
+											<h3>Alterar Projeto</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
@@ -54,9 +54,13 @@
  												<div class="col-md-3">
 													<div class="form-group">
 														<label class="control-label">Equipe:
-															<select class="form-control input-sm" name="equipe">
 																<c:forEach items="${equipes}" var="equipe">
-																	<option value="${equipe.id}">${equipe.nome}</option>
+																	<label class="control-label">		
+																	<input type="checkbox" name="equipesArray[]" value="${equipe.nome}"/>
+																	<span class="custom-checkbox"></span>
+																	${equipe.nome}
+																</label>
+																<br>
 																</c:forEach>
 															</select>
 														</label>

@@ -15,6 +15,7 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
+import br.com.resource.catalogoconhecimento.business.ProjetoEquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoTecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
@@ -22,28 +23,27 @@ import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AtualizarProjetoLogica implements Logica{
-	
-	
+
+
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+
 		String nomeProjeto = request.getParameter("nomeProjeto");
 		String observacao = request.getParameter("observacao");
-		int idEquipe = Integer.parseInt(request.getParameter("equipe"));
 		int idCliente = Integer.parseInt(request.getParameter("cliente"));
 		String[] negocios = request.getParameterValues("negociosArray[]");
 		String[] tecnologias = request.getParameterValues("tecnologiasArray[]");
-		
+		String [] equipes = request.getParameterValues("equipesArray[]");
 
 		if(nomeProjeto.trim().equals("")){
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if( observacao.trim().equals("")){
 			throw new AtributoNuloException("Por favor, digite uma observação válida!");
 		}
-		
+
 		//transferir da String para a lista
 		List<NegocioBean> listaNegocio = new ArrayList<>();
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
@@ -52,38 +52,46 @@ public class AtualizarProjetoLogica implements Logica{
 			negocio =  negocioBusiness.obterPorNome(negocios[i]);
 			listaNegocio .add(negocio);
 		}
-		
+
 		//transferir da String para a lista
-				List<TecnologiaBean> listaTecnologia = new ArrayList<>();
-				TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
-				TecnologiaBean tecnologia;
-				for(int i = 0 ; i < tecnologias.length ; i ++){
-					tecnologia =  tecnologiaBusiness.obterPorNome(tecnologias[i]);
-					listaTecnologia.add(tecnologia);
-				}
-		
-	    EquipeBusiness equipeBusiness = new EquipeBusiness();
-	    EquipeBean equipe = equipeBusiness.listarPorId(idEquipe);
-	    ClienteBusiness clienteBusiness = new ClienteBusiness();
-	    ClienteBean cliente = clienteBusiness.obterPorId(idCliente);
-		
-	    ProjetoBusiness projetoBusiness = new ProjetoBusiness();
-	    
+		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
+		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
+		TecnologiaBean tecnologia;
+		for(int i = 0 ; i < tecnologias.length ; i ++){
+			tecnologia =  tecnologiaBusiness.obterPorNome(tecnologias[i]);
+			listaTecnologia.add(tecnologia);
+		}
+		//transferir da String para a lista
+		List<EquipeBean> listaEquipe = new ArrayList<>();
+		EquipeBusiness equipeBusiness = new EquipeBusiness();
+		EquipeBean equipe;
+		for(int i = 0 ; i < equipes.length ; i ++){
+			equipe =  equipeBusiness.obterPorNome(equipes[i]);
+			listaEquipe.add(equipe);
+		}
+
+		ClienteBusiness clienteBusiness = new ClienteBusiness();
+		ClienteBean cliente = clienteBusiness.obterPorId(idCliente);
+
+		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
+
 		ProjetoBean projeto = projetoBusiness.obterPorId(id);
 		projeto.setCliente(cliente);
-		projeto.setEquipe(equipe);
-		projeto.setNome(nomeProjeto);
-		projeto.setObservacao(observacao);
+		projeto.setNome(nomeProjeto.trim());
+		projeto.setObservacao(observacao.trim());
 
-		
+
 		projetoBusiness.atualizar(projeto);
-		
+
 		ProjetoNegocioBusiness projetoNegocio = new ProjetoNegocioBusiness();
 		projetoNegocio.atualizar(projeto, listaNegocio);
-		
+
 		ProjetoTecnologiaBusiness projetoTecnologia = new ProjetoTecnologiaBusiness();
 		projetoTecnologia.atualizar(projeto, listaTecnologia);
 		
+		ProjetoEquipeBusiness projetoEquipe = new ProjetoEquipeBusiness();
+		projetoEquipe.atualizar(projeto, listaEquipe);
+
 
 		return "mvc?logica=projeto.ListarProjetoLogica";
 	}

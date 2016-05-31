@@ -32,7 +32,7 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Cliente ${cliente.nome}</h3>
-								<span class="label label-info pull-right">${fn:length(clientes)}
+								<span class="label label-info pull-right">${fn:length(concorrentesClientes)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -45,12 +45,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="concorrenteCliente" items="${concorrentesClientes}">
+										<c:forEach var="cliente" items="${concorrentesClientes}">
 											<tr>
-												<td>${concorrenteCliente.concorrente.id}</td>
-												<td>${concorrenteCliente.concorrente.nome}</td>
-												<td>${concorrenteCliente.concorrente.descricao}</td>
-												<td>${concorrenteCliente.valorHora}</td>
+												<td>${cliente.concorrente.id}</td>
+												<td>${cliente.concorrente.nome}</td>
+												<td>${cliente.concorrente.descricao}</td>
+												<td>${cliente.valorHora}</td>
 											</tr>
 										</c:forEach>
 									</tbody>

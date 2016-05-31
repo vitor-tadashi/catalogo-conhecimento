@@ -17,7 +17,7 @@ public class TecnologiaFuncionarioBusiness {
 
 	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws SQLException {
 		int linhasAfetadas = 0;
-		linhasAfetadas = tecnologiaFuncionarioDAO.inserir(funcionario, tecnologias);
+		linhasAfetadas = tecnologiaFuncionarioDAO.adicionar(funcionario, tecnologias);
 		return linhasAfetadas;
 	}
 
@@ -31,9 +31,9 @@ public class TecnologiaFuncionarioBusiness {
 		return tecnologia.joinTecnologiaFuncionario(idFuncionario);
 	}
 
-	public void atualizar(FuncionarioBean funcionario, List<TecnologiaBean> listaTecnologia) throws SQLException {
-		tecnologiaFuncionarioDAO.atualizar(funcionario, listaTecnologia);
-		
+	public void atualizar(FuncionarioBean funcionarioBean, List<TecnologiaBean> listaTecnologia) throws SQLException {
+		tecnologiaFuncionarioDAO.atualizar(funcionarioBean, listaTecnologia);
+
 	}
 
 }
