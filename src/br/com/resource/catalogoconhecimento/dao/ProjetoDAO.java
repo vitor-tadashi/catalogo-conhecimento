@@ -14,7 +14,6 @@ import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
-import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class ProjetoDAO {
@@ -34,7 +33,6 @@ public class ProjetoDAO {
 
 		List<ProjetoBean> projetos = new ArrayList<ProjetoBean>();
 		ProjetoBean projeto;
-		EquipeBusiness equipeBusiness = new EquipeBusiness();
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
 		ClienteBean cliente;
 		
@@ -50,7 +48,7 @@ public class ProjetoDAO {
 					rs.getString("nomeProjeto"), rs.getString("observacao"));
 			
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
-			listaTecnologia = new TecnologiaDAO().obterNomePorProjeto(projeto);
+			listaTecnologia = new TecnologiaDAO().listarPorProjeto(projeto);
 			listaEquipe = new EquipeDAO().obterPorProjeto(projeto);
 			
 			projeto.setListaNegocio(listaNegocio);
@@ -140,7 +138,6 @@ public class ProjetoDAO {
 		ProjetoBean projeto = null;
 		
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		EquipeBean equipe;
 		ClienteBean cliente;
 		
 		if(rs.next()) {
@@ -222,7 +219,7 @@ public class ProjetoDAO {
 					rs.getString("nomeProjeto"), rs.getString("observacao"));
 			
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
-			listaTecnologia = new TecnologiaDAO().obterNomePorProjeto(projeto);
+			listaTecnologia = new TecnologiaDAO().listarPorProjeto(projeto);
 			listaEquipes = new EquipeDAO().obterPorProjeto(projeto);
 			
 			projeto.setListaEquipe(listaEquipes);
