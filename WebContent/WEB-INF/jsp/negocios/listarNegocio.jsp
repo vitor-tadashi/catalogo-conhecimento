@@ -28,6 +28,10 @@
 							<div class="panel panel-default table-responsive">
 								<div class="panel-heading">
 									<h3>Lista de Negócios</h3>
+									
+									<!-- Message Erro-->
+									<c:import url="/resources/jspImport/msgErro.jsp"/>
+									
 									<span class="label label-info pull-right">${fn:length(listaNegocio)} registros</span>
 								</div>
 								<div class="padding-md clearfix">
