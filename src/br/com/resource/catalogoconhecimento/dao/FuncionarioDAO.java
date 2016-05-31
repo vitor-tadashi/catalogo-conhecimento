@@ -321,7 +321,7 @@ public class FuncionarioDAO {
 				+ "WHERE t.nomeTecnologia IN (" + nomeTecnologias + ") AND f.ativo = 's' AND t.ativo = 's' "
 				+ "GROUP BY	f.CPF, f.RG, f.ativo, f.dataNascimento, f.email, f.idCargo, "
 				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone "
-				+ "HAVING COUNT(f.idFuncionario) > 1";
+				+ "HAVING COUNT(f.idFuncionario) > 0";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 

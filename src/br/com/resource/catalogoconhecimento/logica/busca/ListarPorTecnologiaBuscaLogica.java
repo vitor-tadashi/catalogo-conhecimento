@@ -44,11 +44,11 @@ public class ListarPorTecnologiaBuscaLogica implements Logica{
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);
 		
 		
-		//List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorTecnologias(nomeTecnologias);
+		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorTecnologias(nomeTecnologias);
 		
 		
 		request.setAttribute("projetos", projetos);
-		//request.setAttribute("funcionarios", listaFuncionario);
+		request.setAttribute("funcionarios", listaFuncionario);
 		
 		return "WEB-INF/jsp/busca/listarBuscaTecnologia.jsp";
 	}

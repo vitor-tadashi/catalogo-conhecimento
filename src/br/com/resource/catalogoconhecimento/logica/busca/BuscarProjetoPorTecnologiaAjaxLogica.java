@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
-import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
+import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class BuscarProjetoPorTecnologiaAjaxLogica implements Logica {
@@ -22,7 +22,7 @@ public class BuscarProjetoPorTecnologiaAjaxLogica implements Logica {
 		Integer idProjeto = Integer.parseInt(request.getParameter("idProjeto"));
 		ProjetoBean projetoBean = new ProjetoBusiness().obterPorId(idProjeto);
 		
-		List<TecnologiaBean> tecnologias = new TecnologiaDAO().listarPorProjeto(projetoBean);
+		List<TecnologiaBean> tecnologias = new TecnologiaBusiness().listarPorProjeto(projetoBean);
 		
 	    return new Gson().toJson(tecnologias);
 	    
