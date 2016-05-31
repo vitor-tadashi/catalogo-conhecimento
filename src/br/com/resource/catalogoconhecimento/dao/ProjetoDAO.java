@@ -198,7 +198,7 @@ public class ProjetoDAO {
 			      + " INNER JOIN Tecnologia t on pt.idTecnologia = t.idTecnologia"
 				  +	" WHERE t.nomeTecnologia IN ("+ nomeTecnologias +") "
 				  + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
-				  + " HAVING COUNT(p.idProjeto) > 1";
+				  + " HAVING COUNT(p.idProjeto) > 0";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
