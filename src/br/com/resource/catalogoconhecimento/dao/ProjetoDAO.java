@@ -249,5 +249,48 @@ public class ProjetoDAO {
 		ps.close();
 		return projetoBean;
 	}
+	
+	public List<ProjetoBean> obterPorNegocio(String nomeNegocio) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+	
+		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
+				  + " FROM Projeto p"
+			      + " INNER JOIN ProjetoNegocio pn ON p.idProjeto = pn.idProjeto"
+			      + " INNER JOIN Negocio n on pn.idNegocio = n.idNegocio"
+				  +	" WHERE n.areaAtuacao IN ("+nomeNegocio+") "
+				  + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
+				  + " HAVING COUNT(p.idProjeto) > 0";
+		
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+
+		List<ProjetoBean> projetos = new ArrayList<ProjetoBean>();
+		ProjetoBean projeto;
+		ClienteBusiness clienteBusiness = new ClienteBusiness();
+		ClienteBean cliente;
+
+		List<NegocioBean> listaNegocio = null;
+		List<TecnologiaBean> listaTecnologia = null;
+		List<EquipeBean> listaEquipes = null;
+		while (rs.next()) {
+			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
+
+			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, rs.getString("nomeProjeto"),
+					rs.getString("observacao"));
+
+			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
+			listaTecnologia = new TecnologiaDAO().listarPorProjeto(projeto);
+			listaEquipes = new EquipeDAO().obterPorProjeto(projeto);
+
+			projeto.setListaEquipe(listaEquipes);
+			projeto.setListaNegocio(listaNegocio);
+			projeto.setListaTecnologia(listaTecnologia);
+			projetos.add(projeto);
+		}
+
+		return projetos;
+
+	}
 
 }

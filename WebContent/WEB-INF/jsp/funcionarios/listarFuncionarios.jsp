@@ -8,6 +8,31 @@
 <head>
 	<title>Listar Funcionários</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
+	
+	<script type="text/javascript">
+	
+
+	$(document).on("click", "#btnEquipesPorFuncionario", function() { 
+	
+	$.post("ajax?logica=busca.BuscarEquipePorFuncionarioNoProjetoAjaxLogica", { idFuncionario: $(this).attr('id-funcionario')}, function(listaEquipes) {
+		$("#dataTableEquipe tbody tr").detach();	
+		$.each(listaEquipes, function(index, item) { // Iterate over the JSON array.
+			drawRowEquipe(item);
+	        });
+        });
+    });	
+	
+	        function drawRowEquipe(rowData) {
+		    var row = $("<tr />")
+
+		    $("#dataTableEquipe tbody").append(row);
+            row.append($("<td>" + rowData.nome + "</td>"));
+	}
+	
+	</script>
+	
+	
+	
 </head>
 <body>
 
@@ -45,6 +70,7 @@
 											<th>Telefone</th>
 											<th>Tecnologia(s)</th>
 											<th>Usuário</th>
+											<th>Equipes</th>
 											<th>Email</th>
 											<th>Cargo</th>
 											<th>CPF</th>
@@ -67,7 +93,12 @@
 													</c:forEach>
 													</select>										
 												</td>							
-												<td>${funcionario.nomeUser}</td>							
+												<td>${funcionario.nomeUser}</td>	
+												
+												<td>
+												<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
+												</td>
+																		
 												<td>${funcionario.email}</td>											
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
@@ -104,6 +135,31 @@
 		<!-- /.padding-md -->
 	</div>
 	<!-- /main-container -->
+	
+		<div class="modal fade" id="simpleModalEquipe">
+ 			<div class="modal-dialog">
+   			<div class="modal-content">
+     				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Equipe</h4>
+     				</div>
+			    <div class="modal-body">
+			        <table class="table table-striped" id="dataTableEquipe">
+						<thead >
+							<tr>
+							</tr>
+						</thead>
+						<tbody >
+							
+						</tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			    </div>
+		  	</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	</div> 
 	
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>

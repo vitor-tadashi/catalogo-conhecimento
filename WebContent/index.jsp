@@ -69,11 +69,12 @@
 							                 <div> 
 							                  <form method="post" action ="mvc">
 							                    	<select name = "logica">
-
+													 <optgroup label="Filtros">
 							                      <option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
-							                      <option value="busca.ListarPorProjetoBuscaLogica">Projeto</option>
+							                      <option value="busca.ListarPorNegocioBuscaLogica">Negocio</option>
 							                      <option value="busca.ListarPorFuncionarioBuscaLogica">Funcionário</option>
 							                      <option value="busca.ListarPorClienteBuscaLogica">Cliente</option>
+							                     	 </optgroup>
 							                     	
 							                      
 							                    </select>
