@@ -22,11 +22,8 @@ public class TecnologiaBusiness {
 
 	public void adicionar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
-<<<<<<< HEAD
+
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-=======
-		TecnologiaBean tecnologiaDesativada = this.obterNomeDesativado(tecnologiaBean);
->>>>>>> ae0c305f1c323136141feae68390b42190986330
 		TecnologiaBean tecnologiaClone = this.obterPorNome(tecnologiaBean.getNome());
 
 		if (tecnologiaBean.getNome().equals("")) {
@@ -79,11 +76,8 @@ public class TecnologiaBusiness {
 
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException, RegistroVinculadoException {
-<<<<<<< HEAD
+
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-=======
-		TecnologiaBean tecnologiaDesativada = this.obterNomeDesativado(tecnologiaBean);
->>>>>>> ae0c305f1c323136141feae68390b42190986330
 		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
 
 		if (tecnologiaBean.getNome().equals("")) {
