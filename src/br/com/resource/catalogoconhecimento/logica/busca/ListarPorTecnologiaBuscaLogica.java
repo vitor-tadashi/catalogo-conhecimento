@@ -25,8 +25,7 @@ public class ListarPorTecnologiaBuscaLogica implements Logica{
 	
 		
 		
-		List<String> palavras = Arrays.asList(array);
-		TecnologiaBean tecnologia = null;
+
 		String nomeTecnologias = "";
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 		
