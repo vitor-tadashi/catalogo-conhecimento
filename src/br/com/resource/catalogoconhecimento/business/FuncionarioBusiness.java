@@ -53,7 +53,7 @@ public class FuncionarioBusiness {
 	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorTecnologias(nomeTecnologias);
 		
-		if (listaFuncionario.isEmpty()) {
+		if (listaFuncionario == null) {
 			throw new ConsultaNulaException("Não há funcionários cadastrados");
 		} else {
 			return listaFuncionario;

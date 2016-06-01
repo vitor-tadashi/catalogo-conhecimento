@@ -74,10 +74,10 @@
 							                      <option value="busca.ListarPorProjetoBuscaLogica">Projeto</option>
 							                      <option value="busca.ListarPorFuncionarioBuscaLogica">Funcionário</option>
 							                      <option value="busca.ListarPorClienteBuscaLogica">Cliente</option>
-							                     
+							                     	
 							                      
 							                    </select>
-							               
+							               		
 							                     
 							                <input type="hidden" id="filtro"class="form-control" name="filtro" />
 							                <span class="input-group-btn">

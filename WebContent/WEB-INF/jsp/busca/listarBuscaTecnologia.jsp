@@ -48,6 +48,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 	<c:import url="/resources/jspImport/header.jsp"></c:import> 
 	
 	<div id="main-container" style="width: auto">
+
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="index.html">
@@ -128,7 +129,6 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 			<!-- /.col -->
 		</div>
 		<!-- /.padding-md -->
-		
 		<div id="breadcrumb">
 
 		</div>
