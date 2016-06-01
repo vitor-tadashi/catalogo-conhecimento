@@ -401,10 +401,10 @@ public class FuncionarioDAO {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT f.* FROM Funcionario f "
-				+ "INNER JOIN TecnologiaNegocio tf ON tf.idFuncionario = f.idFuncionario "
-				+ "INNER JOIN Tecnologia t ON tf.idTecnologia = t.idTecnologia "
-				+ "WHERE t.nomeTecnologia IN (" + nomeNegocio + ") AND f.ativo = 's' AND t.ativo = 's' "
-				+ "GROUP BY	f.CPF, f.RG, f.ativo, f.dataNascimento, f.email, f.idCargo, "
+				+ "INNER JOIN FuncionarioNegocio fn ON fn.idFuncionario = f.idFuncionario "
+				+ "INNER JOIN Negocio as n ON fn.idNegocio = n.idNegocio "
+				+ "WHERE n.areaAtuacao IN (" + nomeNegocio + ") AND n.ativo = 's' AND f.ativo = 's' "
+				+ "GROUP BY	f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
 				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone "
 				+ "HAVING COUNT(f.idFuncionario) > 0";
 		
