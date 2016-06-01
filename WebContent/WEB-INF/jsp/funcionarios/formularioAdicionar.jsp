@@ -130,7 +130,7 @@
 												</div><!-- /.col -->
 											</div><!-- /.row -->
 
-											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAdicionarFuncionarioLogica" />
+											<input type="hidden" name="logicaAtual" value="funcionario.FormularioAdicionarFuncionarioLogica" />
 											<input type="hidden" name="logica" value="funcionario.AdicionarFuncionarioLogica">
 										</div>
 										<div class="panel-footer text-left">
