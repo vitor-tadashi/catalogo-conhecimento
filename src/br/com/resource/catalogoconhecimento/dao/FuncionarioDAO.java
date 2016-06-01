@@ -318,13 +318,12 @@ public class FuncionarioDAO {
 		String sql = "SELECT f.* FROM Funcionario f "
 				+ "INNER JOIN TecnologiaFuncionario tf ON tf.idFuncionario = f.idFuncionario "
 				+ "INNER JOIN Tecnologia t ON tf.idTecnologia = t.idTecnologia "
-				+ "WHERE t.nomeTecnologia IN (?) AND f.ativo = 's' AND t.ativo = 's' "
+				+ "WHERE t.nomeTecnologia IN (" + nomeTecnologias + ") AND f.ativo = 's' AND t.ativo = 's' "
 				+ "GROUP BY	f.CPF, f.RG, f.ativo, f.dataNascimento, f.email, f.idCargo, "
 				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone "
-				+ "HAVING COUNT(f.idFuncionario) > 1";
+				+ "HAVING COUNT(f.idFuncionario) > 0";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, nomeTecnologias);
 
 		ResultSet rs = ps.executeQuery();
 

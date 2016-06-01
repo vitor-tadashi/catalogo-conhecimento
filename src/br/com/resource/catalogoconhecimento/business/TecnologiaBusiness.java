@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
@@ -12,10 +13,20 @@ import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoExceptio
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class TecnologiaBusiness {
+	
+	private TecnologiaDAO tecnologiaDao;
+	
+	public TecnologiaBusiness() {
+		tecnologiaDao = new TecnologiaDAO();
+	}
 
 	public void adicionar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
+<<<<<<< HEAD
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+=======
+		TecnologiaBean tecnologiaDesativada = this.obterNomeDesativado(tecnologiaBean);
+>>>>>>> ae0c305f1c323136141feae68390b42190986330
 		TecnologiaBean tecnologiaClone = this.obterPorNome(tecnologiaBean.getNome());
 
 		if (tecnologiaBean.getNome().equals("")) {
@@ -30,8 +41,17 @@ public class TecnologiaBusiness {
 	}
 
 	public List<TecnologiaBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listar();
+
+		if (listaTecnologia.isEmpty()) {
+			throw new ConsultaNulaException("Não há tecnologias cadastradas");
+		} else {
+			return listaTecnologia;
+		}
+	}
+	
+	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projetoBean) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean);
 
 		if (listaTecnologia.isEmpty()) {
 			throw new ConsultaNulaException("Não há tecnologias cadastradas");
@@ -41,33 +61,29 @@ public class TecnologiaBusiness {
 	}
 
 	public TecnologiaBean obterPorId(int id) throws ClassNotFoundException, SQLException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
 		return tecnologiaDao.obterPorId(id);
 	}
 
 	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
 		return tecnologiaDao.obterPorNome(nome);
 	}
 
 	public TecnologiaBean obterNomeDesativado(TecnologiaBean tecnologiaBean)
 			throws SQLException, ClassNotFoundException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
 		return tecnologiaDao.obterDesativado(tecnologiaBean);
 	}
 
 	public List<TecnologiaBean> obterPorFuncionario(int idFuncionario) throws SQLException, ClassNotFoundException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
 		return tecnologiaDao.listarPorFuncionario(idFuncionario);
 	}
 
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException, RegistroVinculadoException {
+<<<<<<< HEAD
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+=======
+		TecnologiaBean tecnologiaDesativada = this.obterNomeDesativado(tecnologiaBean);
+>>>>>>> ae0c305f1c323136141feae68390b42190986330
 		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
 
 		if (tecnologiaBean.getNome().equals("")) {
@@ -82,8 +98,6 @@ public class TecnologiaBusiness {
 	}
 
 	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
 		if (tecnologiaDao.verificarPorFuncionario(id) && tecnologiaDao.verificarPorProjeto(id)) {
 			tecnologiaDao.remover(id);
 		} else {
@@ -92,8 +106,6 @@ public class TecnologiaBusiness {
 	}
 
 	public void reativar(TecnologiaBean tecnologia) throws SQLException, ClassNotFoundException {
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-
 		tecnologiaDao.reativar(tecnologia);
 	}
 	

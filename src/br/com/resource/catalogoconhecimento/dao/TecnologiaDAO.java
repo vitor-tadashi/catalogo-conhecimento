@@ -78,9 +78,10 @@ public class TecnologiaDAO {
 	public List<TecnologiaBean> listarPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		
-		String sql = "SELECT * FROM TecnologiaFuncionario AS tf "
-				+ "INNER JOIN Tecnologia AS t ON tf.idTecnologia = t.idTecnologia "
-				+ "WHERE tf.idTecnologia = ?";
+		String sql = "SELECT t.idTecnologia, t.nomeTecnologia FROM Tecnologia AS t "
+				+ "INNER JOIN TecnologiaFuncionario AS tf ON tf.idTecnologia = t.idTecnologia "
+				+ "INNER JOIN Funcionario AS f on tf.idFuncionario = f.idFuncionario "
+				+ "WHERE f.idFuncionario = ?";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, idFuncionario);

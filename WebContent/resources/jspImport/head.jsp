@@ -8,9 +8,6 @@
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
 	<link href="resources/bootstrap/css/jquery.tagit.css" rel="stylesheet" type="text/css">
 
-	<!-- JQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="resources/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 
 	<!-- Font Awesome -->
 	<link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -56,3 +53,5 @@
 	<script src="resources/js/app/app.js"></script>
 	
 	<script src="resources/js/jquery-ui.js"></script>
+	
+	<script src="resources/js/tag-it.js" type="text/javascript" charset="utf-8"></script>

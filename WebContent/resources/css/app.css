@@ -2233,8 +2233,11 @@ footer hr {
 .linkedin-hover:hover {
   background: #007fb1 !important;
 }
-.pinterest-hover:hover {
+.youtube-hover:hover {
   background: #e0242a !important;
+}
+.instagram-hover:hover {
+  background: #3b5998 !important;
 }
 .custom-grid {
   padding-bottom: 999px !important;

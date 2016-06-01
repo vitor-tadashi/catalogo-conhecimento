@@ -14,12 +14,16 @@ import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class BuscarPorTecnologiaLogica implements Logica {
+public class ListarPorTecnologiaBuscaLogica implements Logica{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		String [] array = request.getParameter("tags").split(",");
+		String [] array = request.getParameter("filtro").split(",");
+		ProjetoBean projetoBean = new ProjetoBean();
+		
+	
+		
 		
 		List<String> palavras = Arrays.asList(array);
 		TecnologiaBean tecnologia = null;
@@ -36,6 +40,7 @@ public class BuscarPorTecnologiaLogica implements Logica {
 			}
 		}
 		
+		
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);
 		
 		
@@ -45,7 +50,9 @@ public class BuscarPorTecnologiaLogica implements Logica {
 		request.setAttribute("projetos", projetos);
 		request.setAttribute("funcionarios", listaFuncionario);
 		
-		return "WEB-INF/jsp/projetos/listarProjetos.jsp";
+		return "WEB-INF/jsp/busca/listarBuscaTecnologia.jsp";
 	}
+	
+	
 
 }
