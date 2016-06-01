@@ -128,9 +128,27 @@
 														</label>
 													</div>
 												</div><!-- /.col -->
+												
+																								<div class="col-md-4">
+													<div class="form-group">
+														<label class="control-label">Negócios:
+														</label>
+														<div class="checkbox">
+															<c:forEach items="${negocios}" var="negocios">
+																<label class="control-label">		
+																	<input type="checkbox" name="negociosArray" value="${negocios.areaAtuacao}"/>
+																	<span class="custom-checkbox"></span>
+																	${negocios.areaAtuacao}
+																</label>
+																<br>
+															</c:forEach>
+														</div>	
+													</div>
+												</div><!-- /.col --> 
+												
 											</div><!-- /.row -->
 
-											<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAdicionarFuncionarioLogica" />
+											<input type="hidden" name="logicaAtual" value="funcionario.FormularioAdicionarFuncionarioLogica" />
 											<input type="hidden" name="logica" value="funcionario.AdicionarFuncionarioLogica">
 										</div>
 										<div class="panel-footer text-left">

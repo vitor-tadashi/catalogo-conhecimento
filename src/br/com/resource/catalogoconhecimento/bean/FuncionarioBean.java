@@ -16,6 +16,7 @@ public class FuncionarioBean {
 	private String cpf;
 	private String rg;
 	private Date dataNascimento;
+	private List<NegocioBean> negocios;
 
 
 
@@ -126,6 +127,13 @@ public class FuncionarioBean {
 	}
 	
 	
+	public List<NegocioBean> getNegocios() {
+		return negocios;
+	}
+
+	public void setNegocios(List<NegocioBean> negocios) {
+		this.negocios = negocios;
+	}	
 	
 	
 }
