@@ -42,6 +42,7 @@ public class AjaxServlet extends HttpServlet {
 			request.setAttribute("msgErro", "Por favor, preencha todos os campos");
 		}catch(Exception e){
 			request.setAttribute("msgErro", "Sistema indisponível no momento");
+			e.printStackTrace();
 		} finally {
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
