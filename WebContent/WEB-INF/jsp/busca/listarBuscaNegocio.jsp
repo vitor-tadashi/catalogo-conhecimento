@@ -24,7 +24,7 @@
 	            });
 	        });	
 		
-$(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
+$(document).on("click", "#btnTecnologiaPorFuncionariobtnTecnologiaPorFuncionariobtnTecnologiaPorFuncionario", function() { 
 			
 			$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario) {
 				$("#dataTableTecnologias tbody tr").detach();	

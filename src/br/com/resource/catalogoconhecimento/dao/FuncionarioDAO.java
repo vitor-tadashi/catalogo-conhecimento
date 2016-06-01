@@ -400,10 +400,12 @@ public class FuncionarioDAO {
 		
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT f.* FROM Funcionario f "
+		String sql = "SELECT f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
+				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone"
+				+ " FROM Funcionario f "
 				+ "INNER JOIN FuncionarioNegocio fn ON fn.idFuncionario = f.idFuncionario "
 				+ "INNER JOIN Negocio as n ON fn.idNegocio = n.idNegocio "
-				+ "WHERE n.areaAtuacao IN (" + nomeNegocio + ") AND n.ativo = 's' AND f.ativo = 's' "
+				+ "WHERE n.areaAtuacao IN (" + nomeNegocio + ") "
 				+ "GROUP BY	f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
 				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone "
 				+ "HAVING COUNT(f.idFuncionario) > 0";
