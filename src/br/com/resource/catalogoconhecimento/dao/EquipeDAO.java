@@ -253,7 +253,7 @@ public class EquipeDAO {
 	public List<EquipeBean> obterPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "  select" 
-					+"	e.nome, e.observacao"
+					+"	e.idEquipe, e.nome, e.observacao"
 					+"  from"
 					+"	Projeto as p inner join ProjetoEquipe as pe" 
 					+"	on p.idProjeto = pe.idProjeto"
@@ -270,6 +270,7 @@ public class EquipeDAO {
 		EquipeBean equipe = null;
 		while(rs.next()){
 			equipe = new EquipeBean();
+			equipe.setId(rs.getInt("idEquipe"));
 			equipe.setNome(rs.getString("nome"));
 			equipe.setObservacao(rs.getString("observacao"));
 			listaEquipe.add(equipe);

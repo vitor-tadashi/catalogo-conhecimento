@@ -32,12 +32,47 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 						drawRowTecnologias(item);
 			        });
 	            });
-	        });	
+	        });
+
+
+$(document).on("click", "#btnNegocioPorProjeto", function() { 
+	
+	$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
+		$("#dataTableNegocio tbody tr").detach();	
+		$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
+			drawRowNegocios(item);
+	        });
+        });
+    });	
+    
+$(document).on("click", "#btnEquipePorProjeto", function() { 
+	
+	$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
+		$("#dataTableEquipe tbody tr").detach();	
+		$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
+			drawRowEquipe(item);
+	        });
+        });
+    });	
 		
 		function drawRowTecnologias(rowData) {
 		    var row = $("<tr />")
 		    
 		    $("#dataTableTecnologias tbody").append(row);
+            row.append($("<td>" + rowData.nome + "</td>"));
+		}
+		
+		function drawRowNegocios(rowData) {
+		    var row = $("<tr />")
+		    
+		    $("#dataTableNegocio tbody").append(row);
+            row.append($("<td>" + rowData.areaAtuacao + "</td>"));
+		}
+		
+		function drawRowEquipe(rowData) {
+		    var row = $("<tr />")
+		    
+		    $("#dataTableEquipe tbody").append(row);
             row.append($("<td>" + rowData.nome + "</td>"));
 		}
 	</script>
@@ -78,6 +113,9 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 										<tr>
 											<th>Nome do Projeto</th>
 											<th>Tecnologia</th>
+											<th>Área de Atuação</th>
+											<th>Cliente</th>
+											<th>Equipe</th>
 											<th>Observação</th>
 
 										</tr>
@@ -88,11 +126,22 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 												<td>${projeto.nome}</td>
 																					
 												<td>
-												
 													<a id="btnTecnologiaPorProjeto" id-projeto="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
-																							
-												</td>							
+												</td>	
+												
+												<td>
+													<a id="btnNegocioPorProjeto" id-projeto="${projeto.id}" href="#simpleModalNegocio" role="button" data-toggle="modal" class="btn btn-primary btn-small">Negócio</a>
+												</td>						
 										
+												<td>${projeto.cliente.nome}</td>
+												
+												<td>
+													<c:forEach var="equipe" items="${projeto.listaEquipe}">
+													<a id="btnEquipePorProjeto" id-equipe="${equipe.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">${equipe.nome}</a>
+													<br>
+													</c:forEach>
+												</td>
+												
 												<td>${projeto.observacao}</td>	
 
 											</tr>
@@ -169,7 +218,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		</div>
 		<!-- /.padding-md -->
 	</div>
-	</div>
+
 	<!-- /main-container -->
 		<!--Modal-->
 	<div class="modal fade" id="simpleModalTecnologia">
@@ -198,10 +247,61 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	
+		<div class="modal fade" id="simpleModalNegocio">
+ 			<div class="modal-dialog">
+   			<div class="modal-content">
+     				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Negocio</h4>
+     				</div>
+			    <div class="modal-body">
+			        <table class="table table-striped" id="dataTableNegocio">
+						<thead >
+							<tr>
+								<th>Área de Atuação</th>
+							</tr>
+						</thead>
+						<tbody >
+							
+						</tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			    </div>
+		  	</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="simpleModalEquipe">
+ 			<div class="modal-dialog">
+   			<div class="modal-content">
+     				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Equipe</h4>
+     				</div>
+			    <div class="modal-body">
+			        <table class="table table-striped" id="dataTableEquipe">
+						<thead >
+							<tr>
+								<th>Funcionários</th>
+							</tr>
+						</thead>
+						<tbody >
+							
+						</tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			    </div>
+		  	</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	
 	</div> 
 	
-
+</div>
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
