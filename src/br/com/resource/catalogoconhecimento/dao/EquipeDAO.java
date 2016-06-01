@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class EquipeDAO {
@@ -304,6 +306,33 @@ public class EquipeDAO {
 		conexao.close();
 
 		return equipeBean;
+	}
+
+	public List<EquipeBean> obterPorFuncionario (int idFuncionario) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		
+		String sql ="SELECT f.idFuncionario, f.nomeFuncionario, e.nome FROM Funcionario AS f "
+			+"INNER JOIN EquipeFuncionario AS ef  ON f.idFuncionario = ef.idFuncionario "
+			+"INNER JOIN Equipe AS e  ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? ";
+		
+				PreparedStatement ps = conec.prepareStatement(sql);
+				
+				ps.setInt(1, idFuncionario);
+				ResultSet rs = ps.executeQuery();
+				List<EquipeBean> listaEquipes = new ArrayList<EquipeBean>();
+
+				EquipeBean equipeBean = null;
+				while (rs.next()) {
+
+					equipeBean = new EquipeBean();
+					equipeBean.setNome(rs.getString("nome"));
+
+					listaEquipes.add(equipeBean);
+				}
+				
+				return listaEquipes;
+			 		
+		
 	}
 
 }
