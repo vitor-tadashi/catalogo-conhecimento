@@ -14,15 +14,25 @@
 			$("#filtro").tagit();
 		})
 		
-		$(document).on("click", "#btnTecnologia", function() { 
+		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarProjetoPorTecnologiaAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(responseJson) {
+			$.post("ajax?logica=busca.BuscarTecnologiaPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
 				$("#dataTableTecnologias tbody tr").detach();	
-				$.each(responseJson, function(index, item) { // Iterate over the JSON array.
+				$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
 			        });
 	            });
-	        });		
+	        });	
+		
+$(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
+			
+			$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario) {
+				$("#dataTableTecnologias tbody tr").detach();	
+				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
+						drawRowTecnologias(item);
+			        });
+	            });
+	        });	
 		
 		function drawRowTecnologias(rowData) {
 		    var row = $("<tr />")
@@ -53,7 +63,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Listar Projetos</h3>
+								<h3>Lista de Projetos</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
@@ -71,8 +81,7 @@
 											<th>Cliente</th>
 											<th>Equipe</th>
 											<th>Observação</th>
-											<th style="width: 20px;">Alterar</th>
-											<th style="width: 20px;">Excluir</th>
+
 										</tr>
 									</thead>
 									<tbody>
@@ -85,11 +94,11 @@
 														<option>${negocio.areaAtuacao}</option>
 													</c:forEach>
 													</select>
-																							
 												</td>	
+																						
 												<td>
 												
-													<a id="btnTecnologia" id-projeto="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
+													<a id="btnTecnologiaPorProjeto" id-projeto="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
 																							
 												</td>							
 												<td>${projeto.cliente.nome}</td>							
@@ -102,23 +111,12 @@
 												
 												</td>											
 												<td>${projeto.observacao}</td>	
-												<td style="text-align: center;"><a
-													href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
-													<i class="fa fa-edit fa-lg"></a></td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}">
-													<i	class="fa fa-times fa-lg"></a></td>
+
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-								<div class="panel-footer text-left">
-									<a href="mvc?logica=projeto.FormularioInserirProjetoLogica">
-										<button class="btn btn-success" type="submit">Cadastrar
-										Novo Projeto</button>
-										</a>
-									</div> 
-								</div>
+
 							<!-- /.padding-md -->
 						</div>
 						<!-- /panel -->
@@ -130,6 +128,75 @@
 			<!-- /.col -->
 		</div>
 		<!-- /.padding-md -->
+		
+		<div id="breadcrumb">
+
+		</div>
+		<!--breadcrumb-->
+		<div class="padding-md">
+			<div class="col-md-12 col-sm-12">
+				<div class="tab-content">
+							<div class="panel-heading">
+								<h3>Lista de Funcionários</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
+								<span class="label label-info pull-right">${fn:length(funcionarios)}
+									registros</span>
+							</div>
+							<div class="padding-md clearfix">
+								<table class="table table-striped" id="dataTable">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>Telefone</th>
+											<th>Tecnologia(s)</th>
+											<th>Usuário</th>
+											<th>Email</th>
+											<th>Cargo</th>
+											<th>CPF</th>
+											<th>RG</th>
+											<th>Data de Nascimento</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="funcionario" items="${funcionarios}">
+											<tr>
+												<td>${funcionario.nome}</td>							
+												<td>${funcionario.telefone}</td>
+													
+												<td>
+												
+													<a id="btnTecnologiaPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
+																							
+												</td>							
+												<td>${funcionario.nomeUser}</td>							
+												<td>${funcionario.email}</td>											
+												<td>${funcionario.cargo.nome}</td>
+												<td>${funcionario.cpf}</td>
+												<td>${funcionario.rg}</td>
+												<td><fmt:formatDate pattern="dd/MM/yyyy" value="${funcionario.dataNascimento}" /></td>
+													
+
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+
+							<!-- /.padding-md -->
+						</div>
+						<!-- /panel -->
+					</div>
+					<!-- /tab2 -->
+				</div>
+				<!-- /tab-content -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.padding-md -->
+	</div>
 	</div>
 	<!-- /main-container -->
 		<!--Modal-->

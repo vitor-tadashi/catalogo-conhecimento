@@ -71,9 +71,10 @@
 							                    	<select name = "logica">
 
 							                      <option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
-							                     <!-- <li><a href="#funcionario">Funcionário</a></li>
-							                      <li><a href="#projeto">Projeto </a></li>
-							                      <li><a href="#cliente">Cliente </a></li> --> 
+							                      <option value="busca.ListarPorProjetoBuscaLogica">Projeto</option>
+							                      <option value="busca.ListarPorFuncionarioBuscaLogica">Funcionário</option>
+							                      <option value="busca.ListarPorClienteBuscaLogica">Cliente</option>
+							                     
 							                      
 							                    </select>
 							               
