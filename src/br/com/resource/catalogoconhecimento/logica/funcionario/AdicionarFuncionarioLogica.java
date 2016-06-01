@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
+import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
@@ -31,6 +34,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		String cpf = request.getParameter("cpf");
 		String rg = request.getParameter("rg");
 		String data = request.getParameter("dataNascimento");
+		String[] negocios = request.getParameterValues("negociosArray");
 		
 		/**
 		 * CONVETER DATA
@@ -43,7 +47,14 @@ public class AdicionarFuncionarioLogica implements Logica{
 		
 		cargoBean = cargoBusiness.obterPorNome(cargo);
 				
-		
+		List<NegocioBean> listaNegocios = new ArrayList<>();
+		NegocioBusiness negocioBusiness = new NegocioBusiness();
+		NegocioBean negocio;
+		for(int i =0; i < negocios.length; i++){
+			negocio = negocioBusiness.obterPorNome(negocios[i]);
+			listaNegocios.add(negocio);
+		}
+
 
 		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
 		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
@@ -65,6 +76,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionarioBean.setDataNascimento(dataFormatada);
 		
 		funcionarioBean.setTecnologias(listaTecnologia);
+		funcionarioBean.setNegocios(listaNegocios);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		int id = funcionarioBusiness.adicionar(funcionarioBean);
@@ -73,6 +85,8 @@ public class AdicionarFuncionarioLogica implements Logica{
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
 		funcionariotecnologia.inserir(funcionarioBean, listaTecnologia);
 		
+		FuncionarioNegocioBusiness funcionarioNegocio = new FuncionarioNegocioBusiness();
+		funcionarioNegocio.adicionar(funcionarioBean, listaNegocios);
 		
 		
 			

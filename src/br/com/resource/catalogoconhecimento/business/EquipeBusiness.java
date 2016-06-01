@@ -106,4 +106,11 @@ public class EquipeBusiness {
 		EquipeDAO equipeDAO = new EquipeDAO();
 		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
 	}
+
+	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
+		EquipeDAO equipeDAO = new EquipeDAO();
+		return equipeDAO.obterPorFuncionario(idFuncionario);
+		
+	}
+
 }
