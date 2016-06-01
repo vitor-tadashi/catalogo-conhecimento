@@ -77,10 +77,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 									<thead>
 										<tr>
 											<th>Nome do Projeto</th>
-											<th>Área de Atuação</th>
 											<th>Tecnologia</th>
-											<th>Cliente</th>
-											<th>Equipe</th>
 											<th>Observação</th>
 
 										</tr>
@@ -89,28 +86,13 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 										<c:forEach var="projeto" items="${projetos}">
 											<tr>
 												<td>${projeto.nome}</td>
-												<td>
-													<select>
-													<c:forEach var="negocio" items = "${projeto.listaNegocio}">
-														<option>${negocio.areaAtuacao}</option>
-													</c:forEach>
-													</select>
-												</td>	
-																						
+																					
 												<td>
 												
 													<a id="btnTecnologiaPorProjeto" id-projeto="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
 																							
 												</td>							
-												<td>${projeto.cliente.nome}</td>							
-												<td>
-												<select>
-													<c:forEach var="equipe" items = "${projeto.listaEquipe}">
-														<option>${equipe.nome}</option>
-													</c:forEach>
-													</select>
-												
-												</td>											
+										
 												<td>${projeto.observacao}</td>	
 
 											</tr>
@@ -150,14 +132,9 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 									<thead>
 										<tr>
 											<th>Nome</th>
-											<th>Telefone</th>
 											<th>Tecnologia(s)</th>
-											<th>Usuário</th>
 											<th>Email</th>
 											<th>Cargo</th>
-											<th>CPF</th>
-											<th>RG</th>
-											<th>Data de Nascimento</th>
 
 										</tr>
 									</thead>
@@ -165,19 +142,14 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 										<c:forEach var="funcionario" items="${funcionarios}">
 											<tr>
 												<td>${funcionario.nome}</td>							
-												<td>${funcionario.telefone}</td>
 													
 												<td>
 												
 													<a id="btnTecnologiaPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
 																							
 												</td>							
-												<td>${funcionario.nomeUser}</td>							
 												<td>${funcionario.email}</td>											
 												<td>${funcionario.cargo.nome}</td>
-												<td>${funcionario.cpf}</td>
-												<td>${funcionario.rg}</td>
-												<td><fmt:formatDate pattern="dd/MM/yyyy" value="${funcionario.dataNascimento}" /></td>
 													
 
 											</tr>
@@ -229,7 +201,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 	
 	</div> 
 	
-	<c:import url="/resources/jspImport/logout.jsp"></c:import>
+
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
