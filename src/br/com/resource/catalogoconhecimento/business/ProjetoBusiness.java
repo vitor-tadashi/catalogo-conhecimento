@@ -2,7 +2,6 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
@@ -16,22 +15,18 @@ public class ProjetoBusiness {
 			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
 
 		ProjetoDAO projetoDAO = new ProjetoDAO();
-		ProjetoBean projetoDesativado = projetoDAO.obterPorNome(projetoBean);
 		ProjetoBean projetoClone = projetoDAO.obterPorNome(projetoBean);
 
 		if (projetoBean.getNome().length() > 150) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
-		} else if (projetoDesativado != null
-				&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
-			projetoDAO.reativar(projetoBean);
 		} else if (projetoClone != null
 				&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
 			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
 					+ projetoClone.getCliente().getNome());
-		} else {
+		}
+		else{
 			projetoDAO.inserir(projetoBean);
 		}
-
 	}
 
 	// CONSULTA NA TABELA PROJETO

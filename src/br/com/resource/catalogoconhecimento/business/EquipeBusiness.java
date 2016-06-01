@@ -22,7 +22,7 @@ public class EquipeBusiness {
 		if (equipeBean.getNome().length() > 200) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
 		} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
-			throw new NomeRepetidoException("Este nome já consta na base de dados");
+			throw new NomeRepetidoException("Este Funcionário já consta na base de dados");
 		} else if (equipeBean.getObservacao().length() > 500) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 		} else {
