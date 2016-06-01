@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.logica.busca;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,14 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
-import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class ListarPorTecnologiaBuscaLogica implements Logica{
+public class ListarPorNegocioBuscaLogica implements Logica{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -27,34 +25,32 @@ public class ListarPorTecnologiaBuscaLogica implements Logica{
 		
 		
 
-		String nomeTecnologias = "";
-		TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
+		String nomeNegocio = "";
+		NegocioBusiness negocioBusiness = new NegocioBusiness();
 		
 		for(int i = 0; i < array.length; i ++){
-			if(tecnologiaBusiness.obterPorNome(array[i]) != null){
-				if(nomeTecnologias.isEmpty()){
-					nomeTecnologias += "'"+array[i]+"'";
+			if(negocioBusiness.obterPorNome(array[i]) != null){
+				if(nomeNegocio.isEmpty()){
+					nomeNegocio += "'"+array[i]+"'";
 				}else{
-					nomeTecnologias += ",'"+array[i]+"'";
+					nomeNegocio += ",'"+array[i]+"'";
 				}
 			}else{
-				throw new BusinessException("Pesquisa inválida! Este nome de tecnologia não existe");
+				throw new BusinessException("Pesquisa inválida! Este nome de negócio não existe");
 			}
 		}
 		
 		
-		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);
+		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorNegocio(nomeNegocio);
 		
 		
-		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorTecnologias(nomeTecnologias);
+		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorTecnologias(nomeNegocio);
 		
 		
 		request.setAttribute("projetos", projetos);
 		request.setAttribute("funcionarios", listaFuncionario);
 		
-		return "WEB-INF/jsp/busca/listarBuscaTecnologia.jsp";
+		return "WEB-INF/jsp/busca/listarBuscaNegocio.jsp";
 	}
-	
-	
 
 }

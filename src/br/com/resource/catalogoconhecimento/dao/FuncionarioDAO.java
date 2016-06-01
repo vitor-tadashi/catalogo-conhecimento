@@ -275,7 +275,7 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterFuncionarioDesativado(String nome) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterDesativado(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? AND ativo =?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -363,5 +363,77 @@ public class FuncionarioDAO {
 		ps.executeUpdate();
 		conexao.close();
 	}
+	
+	
+	public FuncionarioBean obterPorCpf(String cpf) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE CPF = ? AND ativo = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, cpf);
+		ps.setString(2, "s");
+		ResultSet rs = ps.executeQuery();
 
+		FuncionarioBean funcionarioBean = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+		}
+
+		conexao.close();
+		return funcionarioBean;
+
+	}
+
+
+	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{
+		
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "SELECT f.* FROM Funcionario f "
+				+ "INNER JOIN TecnologiaNegocio tf ON tf.idFuncionario = f.idFuncionario "
+				+ "INNER JOIN Tecnologia t ON tf.idTecnologia = t.idTecnologia "
+				+ "WHERE t.nomeTecnologia IN (" + nomeNegocio + ") AND f.ativo = 's' AND t.ativo = 's' "
+				+ "GROUP BY	f.CPF, f.RG, f.ativo, f.dataNascimento, f.email, f.idCargo, "
+				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone "
+				+ "HAVING COUNT(f.idFuncionario) > 0";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			FuncionarioBean funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+			
+			listaFuncionario.add(funcionarioBean);
+		}
+
+		ps.close();
+		conexao.close();
+		
+		return listaFuncionario;
+	}
 }
