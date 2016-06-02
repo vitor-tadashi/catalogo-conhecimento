@@ -65,7 +65,7 @@
 							        <div class="col-xs-8 col-xs-offset-2"><!-- col-md-6 -->
 									    <div class="input-group">
 									    	<div class="input-group-btn search-panel">
-									    	<c:import url="/resources/jspImport/msgErro.jsp"/>
+									    	
 									    	<!-- <button type="button" class="btn btn-primary" data-toggle="dropdown" style="margin-bottom:12px;height:37px;">
 							                    	<span id="search_concept">Buscar por</span> <span class="caret"></span>
 							                    </button> -->
@@ -83,9 +83,11 @@
 							                <button type="submit" class="btn btn-primary btn-xs" value="Submit Button" style="margin-bottom:10px;height:32px;"> Pesquisar </button>
 							                </span>
 							              </form>	
+							              
 							        </div>
 								</div> 
 							</div>
+				<c:import url="/resources/jspImport/msgErro.jsp"/>
 						</div>	
 					</div>
 				</div>
