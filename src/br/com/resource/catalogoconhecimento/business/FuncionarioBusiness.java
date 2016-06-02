@@ -141,4 +141,8 @@ public class FuncionarioBusiness {
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{
 		return funcionarioDao.listarPorNegocio(nomeNegocio);
 	}
+	
+	public List<FuncionarioBean>listarPorNome(String nome) throws ClassNotFoundException, SQLException{
+		return funcionarioDao.listarPorNome(nome);
+	}
 }

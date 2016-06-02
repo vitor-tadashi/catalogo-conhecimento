@@ -438,4 +438,33 @@ public class FuncionarioDAO {
 		
 		return listaFuncionario;
 	}
+	
+	public List<FuncionarioBean> listarPorNome(String nome) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario LIKE '%"+nome+"%' and ativo = 's'";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+
+		List<FuncionarioBean>listaFuncionario = new ArrayList<>();
+		FuncionarioBean funcionarioBean = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+			listaFuncionario.add(funcionarioBean);
+		}
+
+		conexao.close();
+		return listaFuncionario;
+	}
 }
