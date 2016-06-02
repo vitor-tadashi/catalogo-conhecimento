@@ -274,4 +274,7 @@ public class FuncionarioBusiness {
 		      CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
 		  }
 
+		  public List<FuncionarioBean>listarPorNome(String nome) throws ClassNotFoundException, SQLException{
+				return funcionarioDao.listarPorNome(nome);
+			}
 }
