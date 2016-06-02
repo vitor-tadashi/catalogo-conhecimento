@@ -6,9 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
+import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
+import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 public class ConcorrenteDAO {
@@ -70,6 +73,40 @@ public class ConcorrenteDAO {
 		}
 		conn.close();
 		return listaConcorrentesClientes;
+	}
+	
+	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT co.idConcorrente, cl.idCliente, cc.valorHora "
+				+ "FROM Concorrente AS CO "
+				+ "INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente "
+				+ "INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente "
+				+ "WHERE CL.nomeCliente = ? AND co.ativo = 's' AND cl.ativo = 's'";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nomeCliente);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<ConcorrenteClienteBean> listaConcorrenteCliente = new ArrayList<ConcorrenteClienteBean>();
+		while (rs.next()) {
+			ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
+			concorrenteClienteBean.setValorHora(rs.getDouble("valorHora"));
+			
+			ConcorrenteBean concorrenteBean = new ConcorrenteBusiness().obterPorId(rs.getInt("idConcorrente"));
+			concorrenteClienteBean.setConcorrente(concorrenteBean);
+			
+//			ClienteBean clienteBean = new ClienteBusiness().obterPorId(rs.getInt("idCliente"));
+//			concorrenteClienteBean.setCliente(clienteBean);
+			
+			listaConcorrenteCliente.add(concorrenteClienteBean);
+		}
+		
+		ps.close();
+		conexao.close();
+		
+		return listaConcorrenteCliente;
 	}
 	
 	public boolean existe(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException{
