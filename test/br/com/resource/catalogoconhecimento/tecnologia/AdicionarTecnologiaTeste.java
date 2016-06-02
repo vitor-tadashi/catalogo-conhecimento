@@ -18,7 +18,6 @@ public class AdicionarTecnologiaTeste {
 	@Test
 	public void adicionarTecnologiaComSucesso() {
 		String tecnologia = "Selenium" + t;
-		System.out.println(tecnologia);
 		driver.get(
 				"http://localhost:8080/catalogoconhecimento/mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica");
 		driver.findElement(By.name("nome")).sendKeys(tecnologia);
@@ -27,6 +26,19 @@ public class AdicionarTecnologiaTeste {
 		Assert.assertTrue("Deveria conter: " + tecnologia, driver.getPageSource().contains(tecnologia));
 	}
 
+	@Test
+	public void alterarTecnologiaComSucesso() {
+		adicionarTecnologiaComSucesso();
+		long t = new Timestamp(System.currentTimeMillis()).getTime();
+		String tecnologia = "Selenium" + t;
+		System.out.println(tecnologia);
+		
+		driver.findElement(By.name("nome")).sendKeys(tecnologia);
+		driver.findElement(By.id("submit")).click();
+
+		Assert.assertTrue("Deveria conter: " + tecnologia, driver.getPageSource().contains(tecnologia));
+	}
+	
 	@Before
 	public void setup() {
 		driver = new PhantomJSDriver();
