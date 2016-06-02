@@ -449,13 +449,14 @@ public class FuncionarioDAO {
 		return listaFuncionario;
 	}
 	
-	public List<FuncionarioBean> listarPorNome(String nome) throws SQLException, ClassNotFoundException {
+	
+	public FuncionarioBean obterPorEmail(String email) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario LIKE '%"+nome+"%' and ativo = 's'";
+		String sql = "SELECT * FROM Funcionario WHERE email = ? AND ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, email);
+		ps.setString(2, "s");
 		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean>listaFuncionario = new ArrayList<>();
 		FuncionarioBean funcionarioBean = null;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
@@ -471,10 +472,43 @@ public class FuncionarioDAO {
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-			listaFuncionario.add(funcionarioBean);
+
 		}
 
 		conexao.close();
-		return listaFuncionario;
+		return funcionarioBean;
+
 	}
+	
+	public FuncionarioBean obterPorUser(String user) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE nomeUser = ? AND ativo = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, user);
+		ps.setString(2, "s");
+		ResultSet rs = ps.executeQuery();
+
+		FuncionarioBean funcionarioBean = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+		}
+
+		conexao.close();
+		return funcionarioBean;
+
+	}
+
+
 }
