@@ -16,6 +16,7 @@ public class RemoverTecnologiaLogica implements Logica {
 			TecnologiaBusiness tecnologiaBusiness = new TecnologiaBusiness();
 			tecnologiaBusiness.remover(id);
 		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("msgErro", "Falha na remoção");
 		}
 		

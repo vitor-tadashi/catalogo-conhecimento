@@ -10,8 +10,10 @@ import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
+import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
@@ -74,10 +76,12 @@ public class FuncionarioDAO {
 		FuncionarioBean funcionarioBean;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness = new TecnologiaFuncionarioBusiness();
+		FuncionarioNegocioBusiness funcionarioNegocioBusiness = new FuncionarioNegocioBusiness();
 		while (rs.next()) {
 			CargoBean cargo = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 			List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness
 					.joinTecnologiaFuncionario(rs.getInt("idFuncionario"));
+			List<NegocioBean> negocios = funcionarioNegocioBusiness.joinFuncionarioNegocio(rs.getInt("idFuncionario"));
 
 			funcionarioBean = new FuncionarioBean();
 
@@ -91,6 +95,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 			funcionarioBean.setTecnologias(tecnologias);
+			funcionarioBean.setNegocios(negocios);
 
 			listaFuncionarios.add(funcionarioBean);
 		}
@@ -135,6 +140,11 @@ public class FuncionarioDAO {
 		PreparedStatement stmt2 = conexao.prepareStatement(sql2);
 		stmt2.setInt(1, id);
 		stmt2.executeUpdate();
+		
+		String sql4 = "DELETE FROM FuncionarioNegocio WHERE idFuncionario= ? ";
+		PreparedStatement stmt4 = conexao.prepareStatement(sql4);
+		stmt4.setInt(1, id);
+		stmt4.executeUpdate();
 
 		String sql3 = "DELETE FROM EquipeFuncionario WHERE idFuncionario= ? ";
 		PreparedStatement stmt3 = conexao.prepareStatement(sql3);
