@@ -10,7 +10,6 @@ import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
-import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
@@ -35,11 +34,12 @@ public class ConcorrenteDAO {
 		ps.setString(1, "s");
 		ResultSet rs = ps.executeQuery();
 		List<ConcorrenteBean> listaConcorrentes = new ArrayList<ConcorrenteBean>();
+		ConcorrenteBean concorrenteBean =  null;
 		while (rs.next()) {
-			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-			concorrenteBean.setId(rs.getInt("idConcorrente"));
-			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
-			concorrenteBean.setDescricao(rs.getString("descricao"));
+			int id = rs.getInt("idConcorrente");
+			String nome = rs.getString("nomeConcorrente");
+			String descricao = rs.getString("descricao");
+			concorrenteBean = new ConcorrenteBean(id, nome, descricao);
 			listaConcorrentes.add(concorrenteBean);
 		}
 		conn.close();
