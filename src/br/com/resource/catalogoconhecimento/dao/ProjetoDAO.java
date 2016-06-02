@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
@@ -293,4 +294,32 @@ public class ProjetoDAO {
 
 	}
 
+	public List<ProjetoBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT p.nomeProjeto, p.observacao "
+				+ "FROM Projeto AS p INNER JOIN Cliente AS c ON p.idCliente = c.idCliente "
+				+ "WHERE c.nomeCliente = ? AND p.ativo = 's' AND c.ativo = 's'";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nomeCliente);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<ProjetoBean> listaProjeto = new ArrayList<ProjetoBean>();
+		while (rs.next()) {
+			ProjetoBean projetoBean = new ProjetoBean();
+			projetoBean.setId(rs.getInt("idProjeto"));
+			projetoBean.setNome(rs.getString("nomeProjeto"));
+			projetoBean.setObservacao(rs.getString("observacao"));
+
+			listaProjeto.add(projetoBean);
+		}
+		
+		ps.close();
+		conexao.close();
+		
+		return listaProjeto;
+	}
+	
 }
