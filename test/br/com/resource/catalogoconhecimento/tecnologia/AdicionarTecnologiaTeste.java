@@ -6,26 +6,28 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class AdicionarTecnologiaTeste {
 
 	private WebDriver driver;
+	private Timestamp t = new Timestamp(System.currentTimeMillis());
 
 	@Test
 	public void adicionarTecnologiaComSucesso() {
-		String tecnologia = "Selenium";
+		String tecnologia = "Selenium" + t;
 		driver.get(
 				"http://localhost:8080/catalogoconhecimento/mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica");
 		driver.findElement(By.name("nome")).sendKeys(tecnologia);
-		driver.findElement(By.className("btn btn-success")).click();
+		driver.findElement(By.id("submit")).click();
+
 		Assert.assertTrue("Deveria conter: Selenium", driver.getPageSource().contains(tecnologia));
 	}
 
 	@Before
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
-		driver = new ChromeDriver();
+		driver = new PhantomJSDriver();
 	}
 
 	@After

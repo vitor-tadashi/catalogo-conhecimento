@@ -60,10 +60,11 @@
 		    <artifactId>junit</artifactId>
 		    <version>4.12</version>
 		</dependency>
+		<!-- http://mvnrepository.com/artifact/com.github.detro/phantomjsdriver -->
 		<dependency>
-		    <groupId>io.github.bonigarcia</groupId>
-		    <artifactId>webdrivermanager</artifactId>
-		    <version>1.4.3</version>
+		    <groupId>com.github.detro</groupId>
+		    <artifactId>phantomjsdriver</artifactId>
+		    <version>1.2.0</version>
 		</dependency>
 	</dependencies>
 	<build>
