@@ -18,7 +18,6 @@ public class BuscarEquipePorFuncionarioNoProjetoAjaxLogica implements Logica {
 		
 		List<EquipeBean> equipes = new EquipeBusiness().obterPorFuncionario(idFuncionario);
 		
-		
 		return new Gson().toJson(equipes);
 	}
 
