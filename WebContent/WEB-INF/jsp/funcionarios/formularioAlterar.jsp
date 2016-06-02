@@ -86,7 +86,25 @@
 															</c:forEach>
 														</div>	
 													</div>
-												</div><!-- /.col --> 
+												</div><!-- /.col -->
+												
+												
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="control-label">Negócio:
+														</label>
+														<div class="checkbox">
+															<c:forEach items="${negocios}" var="negocios">
+																<label class="control-label">		
+																	<input type="checkbox" name="negociosArray" value="${negocios.areaAtuacao}"/>
+																	<span class="custom-checkbox"></span>
+																	${negocios.areaAtuacao}
+																</label>
+																<br>
+															</c:forEach>
+														</div>	
+													</div>
+												</div><!-- /.col -->  
 												
 												<div class="col-md-4">
 													<div class="form-group">

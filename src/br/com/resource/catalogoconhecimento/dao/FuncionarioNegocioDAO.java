@@ -71,7 +71,7 @@ public class FuncionarioNegocioDAO {
 		NegocioBean negocio = null;
 		while (rs.next()) {
 			negocio = new NegocioBean();
-			negocio.setId(rs.getInt("idTecnologia"));
+			negocio.setId(rs.getInt("idNegocio"));
 			negocio.setAreaAtuacao(rs.getString("areaAtuacao"));
 			listaNegocios.add(negocio);
 		}

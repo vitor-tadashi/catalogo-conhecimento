@@ -69,6 +69,7 @@
 											<th>Nome</th>
 											<th>Telefone</th>
 											<th>Tecnologia(s)</th>
+											<th>Negócio(s)</th>
 											<th>Usuário</th>
 											<th>Equipes</th>
 											<th>Email</th>
@@ -92,7 +93,16 @@
 														<option>${tecnologia.nome}</option>
 													</c:forEach>
 													</select>										
-												</td>							
+												</td>
+												
+												<td>
+													<select>
+													<c:forEach var="negocio" items="${funcionario.negocios}">
+														<option>${negocio.areaAtuacao}</option>
+													</c:forEach>
+													</select>										
+												</td>
+																			
 												<td>${funcionario.nomeUser}</td>	
 												
 												<td>
