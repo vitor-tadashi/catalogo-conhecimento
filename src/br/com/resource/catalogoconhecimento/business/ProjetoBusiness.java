@@ -36,7 +36,8 @@ public class ProjetoBusiness {
 	// CONSULTA NA TABELA PROJETO
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		List<ProjetoBean> listaProjeto = projetoDao.listar();
-		if (listaProjeto == null) {
+		
+		if (listaProjeto.isEmpty()) {
 			throw new ConsultaNulaException("Não há projetos cadastrados!");
 		} else {
 			return listaProjeto;
