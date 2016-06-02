@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
@@ -47,6 +49,9 @@ public class ControllerServlet extends HttpServlet {
 		} catch(NullPointerException e){
 			e.printStackTrace();
 			request.setAttribute("msgErro", "Por favor, preencha todos os campos");
+		}catch(SQLServerException e){
+			e.printStackTrace();
+			request.setAttribute("msgErro", "Falha na conexão com o banco de dados");
 		}catch(Exception e){
 			request.setAttribute("msgErro", "Sistema indisponível no momento");
 			e.printStackTrace();
