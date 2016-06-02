@@ -510,6 +510,37 @@ public class FuncionarioDAO {
 
 	}
 	
+	public FuncionarioBean obterPorRg(String rg) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE RG = ? AND ativo = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, rg);
+		ps.setString(2, "s");
+		ResultSet rs = ps.executeQuery();
+		FuncionarioBean funcionarioBean = null;
+		CargoBusiness cargoBusiness = new CargoBusiness();
+		while (rs.next()) {
+			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
+			funcionarioBean = new FuncionarioBean();
+			funcionarioBean.setId(rs.getInt("idFuncionario"));
+			funcionarioBean.setCargo(cargoBean);
+			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+			funcionarioBean.setTelefone(rs.getString("telefone"));
+			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+			funcionarioBean.setEmail(rs.getString("email"));
+			funcionarioBean.setCpf(rs.getString("CPF"));
+			funcionarioBean.setRg(rs.getString("RG"));
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+
+		}
+
+		conexao.close();
+		return funcionarioBean;
+
+	}
+	
+	
 	public List<FuncionarioBean> listarPorNome(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario LIKE '%"+nome+"%' and ativo = 's'";

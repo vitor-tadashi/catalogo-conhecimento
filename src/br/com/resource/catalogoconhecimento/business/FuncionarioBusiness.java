@@ -9,6 +9,7 @@ import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.CpfInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.EmailInvalidoException;
+import br.com.resource.catalogoconhecimento.exceptions.RgInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
 
@@ -32,13 +33,15 @@ public class FuncionarioBusiness {
 	 * @throws TamanhoCampoException 
 	 * @throws EmailInvalidoException 
 	 * @throws UserInvalidoException 
+	 * @throws RgInvalidoException 
 	 */
-	public int adicionar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException, CpfInvalidoException, TamanhoCampoException, EmailInvalidoException, UserInvalidoException {
+	public int adicionar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException, CpfInvalidoException, TamanhoCampoException, EmailInvalidoException, UserInvalidoException, RgInvalidoException {
 		int id=0;
 
 		FuncionarioBean funcionarioCloneCpf = funcionarioDao.obterPorCpf(funcionarioBean.getCpf());
 		FuncionarioBean funcionarioCloneMail = funcionarioDao.obterPorEmail(funcionarioBean.getEmail());
 		FuncionarioBean funcionarioCloneUser = funcionarioDao.obterPorUser(funcionarioBean.getNomeUser());
+		FuncionarioBean funcionarioCloneRg = funcionarioDao.obterPorRg(funcionarioBean.getRg());
 		
 		if(funcionarioBean.getNome().trim().equals("")){
 			throw new NullPointerException("Preencha o campo de nome corretamante");
@@ -61,11 +64,18 @@ public class FuncionarioBusiness {
 		}else if(funcionarioCloneCpf != null){
 			throw new CpfInvalidoException("O CPF " + funcionarioBean.getCpf() + " já foi cadastrado na base");	
 		}else if(funcionarioBean.getNomeUser().trim().equals("")){
-			throw new NullPointerException("Preencha o campo de nome corretamante");			
+			throw new NullPointerException("Preencha o campo de nome de usuário corretamante");			
+		}else if(!validarUser(funcionarioBean.getNomeUser())){
+			throw new UserInvalidoException("Digite um nome de usuario valido");
 		}else if(funcionarioCloneUser != null){
 			throw new UserInvalidoException("O nome de usuário "+ funcionarioBean.getNomeUser() + " já foi cadastrado na base");
+		}else if(funcionarioBean.getRg().trim().equals("")){
+			throw new NullPointerException("Preencha o campo de RG corretamante");			
+		}else if(!validarRG(funcionarioBean.getRg())){
+			throw new RgInvalidoException("Digite um RG válido");
+		}else if(funcionarioCloneRg != null){
+			throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " já foi cadastrado na base");
 		}else{
-			
 			id = funcionarioDao.adicionar(funcionarioBean);			
 		}
 		
@@ -204,14 +214,30 @@ public class FuncionarioBusiness {
 			return (numero.matches("[\\d]+") && numero.length() <= 11);		
 			
 		}
-		       		
 		
-		
+	}
+	
+	public boolean validarRG(String rg) {
+		if(rg.equals("00000000000") || rg.equals("11111111111") ||
+				rg.equals("22222222222") || rg.equals("33333333333") ||
+				rg.equals("44444444444") || rg.equals("55555555555") ||
+				rg.equals("66666666666") || rg.equals("77777777777") ||
+				rg.equals("88888888888") || rg.equals("99999999999") ||
+		       (rg.length() != 11)){
+			return(false);
+		}else{
+			return (rg.matches("[\\d]+") && rg.length() <= 11);		
+			
+		}
 		
 	}
 	
 	public boolean validarEmail(String email) {
 		return (email.matches("[\\w+@\\w+.\\w+.?\\w]+") && email.length() <= 100);
+	}
+	
+	public boolean validarUser(String user){
+		return (user.matches("[A-Za-z\\d]+") && user.length() <= 50);		
 	}
 	
 	  public static boolean validarCPF(String CPF) {
