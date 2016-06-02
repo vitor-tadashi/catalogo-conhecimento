@@ -37,7 +37,7 @@ public class CargoBusiness {
 		CargoDAO cargoDao = new CargoDAO();
 		List<CargoBean> listaCargo = cargoDao.listar();
 
-		if (listaCargo == null) {
+		if (listaCargo.isEmpty()) {
 			throw new ConsultaNulaException("Não há cargos cadastrados");
 		} else {
 			return listaCargo;

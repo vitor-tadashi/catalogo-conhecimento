@@ -5,9 +5,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
 	<link href="resources/bootstrap/css/jquery.tagit.css" rel="stylesheet" type="text/css">
-
 
 	<!-- Font Awesome -->
 	<link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -21,6 +21,15 @@
 	
 	
 	<link rel="stylesheet" href="resources/css/jquery-ui.css">
+	
+	<!-- Validations-->
+    <link href="resources/validator/formValidation.css" rel="stylesheet">
+    <link href="resources/validator/formValidation.min.css" rel="stylesheet">
+	<script src="resources/validator/bootstrap.js"></script>
+	<script src="resources/validator/formValidation.js"></script>
+	<script src="resources/validator/formValidation.min.js"></script>	
+	<script src="resources/validator/jquery.min.js"></script>	
+	
 		<!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -30,7 +39,9 @@
 	
 	<!-- Bootstrap -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
- 
+    
+    <script src="resources/bootstrap/js/bootstrap.js"></script>
+ 	
 	<!-- Datatable -->
 	<script src='resources/js/jquery.dataTables.min.js'></script>	
 	
