@@ -457,7 +457,6 @@ public class FuncionarioDAO {
 		ps.setString(1, email);
 		ps.setString(2, "s");
 		ResultSet rs = ps.executeQuery();
-
 		FuncionarioBean funcionarioBean = null;
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
@@ -473,6 +472,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+
 		}
 
 		conexao.close();
@@ -510,5 +510,5 @@ public class FuncionarioDAO {
 
 	}
 
-	
+
 }

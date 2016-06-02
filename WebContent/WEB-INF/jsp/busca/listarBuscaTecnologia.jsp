@@ -6,7 +6,7 @@
 <html>
 <head>
 
-	<title>Listar Projetos</title>
+	<title>Resultado da Busca</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
 			<script type="text/javascript">
 	
