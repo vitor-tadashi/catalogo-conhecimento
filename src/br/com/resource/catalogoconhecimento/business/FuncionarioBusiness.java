@@ -1,9 +1,6 @@
 package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -196,7 +193,21 @@ public class FuncionarioBusiness {
 	}
 	
 	public boolean validarNumero(String numero) {
-		return (numero.matches("[\\d]+") && numero.length() <= 11);
+		if(numero.equals("00000000000") || numero.equals("11111111111") ||
+				numero.equals("22222222222") || numero.equals("33333333333") ||
+				numero.equals("44444444444") || numero.equals("55555555555") ||
+				numero.equals("66666666666") || numero.equals("77777777777") ||
+				numero.equals("88888888888") || numero.equals("99999999999") ||
+		       (numero.length() != 11)){
+			return(false);
+		}else{
+			return (numero.matches("[\\d]+") && numero.length() <= 11);		
+			
+		}
+		       		
+		
+		
+		
 	}
 	
 	public boolean validarEmail(String email) {
