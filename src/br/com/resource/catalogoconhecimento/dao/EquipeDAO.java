@@ -311,7 +311,7 @@ public class EquipeDAO {
 		
 		String sql ="SELECT f.idFuncionario, f.nomeFuncionario, e.nome FROM Funcionario AS f "
 			+"INNER JOIN EquipeFuncionario AS ef  ON f.idFuncionario = ef.idFuncionario "
-			+"INNER JOIN Equipe AS e  ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? ";
+			+"INNER JOIN Equipe AS e ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? ";
 		
 				PreparedStatement ps = conec.prepareStatement(sql);
 				
