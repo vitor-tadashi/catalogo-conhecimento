@@ -36,7 +36,7 @@ public class ClienteBusiness {
 		ClienteDAO clienteDao = new ClienteDAO();
 		List<ClienteBean> listaCliente = clienteDao.listar();
 		
-		if (listaCliente == null) {
+		if (listaCliente.isEmpty()) {
 			throw new ConsultaNulaException("Não há clientes cadastrados");
 		} else {
 			return listaCliente;

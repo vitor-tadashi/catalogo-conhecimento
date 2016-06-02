@@ -40,7 +40,7 @@ public class ClienteDAO {
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<ClienteBean> listaClientes = new ArrayList<ClienteBean>();
-		ClienteBean clienteBean;
+		ClienteBean clienteBean = null;
 
 		while (rs.next()) {
 			clienteBean = new ClienteBean();
