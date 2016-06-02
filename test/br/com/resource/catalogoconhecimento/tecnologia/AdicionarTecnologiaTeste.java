@@ -13,17 +13,18 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 public class AdicionarTecnologiaTeste {
 
 	private WebDriver driver;
-	private Timestamp t = new Timestamp(System.currentTimeMillis());
+	private long t = new Timestamp(System.currentTimeMillis()).getTime();
 
 	@Test
 	public void adicionarTecnologiaComSucesso() {
 		String tecnologia = "Selenium" + t;
+		System.out.println(tecnologia);
 		driver.get(
 				"http://localhost:8080/catalogoconhecimento/mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica");
 		driver.findElement(By.name("nome")).sendKeys(tecnologia);
 		driver.findElement(By.id("submit")).click();
 
-		Assert.assertTrue("Deveria conter: Selenium", driver.getPageSource().contains(tecnologia));
+		Assert.assertTrue("Deveria conter: " + tecnologia, driver.getPageSource().contains(tecnologia));
 	}
 
 	@Before
