@@ -75,8 +75,6 @@
 												 <optgroup label="Filtros">
 								                    <option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
 								                    <option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
-								                    <option value="busca.ListarPorFuncionarioBuscaLogica">Funcionário</option>
-								                    <option value="busca.ListarPorClienteBuscaLogica">Cliente</option>
 							                 	 </optgroup>
 							                  </select>
 							                  </div>
