@@ -301,9 +301,9 @@ public class TecnologiaDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		boolean check = false;
+		boolean check = true;
 		while (rs.next()) {
-			check = true;
+			check = false;
 		}
 		
 		ps.close();
@@ -323,9 +323,9 @@ public class TecnologiaDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		boolean check = false;
+		boolean check = true;
 		while (rs.next()) {
-			check = true;
+			check = false;
 		}
 		
 		ps.close();
