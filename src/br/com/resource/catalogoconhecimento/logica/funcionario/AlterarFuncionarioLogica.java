@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
+import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
@@ -26,6 +29,7 @@ public class AlterarFuncionarioLogica implements Logica {
 		String email = request.getParameter("email");
 		int cargo = Integer.parseInt(request.getParameter("cargo"));
 		String[] tecnologias = request.getParameterValues("tecnologiasArray");
+		String[] negocios = request.getParameterValues("negociosArray");
 
 		
 		CargoBean cargoBean = new CargoBean();
@@ -43,6 +47,13 @@ public class AlterarFuncionarioLogica implements Logica {
 			listaTecnologia.add(tecnologia);
 		}
 		
+		List<NegocioBean> listaNegocio = new ArrayList<>();
+		NegocioBusiness negocioBusiness = new NegocioBusiness();
+		NegocioBean negocio;
+		for(int i =0; i < negocios.length; i++){
+			negocio = 	negocioBusiness.obterPorNome(negocios[i]);
+			listaNegocio.add(negocio);
+		}
 		
 		FuncionarioBean funcionarioBean = new FuncionarioBean();
 		funcionarioBean.setId(id);
@@ -52,12 +63,16 @@ public class AlterarFuncionarioLogica implements Logica {
 		funcionarioBean.setEmail(email);
 		funcionarioBean.setCargo(cargoBean);
 		funcionarioBean.setTecnologias(listaTecnologia);
+		funcionarioBean.setNegocios(listaNegocio);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		funcionarioBusiness.atualizar(funcionarioBean);
 		
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
 		funcionariotecnologia.atualizar(funcionarioBean, listaTecnologia);
+		
+		FuncionarioNegocioBusiness funcionarioNegocioBusiness = new FuncionarioNegocioBusiness();
+		funcionarioNegocioBusiness.atualizar(funcionarioBean, listaNegocio);
 		
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 	}
