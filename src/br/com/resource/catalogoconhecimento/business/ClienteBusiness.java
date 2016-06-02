@@ -8,6 +8,12 @@ import br.com.resource.catalogoconhecimento.dao.ClienteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 
 public class ClienteBusiness {
+	
+	private ClienteDAO clienteDao;
+	
+	public ClienteBusiness() {
+		clienteDao = new ClienteDAO();
+	}
 
 	public void adicionar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException, Exception {
 		if (!validarNome(clienteBean.getNome())) {
@@ -23,7 +29,6 @@ public class ClienteBusiness {
 		} else if (!validarCnpj(clienteBean.getCnpj())) {
 			throw new Exception("CNPJ inválido");
 		} else {
-			ClienteDAO clienteDao = new ClienteDAO();
 			if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj())) {
 				clienteDao.adicionar(clienteBean);
 			} else {
@@ -33,10 +38,9 @@ public class ClienteBusiness {
 	}
 
 	public List<ClienteBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		ClienteDAO clienteDao = new ClienteDAO();
 		List<ClienteBean> listaCliente = clienteDao.listar();
 		
-		if (listaCliente == null) {
+		if (listaCliente.isEmpty()) {
 			throw new ConsultaNulaException("Não há clientes cadastrados");
 		} else {
 			return listaCliente;
@@ -44,7 +48,6 @@ public class ClienteBusiness {
 	}
 
 	public void alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException, Exception {
-		ClienteDAO clienteDao = new ClienteDAO();
 		ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 
 		if (cliente == null) {
@@ -67,7 +70,6 @@ public class ClienteBusiness {
 	}
 
 	public void remover(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		ClienteDAO clienteDao = new ClienteDAO();
 		ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 
 		if (cliente != null) {
@@ -76,10 +78,13 @@ public class ClienteBusiness {
 	}
 
 	public ClienteBean obterPorId(int idCliente) throws ClassNotFoundException, SQLException {
-		ClienteDAO clienteDAO = new ClienteDAO();
-		return clienteDAO.obterPorId(idCliente);
+		return clienteDao.obterPorId(idCliente);
 	}
 
+	public ClienteBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+		return clienteDao.obterPorNome(nome);
+	}
+	
 	public boolean validarNome(String nome) {
 		return (nome.matches("[A-Za-zÀ-ú0-9+'?\\-?\\s]+") && nome.length() <= 150);
 	}

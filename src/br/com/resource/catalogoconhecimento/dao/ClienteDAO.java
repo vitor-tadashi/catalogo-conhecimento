@@ -40,7 +40,7 @@ public class ClienteDAO {
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<ClienteBean> listaClientes = new ArrayList<ClienteBean>();
-		ClienteBean clienteBean;
+		ClienteBean clienteBean = null;
 
 		while (rs.next()) {
 			clienteBean = new ClienteBean();
@@ -107,6 +107,35 @@ public class ClienteDAO {
 			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 			conn.close();
 		}
+		return clienteBean;
+	}
+	
+	public ClienteBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "SELECT * FROM Cliente WHERE nomeCliente = ? AND ativo = 'S'";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, nome);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		ClienteBean clienteBean = null;
+		if (rs.next()) {
+			clienteBean = new ClienteBean();
+			clienteBean.setId(rs.getInt("idCliente"));
+			clienteBean.setNome(rs.getString("nomeCliente"));
+			clienteBean.setLogradouro(rs.getString("logradouro"));
+			clienteBean.setCep(rs.getString("cep"));
+			clienteBean.setNumero(rs.getString("numero"));
+			clienteBean.setCnpj(rs.getString("cnpj"));
+			clienteBean.setEmail(rs.getString("email"));
+			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
+		}
+		
+		ps.close();
+		conexao.close();
+		
 		return clienteBean;
 	}
 
