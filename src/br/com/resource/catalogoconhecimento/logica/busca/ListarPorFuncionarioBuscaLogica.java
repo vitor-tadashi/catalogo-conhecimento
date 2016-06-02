@@ -20,13 +20,13 @@ public class ListarPorFuncionarioBuscaLogica implements Logica{
 			throw new BusinessException("Só é possível buscar 1 funcionário por vez");
 		}
 		
-		//List<FuncionarioBean>listaFuncionarios = new FuncionarioBusiness().listarPorNome(array[0]);
+		List<FuncionarioBean>listaFuncionarios = new FuncionarioBusiness().listarPorNome(array[0]);
 		
-		//if(listaFuncionarios.isEmpty()){
-			//throw new BusinessException("Não há funcionários com esse nome");
-		//}
+		if(listaFuncionarios.isEmpty()){
+			throw new BusinessException("Não há funcionários com esse nome");
+		}
 		
-		//request.setAttribute("funcionarios", listaFuncionarios);
+		request.setAttribute("funcionarios", listaFuncionarios);
 		
 		return "WEB-INF/jsp/busca/listarBuscaFuncionario.jsp";
 	}
