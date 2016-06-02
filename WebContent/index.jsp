@@ -83,10 +83,9 @@
 							                     	  </div>
 							                	<input type="hidden" id="filtro"class="form-control" name="filtro" />
 							                	<span class="input-group-btn">
-						                         <button type="button" class="btn btn-primary" style="margin-bottom:10px;height:32px;"><span class="fa fa-search"></span></button>
-							                </span>
-							              </form>      
-							            </div>
+							                	<input type="submit" value = "Pesquisar" class="btn btn-primary fa fa-search" style="margin-bottom:10px;height:32px;">
+							                	</span>
+							              </form>
 							        </div>
 								</div> 
 							</div>
