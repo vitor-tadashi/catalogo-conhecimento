@@ -19,11 +19,6 @@ public class ListarPorNegocioBuscaLogica implements Logica{
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		String [] array = request.getParameter("filtro").split(",");
-		ProjetoBean projetoBean = new ProjetoBean();
-		
-	
-		
-		
 
 		String nomeNegocio = "";
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
@@ -44,7 +39,7 @@ public class ListarPorNegocioBuscaLogica implements Logica{
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorNegocio(nomeNegocio);
 		
 		
-		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorTecnologias(nomeNegocio);
+		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listarPorNegocio(nomeNegocio);
 		
 		
 		request.setAttribute("projetos", projetos);
