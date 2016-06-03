@@ -119,13 +119,11 @@ public class FuncionarioDAO {
 	 */
 	public void alterar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?, nomeUser=?, email =? WHERE idFuncionario = ?";
+		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =? WHERE idFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, funcionarioBean.getNome());
 		ps.setString(2, funcionarioBean.getTelefone());
-		ps.setString(3, funcionarioBean.getNomeUser());
-		ps.setString(4, funcionarioBean.getEmail());
-		ps.setInt(5, funcionarioBean.getId());
+		ps.setInt(3, funcionarioBean.getId());
 
 		ps.executeUpdate();
 		conexao.close();

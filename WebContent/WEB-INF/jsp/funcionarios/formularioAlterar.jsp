@@ -106,21 +106,7 @@
 													</div>
 												</div><!-- /.col -->  
 												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">Email:
-															<input type="email" class="form-control input-sm"  name="email" value ="${funcionario.email}">
-														</label>
-													</div>
-												</div><!-- /.col -->
-												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">Nome de usuario:
-															<input type="text" class="form-control input-sm"  name="nomeUser" value = "${funcionario.nomeUser}">
-														</label>
-													</div>
-												</div><!-- /.col -->																
+																										
 																								
 						
 											</div><!-- /.row -->
