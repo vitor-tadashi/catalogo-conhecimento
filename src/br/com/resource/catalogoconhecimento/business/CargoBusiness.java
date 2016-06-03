@@ -20,7 +20,7 @@ public class CargoBusiness {
 		CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 		CargoBean cargoClone = this.obterPorNome(cargoBean.getNome());
 
-		if (cargoBean.getNome().equals("")) {
+		if (!validarNome(cargoBean.getNome())) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (cargoBean.getNome().length() > 80) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.80)");
@@ -100,5 +100,11 @@ public class CargoBusiness {
 
 		cargoDao.reativar(cargoBean);
 	}
+	
+	public boolean validarNome(String nome){
+		return(nome.matches("[A-Za-zÀ-ú0-9\\s]{2,80}"));
+		
+	}
+	
 
 }

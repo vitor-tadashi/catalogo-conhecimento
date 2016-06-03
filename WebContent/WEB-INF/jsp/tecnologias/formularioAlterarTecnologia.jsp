@@ -63,7 +63,7 @@
 		
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#formAdd').formValidation({
+    $('#formAlt').formValidation({
         err: {
             container: 'tooltip'
         },

@@ -1,8 +1,7 @@
 package br.com.resource.catalogoconhecimento.logica.funcionario;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +15,8 @@ import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
-import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 public class AdicionarFuncionarioLogica implements Logica{
@@ -36,11 +35,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		String data = request.getParameter("dataNascimento");
 		String[] negocios = request.getParameterValues("negociosArray");
 		
-		/**
-		 * CONVETER DATA
-		 */
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		Date dataFormatada = formatador.parse(data);
+		LocalDate dataFormatada = FuncionarioBusiness.formatarData(data);
 		
 		CargoBean cargoBean = new CargoBean();
 		CargoBusiness cargoBusiness = new CargoBusiness();

@@ -26,9 +26,9 @@ public class ConcorrenteBusiness {
 			concorrenteBean.setDescricao("-");
 		}
 
-		if (concorrenteBean.getNome().equals("")) {
+		if (!validarNome(concorrenteBean.getNome())) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else if (concorrenteBean.getNome().length() > 50) {
+		} else if (concorrenteBean.getNome().length() > 100) {
 			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
 		} else if (concorrenteBean.getDescricao().length() > 255) {
 			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
@@ -104,4 +104,8 @@ public class ConcorrenteBusiness {
 		concorrenteDao.reativar(concorrenteBean);
 	}
 
+	public boolean validarNome(String nome) {
+		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{2,100}"));
+	}
+	
 }
