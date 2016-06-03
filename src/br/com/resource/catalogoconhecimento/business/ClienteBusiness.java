@@ -86,7 +86,7 @@ public class ClienteBusiness {
 	}
 	
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-zÀ-ú0-9+'?\\-?\\s]+") && nome.length() <= 150);
+		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{2,150}"));
 	}
 
 	public boolean validarEmail(String email) {
