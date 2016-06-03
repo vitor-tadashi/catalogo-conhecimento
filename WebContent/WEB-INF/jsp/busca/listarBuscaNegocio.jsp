@@ -8,7 +8,7 @@
 
 	<title>Listar Projetos</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
-			<script type="text/javascript">
+<script type="text/javascript">
 	
 		$(document).ready(function(){
 			$("#filtro").tagit();
@@ -78,6 +78,7 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 	</script>
 	
 </head>
+
 <body>
 
 	<c:import url="/resources/jspImport/header.jsp"></c:import> 
@@ -123,7 +124,7 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 									<tbody>
 										<c:forEach var="projeto" items="${projetos}">
 											<tr>
-												<td>${projeto.nome}</td>
+												<td>${projeto.nome}</td>s
 																					
 												<td>
 													<a id="btnTecnologiaPorProjeto" id-projeto="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>

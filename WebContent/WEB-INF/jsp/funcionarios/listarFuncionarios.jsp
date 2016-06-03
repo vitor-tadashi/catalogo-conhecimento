@@ -69,6 +69,7 @@
 											<th>Nome</th>
 											<th>Telefone</th>
 											<th>Tecnologia(s)</th>
+											<th>Negócio(s)</th>
 											<th>Usuário</th>
 											<th>Equipes</th>
 											<th>Email</th>
@@ -92,7 +93,16 @@
 														<option>${tecnologia.nome}</option>
 													</c:forEach>
 													</select>										
-												</td>							
+												</td>
+												
+												<td>
+													<select>
+													<c:forEach var="negocio" items="${funcionario.negocios}">
+														<option>${negocio.areaAtuacao}</option>
+													</c:forEach>
+													</select>										
+												</td>
+																			
 												<td>${funcionario.nomeUser}</td>	
 												
 												<td>
@@ -141,7 +151,7 @@
    			<div class="modal-content">
      				<div class="modal-header">
        				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4>Equipe</h4>
+					<h4>Equipes</h4>
      				</div>
 			    <div class="modal-body">
 			        <table class="table table-striped" id="dataTableEquipe">

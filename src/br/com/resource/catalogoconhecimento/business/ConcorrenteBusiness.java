@@ -10,17 +10,28 @@ import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
-
 public class ConcorrenteBusiness {
+
+	private ConcorrenteDAO concorrenteDao;
+
+	public ConcorrenteBusiness() {
+		concorrenteDao = new ConcorrenteDAO();
+	}
 
 	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
+
+		if (concorrenteBean.getDescricao().equals("")) {
+			concorrenteBean.setDescricao("-");
+		}
+
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
+		} else if (concorrenteBean.getDescricao().length() > 255) {
+			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
 		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
@@ -31,7 +42,6 @@ public class ConcorrenteBusiness {
 	}
 
 	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException, ConsultaNulaException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
 
 		if (listaConcorrente.isEmpty()) {
@@ -43,31 +53,27 @@ public class ConcorrenteBusiness {
 
 	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente)
 			throws SQLException, ClassNotFoundException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-		
 		return concorrenteDao.listarConcorrenteCliente(idConcorrente);
 	}
 
+	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente)
+			throws ClassNotFoundException, SQLException {
+		return concorrenteDao.listarPorNomeCliente(nomeCliente);
+	}
+
 	public ConcorrenteBean obterPorId(int idConcorrente) throws SQLException, ClassNotFoundException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-		
 		return concorrenteDao.obterPorId(idConcorrente);
 	}
 
 	public ConcorrenteBean obterPorNome(String nomeConcorrente) throws ClassNotFoundException, SQLException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
-		
 		return concorrenteDao.obterPorNome(nomeConcorrente);
 	}
 
-	public boolean existe(ConcorrenteBean concorrenteBean)
-			throws SQLException, ClassNotFoundException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
+	public boolean existe(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
 		return concorrenteDao.existe(concorrenteBean);
 	}
 
 	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		return concorrenteDao.obterPorCliente(idCliente);
 	}
 
@@ -78,6 +84,8 @@ public class ConcorrenteBusiness {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+		} else if (concorrenteBean.getDescricao().length() > 255) {
+			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
 		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
@@ -89,12 +97,11 @@ public class ConcorrenteBusiness {
 	}
 
 	public void remover(int idConcorrente) throws ClassNotFoundException, SQLException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		concorrenteDao.remover(idConcorrente);
 	}
 
 	public void reativar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
-		ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 		concorrenteDao.reativar(concorrenteBean);
 	}
+
 }

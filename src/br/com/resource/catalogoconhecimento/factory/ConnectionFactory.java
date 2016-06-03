@@ -10,7 +10,7 @@ public class ConnectionFactory {
 		String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		Class.forName(driver);
 
-		String url = "jdbc:sqlserver://192.168.80.248:1433;instanceName = CatalogoConhecimentos;Database=CatalogoConhecimentos";
+		String url = "jdbc:sqlserver://192.168.81.2:1433;instanceName = CatalogoConhecimentos;Database=CatalogoConhecimentos";
 
 		String user = "sa";
 

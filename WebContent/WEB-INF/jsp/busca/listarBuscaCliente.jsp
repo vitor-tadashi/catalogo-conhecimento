@@ -6,17 +6,15 @@
 <html>
 <head>
 
-	<title>Resultado da Busca</title>
+	<title>Listar Clientes</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
 			<script type="text/javascript">
-	
 		$(document).ready(function(){
 			$("#filtro").tagit();
 		})
 		
-		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
-			
-			$.post("ajax?logica=busca.BuscarTecnologiaPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
+		$(document).on("click", "#btnNegocioPorProjeto", function() { 
+			$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", {idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
@@ -24,27 +22,6 @@
 	            });
 	        });	
 		
-$(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
-			
-			$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario) {
-				$("#dataTableTecnologias tbody tr").detach();	
-				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
-						drawRowTecnologias(item);
-			        });
-	            });
-	        });
-
-
-$(document).on("click", "#btnNegocioPorProjeto", function() { 
-	
-	$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
-		$("#dataTableNegocio tbody tr").detach();	
-		$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
-			drawRowNegocios(item);
-	        });
-        });
-    });	
-    
 $(document).on("click", "#btnEquipePorProjeto", function() { 
 	
 	$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
@@ -88,132 +65,40 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
-				<li>Busca</li>
-				<li class="active">Tecnologia</li>
+				<li>Clientes</li>
+				<li class="active">Listar Clientes</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
-		
-		<ul class="tab-bar grey-tab">
-			<li class="active">
-				<a href="#projetos" data-toggle="tab">
-					<span class="block text-center">
-						<i class="fa fa-sitemap fa-lg"></i> 
-					</span>
-						Projetos					
-				</a>
-			</li>
-			<li>
-				<a href="#funcionarios" data-toggle="tab">
-					<span class="block text-center">
-						<i class="fa fa-group fa-lg"></i> 
-					</span>
-						Funcionários
-				</a>
-			</li>
-		</ul>
-		
-		
-		 
 		<div class="padding-sm">
-			<div class="row">
 			<div class="col-md-12 col-sm-12">
 				<div class="tab-content">
-					<div class="tab-pane fade in active" id="projetos">
+					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Lista de Projetos</h3>
+								<h3>Lista de Concorrentes</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
 								
-								<span class="label label-info pull-right">${fn:length(projetos)}
+								<span class="label label-info pull-right">${fn:length(listaConcorrenteCliente)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
 								<table class="table table-striped" id="dataTable">
 									<thead>
 										<tr>
-											<th>Nome do Projeto</th>
-											<th>Tecnologia</th>
-											<th>Área de Atuação</th>
-											<th>Cliente</th>
-											<th>Equipe</th>
-											<th>Observação</th>
-
+											<th>Nome do Concorrente</th>
+											<th>Descrição</th>
+											<th>Valor / Hora</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projeto" items="${projetos}">
+										<c:forEach var="concorrenteCliente" items="${listaConcorrenteCliente}">
 											<tr>
-												<td>${projeto.nome}</td>
-																					
-												<td>
-													<a id="btnTecnologiaPorProjeto" id-projeto="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
-												</td>	
-												
-												<td>
-													<a id="btnNegocioPorProjeto" id-projeto="${projeto.id}" href="#simpleModalNegocio" role="button" data-toggle="modal" class="btn btn-primary btn-small">Negócio</a>
-												</td>						
-										
-												<td>${projeto.cliente.nome}</td>
-												
-												<td>
-													<c:forEach var="equipe" items="${projeto.listaEquipe}">
-													<a id="btnEquipePorProjeto" id-equipe="${equipe.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">${equipe.nome}</a>
-													</c:forEach>
-												</td>
-												
-												<td>${projeto.observacao}</td>	
-
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-
-							<!-- /.padding-md -->
-						</div>
-						<!-- /panel -->
-					</div>
-					<!-- /tab2 -->
-				</div>
-				<!-- /tab-content -->  
-					<div class="tab-pane fade" id="funcionarios">
-						<div class="panel panel-default table-responsive">
-							<div class="panel-heading">
-								<h3>Lista de Funcionários</h3>
-								
-								<!-- Message Erro-->
-								<c:import url="/resources/jspImport/msgErro.jsp"/>
-								
-								<span class="label label-info pull-right">${fn:length(funcionarios)}
-									registros</span>
-							</div>
-							<div class="padding-md clearfix">
-								<table class="table table-striped" id="dataTable">
-									<thead>
-										<tr>
-											<th>Nome</th>
-											<th>Tecnologia(s)</th>
-											<th>Email</th>
-											<th>Cargo</th>
-
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="funcionario" items="${funcionarios}">
-											<tr>
-												<td>${funcionario.nome}</td>							
-													
-												<td>
-												
-													<a id="btnTecnologiaPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
-																							
-												</td>							
-												<td>${funcionario.email}</td>											
-												<td>${funcionario.cargo.nome}</td>
-													
-
+												<td>${concorrenteCliente.concorrente.nome}</td>
+												<td>${concorrenteCliente.concorrente.descricao}</td>
+												<td>${concorrenteCliente.valorHora}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -230,8 +115,65 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 			<!-- /.col -->
 		</div>
 		<!-- /.padding-md -->
+		<div id="breadcrumb">
+
+		</div>
+		<!--breadcrumb-->
+		<div class="padding-md">
+			<div class="col-md-12 col-sm-12">
+				<div class="tab-content">
+							<div class="panel-heading">
+								<h3>Lista de Projetos</h3>
+								
+								<!-- Message Erro-->
+								<c:import url="/resources/jspImport/msgErro.jsp"/>
+								
+								<span class="label label-info pull-right">${fn:length(listaProjeto)}
+									registros</span>
+							</div>
+							<div class="padding-md clearfix">
+								<table class="table table-striped" id="dataTable">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>Observação</th>
+											<th>Negócio</th>
+											<th>Tecnologia</th>
+											<th>Equipe</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="projeto" items="${listaProjeto}">
+											<tr>
+												<td>${projeto.nome}</td>
+												<td>${projeto.observacao}</td>
+												<td>
+													<a id="btnNegocioPorProjeto" id-projeto="${projeto.id}" href="#simpleModalNegocio" role="button" data-toggle="modal" class="btn btn-primary btn-small">Negócios</a>
+												</td>							
+												<td>
+													<a id="btnTecnologiaPorProjeto" id-tecnologia="${projeto.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
+												</td>							
+												<td>
+													<a id="btnEquipePorProjeto" id-equipe="${projeto.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
+												</td>							
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							<!-- /.padding-md -->
+						</div>
+						<!-- /panel -->
+					</div>
+					<!-- /tab2 -->
+				</div>
+				<!-- /tab-content -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.padding-md -->
 	</div>
- 
+
+	<!-- /main-container -->
 		<!--Modal-->
 	<div class="modal fade" id="simpleModalTecnologia">
  			<div class="modal-dialog">

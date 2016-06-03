@@ -65,32 +65,30 @@
 							        <div class="col-xs-8 col-xs-offset-2"><!-- col-md-6 -->
 									    <div class="input-group">
 									    	<div class="input-group-btn search-panel">
-									    	<c:import url="/resources/jspImport/msgErro.jsp"/>
+									    	
 									    	<!-- <button type="button" class="btn btn-primary" data-toggle="dropdown" style="margin-bottom:12px;height:37px;">
 							                    	<span id="search_concept">Buscar por</span> <span class="caret"></span>
 							                    </button> -->
+							                    
 							                  <form method="post" action ="mvc">
-							                  
-							                  		
 							                    	<select class="btn btn-primary" class="selectpicker" name = "logica" style="margin-bottom:12px;height:31px;" >
-													 <optgroup label="Filtros">
-								                      <option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
-								                      <option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
-								                      <option value="busca.ListarPorFuncionarioBuscaLogica">Funcionário</option>
-								                      <option value="busca.ListarPorClienteBuscaLogica">Cliente</option>
-							                     	 </optgroup>
-							                     	  </select>
-							                     	  </div>
-							                	<input type="hidden" id="filtro"class="form-control" name="filtro" />
-							                	<span class="input-group-btn">
-						                         <button type="button" class="btn btn-primary" style="margin-bottom:10px;height:32px;"><span class="fa fa-search"></span></button>
+												 <optgroup label="Filtros">
+								                    <option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
+								                    <option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
+							                 	 </optgroup>
+							                  </select>
+							                  </div>
+							                <input type="hidden" id="filtro"class="form-control" name="filtro" />
+							                <span class="input-group-btn">
+							                <button type="submit" class="btn btn-primary btn-xs" value="Submit Button" style="margin-bottom:10px;height:32px;"> Pesquisar </button>
 							                </span>
-							              </form>      
-							            </div>
+							              </form>	
+							              
 							        </div>
 								</div> 
 							</div>
-						</div>
+				<c:import url="/resources/jspImport/msgErro.jsp"/>
+						</div>	
 					</div>
 				</div>
 			</div> 
