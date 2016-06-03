@@ -86,17 +86,40 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.html">
+				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
-				<li>Projetos</li>
-				<li class="active">Listar Projetos</li>
+				<li>Busca</li>
+				<li class="active">Tecnologia</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
+		
+		<ul class="tab-bar grey-tab">
+			<li class="active">
+				<a href="#projetos" data-toggle="tab">
+					<span class="block text-center">
+						<i class="fa fa-sitemap fa-lg"></i> 
+					</span>
+						Projetos					
+				</a>
+			</li>
+			<li>
+				<a href="#funcionarios" data-toggle="tab">
+					<span class="block text-center">
+						<i class="fa fa-group fa-lg"></i> 
+					</span>
+						Funcionários
+				</a>
+			</li>
+		</ul>
+		
+		
+		 
 		<div class="padding-sm">
+			<div class="row">
 			<div class="col-md-12 col-sm-12">
 				<div class="tab-content">
-					<div class="tab-pane fade in active" id="research">
+					<div class="tab-pane fade in active" id="projetos">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Lista de Projetos</h3>
@@ -138,7 +161,6 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 												<td>
 													<c:forEach var="equipe" items="${projeto.listaEquipe}">
 													<a id="btnEquipePorProjeto" id-equipe="${equipe.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">${equipe.nome}</a>
-													<br>
 													</c:forEach>
 												</td>
 												
@@ -155,18 +177,9 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 					</div>
 					<!-- /tab2 -->
 				</div>
-				<!-- /tab-content -->
-			</div>
-			<!-- /.col -->
-		</div>
-		<!-- /.padding-md -->
-		<div id="breadcrumb">
-
-		</div>
-		<!--breadcrumb-->
-		<div class="padding-md">
-			<div class="col-md-12 col-sm-12">
-				<div class="tab-content">
+				<!-- /tab-content -->  
+					<div class="tab-pane fade" id="funcionarios">
+						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Lista de Funcionários</h3>
 								
@@ -218,8 +231,7 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 		</div>
 		<!-- /.padding-md -->
 	</div>
-
-	<!-- /main-container -->
+ 
 		<!--Modal-->
 	<div class="modal fade" id="simpleModalTecnologia">
  			<div class="modal-dialog">

@@ -15,7 +15,7 @@
 		<div id="main-container" style="width: auto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					<li><i class="fa fa-home"></i><a href="index.html">
+					<li><i class="fa fa-home"></i><a href="index.jsp">
 							Principal</a></li>
 					<li>Tecnologias</li>
 					<li class="active">Lista de Tecnologias</li>
@@ -78,6 +78,7 @@
 			<!-- /.padding-md -->
 		</div>
 		<!-- /main-container -->
+	</div>	
 		<c:import url="/resources/jspImport/logout.jsp"></c:import>
 		<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	</body>
