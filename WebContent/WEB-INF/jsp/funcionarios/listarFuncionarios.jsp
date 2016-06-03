@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Listar Funcionários</title>
+	<title>Lista de Funcionários</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
 	
 	<script type="text/javascript">
@@ -44,7 +44,7 @@
 				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
 				<li>Funcionários</li>
-				<li class="active">Listar Funcionários</li>
+				<li class="active">Lista de Funcionários</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -54,7 +54,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Listar Funcionários</h3>
+								<h3>Lista de Funcionários</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
@@ -113,7 +113,10 @@
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
 												<td>${funcionario.rg}</td>
-												<td><fmt:formatDate pattern="dd/MM/yyyy" value="${funcionario.dataNascimento}" /></td>
+												<fmt:parseDate value="${funcionario.dataNascimento}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+												<td><fmt:formatDate value="${parsedDate}"  type="date" pattern="dd/MM/yyyy" /></td>
+												
+							
 													
 												<td style="text-align: center;"><a
 													href="mvc?logica=funcionario.FormularioAlterarLogica&nomeFuncionario=${funcionario.nome}">
