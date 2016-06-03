@@ -1,13 +1,19 @@
 package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.CpfInvalidoException;
+import br.com.resource.catalogoconhecimento.exceptions.DataInvalidaException;
 import br.com.resource.catalogoconhecimento.exceptions.EmailInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RgInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -37,6 +43,7 @@ public class FuncionarioBusiness {
 	 */
 	public int adicionar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException, CpfInvalidoException, TamanhoCampoException, EmailInvalidoException, UserInvalidoException, RgInvalidoException {
 		int id=0;
+
 
 		FuncionarioBean funcionarioCloneCpf = funcionarioDao.obterPorCpf(funcionarioBean.getCpf());
 		FuncionarioBean funcionarioCloneMail = funcionarioDao.obterPorEmail(funcionarioBean.getEmail());
@@ -76,7 +83,7 @@ public class FuncionarioBusiness {
 		}else if(funcionarioCloneRg != null){
 			throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " já foi cadastrado na base");
 		}else{
-			id = funcionarioDao.adicionar(funcionarioBean);			
+			id = funcionarioDao.adicionar(funcionarioBean);		
 		}
 		
 		return id;
@@ -208,7 +215,7 @@ public class FuncionarioBusiness {
 				numero.equals("44444444444") || numero.equals("55555555555") ||
 				numero.equals("66666666666") || numero.equals("77777777777") ||
 				numero.equals("88888888888") || numero.equals("99999999999") ||
-		       (numero.length() != 11)){
+		       (numero.length() > 11)){
 			return(false);
 		}else{
 			return (numero.matches("[\\d]+") && numero.length() <= 11);		
@@ -223,7 +230,7 @@ public class FuncionarioBusiness {
 				rg.equals("44444444444") || rg.equals("55555555555") ||
 				rg.equals("66666666666") || rg.equals("77777777777") ||
 				rg.equals("88888888888") || rg.equals("99999999999") ||
-		       (rg.length() != 11)){
+		       (rg.length() > 11)){
 			return(false);
 		}else{
 			return (rg.matches("[\\d]+") && rg.length() <= 11);		
@@ -303,4 +310,35 @@ public class FuncionarioBusiness {
 		  public List<FuncionarioBean>listarPorNome(String nome) throws ClassNotFoundException, SQLException{
 				return funcionarioDao.listarPorNome(nome);
 			}
+		  
+		  public static LocalDate formatarData(String data) throws BusinessException{
+			  
+			  LocalDateTime time = LocalDateTime.now();
+			  int anoAtual = time.getYear();
+			  int mesAtual = time.getMonthValue();
+			  
+			  try{
+				  DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				  LocalDate dataFormatada = LocalDate.parse(data, formatador);
+				  int anoDigitado = dataFormatada.getYear();
+				  int mesDigitado = dataFormatada.getMonthValue();
+				  
+				  if(anoDigitado > anoAtual){
+					  throw new DataInvalidaException("Digite uma data válida");
+				  }else{
+					  
+					  if(anoDigitado == anoAtual){
+						  if(mesDigitado > mesAtual){
+							  throw new DataInvalidaException("Digite uma data válida");
+						  }
+					  }
+					  return dataFormatada;
+				  }
+				  
+			  }catch(DateTimeParseException e){
+				 throw new BusinessException("Por Favor, preecnha todos os campos");
+			  }
+			  
+		  }
+		 
 }

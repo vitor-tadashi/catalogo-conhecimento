@@ -12,24 +12,15 @@ public class InserirEquipeLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		
 		String nome = request.getParameter("nome");
 		String observacao = request.getParameter("observacao");
 
-		if (nome.trim().equals("")) {
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else if (observacao.trim().equals("")) {
-			throw new AtributoNuloException();
-		} else {
+		EquipeBean equipe = new EquipeBean();
+		equipe.setNome(nome.trim());
+		equipe.setObservacao(observacao.trim());
 
-			EquipeBean equipe = new EquipeBean();
-			equipe.setObservacao(observacao.trim());
-			equipe.setNome(nome.trim());
-
-			EquipeBusiness equipeBusiness = new EquipeBusiness();
-			equipeBusiness.inserir(equipe);
-
-		}
+		EquipeBusiness equipeBusiness = new EquipeBusiness();
+		equipeBusiness.inserir(equipe);
 
 		return "mvc?logica=equipe.ListarEquipeLogica";
 

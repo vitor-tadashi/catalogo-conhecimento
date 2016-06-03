@@ -18,7 +18,7 @@ public class AtualizarEquipeLogica implements Logica {
 
 		EquipeBean equipe = new EquipeBean();
 		equipe.setId(id);
-		equipe.setNome(nome);
+		equipe.setNome(nome.trim());
 		equipe.setObservacao(observacao);
 
 		EquipeBusiness equipeBusiness = new EquipeBusiness();

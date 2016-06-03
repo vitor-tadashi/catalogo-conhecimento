@@ -1,7 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class FuncionarioBean {
@@ -15,7 +15,7 @@ public class FuncionarioBean {
 	private List<TecnologiaBean> tecnologias;
 	private String cpf;
 	private String rg;
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private List<NegocioBean> negocios;
 
 
@@ -26,7 +26,7 @@ public class FuncionarioBean {
 	}
 
 	public FuncionarioBean(int idFuncionario, CargoBean cargo, String nomeFuncionario, String telefone, String nomeUser,
-			String email, String cpf, String rg, Date dataNascimento) {
+			String email, String cpf, String rg, LocalDate dataNascimento) {
 
 		this.id = idFuncionario;
 		this.cargo = cargo;
@@ -117,15 +117,16 @@ public class FuncionarioBean {
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-
-	public Date getDataNascimento() {
+	
+	
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
 	
 	public List<NegocioBean> getNegocios() {
 		return negocios;
@@ -134,6 +135,6 @@ public class FuncionarioBean {
 	public void setNegocios(List<NegocioBean> negocios) {
 		this.negocios = negocios;
 	}	
-	
+
 	
 }

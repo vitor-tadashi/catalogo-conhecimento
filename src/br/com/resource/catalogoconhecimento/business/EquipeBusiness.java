@@ -2,6 +2,8 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Pattern;
+
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
@@ -19,10 +21,10 @@ public class EquipeBusiness {
 		
 		
 
-		if (equipeBean.getNome().length() > 200) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.200)");
+		if (!validarNome(equipeBean.getNome())) {
+			throw new TamanhoCampoException("Por Favor, digite um nome válido");
 		} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
-			throw new NomeRepetidoException("Este Funcionário já consta na base de dados");
+			throw new NomeRepetidoException("Esta equipe já consta na base de dados");
 		} else if (equipeBean.getObservacao().length() > 500) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 		} else {
@@ -62,8 +64,8 @@ public class EquipeBusiness {
 		EquipeDAO equipeDAO = new EquipeDAO();
 		EquipeBean equipeigual = equipeDAO.listarPorNome(equipe.getNome());
 
-		if (equipe.getNome().length() > 100) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.100)");
+		if (!validarNome(equipe.getNome()) || equipe.getNome().equals("")) {
+			throw new TamanhoCampoException("Por Favor, digite um nome válido");
 		} else if (equipeigual != null && equipeigual.getId() != equipe.getId()) {
 			throw new NomeRepetidoException("Este nome já consta na base de dados");
 		} else if (equipe.getObservacao().length() > 500) {
@@ -111,6 +113,10 @@ public class EquipeBusiness {
 		EquipeDAO equipeDAO = new EquipeDAO();
 		return equipeDAO.obterPorFuncionario(idFuncionario);
 		
+	}
+	
+	public boolean validarNome(String nome){
+		return (nome.matches("[A-Za-zÀ-ú0-9'\\s]{1,50}"));
 	}
 
 }

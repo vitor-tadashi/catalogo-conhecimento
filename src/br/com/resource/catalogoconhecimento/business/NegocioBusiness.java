@@ -11,24 +11,25 @@ import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class NegocioBusiness {
 
-	public void adicionar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException, 
+	public void inserir(NegocioBean negocioBean) throws ClassNotFoundException, SQLException, 
 	TamanhoCampoException, NomeRepetidoException, AtributoNuloException  {
 		NegocioDAO negocioDao = new NegocioDAO();
 		NegocioBean negocioDesativado = this.obterNomeDesativado(negocioBean);
 		NegocioBean negocioClone = this.obterPorNome(negocioBean.getAreaAtuacao());
 
-		if (negocioBean.getAreaAtuacao().equals("")) {
-			throw new AtributoNuloException("Por favor, digite uma área de atuação válida!");
-		} else if (negocioBean.getAreaAtuacao().length() > 50) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+		if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
+			throw new TamanhoCampoException("Por Favor, digite uma área de atuação válida!");
 		} else if (negocioDesativado != null) {
 				this.reativar(negocioBean);
 		} else if (negocioClone != null) {
-			throw new NomeRepetidoException("Este nome já exite na base de dados");
+			throw new NomeRepetidoException("Este nome já exite na base de dados.");
 		} else{
 			negocioDao.adicionar(negocioBean);
 		}
 	}
+	
+	
+	
 
 	public List<NegocioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		NegocioDAO negocioDao = new NegocioDAO();
@@ -65,10 +66,8 @@ public class NegocioBusiness {
 		NegocioBean negocioDesativado = this.obterNomeDesativado(negocioBean);
 		NegocioBean negocioClone = this.obterPorNome(negocioBean.getAreaAtuacao());
 		
-		if (negocioBean.getAreaAtuacao().equals("")) {
-			throw new AtributoNuloException("Por favor, digite uma área de atuação válida!");
-		} else if (negocioBean.getAreaAtuacao().length() > 50) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50");
+		if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
+			throw new TamanhoCampoException("Por Favor, digite uma área de atuação válida!");
 		} else if (negocioDesativado != null) {
 			this.remover(negocioBean.getId());
 			this.reativar(negocioDesativado);
@@ -83,15 +82,16 @@ public class NegocioBusiness {
 		NegocioDAO negocioDao = new NegocioDAO();
 		
 		negocioDao.remover(id);
-		
-		
-		
 	}
 	
 	public void reativar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException{
 		NegocioDAO negocioDao = new NegocioDAO();
 		
 		negocioDao.reativar(negocioBean);
+	}
+	
+	public boolean validarAreaAtuacao(String areaAtuacao){
+		return (areaAtuacao.matches("[A-Za-zÀ-ú0-9'\\s]{1,50}"));
 	}
 
 }
