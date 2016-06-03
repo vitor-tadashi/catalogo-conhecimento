@@ -7,7 +7,7 @@
 		<title>Alterar Negócio</title>
 		<c:import url="/resources/jspImport/head.jsp"></c:import>
 	</head>
-	<body>
+	<body class="overflow-hidden">
 		<c:import url="/resources/jspImport/header.jsp"></c:import>
 		<div id="main-container" style="width: auto">
 			<div id="breadcrumb">
@@ -25,7 +25,7 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAlterarNegocio" data-validate="parsley" novalidate method="POST" action="mvc">
+										<form class="no-margin" id="formAlt"  method="POST" action="mvc">
 											<div class="panel-heading">
 												<h3>Alterar Negocio</h3>
 											</div>
@@ -34,11 +34,11 @@
 												<!-- Message Erro-->
 													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
 													<input type="hidden" class="form-control input-sm" name="id" value="${negocioBean.id}" readonly>
-													<div class="col-md-4">
+													<div class="col-lg-2">
 														<div class="form-group">
 															<label class="control-label">Área de Atuação
-																<input type="text" class="form-control input-sm" name="areaAtuacao" value="${negocioBean.areaAtuacao}">
-																<input type="hidden" class="form-control input-sm" name="id" value="${negocioBean.id}">
+																<input type="text" class="form-control" maxlength="100" name="areaAtuacao" value="${negocioBean.areaAtuacao}">
+																<input type="hidden" name="id" value="${negocioBean.id}" readonly>
 															</label>
 														</div>
 													</div><!-- /.col -->
@@ -61,5 +61,42 @@
 		<!-- Import Logout Action -->
 		<c:import url="/resources/jspImport/logout.jsp"></c:import>
 		<c:import url="/resources/jspImport/footer.jsp"></c:import>
+		
+		<script type="text/javascript">
+$(document).ready(function() {
+    $('#formAdd').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            nome: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min: 1,
+                        max:100,
+                        message: 'Mínimo de 1 e máximo de 100 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        message: 'Negocio inválido.'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+		
 	</body>
 </html>
