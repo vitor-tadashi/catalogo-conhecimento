@@ -60,7 +60,7 @@
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
-	<script>
+<script type="text/javascript">
 $(document).ready(function() {
     $('#formAdd').formValidation({
         err: {
@@ -73,13 +73,13 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            nome: {
+        	nomeProjeto: {
                 validators: {
                     stringLength: {
                         enabled: true,
-                        min: 1,
-                        max:100,
-                        message: 'Mínimo de 1 e máximo de 100 caracteres.'
+                        min:4,
+                        max:80,
+                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
                     },
                     notEmpty: {
                         message: '* Campo Obrigatório.'
@@ -87,14 +87,57 @@ $(document).ready(function() {
                     regexp: {
                         enabled: true,
                         regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-                        message: 'Negocio inválido.'
+                        message: 'Nome inválido.'
                     }
                 }
-            }
+            },
+            observacao: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:20,
+	                    max:255,
+	                    message: 'Mínimo de 20 e máximo de 255 caracteres.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    message: 'Nome inválido.'
+	                }
+	            }
+	        },
+            'equipesArray[]': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Equipe.'
+	                }
+	            }
+	        }, 
+	        'negociosArray[]': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Área de Negócio.'
+	                }
+	            }
+	        },
+	        'tecnologiasArray[]': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Tecnologia.'
+	                }
+	            }
+	        } 
+	        
         }
     });
 });
-</script>
+</script>	
 		
 	
 </body>

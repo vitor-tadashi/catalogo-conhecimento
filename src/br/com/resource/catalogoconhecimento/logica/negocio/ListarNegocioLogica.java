@@ -13,14 +13,9 @@ public class ListarNegocioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			NegocioBusiness negocioBusiness = new NegocioBusiness();
-			List<NegocioBean> listaNegocio = negocioBusiness.listar();
-			
-			request.setAttribute("listaNegocio", listaNegocio);
-		} catch (Exception e) {
-			request.setAttribute("msgErro", e.getMessage());
-		}
+		List<NegocioBean> listaNegocio = new NegocioBusiness().listar();
+
+		request.setAttribute("listaNegocio", listaNegocio);
 
 		return "/WEB-INF/jsp/negocios/listarNegocio.jsp";
 	}

@@ -19,7 +19,7 @@ public class BuscarFuncionarioPorEquipeNoProjetoAjaxLogica implements Logica {
 		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
 
 		
-		List<FuncionarioBean>funcionarios = new FuncionarioBusiness().obterPorEquipe(idEquipe);
+		List<FuncionarioBean>funcionarios = new FuncionarioBusiness().listarPorEquipe(idEquipe);
 		
 		return new Gson().toJson(funcionarios);
 	}

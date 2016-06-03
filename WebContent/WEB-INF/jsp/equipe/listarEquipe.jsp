@@ -60,7 +60,7 @@
 													<i class="fa fa-times fa-lg"></a></td>
 													
 												<td style="text-align: center;">	
-													<a href="mvc?logica=equipe.ListarFuncionariosPorEquipeLogica&idEquipe=${equipe.id}">
+													<a href="mvc?logica=equipe.ListarFuncionariosPorEquipeLogica&idEquipe=${equipe.id}&logicaAtual=equipe.ListarEquipeLogica">
 														<i class="fa fa-users fa-lg" ></a></td>
 											</tr>
 										</c:forEach>
