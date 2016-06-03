@@ -2,9 +2,11 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
+import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
@@ -76,11 +78,16 @@ public class EquipeBusiness {
 
 	// LISTAR NA BASE
 
-	public List<EquipeBean> listar() throws ClassNotFoundException, SQLException {
-
-		EquipeDAO equipe = new EquipeDAO();
-		return equipe.listar();
-
+	public List<EquipeBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		EquipeDAO equipeDao = new EquipeDAO();
+		
+		List<EquipeBean> listaEquipe = equipeDao.listar();
+		
+		if (listaEquipe.isEmpty()) {
+			throw new ConsultaNulaException("Não há equipes cadastradas");
+		} else {
+			return listaEquipe;
+		}
 	}
 
 	// LISTAR POR ID NA BASE

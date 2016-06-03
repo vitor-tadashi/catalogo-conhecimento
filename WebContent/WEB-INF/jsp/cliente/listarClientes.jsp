@@ -70,7 +70,7 @@
 													href="mvc?logica=cliente.RemoverClienteLogica&id=${cliente.id}"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 												<td style="text-align: center;">	
-													<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}">
+													<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}&logicaAtual=cliente.ListarClienteLogica">
 														<i class="fa fa-users fa-lg" ></i></a>
 												</td>													
 											</tr>

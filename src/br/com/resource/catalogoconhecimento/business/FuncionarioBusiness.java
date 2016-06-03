@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
@@ -91,9 +92,16 @@ public class FuncionarioBusiness {
 	 * @return Lista de funcionários
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ConsultaNulaException 
 	 */
-	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException {
-		return funcionarioDao.listar();
+	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<FuncionarioBean> listaFuncionario = funcionarioDao.listar();
+		
+		if (listaFuncionario.isEmpty()) {
+			throw new ConsultaNulaException("Não existem funcionários cadastrados");
+		} else {
+			return listaFuncionario;
+		}
 	}
 	
 	/**
@@ -187,10 +195,17 @@ public class FuncionarioBusiness {
 	 * @return informações específicas de um funcionário
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ConsultaNulaException 
 	 */
-	public List<FuncionarioBean> obterPorEquipe(int id) throws ClassNotFoundException, SQLException {
-
-		return funcionarioDao.obterPorEquipe(id);
+	public List<FuncionarioBean> listarPorEquipe(int id) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorEquipe(id);
+		
+		if (listaFuncionario.isEmpty()) {
+			EquipeBean equipe = new EquipeBusiness().obterPorId(id);
+			throw new ConsultaNulaException("Não existem funcionários na " + equipe.getNome());
+		} else {
+			return listaFuncionario;
+		}
 	}
 
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{

@@ -2,6 +2,8 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
@@ -52,8 +54,15 @@ public class ConcorrenteBusiness {
 	}
 
 	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente)
-			throws SQLException, ClassNotFoundException {
-		return concorrenteDao.listarConcorrenteCliente(idConcorrente);
+			throws SQLException, ClassNotFoundException, ConsultaNulaException {
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarConcorrenteCliente(idConcorrente);
+		
+		if (listaConcorrenteCliente.isEmpty()) {
+			ConcorrenteBean concorrenteBean = this.obterPorId(idConcorrente);
+			throw new ConsultaNulaException("Não existem clientes no " + concorrenteBean.getNome());
+		} else {
+			return listaConcorrenteCliente;
+		}
 	}
 
 	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente)
@@ -73,8 +82,15 @@ public class ConcorrenteBusiness {
 		return concorrenteDao.existe(concorrenteBean);
 	}
 
-	public List<ConcorrenteClienteBean> obterPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
-		return concorrenteDao.obterPorCliente(idCliente);
+	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarPorCliente(idCliente);
+
+		if (listaConcorrenteCliente.isEmpty()) {
+			ClienteBean clienteBean = new ClienteBusiness().obterPorId(idCliente);
+			throw new ConsultaNulaException("Não existem concorrentes no " + clienteBean.getNome());
+		} else {
+			return listaConcorrenteCliente;
+		}
 	}
 
 	public void alterar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
@@ -107,5 +123,5 @@ public class ConcorrenteBusiness {
 	public boolean validarNome(String nome) {
 		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{2,100}"));
 	}
-	
+
 }
