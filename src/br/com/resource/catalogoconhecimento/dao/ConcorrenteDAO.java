@@ -111,11 +111,15 @@ public class ConcorrenteDAO {
 	
 	public boolean existe(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException{
 		Connection conn = ConnectionFactory.createConnection();
+		
 		String sql = "SELECT * FROM Concorrente WHERE nomeConcorrente = ? and ativo  = ?";
+		
 		PreparedStatement preparedStatement = conn.prepareStatement(sql);
 		preparedStatement.setString(1, concorrenteBean.getNome());
 		preparedStatement.setString(2, "n");
+		
 		ResultSet resultSet = preparedStatement.executeQuery();
+		
 		if (!resultSet.isBeforeFirst() ) {    
 			return false; 
 		} else {
@@ -209,11 +213,16 @@ public class ConcorrenteDAO {
 	
 	public void reativar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException{
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "UPDATE Concorrente SET ativo = ? WHERE nomeConcorrente = ?";
+		
+		String sql = "UPDATE Concorrente SET descricao = ?, ativo = ? WHERE nomeConcorrente = ?";
+		
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1,"s");
-		ps.setString(2, concorrenteBean.getNome());
+		ps.setString(1,concorrenteBean.getDescricao());
+		ps.setString(2,"s");
+		ps.setString(3, concorrenteBean.getNome());
+		
 		ps.executeUpdate();
+		
 		ps.close();
 		conn.close();
 	}

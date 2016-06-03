@@ -10,11 +10,10 @@ import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
-
 public class ConcorrenteBusiness {
-	
+
 	private ConcorrenteDAO concorrenteDao;
-	
+
 	public ConcorrenteBusiness() {
 		concorrenteDao = new ConcorrenteDAO();
 	}
@@ -22,11 +21,13 @@ public class ConcorrenteBusiness {
 	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
-		
+
+		if (concorrenteBean.getDescricao().equals("")) {
+			concorrenteBean.setDescricao("-");
+		}
+
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else if (concorrenteBean.getDescricao().equals("")) {
-			concorrenteBean.setDescricao("-");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
 		} else if (concorrenteBean.getDescricao().length() > 255) {
@@ -54,8 +55,9 @@ public class ConcorrenteBusiness {
 			throws SQLException, ClassNotFoundException {
 		return concorrenteDao.listarConcorrenteCliente(idConcorrente);
 	}
-	
-	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
+
+	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente)
+			throws ClassNotFoundException, SQLException {
 		return concorrenteDao.listarPorNomeCliente(nomeCliente);
 	}
 
@@ -82,6 +84,8 @@ public class ConcorrenteBusiness {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+		} else if (concorrenteBean.getDescricao().length() > 255) {
+			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
 		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
