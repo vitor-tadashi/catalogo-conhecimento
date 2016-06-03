@@ -87,7 +87,7 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]+',
                         message: 'Tecnologia inválida.'
                     }
                 }
