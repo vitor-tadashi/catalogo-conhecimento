@@ -254,7 +254,7 @@ public class FuncionarioDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<FuncionarioBean> obterPorEquipe(int idEquipe) throws ClassNotFoundException, SQLException {
+	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT f.idFuncionario, f.nomeFuncionario, f.email FROM Funcionario AS f"
 				+ " INNER JOIN EquipeFuncionario AS ef  ON f.idFuncionario = ef.idFuncionario"

@@ -12,20 +12,11 @@ public class ListarEquipeLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
 		List<EquipeBean> listaEquipe = new EquipeBusiness().listar();
 		
-
-
 		request.setAttribute("equipes", listaEquipe);
 
 		return "/WEB-INF/jsp/equipe/listarEquipe.jsp";
-		
-		
-		
-		
-		
-
 	}
 
 }

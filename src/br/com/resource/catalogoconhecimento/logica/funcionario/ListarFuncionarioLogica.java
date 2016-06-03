@@ -13,8 +13,6 @@ public class ListarFuncionarioLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-
 		List<FuncionarioBean> listaFuncionario = new FuncionarioBusiness().listar();
 	
 		request.setAttribute("funcionarios",listaFuncionario);

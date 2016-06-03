@@ -7,6 +7,7 @@ import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.TecnologiaDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
@@ -75,7 +76,7 @@ public class TecnologiaBusiness {
 	}
 
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
-			TamanhoCampoException, NomeRepetidoException, AtributoNuloException, RegistroVinculadoException {
+			BusinessException {
 
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
@@ -86,7 +87,7 @@ public class TecnologiaBusiness {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
 			throw new NomeRepetidoException("Este nome já exite na base de dados");
-		} else {
+		}else {
 			tecnologiaDao.alterar(tecnologiaBean);
 		}
 	}
@@ -102,5 +103,9 @@ public class TecnologiaBusiness {
 	public void reativar(TecnologiaBean tecnologia) throws SQLException, ClassNotFoundException {
 		tecnologiaDao.reativar(tecnologia);
 	}
+	
+	
+	
+	
 	
 }

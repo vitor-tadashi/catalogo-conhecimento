@@ -18,7 +18,7 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.html">
+				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
 				<li>Clientes</li>
 				<li class="active">Lista de Clientes</li>
@@ -70,7 +70,7 @@
 													href="mvc?logica=cliente.RemoverClienteLogica&id=${cliente.id}"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 												<td style="text-align: center;">	
-													<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}">
+													<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}&logicaAtual=cliente.ListarClienteLogica">
 														<i class="fa fa-users fa-lg" ></i></a>
 												</td>													
 											</tr>

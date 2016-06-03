@@ -16,10 +16,13 @@ public class ListarConcorrentePorClienteLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<ConcorrenteClienteBean> listaConcorrentesClientes = new ConcorrenteBusiness()
-				.obterPorCliente(Integer.parseInt(request.getParameter("id")));
-		request.setAttribute("concorrentesClientes", listaConcorrentesClientes);
+				.listarPorCliente(Integer.parseInt(request.getParameter("id")));
+		
 		ClienteBean clienteBean = new ClienteBusiness().obterPorId(Integer.parseInt(request.getParameter("id")));
+		
+		request.setAttribute("concorrentesClientes", listaConcorrentesClientes);
 		request.setAttribute("cliente", clienteBean);
+		
 		return "/WEB-INF/jsp/concorrente/listarConcorrentePorCliente.jsp";
 	}
 }
