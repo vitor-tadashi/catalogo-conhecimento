@@ -72,6 +72,60 @@
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
+	<script type="text/javascript">
+$(document).ready(function() {
+    $('#formAdd').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	nomeConcorrente: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:4,
+                        max:100,
+                        message: 'Mínimo de 4 e máximo de 100 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        message: 'Nome inválido.'
+                    }
+                }
+            },
+            descricao: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:20,
+	                    max:255,
+	                    message: 'Mínimo de 2 e máximo de 250 caracteres.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    message: 'Descrição inválida.'
+	                }
+	            }
+	        }
+        }
+    });
+});
+</script>	
+	
 </body>
 
 </html>
