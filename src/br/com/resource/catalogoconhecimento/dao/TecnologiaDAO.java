@@ -53,7 +53,7 @@ public class TecnologiaDAO {
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<TecnologiaBean> listaTecnologia = new ArrayList<TecnologiaBean>();
-		TecnologiaBean tecnologiaBean;
+		TecnologiaBean tecnologiaBean = null;
 		while (rs.next()) {
 			tecnologiaBean = new TecnologiaBean();
 			tecnologiaBean.setId(rs.getInt("idTecnologia"));

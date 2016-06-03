@@ -9,13 +9,17 @@ import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class ProjetoBusiness {
+	
+	private ProjetoDAO projetoDao;
+	
+	public ProjetoBusiness() {
+		projetoDao = new ProjetoDAO();
+	}
 
 	// INSERE NA TABELA PROJETO
 	public void inserir(ProjetoBean projetoBean)
 			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
-
-		ProjetoDAO projetoDAO = new ProjetoDAO();
-		ProjetoBean projetoClone = projetoDAO.obterPorNome(projetoBean);
+		ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 		if (projetoBean.getNome().length() > 150) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
@@ -25,16 +29,15 @@ public class ProjetoBusiness {
 					+ projetoClone.getCliente().getNome());
 		}
 		else{
-			projetoDAO.inserir(projetoBean);
+			projetoDao.inserir(projetoBean);
 		}
 	}
 
 	// CONSULTA NA TABELA PROJETO
 	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-
-		ProjetoDAO projeto = new ProjetoDAO();
-		List<ProjetoBean> listaProjeto = projeto.listar();
-		if (listaProjeto == null) {
+		List<ProjetoBean> listaProjeto = projetoDao.listar();
+		
+		if (listaProjeto.isEmpty()) {
 			throw new ConsultaNulaException("Não há projetos cadastrados!");
 		} else {
 			return listaProjeto;
@@ -45,10 +48,7 @@ public class ProjetoBusiness {
 	// ATUALIZAR NA TABELA PROJETO
 	public void atualizar(ProjetoBean projetoBean)
 			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
-
-		ProjetoDAO projetoDAO = new ProjetoDAO();
-
-		ProjetoBean projetoClone = projetoDAO.obterPorNome(projetoBean);
+		ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 		if (projetoBean.getNome().length() > 150) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
@@ -58,30 +58,25 @@ public class ProjetoBusiness {
 			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
 					+ projetoClone.getCliente().getNome());
 		} else {
-			projetoDAO.atualizar(projetoBean);
+			projetoDao.atualizar(projetoBean);
 		}
 
 	}
 
 	// LISTA POR ID
 	public ProjetoBean obterPorId(int idProjeto) throws ClassNotFoundException, SQLException {
-
-		ProjetoDAO projeto = new ProjetoDAO();
-		return projeto.obterPorId(idProjeto);
+		return projetoDao.obterPorId(idProjeto);
 
 	}
 
 	// DELETA NA TABELA PROJETO
 	public void deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
-
-		ProjetoDAO projetodao = new ProjetoDAO();
-		projetodao.deletar(projeto);
+		projetoDao.deletar(projeto);
 	}
 
 	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias)
 			throws ConsultaNulaException, ClassNotFoundException, SQLException {
-		ProjetoDAO projetoDAO = new ProjetoDAO();
-		List<ProjetoBean> listaProjeto = projetoDAO.obterPorTecnologias(nomeTecnologias);
+		List<ProjetoBean> listaProjeto = projetoDao.obterPorTecnologias(nomeTecnologias);
 		
 		if (listaProjeto == null) {
 			throw new ConsultaNulaException("Não há projetos cadastrados!");
@@ -91,14 +86,17 @@ public class ProjetoBusiness {
 	}
 	public List<ProjetoBean> obterPorNegocio(String nomeNegocio)
 			throws ConsultaNulaException, ClassNotFoundException, SQLException {
-		ProjetoDAO projetoDAO = new ProjetoDAO();
-		List<ProjetoBean> listaProjeto = projetoDAO.obterPorNegocio(nomeNegocio);
+		List<ProjetoBean> listaProjeto = projetoDao.obterPorNegocio(nomeNegocio);
 		
 		if (listaProjeto == null) {
 			throw new ConsultaNulaException("Não há projetos cadastrados!");
 		} else {
 			return listaProjeto;
 		}
+	}
+	
+	public List<ProjetoBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
+		return projetoDao.listarPorNomeCliente(nomeCliente);
 	}
 
 }

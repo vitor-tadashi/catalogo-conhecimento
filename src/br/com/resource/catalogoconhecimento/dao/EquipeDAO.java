@@ -34,7 +34,7 @@ public class EquipeDAO {
 
 		ArrayList<EquipeBean> equipes = new ArrayList<EquipeBean>();
 
-		EquipeBean equipe;
+		EquipeBean equipe = null;
 
 		while (rs.next()) {
 

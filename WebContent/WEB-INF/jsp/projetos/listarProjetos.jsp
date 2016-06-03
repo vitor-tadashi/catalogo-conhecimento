@@ -5,14 +5,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 	<title>Listar Projetos</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
-		
-	
 </head>
 <body>
-
 	<c:import url="/resources/jspImport/header.jsp"></c:import> 
 	
 	<div id="main-container" style="width: auto">
@@ -43,7 +39,6 @@
 								<table class="table table-striped" id="dataTable">
 									<thead>
 										<tr>
-											<th>Identificação</th>
 											<th>Nome do Projeto</th>
 											<th>Área de Atuação</th>
 											<th>Tecnologia</th>
@@ -55,9 +50,8 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projeto" items="${projetos}">
+										<c:forEach var="projeto" items="${listaProjeto}">
 											<tr>
-												<td>${projeto.id}</td>							
 												<td>${projeto.nome}</td>
 												<td>
 													<select>
@@ -117,12 +111,7 @@
 	<!-- /main-container -->
 	</div> 
 	
-
-	
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
-	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
-	
-
 </body>
 </html>
