@@ -331,12 +331,14 @@ public class FuncionarioBusiness {
 			  LocalDateTime time = LocalDateTime.now();
 			  int anoAtual = time.getYear();
 			  int mesAtual = time.getMonthValue();
+			  int diaAtual = time.getDayOfMonth();
 			  
 			  try{
 				  DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				  LocalDate dataFormatada = LocalDate.parse(data, formatador);
 				  int anoDigitado = dataFormatada.getYear();
 				  int mesDigitado = dataFormatada.getMonthValue();
+				  int diaDigitado = dataFormatada.getDayOfMonth();
 				  
 				  if(anoDigitado > anoAtual){
 					  throw new DataInvalidaException("Digite uma data válida");
@@ -344,6 +346,8 @@ public class FuncionarioBusiness {
 					  
 					  if(anoDigitado == anoAtual){
 						  if(mesDigitado > mesAtual){
+							  throw new DataInvalidaException("Digite uma data válida");
+						  }else if(mesDigitado == mesAtual  && diaDigitado > diaAtual){
 							  throw new DataInvalidaException("Digite uma data válida");
 						  }
 					  }
