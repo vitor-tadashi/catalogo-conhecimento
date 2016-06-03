@@ -7,7 +7,7 @@
 	<title>Adicionar Tecnologia</title>
 	 
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
-	
+
 </head>
 <body class="overflow-hidden">
 	<c:import url="/resources/jspImport/header.jsp"></c:import>
@@ -35,10 +35,10 @@
 										<div class="row">
 											<!-- Message Erro-->
 											<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
-											<div class="col-md-4">
+											<div class="col-lg-2">
 												<div class="form-group">
 													<label class="control-label">Nome da Tecnologia 
-														<input type="text" class="form-control input-sm" name="nome" > 	
+														<input type="text" class="form-control" maxlength="50" name="nome" > 	
 													</label>
 												</div>
 											</div>
@@ -71,8 +71,8 @@
 	<!-- Import Logout Action -->
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
-	
-<script type="text/javascript">
+
+<script>
 $(document).ready(function() {
     $('#formAdd').formValidation({
         err: {
@@ -80,29 +80,28 @@ $(document).ready(function() {
         },
 //        trigger: 'blur',
         icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times', 
         },
         fields: {
             nome: {
-                message: 'The username is not valid',
                 validators: {
-                    notEmpty: {
-                        message: 'The username is required and can\'t be empty'
-                    },
                     stringLength: {
-                        min: 6,
-                        max: 30,
-                        message: 'The username must be more than 6 and less than 30 characters long'
+                        enabled: true,
+                        min: 1,
+                        max:50,
+                        message: 'Mínimo de 1 e máximo de 50 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_\.]+$/,
-                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                        enabled: true,
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]{3,50}',
+                        message: 'Tecnologia inválida.'
                     }
                 }
             }
-            
         }
     });
 });
