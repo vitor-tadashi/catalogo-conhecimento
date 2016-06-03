@@ -78,11 +78,12 @@ public class CargoDAO {
 	public CargoBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Cargo WHERE nomeCargo = ?";
+		String sql = "SELECT * FROM Cargo WHERE nomeCargo = ? and ativo = ?";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nome);
-
+		ps.setString(2,  "s");
+		
 		ResultSet rs = ps.executeQuery();
 
 		CargoBean cargoBean = null;
