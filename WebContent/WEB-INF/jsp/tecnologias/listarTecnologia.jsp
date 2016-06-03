@@ -47,7 +47,7 @@
 											<c:forEach var="tecnologia" items="${tecnologias}">
 												<tr>
 													<td>${tecnologia.nome}</td>
-													<td style="text-align: center;"><a
+													<td style="text-align: center;" name=alt${tecnologia.nome}><a
 														href="mvc?logica=tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}"><i
 															class="fa fa-edit fa-lg"></a></td>
 													<td style="text-align: center;"><a
