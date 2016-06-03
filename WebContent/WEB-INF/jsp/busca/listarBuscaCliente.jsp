@@ -63,7 +63,7 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.html">
+				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
 				<li>Clientes</li>
 				<li class="active">Listar Clientes</li>

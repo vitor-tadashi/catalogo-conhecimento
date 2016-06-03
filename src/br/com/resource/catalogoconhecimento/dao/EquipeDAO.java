@@ -79,6 +79,9 @@ public class EquipeDAO {
 		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE idEquipe = ?";
 
 		PreparedStatement stmt = conec.prepareStatement(sql);
+		if(equipe.getObservacao().trim().equals("")){
+			equipe.setObservacao("-");
+		}
 
 		stmt.setString(1, equipe.getNome());
 		stmt.setString(2, equipe.getObservacao());
@@ -170,9 +173,12 @@ public class EquipeDAO {
 
 	public EquipeBean listarPorNome(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Equipe WHERE nome = '" + nome + "'";
+		String sql = "SELECT * FROM Equipe WHERE nome = ? and ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-
+		
+		ps.setString(1, nome);
+		ps.setString(2, "s");
+		
 		ResultSet rs = ps.executeQuery();
 
 		EquipeBean equipe = null;
