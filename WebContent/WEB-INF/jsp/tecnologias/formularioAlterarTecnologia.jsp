@@ -67,10 +67,11 @@ $(document).ready(function() {
         err: {
             container: 'tooltip'
         },
-//        trigger: 'blur', 
+//        trigger: 'blur',
         icon: {
             valid: 'fa fa-check',
-            invalid: 'fa fa-times', 
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
             nome: {
@@ -86,7 +87,7 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]{1,50}',
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
                         message: 'Tecnologia inválida.'
                     }
                 }
