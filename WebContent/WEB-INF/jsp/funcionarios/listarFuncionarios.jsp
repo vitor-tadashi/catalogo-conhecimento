@@ -113,7 +113,10 @@
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
 												<td>${funcionario.rg}</td>
-												<td><fmt:formatDate pattern="dd/MM/yyyy" value="${funcionario.dataNascimento}" /></td>
+												<fmt:parseDate value="${funcionario.dataNascimento}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+												<td><fmt:formatDate value="${parsedDate}"  type="date" pattern="dd/MM/yyyy" /></td>
+												
+							
 													
 												<td style="text-align: center;"><a
 													href="mvc?logica=funcionario.FormularioAlterarLogica&nomeFuncionario=${funcionario.nome}">
