@@ -212,12 +212,12 @@ public class FuncionarioBusiness {
 	public List<FuncionarioBean> listarPorEquipe(int id) throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorEquipe(id);
 		
-		if (listaFuncionario.isEmpty()) {
+//		if (listaFuncionario.isEmpty()) {
 			EquipeBean equipe = new EquipeBusiness().obterPorId(id);
-			throw new ConsultaNulaException("Não existem funcionários na " + equipe.getNome());
-		} else {
+//			throw new ConsultaNulaException("Não existem funcionários na " + equipe.getNome());
+//		} else {
 			return listaFuncionario;
-		}
+//		}
 	}
 
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{
