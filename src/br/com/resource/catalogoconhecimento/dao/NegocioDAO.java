@@ -41,7 +41,7 @@ public class NegocioDAO {
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<NegocioBean> negocios = new ArrayList<NegocioBean>();
-		NegocioBean negocio;
+		NegocioBean negocio = null;
 
 		while (rs.next()) {
 
