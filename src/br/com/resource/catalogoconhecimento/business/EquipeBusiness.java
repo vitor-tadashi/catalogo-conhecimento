@@ -21,7 +21,7 @@ public class EquipeBusiness {
 		
 		
 
-		if (validarNome(equipeBean.getNome())) {
+		if (!validarNome(equipeBean.getNome())) {
 			throw new TamanhoCampoException("Por Favor, digite um nome válido");
 		} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
 			throw new NomeRepetidoException("Esta equipe já consta na base de dados");
