@@ -73,7 +73,7 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	nomeProjeto: {
+        	nomeNegocio: {
                 validators: {
                     stringLength: {
                         enabled: true,
@@ -91,7 +91,7 @@ $(document).ready(function() {
                     }
                 }
             },
-            observacao: {
+            areaAtuacao: {
 	            validators: {
 	                stringLength: {
 	                    enabled: true,
@@ -108,33 +108,7 @@ $(document).ready(function() {
 	                    message: 'Nome inválido.'
 	                }
 	            }
-	        },
-            'equipesArray[]': {
-	            validators: {
-	            	choice: {
-                        min: 1,
-                        message: 'Escolha no mínimo %s Equipe.'
-	                }
-	            }
-	        }, 
-	        'negociosArray[]': {
-	            validators: {
-	            	choice: {
-                        min: 1,
-                        message: 'Escolha no mínimo %s Área de Negócio.'
-	                }
-	            }
-	        },
-	        'tecnologiasArray[]': {
-	            validators: {
-	            	choice: {
-                        min: 1,
-                        message: 'Escolha no mínimo %s Tecnologia.'
-	                }
-	            }
-	        } 
-	        
-        }
+	        }
     });
 });
 </script>	
