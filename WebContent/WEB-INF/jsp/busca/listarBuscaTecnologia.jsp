@@ -138,7 +138,6 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 												<td>
 													<c:forEach var="equipe" items="${projeto.listaEquipe}">
 													<a id="btnEquipePorProjeto" id-equipe="${equipe.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">${equipe.nome}</a>
-													<br>
 													</c:forEach>
 												</td>
 												

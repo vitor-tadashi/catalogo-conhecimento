@@ -78,6 +78,7 @@
 			<!-- /.padding-md -->
 		</div>
 		<!-- /main-container -->
+	</div>	
 		<c:import url="/resources/jspImport/logout.jsp"></c:import>
 		<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	</body>
