@@ -25,7 +25,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-										<form class="no-margin" id="formAdicionarProjeto"  method="POST" action="mvc">
+										<form class="no-margin" id="formAdd"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Cadastrar Projeto</h3>
 										</div>
@@ -35,69 +35,23 @@
 												<!-- Message Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 	
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 									   					<label class="control-label">Nome do Projeto
-															<input type="text" class="form-control input-sm"  name="nomeProjeto" required>
+															<input type="text" class="form-control" maxlength="80" name="nomeProjeto">
 														</label>
 													</div>
 												</div><!-- /.col --> 
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">	
 														<label class="control-label">Observação
-															<input type="text" class="form-control input-sm"  name="observacao" required>
+															<textarea class="form-control" maxlength="255" rows="8" name="observacao"></textarea>
 														</label>
 													</div>
 												</div><!-- /.col --> 
-												<div class="col-md-3">
-													<div class="form-group">
-														<label class="control-label">Equipe:
-					
-																<c:forEach items="${equipes}" var="equipe">
-																	<label class="control-label">		
-																	<input type="checkbox" name="equipesArray[]" value="${equipe.nome}"/>
-																	<span class="custom-checkbox"></span>
-																	${equipe.nome}
-																</label>
-																<br>
-																</c:forEach>
-															</select>
-														</label>
-													</div>
-												</div><!-- /.col -->  
-												<div class="col-md-3">
-													<div class="form-group">
-														<label class="control-label">Negócio:
-														</label>
-														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocios">
-																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}"/>
-																	<span class="custom-checkbox"></span>
-																	${negocios.areaAtuacao}
-																</label>
-																<br>
-															</c:forEach>
-														</div>	
-													</div>
-												</div><!-- /.col --> 
-												<div class="col-md-3">
-													<div class="form-group">
-														<label class="control-label">Tecnologia:
-														</label>
-														<div class="checkbox">
-															<c:forEach items="${tecnologias}" var="tecnologia">
-																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologia.nome}"/>
-																	<span class="custom-checkbox"></span>
-																	${tecnologia.nome}
-																</label>
-																<br>
-															</c:forEach>
-														</div>	
-													</div>
-												</div><!-- /.col --> 
-												<div class="col-md-3">
+											</div>	
+											<div class="row">												 
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Cliente
 															<select class="form-control input-sm" name="cliente">
@@ -108,6 +62,58 @@
 														</label>
 													</div>
 												</div><!-- /.col --> 
+												<div class="col-sm-3">
+													<div class="form-group">
+														<label class="control-label">Equipe:</label>														
+														<div class="checkbox">
+															<c:forEach items="${equipes}" var="equipe">
+																<label class="control-label">		
+																	<input type="checkbox" name="equipesArray[]" value="${equipe.nome}" data-fv-choice="true" data-fv-choice-min="1"  
+																	data-fv-choice-message="Escolha no mínimo 1 Equipe"/>
+																	<span class="custom-checkbox"></span>
+																	${equipe.nome}
+																</label>
+																<br>
+															</c:forEach>
+														</div>
+													</div>
+												</div><!-- /.col -->  
+											</div>	
+											<div class="row">
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">Negócio:
+														</label>
+														<div class="checkbox">
+															<c:forEach items="${negocios}" var="negocios">
+																<label class="control-label">		
+																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
+																	data-fv-choice-message="Escolha no mínimo 1 Área de Negócio"/>
+																	<span class="custom-checkbox"></span>
+																	${negocios.areaAtuacao}
+																</label>
+																<br>
+															</c:forEach>
+														</div>	
+													</div>
+												</div><!-- /.col --> 
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">Tecnologia:
+														</label>
+														<div class="checkbox">
+															<c:forEach items="${tecnologias}" var="tecnologia">
+																<label class="control-label">		
+																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologia.nome}" data-fv-choice="true" data-fv-choice-min="1"  
+																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
+																	<span class="custom-checkbox"></span>
+																	${tecnologia.nome}
+																</label>
+																<br>
+															</c:forEach>
+														</div>	
+													</div>
+												</div><!-- /.col -->
 	 										</div>
 											<input type="hidden" name="logica" value="projeto.InserirProjetoLogica">
 											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioInserirProjetoLogica">
@@ -129,5 +135,84 @@
 	<c:import url="/resources/jspImport/logout.jsp" />
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#formAdd').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	nomeProjeto: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:4,
+                        max:80,
+                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        message: 'Nome inválido.'
+                    }
+                }
+            },
+            observacao: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:20,
+	                    max:255,
+	                    message: 'Mínimo de 20 e máximo de 255 caracteres.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    message: 'Nome inválido.'
+	                }
+	            }
+	        },
+            'equipesArray[]': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Equipe.'
+	                }
+	            }
+	        }, 
+	        'negociosArray[]': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Área de Negócio.'
+	                }
+	            }
+	        },
+	        'tecnologiasArray[]': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Tecnologia.'
+	                }
+	            }
+	        } 
+	        
+        }
+    });
+});
+</script>	
+	
 </body>
 </html>
