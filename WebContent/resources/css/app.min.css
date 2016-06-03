@@ -15,6 +15,9 @@
 	right: 0;
 	z-index: 1000
 }
+input.ng-valid {
+	border: 1px solid green;
+}
 
 @media ( max-width :767px) {
 	#top-nav.fixed {
