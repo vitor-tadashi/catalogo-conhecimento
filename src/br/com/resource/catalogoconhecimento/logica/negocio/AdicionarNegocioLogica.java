@@ -17,7 +17,7 @@ public class AdicionarNegocioLogica implements Logica {
 		negocioBean.setAreaAtuacao(areaAtuacao.trim());
 		
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
-		negocioBusiness.adicionar(negocioBean);
+		negocioBusiness.inserir(negocioBean);
 
 		return "mvc?logica=negocio.ListarNegocioLogica";
 	}
