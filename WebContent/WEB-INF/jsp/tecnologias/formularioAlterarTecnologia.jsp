@@ -46,7 +46,7 @@
 												<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}">		
 											</div>
 											<div class="panel-footer text-left">
-												<button class="btn btn-success" type="submit">Alterar</button>
+												<button class="btn btn-success" id="submit" type="submit">Alterar</button>
 											</div>
 										</form>
 									</div><!-- /panel -->
