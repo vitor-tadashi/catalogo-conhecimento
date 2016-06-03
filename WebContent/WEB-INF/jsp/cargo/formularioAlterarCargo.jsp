@@ -27,7 +27,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlterarCargo" data-validate="parsley" novalidate method="POST" action="mvc">
+									<form class="no-margin" id="formAlt" method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Alterar Cargo</h3>
 										</div>
@@ -37,11 +37,11 @@
 												<!-- Message Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 											 
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Cargo
 															<input type="hidden" class="form-control input-sm" name="id" value="${cargo.id}">
-															<input type="text" class="form-control input-sm" name="nome" value="${cargo.nome}">
+															<input type="text" class="form-control"  maxlength="80"  name="nome" value="${cargo.nome}">
 														</label>
 													</div>
 												</div><!-- /.col --> 		
@@ -66,5 +66,40 @@
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
+<script>
+$(document).ready(function() {
+    $('#formAlt').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            nome: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min: 2,
+                        max:80,
+                        message: 'Mínimo de 2 e máximo de 80 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '[a-zA-ZÀ-ú0-9\s]+$',
+                        message: 'Informe apenas letras e números.'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>
