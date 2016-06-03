@@ -62,7 +62,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Tecnologias
+										Lista de Tecnologias
 									</span>
 									</a>
 								</li>
@@ -93,7 +93,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Negócios
+										Lista de Negócios
 									</span>
 									</a>
 								</li>
@@ -124,7 +124,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Projetos
+										Lista de Projetos
 										</span>
 									</a>
 								</li>
@@ -155,7 +155,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Equipes
+										Lista de Equipes
 									</span>
 									</a>
 								</li>
@@ -173,7 +173,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Funcionários
+										Lista de Funcionários
 									</span>
 									</a>
 								</li>
@@ -191,7 +191,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Cargos
+										Lista de Cargos
 									</span>
 									</a>
 								</li>
@@ -222,7 +222,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 									    </span>
-									    Listar Clientes
+									    Lista de Clientes
 									</span>
 									</a>
 								</li>
@@ -253,7 +253,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Listar Concorrentes
+										Lista de Concorrentes
 									</span>
 									</a>
 								</li>
@@ -262,7 +262,7 @@
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
 										</span>
-										Cadastrar Concorrentes
+										Cadastrar Concorrente
 									</span>
 									</a>
 								</li>

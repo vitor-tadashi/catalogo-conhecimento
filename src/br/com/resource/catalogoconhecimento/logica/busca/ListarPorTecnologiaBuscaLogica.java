@@ -37,10 +37,15 @@ public class ListarPorTecnologiaBuscaLogica implements Logica{
 				}else{
 					nomeTecnologias += ",'"+array[i]+"'";
 				}
-			}else{
-				throw new BusinessException("Pesquisa inválida! Este nome de tecnologia não existe");
 			}
+				
+			}
+		
+		if(nomeTecnologias.isEmpty()){
+			throw new BusinessException("Pesquisa inválida! Este nome de tecnologia não existe");
 		}
+	
+	
 		
 		
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorTecnologias(nomeTecnologias);

@@ -81,10 +81,11 @@ public class TecnologiaDAO {
 		String sql = "SELECT t.idTecnologia, t.nomeTecnologia FROM Tecnologia AS t "
 				+ "INNER JOIN TecnologiaFuncionario AS tf ON tf.idTecnologia = t.idTecnologia "
 				+ "INNER JOIN Funcionario AS f on tf.idFuncionario = f.idFuncionario "
-				+ "WHERE f.idFuncionario = ?";
+				+ "WHERE f.idFuncionario = ? and t.ativo=?";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, idFuncionario);
+		ps.setString(2, "s");
 		
 		ResultSet rs = ps.executeQuery();
 
@@ -118,10 +119,11 @@ public class TecnologiaDAO {
 				+"  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" 
 				+"	ON p.idProjeto = pt.idProjeto"
 				+"	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
-				+"  WHERE p.idProjeto = ?";
+				+"  WHERE p.idProjeto = ? and t.ativo= ?";
 		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, projeto.getId());
+		ps.setString(2, "s");
 		
 		ResultSet rs = ps.executeQuery();
 		
