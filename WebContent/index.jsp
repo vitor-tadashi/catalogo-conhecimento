@@ -71,7 +71,7 @@
 							                    </button> -->
 							                    
 							                  <form method="post" action ="mvc">
-							                    	<select class="btn btn-primary" class="selectpicker" name = "logica" style="margin-bottom:12px;height:31px;" >
+							                    	<select class="btn btn-primary btn-xs" class="selectpicker" name = "logica" style="margin-bottom:12px;height:31px;" >
 												 <optgroup label="Filtros">
 								                    <option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
 								                    <option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
@@ -80,7 +80,7 @@
 							                  </div>
 							                <input type="hidden" id="filtro"class="form-control" name="filtro" />
 							                <span class="input-group-btn">
-							                <button type="submit" class="btn btn-primary btn-xs" value="Submit Button" style="margin-bottom:10px;height:32px;"> Pesquisar </button>
+							      <button type="submit" class="btn btn-primary btn-xs" value="Submit Button" style="margin-bottom:10px;height:32px;"> Pesquisar </button>
 							                </span>
 							              </form>	
 							              
