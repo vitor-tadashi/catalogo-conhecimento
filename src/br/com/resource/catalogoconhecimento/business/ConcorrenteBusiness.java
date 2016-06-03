@@ -22,10 +22,15 @@ public class ConcorrenteBusiness {
 	public void adicionar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
 			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
+		
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (concorrenteBean.getDescricao().equals("")) {
+			concorrenteBean.setDescricao("-");
 		} else if (concorrenteBean.getNome().length() > 50) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
+		} else if (concorrenteBean.getDescricao().length() > 255) {
+			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
 		} else if (this.existe(concorrenteBean)) {
 			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
@@ -62,8 +67,7 @@ public class ConcorrenteBusiness {
 		return concorrenteDao.obterPorNome(nomeConcorrente);
 	}
 
-	public boolean existe(ConcorrenteBean concorrenteBean)
-			throws SQLException, ClassNotFoundException {
+	public boolean existe(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
 		return concorrenteDao.existe(concorrenteBean);
 	}
 
