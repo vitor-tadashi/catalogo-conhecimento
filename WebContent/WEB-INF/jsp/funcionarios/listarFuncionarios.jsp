@@ -49,7 +49,7 @@
 		</div>
 		<!--breadcrumb-->
 		<div class="padding-md">
-			<div class="col-md-12 col-sm-12">
+			<div class=" col-sm-12">
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
@@ -70,12 +70,10 @@
 											<th>Telefone</th>
 											<th>Tecnologia(s)</th>
 											<th>Negócio(s)</th>
-											<th>Usuário</th>
 											<th>Equipes</th>
-											<th>Email</th>
+											<th>Nome de Usuário</th>
 											<th>Cargo</th>
 											<th>CPF</th>
-											<th>RG</th>
 											<th>Data de Nascimento</th>
 											<th style="width: 20px;">Alterar</th>
 											<th style="width: 20px;">Excluir</th>
@@ -103,16 +101,14 @@
 													</select>										
 												</td>
 																			
-												<td>${funcionario.nomeUser}</td>	
 												
 												<td>
 												<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
 												</td>
 																		
-												<td>${funcionario.email}</td>											
+												<td>${funcionario.nomeUser}</td>											
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
-												<td>${funcionario.rg}</td>
 												<fmt:parseDate value="${funcionario.dataNascimento}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
 												<td><fmt:formatDate value="${parsedDate}"  type="date" pattern="dd/MM/yyyy" /></td>
 												
