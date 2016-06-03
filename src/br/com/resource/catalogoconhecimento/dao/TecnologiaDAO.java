@@ -179,10 +179,11 @@ public class TecnologiaDAO {
 	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ?";
+		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ? and ativo = ?";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nome);
+		ps.setString(2, "s");
 
 		ResultSet rs = ps.executeQuery();
 
