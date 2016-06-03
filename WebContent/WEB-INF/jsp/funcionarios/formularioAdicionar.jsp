@@ -34,7 +34,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdicionaTecnologia"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Adicionar Funcionário</h3>
 										</div>
@@ -44,26 +44,26 @@
 												<!-- Message Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome:
-															<input type="text" class="form-control input-sm"  name="nome">
+															<input type="text" class="form-control" maxlength="80" name="nome">
 														</label>
 													</div>
 												</div><!-- /.col -->
 								
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Telefone:
-															<input type="text" class="form-control input-sm"  name="telefone">
+															<input type="text" class="form-control" maxlength="10" placeholder="(99)9999-9999"  name="telefone">
 														</label>
 													</div>
 												</div><!-- /.col -->
 											
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Cargo:
-																<select class="form-control input-sm"  name="cargo">
+																<select class="form-control"  name="cargo">
 																	<c:forEach items="${cargos}" var="cargos">
 																		<option value="${cargos.nome}">${cargos.nome}</option>
 																	</c:forEach>
@@ -72,14 +72,58 @@
 													</div>
 												</div><!-- /.col -->
 
-												<div class="col-md-4">
+												
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">Email:
+															<input type="text" class="form-control" name="email">
+														</label>
+													</div>
+												</div><!-- /.col -->
+												
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">Nome de usuario:
+															<input type="text" class="form-control"  maxlength="80" name="nomeUser">
+														</label>
+													</div>
+												</div><!-- /.col -->
+												
+											</div>
+											<div class="row">	
+											
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">CPF:
+															<input type="text" class="form-control" maxlength="11" placeholder="999.999.999-99" name="cpf">
+														</label>
+													</div>
+												</div><!-- /.col -->
+												
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">RG:
+															<input type="text" class="form-control" maxlength="9" placeholder="99.999.999-9" name="rg">
+														</label>
+													</div>
+												</div><!-- /.col -->
+												
+												<div class="col-sm-2">
+													<div class="form-group">
+														<label class="control-label">Data de nascimento:
+															<input type="text"  id="dataNascimento" class="form-control"  name="dataNascimento">
+														</label>
+													</div>
+												</div><!-- /.col -->
+											 <div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Tecnologia:
 														</label>
 														<div class="checkbox">
 															<c:forEach items="${tecnologias}" var="tecnologias">
 																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray" value="${tecnologias.nome}"/>
+																	<input type="checkbox" name="tecnologiasArray" value="${tecnologias.nome}"data-fv-choice="true" data-fv-choice-min="1"  
+																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
 																	<span class="custom-checkbox"></span>
 																	${tecnologias.nome}
 																</label>
@@ -88,55 +132,15 @@
 														</div>	
 													</div>
 												</div><!-- /.col --> 
-												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">Email:
-															<input type="email" class="form-control input-sm"  name="email">
-														</label>
-													</div>
-												</div><!-- /.col -->
-												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">Nome de usuario:
-															<input type="text" class="form-control input-sm"  name="nomeUser">
-														</label>
-													</div>
-												</div><!-- /.col -->
-												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">CPF:
-															<input type="text" class="form-control input-sm"  name="cpf">
-														</label>
-													</div>
-												</div><!-- /.col -->
-												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">RG:
-															<input type="text" class="form-control input-sm"  name="rg">
-														</label>
-													</div>
-												</div><!-- /.col -->
-												
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="control-label">Data de nascimento:
-															<input type="text"  id="dataNascimento" class="form-control input-sm"  name="dataNascimento">
-														</label>
-													</div>
-												</div><!-- /.col -->
-												
-																								<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Negócios:
 														</label>
 														<div class="checkbox">
 															<c:forEach items="${negocios}" var="negocios">
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray" value="${negocios.areaAtuacao}"/>
+																	<input type="checkbox" name="negociosArray" value="${negocios.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
+																	data-fv-choice-message="Escolha no mínimo 1 Área de Negócio"/>
 																	<span class="custom-checkbox"></span>
 																	${negocios.areaAtuacao}
 																</label>
@@ -170,6 +174,151 @@
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
 	
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#formAdd').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	nome: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:4,
+                        max:80,
+                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '[A-Za-zÁ-ú\s]+$',
+                        message:'Informe apenas letras.'
+                    }
+                }
+            },
+            telefone: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:10,
+	                    max:10,
+	                    message: 'Digitar número de telefone com DDD.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[0-9]+$',
+	                    message: 'Informe apenas números.'
+	                }
+	            }
+	        },
+            cargo: {
+	            validators: {
+	                 
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                }
+	            }
+	        },
+	        'tecnologiasArray': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Tecnologia.'
+	                }
+	            }
+	        }, 
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$',
+                        message: 'E-mail inválido, requerido um @ e um domínico completo'
+                    }
+                }
+            },
+	        nomeUser: {
+	        	validators: {
+	        		notEmpty: {
+                		message: '* Campo Obrigatório.'
+            		},
+		        	stringLength: {
+	                	 enabled: true,
+	                     min:4,
+	                     max:80,
+	                     message: 'Mínimo de 4 e máximo de 80 caracteres.'
+	                }
+	        	}
+	        },
+            cpf: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:11,
+                        max:11,
+                        message: 'CPF contém 11 caracteres'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[0-9]{11}$',
+                        message: 'Informe somente números sem espaços e caracteres especiais'
+                    }
+                }
+            },
+            rg: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:9,
+                        max:9,
+                        message: 'RG contém 11 caracteres'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[0-9]{9}$',
+                        message: 'Informe somente números sem espaços e caracteres especiais'
+                    }
+                }
+            },
+            dataNascimento: {
+                validators: {
+                     notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    } 
+                }
+            },
 
+	        'negociosArray': {
+	            validators: {
+	            	choice: {
+                        min: 1,
+                        message: 'Escolha no mínimo %s Área de Negócio.'
+	                }
+	            }
+	        }            
+        }
+    });
+});
+</script>	
 </body>
 </html>
