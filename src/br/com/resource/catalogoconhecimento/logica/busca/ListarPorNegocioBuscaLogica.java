@@ -30,11 +30,12 @@ public class ListarPorNegocioBuscaLogica implements Logica{
 				}else{
 					nomeNegocio += ",'"+array[i]+"'";
 				}
-			}else{
-				throw new BusinessException("Pesquisa inválida! Este nome de negócio não existe");
 			}
 		}
 		
+		if(nomeNegocio.isEmpty()){
+			throw new BusinessException("Pesquisa inválida! Este nome de negócio não existe");
+		}
 		
 		List<ProjetoBean> projetos = new ProjetoBusiness().obterPorNegocio(nomeNegocio);
 		
@@ -46,6 +47,7 @@ public class ListarPorNegocioBuscaLogica implements Logica{
 		request.setAttribute("funcionarios", listaFuncionario);
 		
 		return "WEB-INF/jsp/busca/listarBuscaNegocio.jsp";
-	}
+	
 
+	}
 }
