@@ -14,7 +14,7 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.html">
+				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
 				<li>Tecnologias</li>
 				<li class="active">Adicionar Tecnologia</li>
