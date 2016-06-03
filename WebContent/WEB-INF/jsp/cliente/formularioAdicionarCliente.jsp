@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -13,18 +14,18 @@
 			var concorrente = $("#concorrente").val();
 			var valorConcorrente = $("#valorConcorrente").val();
 			var count = $('#tbConcorrente tbody tr').length;
-
 			addConcorrente(concorrente, valorConcorrente, count);
 		}
 		
 		function addConcorrente(nome, valor, count) {
 		    var row = $("<tr />")
-
 		    $("#tbConcorrente tbody").append(row);
             row.append("<td>" + nome + "</td>");
             row.append("<td>" + valor + "</td>");
             row.append("<td><button class='delete' type='button'>-</button></td>");
-            row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' />");
+            row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
+            row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
+            $("#countConcorrente").val(count);
 		}
 		
 		$(document).ready(
@@ -118,14 +119,13 @@
 											<!-- /.col -->
 											<div class="col-md-4">
 												<select id="concorrente">
-													<option value="volvo">Volvo</option>
-													<option value="saab">Saab</option>
-													<option value="mercedes">Mercedes</option>
-													<option value="audi">Audi</option>
-												</select> <input id="valorConcorrente" type="text">
+													<c:forEach var="concorrente" items="${concorrentes}">
+														<option>${concorrente.nome}</option>
+													</c:forEach>
+												</select> 
+												<input id="valorConcorrente" type="text">
 												<button type="button" onclick="add()">+</button>
-												<br>
-												<br>
+												<br> <br>
 												<table class="table table-striped" id="tbConcorrente">
 													<thead>
 														<tr>
@@ -142,6 +142,7 @@
 											</div><!-- /.row -->
 											<input type="hidden" name="logicaAtual" value="cliente.FormularioAdicionarClienteLogica">
 											<input type="hidden" name="logica" value="cliente.AdicionarClienteLogica">
+											<input type="hidden" name="countConcorrente" value="0">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>
