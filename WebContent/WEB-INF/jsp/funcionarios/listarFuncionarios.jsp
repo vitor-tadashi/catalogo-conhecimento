@@ -71,7 +71,7 @@
 											<th>Tecnologia(s)</th>
 											<th>Negócio(s)</th>
 											<th>Equipes</th>
-											<th>Email</th>
+											<th>Nome de Usuário</th>
 											<th>Cargo</th>
 											<th>CPF</th>
 											<th>Data de Nascimento</th>
@@ -106,7 +106,7 @@
 												<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
 												</td>
 																		
-												<td>${funcionario.email}</td>											
+												<td>${funcionario.nomeUser}</td>											
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
 												<fmt:parseDate value="${funcionario.dataNascimento}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
