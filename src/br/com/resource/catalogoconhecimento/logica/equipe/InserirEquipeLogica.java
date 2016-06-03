@@ -19,7 +19,7 @@ public class InserirEquipeLogica implements Logica {
 		if (nome.trim().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (observacao.trim().equals("")) {
-			throw new AtributoNuloException();
+			throw new AtributoNuloException("Por favor, digite uma observação válida!");
 		} else {
 
 			EquipeBean equipe = new EquipeBean();
