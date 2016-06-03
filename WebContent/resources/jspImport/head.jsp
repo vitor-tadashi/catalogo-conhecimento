@@ -24,7 +24,7 @@
 	
 	<!-- Validations-->
     <link href="resources/validator/formValidation.css" rel="stylesheet">
-    <link href="resources/validator/formValidation.mim.css" rel="stylesheet">
+    <link href="resources/validator/formValidation.min.css" rel="stylesheet">
 	<script src="resources/validator/bootstrap.js"></script>
 	<script src="resources/validator/formValidation.js"></script>
 	<script src="resources/validator/formValidation.min.js"></script>	
