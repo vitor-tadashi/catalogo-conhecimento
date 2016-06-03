@@ -336,7 +336,7 @@ public class FuncionarioBusiness {
 				  }
 				  
 			  }catch(DateTimeParseException e){
-				 throw new BusinessException("Por Favor, digite todos os campos");
+				 throw new BusinessException("Por Favor, preecnha todos os campos");
 			  }
 			  
 		  }
