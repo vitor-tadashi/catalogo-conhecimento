@@ -1,47 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
 	<title>Adicionar Cliente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
-	
-	<script type="text/javascript">
-		function add() {
-			var concorrente = $("#concorrente").val();
-			var valorConcorrente = $("#valorConcorrente").val();
-			var count = $('#tbConcorrente tbody tr').length;
-			addConcorrente(concorrente, valorConcorrente, count);
-		}
-		
-		function addConcorrente(nome, valor, count) {
-		    var row = $("<tr />")
-		    $("#tbConcorrente tbody").append(row);
-            row.append("<td>" + nome + "</td>");
-            row.append("<td>" + valor + "</td>");
-            row.append("<td><button class='delete' type='button'>-</button></td>");
-            row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
-            row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
-            $("#countConcorrente").val(count);
-		}
-		
-		$(document).ready(
-				function() {
-					$("#tbConcorrente").on('click', '.delete', 
-						function() {
-							$(this).closest('tr').remove();
-						}
-					);
-				}
-			);
-	</script>
-	<script>
-
-	
-	</script>
 </head>
 
 <body class="overflow-hidden">
@@ -51,7 +16,7 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
+				<li><i class="fa fa-home"></i><a href="index.html">
 						Principal</a></li>
 				<li>Clientes</li>
 				<li class="active">Adicionar Cliente</li>
@@ -108,41 +73,17 @@
 															<input type="text" class="form-control input-sm"  name="numero">
 														</label>
 													</div>
-												</div>
-											<div class="col-md-4">
-												<div class="form-group">
-													<label class="control-label">CEP <input type="text"
-														class="form-control input-sm" name="cep">
-													</label>
-												</div>
-											</div>
-											<!-- /.col -->
-											<div class="col-md-4">
-												<select id="concorrente">
-													<c:forEach var="concorrente" items="${concorrentes}">
-														<option>${concorrente.nome}</option>
-													</c:forEach>
-												</select> 
-												<input id="valorConcorrente" type="text">
-												<button type="button" onclick="add()">+</button>
-												<br> <br>
-												<table class="table table-striped" id="tbConcorrente">
-													<thead>
-														<tr>
-															<th>Concorrente</th>
-															<th>Valor</th>
-															<th>Remover</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
-											</div>
-											<!-- /.col -->
+												</div>	
+												<div class="col-md-4">
+													<div class="form-group">	
+														<label class="control-label">CEP
+															<input type="text" class="form-control input-sm"  name="cep">
+														</label>
+													</div>
+												</div><!-- /.col -->
 											</div><!-- /.row -->
 											<input type="hidden" name="logicaAtual" value="cliente.FormularioAdicionarClienteLogica">
 											<input type="hidden" name="logica" value="cliente.AdicionarClienteLogica">
-											<input type="hidden" name="countConcorrente" value="0">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>
