@@ -27,7 +27,7 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAdicionaEquipe"  method="POST" action="mvc">
+										<form class="no-margin" id="formAdd"  method="POST" action="mvc">
 											<div class="panel-heading">
 											<h3>Adicionar Equipe</h3>
 											</div>
@@ -36,15 +36,15 @@
 													<!-- Message Erro-->
 													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
 													
-													<div class="col-md-4">
+													<div class="col-sm-2">
 														<div class="form-group">
 															<label class="control-label">Nome da Equipe
-																<input type="text" class="form-control input-sm"  name="nome" required>
+																<input type="text" class="form-control" maxlength="50" name="nome" >
 															</label>
-														</div>
+														</div>  
 														<div class="form-group">
 															<label class="control-label">Observações
-																<textarea class="form-control input-sm"  name="observacao"></textarea>
+																<textarea class="form-control"  rows="8" minlength="20" maxlength="250" name="observacao"></textarea>
 															</label>
 														</div>
 													</div><!-- /.col -->
@@ -68,5 +68,58 @@
 		<c:import url="/resources/jspImport/logout.jsp"></c:import>
 		<c:import url="/resources/jspImport/footer.jsp"></c:import>
 		
-	</body>
+<script>
+$(document).ready(function() {
+    $('#formAdd').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            nome: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min: 1,
+                        max:50,
+                        message: 'Mínimo de 1 e máximo de 50 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        message: 'Nome inválido.'
+                    }
+                }
+            },
+	        observacao: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:20,
+	                    max:250,
+	                    message: 'Mínimo de 20 e máximo de 250 caracteres.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    message: 'Observação inválida.'
+	                }
+	            }
+	        }
+        }
+    });
+});
+</script>
+</body>
 </html>
