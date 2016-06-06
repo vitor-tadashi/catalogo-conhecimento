@@ -87,7 +87,7 @@ $(document).ready(function() {
                     regexp: {
                         enabled: true,
                         regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-                        message: 'Nome inválido.'
+                        message: 'Negocio inválido.'
                     }
                 }
             },
@@ -95,9 +95,9 @@ $(document).ready(function() {
 	            validators: {
 	                stringLength: {
 	                    enabled: true,
-	                    min:20,
-	                    max:255,
-	                    message: 'Mínimo de 20 e máximo de 255 caracteres.'
+	                    min:2,
+	                    max:100,
+	                    message: 'Mínimo de 2 e máximo de 100 caracteres.'
 	                },
 	                notEmpty: {
 	                    message: '* Campo Obrigatório.'
@@ -105,10 +105,11 @@ $(document).ready(function() {
 	                regexp: {
 	                    enabled: true,
 	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-	                    message: 'Nome inválido.'
-	                }
+	                    message: 'Area de atuação inválida.'
+	               }
 	            }
-	        }
+            }
+        }
     });
 });
 </script>	
