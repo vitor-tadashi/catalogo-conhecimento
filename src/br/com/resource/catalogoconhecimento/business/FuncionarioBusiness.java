@@ -175,16 +175,20 @@ public class FuncionarioBusiness {
 	 * @return boolean
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws BusinessException
 	 */
-	public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
 
-		FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(id);
-		if (funcionarioAux == null) {
-			return true;
-		} else {
-			funcionarioDao.remover(id);
-			return false;
+		FuncionarioBean funcionarioExistente = funcionarioDao.obterPorId(id);
+		
+		if(funcionarioExistente != null){
+			funcionarioDao.remover(id);			
+		}else{
+			throw new BusinessException("Esse usuário não pode ser removido");
 		}
+			
+	
+		
 	}
 
 	/**
