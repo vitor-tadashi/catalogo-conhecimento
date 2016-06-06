@@ -33,7 +33,7 @@
 											<div class="row">
 												<!-- Message Erro-->
 													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
-														<div class="col-lg-2">
+														<div class="col-sm-2">
 															<div class="form-group">
 									   						<label class="control-label">Area de Atuação
 															<input type="text" class="form-control" maxlength="100" name="areaAtuacao" required>

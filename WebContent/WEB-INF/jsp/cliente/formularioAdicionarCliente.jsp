@@ -16,7 +16,7 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.html">
+				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
 				<li>Clientes</li>
 				<li class="active">Adicionar Cliente</li>
@@ -29,7 +29,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdicionaCliente"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Adicionar Cliente</h3>
 										</div>
@@ -39,45 +39,45 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome
-															<input type="text" class="form-control input-sm"  name="nome">
+															<input type="text" class="form-control"  name="nome">
 														</label>
 													</div>
 												</div>	
-												<div class="col-md-4">
+												<div class="col-sm-2">
 												 	<div class="form-group">
 														<label class="control-label">CNPJ
-															<input type="text" class="form-control input-sm"  name="cnpj">
+															<input type="text" class="form-control" name="cnpj">
 														</label>
 													</div>
 												</div>	
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">	
 														<label class="control-label">E-mail
-															<input type="text" class="form-control input-sm"  name="email">
+															<input type="text" class="form-control"  name="email">
 														</label>
 													</div>
 												</div>	
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">	
 														<label class="control-label">Logradouro
-															<input type="text" class="form-control input-sm"  name="logradouro">
+															<input type="text" class="form-control"  name="logradouro">
 														</label>
 													</div>
 												</div>	
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">	
 														<label class="control-label">Número
-															<input type="text" class="form-control input-sm"  name="numero">
+															<input type="text" class="form-control"  name="numero">
 														</label>
 													</div>
 												</div>	
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">	
 														<label class="control-label">CEP
-															<input type="text" class="form-control input-sm"  name="cep">
+															<input type="text" class="form-control"  name="cep">
 														</label>
 													</div>
 												</div><!-- /.col -->
@@ -115,21 +115,21 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	nomeCliente: {
+        	nome: {
                 validators: {
                     stringLength: {
                         enabled: true,
                         min:4,
-                        max:100,
-                        message: 'Mínimo de 4 e máximo de 100 caracteres.'
+                        max:80,
+                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
                     },
                     notEmpty: {
                         message: '* Campo Obrigatório.'
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-                        message: 'Nome inválido.'
+                        regexp: '[A-Za-zÁ-ú\s]+$',
+                        message:'Informe apenas letras.'
                     }
                 }
             },
@@ -137,20 +137,86 @@ $(document).ready(function() {
 	            validators: {
 	                stringLength: {
 	                    enabled: true,
-	                    min:20,
-	                    max:255,
-	                    message: 'Mínimo de 2 e máximo de 50 caracteres.'
+	                    min:14,
+	                    max:14,
+	                    message: 'CNPJ inválido.'
 	                },
 	                notEmpty: {
 	                    message: '* Campo Obrigatório.'
 	                },
 	                regexp: {
 	                    enabled: true,
-	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-	                    message: 'CNPJ inválido.'
+	                    regexp: '^[0-9]+$',
+	                    message: 'Informe somente números sem espaços e caracteres especiais.'
 	                }
 	            }
-	        }
+	        },
+	        email: {
+                validators: {
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$',
+                        message: 'E-mail inválido, requerido um @ e um domínico completo'
+                    }
+                }
+            },
+            logradouro: {
+            	validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:4,
+                        max:100,
+                        message: 'Logadouro inválido.'
+                    },
+                     notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '[A-Za-zÁ-ú\s]+$',
+                        message:'Informe apenas letras.'
+                    }
+                }
+            }, 
+            numero: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:1,
+	                    max:10,
+	                    message: 'Número inválido.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[0-9]+$',
+	                    message: 'Informe apenas números.'
+	                }
+	            }
+	        },
+            cep: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:8,
+                        max:8,
+                        message: 'CEP inválido.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[0-9]{8}$',
+                        message: 'Informe somente números sem espaços e caracteres especiais'
+                    }
+                }
+            }
         }
     });
 });
