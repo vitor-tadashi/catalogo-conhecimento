@@ -34,7 +34,7 @@
 												<!-- Message Erro-->
 													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
 													<input type="hidden" class="form-control input-sm" name="id" value="${negocioBean.id}" readonly>
-													<div class="col-lg-2">
+													<div class="col-sm-2">
 														<div class="form-group">
 															<label class="control-label">Área de Atuação
 																<input type="text" class="form-control" maxlength="100" name="areaAtuacao" value="${negocioBean.areaAtuacao}">
@@ -75,13 +75,13 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            nome: {
+        	nomeNegocio: {
                 validators: {
                     stringLength: {
                         enabled: true,
-                        min: 1,
-                        max:100,
-                        message: 'Mínimo de 1 e máximo de 100 caracteres.'
+                        min:4,
+                        max:80,
+                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
                     },
                     notEmpty: {
                         message: '* Campo Obrigatório.'
@@ -92,6 +92,24 @@ $(document).ready(function() {
                         message: 'Negocio inválido.'
                     }
                 }
+            },
+            areaAtuacao: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:2,
+	                    max:100,
+	                    message: 'Mínimo de 2 e máximo de 100 caracteres.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                },
+	                regexp: {
+	                    enabled: true,
+	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    message: 'Area de atuação inválida.'
+	               }
+	            }
             }
         }
     });

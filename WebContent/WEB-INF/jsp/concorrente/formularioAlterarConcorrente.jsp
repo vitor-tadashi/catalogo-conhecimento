@@ -29,7 +29,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlteraConcorrente"  method="POST" action="mvc">
+									<form class="no-margin" id="formAlt"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Alterar Concorrente</h3>
 										</div>
@@ -39,7 +39,7 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<input type="hidden" class="form-control input-sm" name="id" value="${concorrente.id}" readonly>
 														<label class="control-label">Nome
@@ -72,6 +72,55 @@
 	<c:import url="/resources/jspImport/logout.jsp" />
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+	
+	<script type="text/javascript">
+$(document).ready(function() {
+    $('#formAlt').formValidation({
+        err: {
+            container: 'tooltip'
+        },
+//        trigger: 'blur',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	nomeConcorrente: {
+                validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:4,
+                        max:100,
+                        message: 'Mínimo de 4 e máximo de 100 caracteres.'
+                    },
+                    notEmpty: {
+                        message: '* Campo Obrigatório.'
+                    },
+                    regexp: {
+                        enabled: true,
+                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        message: 'Nome inválido.'
+                    }
+                }
+            },
+            descricao: {
+	            validators: {
+	                stringLength: {
+	                    enabled: true,
+	                    min:10,
+	                    max:255,
+	                    message: 'Mínimo de 10 e máximo de 250 caracteres.'
+	                },
+	                notEmpty: {
+	                    message: '* Campo Obrigatório.'
+	                }
+	            }
+	        }
+        }
+    });
+});
+</script>
 	
 </body>
 
