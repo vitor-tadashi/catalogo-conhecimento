@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -98,9 +99,16 @@ public class FuncionarioBusiness {
 	 * @return Lista de funcionários
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ConsultaNulaException 
 	 */
-	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException {
-		return funcionarioDao.listar();
+	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<FuncionarioBean> listaFuncionario = funcionarioDao.listar();
+		
+		if (listaFuncionario.isEmpty()) {
+			throw new ConsultaNulaException("Não existem funcionários cadastrados");
+		} else {
+			return listaFuncionario;
+		}
 	}
 	
 	/**
@@ -142,16 +150,21 @@ public class FuncionarioBusiness {
 	 * @return boolean
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws TamanhoCampoException 
+	 * @throws EmailInvalidoException 
 	 */
-	public boolean atualizar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
-
-		FuncionarioBean funcionarioAux = funcionarioDao.obterPorId(funcionarioBean.getId());
-
-		if (funcionarioAux == null) {
-			return true;
-		} else {
+	public void atualizar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException, TamanhoCampoException, EmailInvalidoException {
+		
+		if(funcionarioBean.getNome().trim().equals("")){
+			throw new NullPointerException("Preencha o campo de nome corretamante");
+		}else if(!validarNome(funcionarioBean.getNome().trim())){
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
+		}else if(funcionarioBean.getTelefone().trim().equals("")){
+			throw new NullPointerException("Preencha o campo de telefone corretamante");
+		}else if(!validarNumero(funcionarioBean.getTelefone().trim())){
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");	
+		}else {
 			funcionarioDao.alterar(funcionarioBean);
-			return false;
 		}
 	}
 
@@ -194,10 +207,17 @@ public class FuncionarioBusiness {
 	 * @return informações específicas de um funcionário
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ConsultaNulaException 
 	 */
-	public List<FuncionarioBean> obterPorEquipe(int id) throws ClassNotFoundException, SQLException {
-
-		return funcionarioDao.obterPorEquipe(id);
+	public List<FuncionarioBean> listarPorEquipe(int id) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorEquipe(id);
+		
+//		if (listaFuncionario.isEmpty()) {
+			EquipeBean equipe = new EquipeBusiness().obterPorId(id);
+//			throw new ConsultaNulaException("Não existem funcionários na " + equipe.getNome());
+//		} else {
+			return listaFuncionario;
+//		}
 	}
 
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{
@@ -316,12 +336,14 @@ public class FuncionarioBusiness {
 			  LocalDateTime time = LocalDateTime.now();
 			  int anoAtual = time.getYear();
 			  int mesAtual = time.getMonthValue();
+			  int diaAtual = time.getDayOfMonth();
 			  
 			  try{
 				  DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				  LocalDate dataFormatada = LocalDate.parse(data, formatador);
 				  int anoDigitado = dataFormatada.getYear();
 				  int mesDigitado = dataFormatada.getMonthValue();
+				  int diaDigitado = dataFormatada.getDayOfMonth();
 				  
 				  if(anoDigitado > anoAtual){
 					  throw new DataInvalidaException("Digite uma data válida");
@@ -330,13 +352,15 @@ public class FuncionarioBusiness {
 					  if(anoDigitado == anoAtual){
 						  if(mesDigitado > mesAtual){
 							  throw new DataInvalidaException("Digite uma data válida");
+						  }else if(mesDigitado == mesAtual  && diaDigitado > diaAtual){
+							  throw new DataInvalidaException("Digite uma data válida");
 						  }
 					  }
 					  return dataFormatada;
 				  }
 				  
 			  }catch(DateTimeParseException e){
-				 throw new BusinessException("Por Favor, digite todos os campos");
+				 throw new BusinessException("Por Favor, preecnha todos os campos");
 			  }
 			  
 		  }

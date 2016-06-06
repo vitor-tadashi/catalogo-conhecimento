@@ -51,7 +51,7 @@
 														href="mvc?logica=tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}"><i
 															class="fa fa-edit fa-lg"></a></td>
 													<td style="text-align: center;"><a
-														href="mvc?logica=tecnologia.RemoverTecnologiaLogica&id=${tecnologia.id}"><i
+														href="mvc?logica=tecnologia.RemoverTecnologiaLogica&id=${tecnologia.id}&logicaAtual=tecnologia.ListarTecnologiaLogica"><i
 															class="fa fa-times fa-lg"></a></td>
 												</tr>
 											</c:forEach>

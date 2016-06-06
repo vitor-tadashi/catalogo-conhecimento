@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -18,18 +19,18 @@ public class ProjetoBusiness {
 
 	// INSERE NA TABELA PROJETO
 	public void inserir(ProjetoBean projetoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
+			throws Exception {
 		ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
-		if (projetoBean.getNome().length() > 150) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
+		if (!validarNome(projetoBean.getNome())) {
+			throw new BusinessException("Por favor, digite um nome válido!");
 		} else if (projetoClone != null
 				&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
 			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
 					+ projetoClone.getCliente().getNome());
 		}
-		else{
-			projetoDao.inserir(projetoBean);
+		else if(projetoBean.getObservacao().length() > 255){
+			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.255)");
 		}
 	}
 
@@ -97,6 +98,14 @@ public class ProjetoBusiness {
 	
 	public List<ProjetoBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
 		return projetoDao.listarPorNomeCliente(nomeCliente);
+	}
+	
+	public boolean validarNome(String nome){
+		return(nome.matches("[A-Za-zÀ-ú0-9'\\s]{2,150}"));
+	}
+	
+	public boolean validarObservacao(String observacao){
+		return(observacao.matches("[A-Za-zÀ-ú0-9'@&!*\\s]{2,80}"));
 	}
 
 }
