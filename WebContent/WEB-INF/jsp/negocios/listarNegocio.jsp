@@ -51,7 +51,7 @@
 														href="mvc?logica=negocio.FormularioAlterarNegocioLogica&id=${negocioBean.id}">
 														<i class="fa fa-edit fa-lg"></a></td>
 													<td style="text-align: center;"><a
-														href="mvc?logica=negocio.RemoverNegocioLogica&id=${negocioBean.id}">
+														href="mvc?logica=negocio.RemoverNegocioLogica&id=${negocioBean.id}&logicaAtual=negocio.ListarNegocioLogica">
 														<i	class="fa fa-times fa-lg"></a></td>
 													</tr>
 											</c:forEach>
