@@ -24,8 +24,6 @@ public class ControllerServlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ControllerServlet() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

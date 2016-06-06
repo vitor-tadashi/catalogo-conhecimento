@@ -29,7 +29,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdicionaConcorrente"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
 										<div class="panel-heading">
 											<h3>Adicionar Concorrente</h3>
 										</div>
@@ -39,10 +39,10 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-4">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome
-															<input type="text" class="form-control input-sm"  name="nome">
+															<input type="text" class="form-control"  name="nome">
 														</label> 
 												</div>	 
 													<div class="form-group">
@@ -85,7 +85,7 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	nomeConcorrente: {
+        	nome: {
                 validators: {
                     stringLength: {
                         enabled: true,
@@ -109,7 +109,7 @@ $(document).ready(function() {
 	                    enabled: true,
 	                    min:10,
 	                    max:255,
-	                    message: 'Mínimo de 10 e máximo de 250 caracteres.'
+	                    message: 'Mínimo de 10 e máximo de 255 caracteres.'
 	                },
 	                notEmpty: {
 	                    message: '* Campo Obrigatório.'

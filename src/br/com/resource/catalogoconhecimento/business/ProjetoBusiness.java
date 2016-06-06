@@ -7,6 +7,7 @@ import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
+import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class ProjetoBusiness {
@@ -71,8 +72,16 @@ public class ProjetoBusiness {
 	}
 
 	// DELETA NA TABELA PROJETO
-	public void deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
-		projetoDao.deletar(projeto);
+	public void deletar(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
+		
+		
+		if(projetoDao.verificarPorEquipe(id)&& projetoDao.verificarPorNegocio(id)&& projetoDao.verificarPorTecnologia(id)){
+			projetoDao.deletar(id);	
+		}else{
+			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+		}
+		
+		
 	}
 
 	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias)

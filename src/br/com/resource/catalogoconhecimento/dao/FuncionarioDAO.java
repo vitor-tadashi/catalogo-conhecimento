@@ -6,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +41,7 @@ public class FuncionarioDAO {
 		st.setString(6, "s");
 		st.setString(7, funcionarioBean.getCpf());
 		st.setString(8, funcionarioBean.getRg());
-		st.setDate(9,Date.valueOf(funcionarioBean.getDataNascimento().toString()));
+		st.setDate(9, new Date(funcionarioBean.getDataNascimento().getTime()));
 
 		st.executeUpdate();
 		ResultSet rs = st.getGeneratedKeys();
@@ -71,7 +67,7 @@ public class FuncionarioDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT *, CONVERT(VARCHAR,CONVERT(date, dataNascimento, 100), 103) AS Data_Nascimento FROM Funcionario where ativo = ? ORDER BY nomeFuncionario ASC";
+		String sql = "SELECT * FROM Funcionario where ativo = ? ORDER BY nomeFuncionario ASC";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, "s");
 
@@ -88,7 +84,6 @@ public class FuncionarioDAO {
 			List<NegocioBean> negocios = funcionarioNegocioBusiness.joinFuncionarioNegocio(rs.getInt("idFuncionario"));
 
 			funcionarioBean = new FuncionarioBean();
-
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
 			funcionarioBean.setCargo(cargo);
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
@@ -97,11 +92,10 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 			funcionarioBean.setTecnologias(tecnologias);
 			funcionarioBean.setNegocios(negocios);
+			
 
 			listaFuncionarios.add(funcionarioBean);
 		}
@@ -140,13 +134,13 @@ public class FuncionarioDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql2 = "DELETE FROM TecnologiaFuncionario WHERE idFuncionario= ? ";
-		PreparedStatement stmt2 = conexao.prepareStatement(sql2);
+		String sql1 = "DELETE FROM TecnologiaFuncionario WHERE idFuncionario= ? ";
+		PreparedStatement stmt2 = conexao.prepareStatement(sql1);
 		stmt2.setInt(1, id);
 		stmt2.executeUpdate();
 		
-		String sql4 = "DELETE FROM FuncionarioNegocio WHERE idFuncionario= ? ";
-		PreparedStatement stmt4 = conexao.prepareStatement(sql4);
+		String sql2 = "DELETE FROM FuncionarioNegocio WHERE idFuncionario= ? ";
+		PreparedStatement stmt4 = conexao.prepareStatement(sql2);
 		stmt4.setInt(1, id);
 		stmt4.executeUpdate();
 
@@ -155,8 +149,8 @@ public class FuncionarioDAO {
 		stmt3.setInt(1, id);
 		stmt3.executeUpdate();
 
-		String sql1 = "update Funcionario set ativo = ? WHERE idFuncionario= ? ";
-		PreparedStatement stmt1 = conexao.prepareStatement(sql1);
+		String sql4 = "update Funcionario set ativo = ? WHERE idFuncionario= ? ";
+		PreparedStatement stmt1 = conexao.prepareStatement(sql4 );
 
 		stmt1.setString(1, "n");
 		stmt1.setInt(2, id);
@@ -186,7 +180,7 @@ public class FuncionarioDAO {
 		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
 			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
+			
 			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
 			funcionarioBean.setCargo(cargoBean);
@@ -196,10 +190,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
-
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 
 		conexao.close();
@@ -235,9 +226,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 
 		conexao.close();
@@ -315,9 +304,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 
 		conexao.close();
@@ -361,9 +348,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 			
 			listaFuncionario.add(funcionarioBean);
 		}
@@ -409,9 +394,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 
 		conexao.close();
@@ -452,9 +435,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 			
 			listaFuncionario.add(funcionarioBean);
 		}
@@ -487,9 +468,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 
 		}
 
@@ -520,9 +499,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 
 		conexao.close();
@@ -552,9 +529,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
 		}
 
 		conexao.close();
@@ -584,9 +559,8 @@ public class FuncionarioDAO {
 			funcionarioBean.setEmail(rs.getString("email"));
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
-			Instant instant = Instant.ofEpochMilli(rs.getDate("dataNascimento").getTime());
-			LocalDate res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			funcionarioBean.setDataNascimento(res);
+			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+			
 			listaFuncionario.add(funcionarioBean);
 		}
 

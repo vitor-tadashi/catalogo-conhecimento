@@ -6,17 +6,22 @@ import java.util.List;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class EquipeBusiness {
+	
+	private EquipeDAO equipeDAO;
+	
+	public EquipeBusiness(){
+		equipeDAO = new EquipeDAO();
+	}
 
 	// INSERIR NA BASE
-
 	public void inserir(EquipeBean equipeBean) throws ClassNotFoundException, SQLException, Exception {
 
-		EquipeDAO equipeDAO = new EquipeDAO();
 		EquipeBean equipeigual = equipeDAO.listarPorNome(equipeBean.getNome());
 		
 		
@@ -37,7 +42,7 @@ public class EquipeBusiness {
 	
 	public void inserirPorEquipe(int equipe, int funcionario)
 			throws ClassNotFoundException, SQLException, NomeRepetidoException {
-		EquipeDAO equipeDAO = new EquipeDAO();
+		
 		EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
 
 		if (equipeFuncionario != null) {
@@ -49,10 +54,17 @@ public class EquipeBusiness {
 
 	// DELETAR NA BASE
 
-	public void deletar(EquipeBean id) throws ClassNotFoundException, SQLException {
+	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
 
-		EquipeDAO equipeDAO = new EquipeDAO();
-		equipeDAO.deletar(id);
+		EquipeBean equipeExistente = new EquipeBean();
+		equipeExistente = equipeDAO.obterPorId(id);
+		
+		if(equipeExistente != null){
+			equipeDAO.deletar(equipeExistente);			
+		}else{
+			throw new BusinessException("Essa equipe não pode ser deletada");
+		}
+		
 
 	}
 
@@ -61,7 +73,6 @@ public class EquipeBusiness {
 	public void atualizar(EquipeBean equipe)
 			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
 
-		EquipeDAO equipeDAO = new EquipeDAO();
 		EquipeBean equipeigual = equipeDAO.listarPorNome(equipe.getNome());
 
 		if (!validarNome(equipe.getNome()) || equipe.getNome().equals("")) {
@@ -79,9 +90,8 @@ public class EquipeBusiness {
 	// LISTAR NA BASE
 
 	public List<EquipeBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		EquipeDAO equipeDao = new EquipeDAO();
 		
-		List<EquipeBean> listaEquipe = equipeDao.listar();
+		List<EquipeBean> listaEquipe = equipeDAO.listar();
 		
 		if (listaEquipe.isEmpty()) {
 			throw new ConsultaNulaException("Não há equipes cadastradas");
@@ -94,28 +104,26 @@ public class EquipeBusiness {
 
 	public EquipeBean obterPorId(int id) throws ClassNotFoundException, SQLException {
 
-		EquipeDAO equipe = new EquipeDAO();
-		return equipe.obterPorId(id);
+		return equipeDAO.obterPorId(id);
 
 	}
 	
 	// LISTAR POR NOME NA BASE
 	
 	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException{
-		EquipeDAO equipe = new EquipeDAO();
-		return equipe.obterPorNome(nome);
+		
+		return equipeDAO.obterPorNome(nome);
 	}
  
 	//DELETAR POR EQUIPE NA BASE
 	
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		EquipeDAO equipeDAO = new EquipeDAO();
+
 		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
 	}
 
 	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
-		EquipeDAO equipeDAO = new EquipeDAO();
+		
 		return equipeDAO.obterPorFuncionario(idFuncionario);
 		
 	}
