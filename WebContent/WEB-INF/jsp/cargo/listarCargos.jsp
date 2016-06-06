@@ -53,7 +53,7 @@
 													<a href="mvc?logica=cargo.FormularioAlterarCargoLogica&id=${cargo.id}">
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;">
-													<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargo.id}">
+													<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargo.id}&logicaAtual=cargo.ListarCargoLogica">
 													<i class="fa fa-times fa-lg"></a></td>
 											</tr>
 										</c:forEach>
