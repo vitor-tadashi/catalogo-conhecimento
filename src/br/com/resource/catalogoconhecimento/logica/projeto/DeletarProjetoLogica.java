@@ -3,8 +3,6 @@ package br.com.resource.catalogoconhecimento.logica.projeto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
@@ -15,10 +13,11 @@ public class DeletarProjetoLogica implements Logica {
 
 		int idProjeto = Integer.parseInt(request.getParameter("idProjeto"));
 
+
 		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
-		ProjetoBean projeto = projetoBusiness.obterPorId(idProjeto);
+
 		
-		projetoBusiness.deletar(projeto);
+		projetoBusiness.deletar(idProjeto);
 		
 
 		return "mvc?logica=projeto.ListarProjetoLogica";
