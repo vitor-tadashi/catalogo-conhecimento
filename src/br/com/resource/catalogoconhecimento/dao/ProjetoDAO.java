@@ -105,18 +105,16 @@ public class ProjetoDAO {
 	}
 
 	// DELETA NA TABELA PROJETO
-	public void deletar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
+	public void deletar(int id) throws ClassNotFoundException, SQLException {
 
 		Connection conn = ConnectionFactory.createConnection();
-		ProjetoNegocioDAO projetoNegocio = new ProjetoNegocioDAO();
 
 		String sql = "update projeto set ativo = ? where idProjeto = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 
 		stmt.setString(1, "n");
-		stmt.setInt(2, projeto.getId());
+		stmt.setInt(2, id);
 
-		projetoNegocio.deletar(projeto);
 		stmt.executeUpdate();
 		conn.close();
 
@@ -154,7 +152,7 @@ public class ProjetoDAO {
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, projeto.getNome());
 		ps.setInt(2, projeto.getCliente().getId());
-		ps.setString(3,"s");
+		ps.setString(3, "s");
 
 		ResultSet rs = ps.executeQuery();
 		ProjetoBean projetoBean = null;
@@ -187,15 +185,12 @@ public class ProjetoDAO {
 
 	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-	
-		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
-				  + " FROM Projeto p"
-			      + " INNER JOIN ProjetoTecnologia pt ON p.idProjeto = pt.idProjeto"
-			      + " INNER JOIN Tecnologia t on pt.idTecnologia = t.idTecnologia"
-				  +	" WHERE t.nomeTecnologia IN ("+ nomeTecnologias +") "
-				  + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
-				  + " HAVING COUNT(p.idProjeto) > 0";
-		
+
+		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao" + " FROM Projeto p"
+				+ " INNER JOIN ProjetoTecnologia pt ON p.idProjeto = pt.idProjeto"
+				+ " INNER JOIN Tecnologia t on pt.idTecnologia = t.idTecnologia" + " WHERE t.nomeTecnologia IN ("
+				+ nomeTecnologias + ") " + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
+				+ " HAVING COUNT(p.idProjeto) > 0";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -250,18 +245,15 @@ public class ProjetoDAO {
 		ps.close();
 		return projetoBean;
 	}
-	
+
 	public List<ProjetoBean> obterPorNegocio(String nomeNegocio) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
-	
-		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
-				  + " FROM Projeto p"
-			      + " INNER JOIN ProjetoNegocio pn ON p.idProjeto = pn.idProjeto"
-			      + " INNER JOIN Negocio n on pn.idNegocio = n.idNegocio"
-				  +	" WHERE n.areaAtuacao IN ("+nomeNegocio+") "
-				  + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
-				  + " HAVING COUNT(p.idProjeto) > 0";
-		
+
+		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao" + " FROM Projeto p"
+				+ " INNER JOIN ProjetoNegocio pn ON p.idProjeto = pn.idProjeto"
+				+ " INNER JOIN Negocio n on pn.idNegocio = n.idNegocio" + " WHERE n.areaAtuacao IN (" + nomeNegocio
+				+ ") " + " GROUP BY p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao"
+				+ " HAVING COUNT(p.idProjeto) > 0";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -296,16 +288,16 @@ public class ProjetoDAO {
 
 	public List<ProjetoBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		
+
 		String sql = "SELECT p.nomeProjeto, p.observacao "
 				+ "FROM Projeto AS p INNER JOIN Cliente AS c ON p.idCliente = c.idCliente "
 				+ "WHERE c.nomeCliente = ? AND p.ativo = 's' AND c.ativo = 's'";
-		
+
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nomeCliente);
-		
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		ArrayList<ProjetoBean> listaProjeto = new ArrayList<ProjetoBean>();
 		while (rs.next()) {
 			ProjetoBean projetoBean = new ProjetoBean();
@@ -315,11 +307,63 @@ public class ProjetoDAO {
 
 			listaProjeto.add(projetoBean);
 		}
-		
+
 		ps.close();
 		conexao.close();
-		
+
 		return listaProjeto;
 	}
-	
+
+	public boolean verificarPorEquipe(int id) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM ProjetoEquipe WHERE idProjeto=?";
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+
+		boolean check = true;
+		while (rs.next()) {
+			check = false;
+
+		}
+		conec.close();
+		ps.close();
+
+		return check;
+	}
+
+	public boolean verificarPorNegocio(int id) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM ProjetoNegocio WHERE idProjeto=?";
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+
+		boolean check = true;
+		while (rs.next()) {
+			check = false;
+		}
+		conec.close();
+		ps.close();
+
+		return check;
+	}
+
+	public boolean verificarPorTecnologia(int id) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM ProjetoTecnologia WHERE idProjeto=?";
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+
+		boolean check = true;
+		while (rs.next()) {
+			check = false;
+		}
+		conec.close();
+		ps.close();
+
+		return check;
+	}
+
 }

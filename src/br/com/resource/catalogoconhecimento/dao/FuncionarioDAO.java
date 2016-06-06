@@ -134,13 +134,13 @@ public class FuncionarioDAO {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql2 = "DELETE FROM TecnologiaFuncionario WHERE idFuncionario= ? ";
-		PreparedStatement stmt2 = conexao.prepareStatement(sql2);
+		String sql1 = "DELETE FROM TecnologiaFuncionario WHERE idFuncionario= ? ";
+		PreparedStatement stmt2 = conexao.prepareStatement(sql1);
 		stmt2.setInt(1, id);
 		stmt2.executeUpdate();
 		
-		String sql4 = "DELETE FROM FuncionarioNegocio WHERE idFuncionario= ? ";
-		PreparedStatement stmt4 = conexao.prepareStatement(sql4);
+		String sql2 = "DELETE FROM FuncionarioNegocio WHERE idFuncionario= ? ";
+		PreparedStatement stmt4 = conexao.prepareStatement(sql2);
 		stmt4.setInt(1, id);
 		stmt4.executeUpdate();
 
@@ -149,8 +149,8 @@ public class FuncionarioDAO {
 		stmt3.setInt(1, id);
 		stmt3.executeUpdate();
 
-		String sql1 = "update Funcionario set ativo = ? WHERE idFuncionario= ? ";
-		PreparedStatement stmt1 = conexao.prepareStatement(sql1);
+		String sql4 = "update Funcionario set ativo = ? WHERE idFuncionario= ? ";
+		PreparedStatement stmt1 = conexao.prepareStatement(sql4 );
 
 		stmt1.setString(1, "n");
 		stmt1.setInt(2, id);

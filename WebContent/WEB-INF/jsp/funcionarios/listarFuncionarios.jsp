@@ -28,6 +28,23 @@
 		    $("#dataTableEquipe tbody").append(row);
             row.append($("<td>" + rowData.nome + "</td>"));
 	}
+	        
+	        $(document).on("click", "#btnTecnologia", function() { 
+	        	
+	        	$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-func')}, function(listaTecnologias) {
+	        		$("#dataTableTecnologia tbody tr").detach();	
+	        		$.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
+	        			drawRowTecnologia(item);
+	        	        });
+	                });
+	            });	
+	        	
+	        	        function drawRowTecnologia(rowData) {
+	        		    var row = $("<tr />")
+
+	        		    $("#dataTableTecnologia tbody").append(row);
+	                    row.append($("<td>" + rowData.nome + "</td>"));
+	        	}
 	
 	</script>
 	
@@ -86,11 +103,7 @@
 												<td>${funcionario.telefone}</td>
 													
 												<td>
-													<select>
-													<c:forEach var="tecnologia" items="${funcionario.tecnologias}">
-														<option>${tecnologia.nome}</option>
-													</c:forEach>
-													</select>										
+													<a id="btnTecnologia" id-func="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>								
 												</td>
 												
 												<td>
@@ -154,6 +167,31 @@
      				</div>
 			    <div class="modal-body">
 			        <table class="table table-striped" id="dataTableEquipe">
+						<thead >
+							<tr>
+							</tr>
+						</thead>
+						<tbody >
+							
+						</tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			    </div>
+		  	</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="simpleModalTecnologia">
+ 			<div class="modal-dialog">
+   			<div class="modal-content">
+     				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Tecnologias</h4>
+     				</div>
+			    <div class="modal-body">
+			        <table class="table table-striped" id="dataTableTecnologia">
 						<thead >
 							<tr>
 							</tr>

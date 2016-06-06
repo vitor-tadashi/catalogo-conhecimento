@@ -83,7 +83,7 @@
 													href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}">
+													href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}&logicaAtual=projeto.ListarProjetoLogica">
 													<i	class="fa fa-times fa-lg"></a></td>
 											</tr>
 										</c:forEach>

@@ -2,17 +2,7 @@ package br.com.resource.catalogoconhecimento.logica.equipe;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-
-
-
-
-
-
-import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
-import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
 
@@ -23,17 +13,8 @@ public class DeletarEquipeLogica implements Logica {
 		
 		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
 		
-		EquipeBean equipe = new EquipeBean();
-		equipe.setId(idEquipe);
-		
 		EquipeBusiness equipebusiness = new EquipeBusiness();
-		equipebusiness.deletar(equipe);
-				
-		
-		EquipeDAO equipeDAO = new EquipeDAO();
-		equipeDAO.obterPorId(idEquipe);
-		equipeDAO.deletar(equipe);
-		
+		equipebusiness.deletar(idEquipe);
 		
 		return "mvc?logica=equipe.ListarEquipeLogica";
 			

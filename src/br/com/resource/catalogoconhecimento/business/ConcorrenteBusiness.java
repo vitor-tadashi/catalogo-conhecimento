@@ -10,6 +10,7 @@ import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
+import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class ConcorrenteBusiness {
@@ -98,6 +99,8 @@ public class ConcorrenteBusiness {
 		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (!validarNome(concorrenteBean.getNome())) {
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (concorrenteBean.getDescricao().length() > 255) {
@@ -112,8 +115,15 @@ public class ConcorrenteBusiness {
 		}
 	}
 
-	public void remover(int idConcorrente) throws ClassNotFoundException, SQLException {
-		concorrenteDao.remover(idConcorrente);
+	public void remover(int idConcorrente) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
+		if(concorrenteDao.verificarPorCliente(idConcorrente)){
+			concorrenteDao.remover(idConcorrente);	
+		}else{
+			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+		}
+			
+		
+		
 	}
 
 	public void reativar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
