@@ -7,8 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
-
-import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -22,11 +20,11 @@ import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
 
 public class FuncionarioBusiness {
 
-	private FuncionarioDAO funcionarioDao;
+	private FuncionarioDAO funcionarioDAO;
 
 	public FuncionarioBusiness() {
 
-		funcionarioDao = new FuncionarioDAO();
+		funcionarioDAO = new FuncionarioDAO();
 	}
 
 	/**
@@ -46,10 +44,10 @@ public class FuncionarioBusiness {
 		int id=0;
 
 
-		FuncionarioBean funcionarioCloneCpf = funcionarioDao.obterPorCpf(funcionarioBean.getCpf());
-		FuncionarioBean funcionarioCloneMail = funcionarioDao.obterPorEmail(funcionarioBean.getEmail());
-		FuncionarioBean funcionarioCloneUser = funcionarioDao.obterPorUser(funcionarioBean.getNomeUser());
-		FuncionarioBean funcionarioCloneRg = funcionarioDao.obterPorRg(funcionarioBean.getRg());
+		FuncionarioBean funcionarioCloneCpf = funcionarioDAO.obterPorCpf(funcionarioBean.getCpf());
+		FuncionarioBean funcionarioCloneMail = funcionarioDAO.obterPorEmail(funcionarioBean.getEmail());
+		FuncionarioBean funcionarioCloneUser = funcionarioDAO.obterPorUser(funcionarioBean.getNomeUser());
+		FuncionarioBean funcionarioCloneRg = funcionarioDAO.obterPorRg(funcionarioBean.getRg());
 		
 		if(funcionarioBean.getNome().trim().equals("")){
 			throw new NullPointerException("Preencha o campo de nome corretamante");
@@ -84,7 +82,7 @@ public class FuncionarioBusiness {
 		}else if(funcionarioCloneRg != null){
 			throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " já foi cadastrado na base");
 		}else{
-			id = funcionarioDao.adicionar(funcionarioBean);		
+			id = funcionarioDAO.adicionar(funcionarioBean);		
 		}
 		
 		return id;
@@ -102,7 +100,7 @@ public class FuncionarioBusiness {
 	 * @throws ConsultaNulaException 
 	 */
 	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<FuncionarioBean> listaFuncionario = funcionarioDao.listar();
+		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listar();
 		
 		if (listaFuncionario.isEmpty()) {
 			throw new ConsultaNulaException("Não existem funcionários cadastrados");
@@ -121,7 +119,7 @@ public class FuncionarioBusiness {
 	 * @throws ConsultaNulaException
 	 */
 	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorTecnologias(nomeTecnologias);
+		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorTecnologias(nomeTecnologias);
 		
 		if (listaFuncionario == null) {
 			throw new ConsultaNulaException("Não há funcionários cadastrados");
@@ -140,7 +138,7 @@ public class FuncionarioBusiness {
 	 */
 	public FuncionarioBean obterPorId(int idFuncionario) throws ClassNotFoundException, SQLException {
 
-		return funcionarioDao.obterPorId(idFuncionario);
+		return funcionarioDAO.obterPorId(idFuncionario);
 	}
 
 	/**
@@ -164,7 +162,7 @@ public class FuncionarioBusiness {
 		}else if(!validarNumero(funcionarioBean.getTelefone().trim())){
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");	
 		}else {
-			funcionarioDao.alterar(funcionarioBean);
+			funcionarioDAO.alterar(funcionarioBean);
 		}
 	}
 
@@ -179,10 +177,10 @@ public class FuncionarioBusiness {
 	 */
 	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
 
-		FuncionarioBean funcionarioExistente = funcionarioDao.obterPorId(id);
+		FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
 		
 		if(funcionarioExistente != null){
-			funcionarioDao.remover(id);			
+			funcionarioDAO.remover(id);			
 		}else{
 			throw new BusinessException("Esse usuário não pode ser removido");
 		}
@@ -201,7 +199,7 @@ public class FuncionarioBusiness {
 	 */
 	public FuncionarioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 
-		return funcionarioDao.obterPorNome(nome);
+		return funcionarioDAO.obterPorNome(nome);
 	}
 
 	/**
@@ -214,10 +212,10 @@ public class FuncionarioBusiness {
 	 * @throws ConsultaNulaException 
 	 */
 	public List<FuncionarioBean> listarPorEquipe(int id) throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<FuncionarioBean> listaFuncionario = funcionarioDao.listarPorEquipe(id);
+		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorEquipe(id);
 		
 //		if (listaFuncionario.isEmpty()) {
-			EquipeBean equipe = new EquipeBusiness().obterPorId(id);
+//			EquipeBean equipe = new EquipeBusiness().obterPorId(id);
 //			throw new ConsultaNulaException("Não existem funcionários na " + equipe.getNome());
 //		} else {
 			return listaFuncionario;
@@ -225,7 +223,7 @@ public class FuncionarioBusiness {
 	}
 
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{
-		return funcionarioDao.listarPorNegocio(nomeNegocio);
+		return funcionarioDAO.listarPorNegocio(nomeNegocio);
 	}
 	
 	
@@ -332,7 +330,7 @@ public class FuncionarioBusiness {
 		  }
 
 		  public List<FuncionarioBean>listarPorNome(String nome) throws ClassNotFoundException, SQLException{
-				return funcionarioDao.listarPorNome(nome);
+				return funcionarioDAO.listarPorNome(nome);
 			}
 		  
 		  public static LocalDate formatarData(String data) throws BusinessException{

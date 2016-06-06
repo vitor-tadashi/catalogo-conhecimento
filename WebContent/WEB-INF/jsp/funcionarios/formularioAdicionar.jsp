@@ -246,8 +246,8 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$',
-                        message: 'E-mail inválido, requerido um @ e um domínico completo'
+                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,8}$',
+                        message: 'E-mail inválido, requerido um @ e um domínio completo'
                     }
                 }
             },

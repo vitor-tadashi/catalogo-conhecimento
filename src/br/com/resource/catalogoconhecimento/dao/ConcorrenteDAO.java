@@ -226,4 +226,23 @@ public class ConcorrenteDAO {
 		ps.close();
 		conn.close();
 	}
+
+	public boolean verificarPorCliente(int idConcorrente) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM ConcorrenteCliente WHERE idConcorrente=?";
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1, idConcorrente);
+		
+		
+		ResultSet rs = ps.executeQuery();
+		
+		boolean check = true;
+		while(rs.next()){
+			check = false;
+		}
+		conec.close();
+		ps.close();
+		
+		return check;
+	}
 }
