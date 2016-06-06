@@ -98,6 +98,8 @@ public class ConcorrenteBusiness {
 		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 		if (concorrenteBean.getNome().equals("")) {
 			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (!validarNome(concorrenteBean.getNome())) {
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
 		} else if (concorrenteBean.getNome().length() > 50) {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (concorrenteBean.getDescricao().length() > 255) {
