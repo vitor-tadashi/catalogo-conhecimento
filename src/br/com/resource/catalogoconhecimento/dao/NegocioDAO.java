@@ -184,7 +184,24 @@ public class NegocioDAO {
 		return listaNegocio;
 		
 	}
-	
-	
+
+	public boolean verificarPorProjeto(int id) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM ProjetoNegocio WHERE idNegocio=?";
+		
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		
+		boolean check = true;
+		while (rs.next()) {
+			check = false;
+		}
+		
+		ps.close();
+		conec.close();
+
+		return check;
+	}	
 }
 
