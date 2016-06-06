@@ -109,17 +109,17 @@ public class ClienteDAO {
 		}
 		return clienteBean;
 	}
-	
+
 	public ClienteBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-		
+
 		String sql = "SELECT * FROM Cliente WHERE nomeCliente = ? AND ativo = 'S'";
-		
+
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nome);
-		
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		ClienteBean clienteBean = null;
 		if (rs.next()) {
 			clienteBean = new ClienteBean();
@@ -132,16 +132,38 @@ public class ClienteDAO {
 			clienteBean.setEmail(rs.getString("email"));
 			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 		}
-		
+
 		ps.close();
 		conexao.close();
-		
+
 		return clienteBean;
+	}
+
+	public ClienteBean obterNomeDesativado(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Cliente WHERE nomeCliente = ? AND ativo = ?";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, clienteBean.getNome());
+		ps.setString(2, "n");
+		ResultSet rs = ps.executeQuery();
+
+		ClienteBean cliente = null;
+
+		while (rs.next()) {
+			int id = rs.getInt("idCliente");
+			String nomeCliente = rs.getString("nomeCliente");
+			cliente = new ClienteBean();
+			cliente.setId(id);
+			cliente.setNome(nomeCliente);
+		}
+		conexao.close();
+		return cliente;
 	}
 
 	public boolean verificarPorCnpj(String cnpj) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Cliente WHERE cnpj = ?";
+		String sql = "SELECT * FROM Cliente WHERE cnpj = ? AND ativo = 'S'";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, cnpj);
 
@@ -151,6 +173,23 @@ public class ClienteDAO {
 			return true;
 		} else
 			return false;
+	}
+
+	public void reativar(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConnectionFactory.createConnection();
+
+		String sql = "UPDATE Cliente SET logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE nomeCliente = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		
+		ps.setString(1, clienteBean.getLogradouro());
+		ps.setString(2, clienteBean.getCep());
+		ps.setString(3, clienteBean.getNumero());
+		ps.setString(4, clienteBean.getCnpj());
+		ps.setString(5, clienteBean.getEmail());
+		ps.setString(6, "s");
+		ps.setString(7, clienteBean.getNome());
+		ps.executeUpdate();
+		conexao.close();
 	}
 
 }

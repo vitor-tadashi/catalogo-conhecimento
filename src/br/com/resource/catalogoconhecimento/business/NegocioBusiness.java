@@ -63,14 +63,10 @@ public class NegocioBusiness {
 	
 	public void alterar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
 		NegocioDAO negocioDao =  new NegocioDAO();
-		NegocioBean negocioDesativado = this.obterNomeDesativado(negocioBean);
 		NegocioBean negocioClone = this.obterPorNome(negocioBean.getAreaAtuacao());
 		
 		if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
 			throw new TamanhoCampoException("Por Favor, digite uma área de atuação válida!");
-		} else if (negocioDesativado != null) {
-			this.remover(negocioBean.getId());
-			this.reativar(negocioDesativado);
 		} else if (negocioClone != null && negocioClone.getId() != negocioBean.getId()) {
 			throw new NomeRepetidoException("Este nome já exite na base de dados");
 		} else {
