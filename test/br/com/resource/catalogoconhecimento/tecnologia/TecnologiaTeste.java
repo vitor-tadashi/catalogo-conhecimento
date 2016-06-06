@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
@@ -18,13 +19,14 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class TecnologiaTeste {
 
 	private WebDriver driver;
-	private long t = new Timestamp(System.currentTimeMillis()).getTime();
 
 	@Test
 	public void adicionarTecnologiaComSucesso() {
 		String tecnologia = adicionarTecnologia();
-
-		Assert.assertTrue("Deveria conter: " + tecnologia, driver.getPageSource().contains(tecnologia));
+		WebElement altTecnologia = driver.findElement(By.name("alt" + tecnologia));
+		WebElement delTecnologia = driver.findElement(By.name("del" + tecnologia));
+		
+		Assert.assertTrue("Deveria conter: " + tecnologia, altTecnologia.isDisplayed() && delTecnologia.isDisplayed());
 	}
 
 	// @Test
@@ -53,7 +55,8 @@ public class TecnologiaTeste {
 	// }
 
 	public String adicionarTecnologia() {
-		String tecnologia = "Selenium" + t;
+		long t = new Timestamp(System.currentTimeMillis()).getTime();
+		String tecnologia = "Selenium" + t + " ";
 		driver.get(
 				"http://localhost:8080/catalogoconhecimento/mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica");
 		driver.findElement(By.name("nome")).sendKeys(tecnologia);

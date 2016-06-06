@@ -45,12 +45,11 @@
 											<!-- /.col -->
 										</div>
 										<!-- /.row -->
-										<input type="hidden" name="logicaAtual"
-											value="tecnologia.FormularioAdicionarTecnologiaLogica" /> 
+										<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAdicionarTecnologiaLogica" /> 
 											<input type="hidden" name="logica" value="tecnologia.AdicionarTecnologiaLogica">
 									</div>
 									<div class="panel-footer text-left">
-										<button class="btn btn-success" id="submit" type="submit">Adicionar</button>
+										<button class="btn btn-success" type="submit">Adicionar</button>
 									</div>
 								</form>
 							</div>
@@ -72,13 +71,12 @@
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
     $('#formAdd').formValidation({
         err: {
             container: 'tooltip'
         },
-//        trigger: 'blur',
         icon: {
             valid: 'fa fa-check',
             invalid: 'fa fa-times',
