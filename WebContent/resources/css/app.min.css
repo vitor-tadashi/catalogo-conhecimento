@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 #top-nav {
-	height: 45px;
+	height: 50px;
 	padding-right: 10px;
 	background-color: #fff;
 	white-space: nowrap;
@@ -2493,8 +2493,6 @@ footer hr {
 
 .loading-overlay .loading-icon {
 	position: absolute;
-	top: 45%;
-	left: 50%;
 	color: #fff;
 	animation: spin .8s infinite linear;
 	-webkit-animation: spin .8s infinite linear;
@@ -2508,6 +2506,7 @@ footer hr {
 }
 
 .twitter-hover:hover {
+	
 	background: #00aced !important
 }
 

@@ -107,9 +107,9 @@ $(document).ready(function() {
 	            validators: {
 	                stringLength: {
 	                    enabled: true,
-	                    min:20,
+	                    min:10,
 	                    max:255,
-	                    message: 'Mínimo de 2 e máximo de 250 caracteres.'
+	                    message: 'Mínimo de 10 e máximo de 250 caracteres.'
 	                },
 	                notEmpty: {
 	                    message: '* Campo Obrigatório.'
@@ -117,8 +117,8 @@ $(document).ready(function() {
 	                regexp: {
 	                    enabled: true,
 	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-	                    message: 'Descrição inválida.'
-	                }
+	                    message: 'Area de atuação inválida.'
+	               }
 	            }
 	        }
         }
