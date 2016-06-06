@@ -4,7 +4,7 @@
 	<div id="wrapper" class="preload">
 		<div id="top-nav" class="skin-1 fixed">
 			<div class="brand" >
-				<a href="index.jsp"><img src="resources/img/logowhite-resource.png" style="height:40px; padding-left:10px;padding-right:10px;" ></a>
+				<a href="index.jsp"><img src="resources/img/logowhite-resource.png" class="pull-center"style="height:45px; width:135px; padding-left:10px;padding-right:10px;" ></a>
 			</div><!-- /brand -->
 
       <!-- Button menu layout mobile -->
