@@ -123,6 +123,28 @@ public class CargoDAO {
 		return listaFuncionario;
 	}
 	
+	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException{
+		Connection conexao = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM Funcionario WHERE idCargo = ?";
+		
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		boolean check = true;
+		while (rs.next()) {
+			check = false;
+		}
+		
+		ps.close();
+		conexao.close();
+
+		return check;
+		
+		
+	}
+	
 	public CargoBean obterNomeDesativado(CargoBean cargoBean)
 			throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();

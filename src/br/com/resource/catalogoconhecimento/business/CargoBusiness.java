@@ -83,15 +83,12 @@ public class CargoBusiness {
 
 	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
 		CargoDAO cargoDao = new CargoDAO();
-		List<FuncionarioBean> listaFuncionario = cargoDao.obterPorFuncionario(id);
 
-		if (listaFuncionario.isEmpty()) {
+		if (cargoDao.verificarPorFuncionario(id)) {
 			cargoDao.remover(id);
 		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido");
+			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
 		}
-
-		cargoDao.remover(id);
 	}
 
 	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {

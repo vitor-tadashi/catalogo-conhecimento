@@ -49,13 +49,17 @@
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="index.jsp"> Principal</a></li> 
 				</ul>
-			</div>
+			</div>					
+	
 			<!--breadcrumb-->
 			<div class="padding-sm">
 				<div class="col-md-12 col-sm-12">
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default table-responsive">
+		
+							
+							
 								<div class="padding-md clearfix" style="text-align:center">
 								<img src="resources/img/logo-resource.png" class="img-circle" alt="Cinque Terre" width="700" height="290">								
 	 								<!--  <img src="resources/img/logo-resource.png"/> -->
@@ -91,16 +95,16 @@
 						</div>	
 					</div>
 				</div>
-			</div> 
-	</div><!-- /main-container -->
-	</div><!-- /wrapper -->
-
-	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
-
-
-	<c:import url="/resources/jspImport/logout.jsp"></c:import>
-	
+			</div>
+		</div>	 
+	</div><!-- /main-container --> 
+ 
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+	
+	</div><!-- /wrapper -->
+	
+	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+	<c:import url="/resources/jspImport/logout.jsp"></c:import>
 
 </body>
 </html>

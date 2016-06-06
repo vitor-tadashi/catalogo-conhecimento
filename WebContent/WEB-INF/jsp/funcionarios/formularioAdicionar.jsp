@@ -301,7 +301,13 @@ $(document).ready(function() {
                 }
             },
             dataNascimento: {
-                validators: {
+            	validators: {
+                    stringLength: {
+                        enabled: true,
+                        min:10,
+                        max:10,
+                        message: 'Data inválida'
+                    },
                      notEmpty: {
                         message: '* Campo Obrigatório.'
                     } 

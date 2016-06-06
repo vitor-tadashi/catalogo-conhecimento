@@ -52,6 +52,9 @@ public class ControllerServlet extends HttpServlet {
 		}catch(SQLServerException e){
 			e.printStackTrace();
 			request.setAttribute("msgErro", "Falha na conexão com o banco de dados");
+		}catch(NumberFormatException e){
+			request.setAttribute("msgErro", "Você digitou letra em campo numérico!");
+			e.printStackTrace();
 		}catch(Exception e){
 			request.setAttribute("msgErro", "Sistema indisponível no momento");
 			e.printStackTrace();
