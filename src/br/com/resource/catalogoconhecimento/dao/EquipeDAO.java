@@ -317,11 +317,12 @@ public class EquipeDAO {
 		
 		String sql ="SELECT f.idFuncionario, f.nomeFuncionario, e.nome FROM Funcionario AS f "
 			+"INNER JOIN EquipeFuncionario AS ef  ON f.idFuncionario = ef.idFuncionario "
-			+"INNER JOIN Equipe AS e ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? ";
+			+"INNER JOIN Equipe AS e ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? and f.ativo = ? ";
 		
 				PreparedStatement ps = conec.prepareStatement(sql);
 				
 				ps.setInt(1, idFuncionario);
+				ps.setString(2,  "s");
 				ResultSet rs = ps.executeQuery();
 				List<EquipeBean> listaEquipes = new ArrayList<EquipeBean>();
 
@@ -344,11 +345,12 @@ public class EquipeDAO {
 		
 		String sql ="SELECT e.*, e.nome FROM Equipe AS e "
 				+"INNER JOIN ProjetoEquipe AS pe ON e.idEquipe = pe.idEquipe "
-				+"INNER JOIN Projeto AS p ON p.idProjeto = pe.idProjeto WHERE p.idProjeto = ? ";
+				+"INNER JOIN Projeto AS p ON p.idProjeto = pe.idProjeto WHERE p.idProjeto = ? and e.ativo = ?";
 		
 		PreparedStatement ps = conec.prepareStatement(sql);
 		
 		ps.setInt(1, idProjeto);
+		ps.setString(2,  "s");
 		ResultSet rs = ps.executeQuery();
 		List<EquipeBean> listaEquipes = new ArrayList<EquipeBean>();
 		
