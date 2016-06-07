@@ -42,14 +42,14 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome
-															<input type="text" class="form-control" maxlenght="150" name="nome">
+															<input type="text" class="form-control" name="nome" maxlength="150">
 														</label>
 													</div>
 												</div>	
 												<div class="col-sm-2">
 												 	<div class="form-group">
 														<label class="control-label">CNPJ
-															<input type="text" class="form-control" name="cnpj">
+															<input type="text" class="form-control" name="cnpj" maxlength="14">
 														</label>
 													</div>
 												</div>	
@@ -128,8 +128,8 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '[A-Za-zÁ-ú\s]+$',
-                        message:'Informe apenas letras.'
+                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
+                        message:'Nome inválido.'
                     }
                 }
             },
@@ -139,7 +139,7 @@ $(document).ready(function() {
 	                    enabled: true,
 	                    min:14,
 	                    max:14,
-	                    message: 'CNPJ inválido.'
+	                    message: 'Requerido mínimo e máximo de 14 caracteres.'
 	                },
 	                notEmpty: {
 	                    message: '* Campo Obrigatório.'
