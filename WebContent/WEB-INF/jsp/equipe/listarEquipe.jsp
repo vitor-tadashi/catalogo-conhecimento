@@ -56,7 +56,7 @@
 													<a href="mvc?logica=equipe.FormularioAtualizarEquipeLogica&idEquipe=${equipe.id}">
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;">
-													<a href="mvc?logica=equipe.DeletarEquipeLogica&idEquipe=${equipe.id}">
+													<a href="mvc?logica=equipe.DeletarEquipeLogica&idEquipe=${equipe.id}&logicaAtual=equipe.ListarEquipeLogica">
 													<i class="fa fa-times fa-lg"></a></td>
 													
 												<td style="text-align: center;">	
