@@ -15,7 +15,7 @@ public class BuscarTecnologiaPorFuncionarioAjaxLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
+
 		int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
 		
 		List<TecnologiaBean> listaTecnologias = new TecnologiaBusiness().obterPorFuncionario(idFuncionario);
