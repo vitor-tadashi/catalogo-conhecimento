@@ -13,6 +13,7 @@ import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.CpfInvalidoException;
+import br.com.resource.catalogoconhecimento.exceptions.DataInvalidaException;
 import br.com.resource.catalogoconhecimento.exceptions.EmailInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RgInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -339,10 +340,14 @@ public class FuncionarioBusiness {
 	}
 
 	public Date formatarData(String data) throws BusinessException, ParseException {
-		// Date dataAtual = new Date(System.currentTimeMillis());
+		Date dataAtual = new Date(System.currentTimeMillis());
 
 		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataFormatada = formatador.parse(data);
+		
+		if (dataFormatada.after(dataAtual)) {
+			throw new DataInvalidaException("Data inserida inválida!");
+		}
 
 		return dataFormatada;
 	}
