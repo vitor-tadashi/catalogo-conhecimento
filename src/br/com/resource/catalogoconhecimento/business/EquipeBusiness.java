@@ -9,6 +9,7 @@ import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
+import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
 public class EquipeBusiness {
@@ -55,15 +56,18 @@ public class EquipeBusiness {
 	// DELETAR NA BASE
 
 	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
-
-		EquipeBean equipeExistente = new EquipeBean();
-		equipeExistente = equipeDAO.obterPorId(id);
 		
-		if(equipeExistente != null){
-			equipeDAO.deletar(equipeExistente);			
-		}else{
-			throw new BusinessException("Essa equipe não pode ser deletada");
+		if(equipeDAO.verificarPorFuncionarios(id)){
+			equipeDAO.deletar(id);
+		}else {
+			throw new RegistroVinculadoException("Essa Equipe não pode ser removida pois possui vínculos com Funcionários");
 		}
+		
+//		if(equipeExistente != null){
+//						
+//		}else{
+//			throw new BusinessException("Essa equipe não pode ser deletada");
+//		}
 		
 
 	}
