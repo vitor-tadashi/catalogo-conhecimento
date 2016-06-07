@@ -27,24 +27,41 @@
 
 		    $("#dataTableEquipe tbody").append(row);
             row.append($("<td>" + rowData.nome + "</td>"));
-	}
+			}
 	        
-	        $(document).on("click", "#btnTecnologia", function() { 
+	$(document).on("click", "#btnTecnologia", function() { 
 	        	
-	        	$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-func')}, function(listaTecnologias) {
-	        		$("#dataTableTecnologia tbody tr").detach();	
-	        		$.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
-	        			drawRowTecnologia(item);
-	        	        });
-	                });
-	            });	
+	$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-func')}, function(listaTecnologias) {
+	    $("#dataTableTecnologia tbody tr").detach();	
+	    $.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
+	        drawRowTecnologia(item);
+	       });
+	    });
+	});	
 	        	
-	        	        function drawRowTecnologia(rowData) {
-	        		    var row = $("<tr />")
+	      function drawRowTecnologia(rowData) {
+	      var row = $("<tr />")
 
-	        		    $("#dataTableTecnologia tbody").append(row);
-	                    row.append($("<td>" + rowData.nome + "</td>"));
-	        	}
+	      $("#dataTableTecnologia tbody").append(row);
+	      row.append($("<td>" + rowData.nome + "</td>"));
+	      }
+	      
+	  	$(document).on("click", "#btnNegocio", function() { 
+        	
+	  		$.post("ajax?logica=busca.BuscarNegocioPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionarioN')}, function(listaNegocios) {
+	  		    $("#dataTableNegocio tbody tr").detach();	
+	  		    $.each(listaNegocios, function(index, item) { // Iterate over the JSON array.
+	  		        drawRowNegocio(item);
+	  		       });
+	  		    });
+	  		});	
+	  		        	
+	  		      function drawRowNegocio(rowData) {
+	  		      var row = $("<tr />")
+
+	  		      $("#dataTableNegocio tbody").append(row);
+	  		      row.append($("<td>" + rowData.areaAtuacao + "</td>"));
+	  		      }     
 	
 	</script>
 	
@@ -101,20 +118,15 @@
 											<tr>
 												<td>${funcionario.nome}</td>							
 												<td>${funcionario.telefone}</td>
+												
+												<td>
+													<a id="btnTecnologia" id-func="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>										
+												</td>
 													
 												<td>
-													<a id="btnTecnologia" id-func="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>								
+													<a id="btnNegocio" id-funcionarioN="${funcionario.id}" href="#simpleModalNegocio" role="button" data-toggle="modal" class="btn btn-primary btn-small">Negocios</a>								
 												</td>
-												
-												<td>
-													<select>
-													<c:forEach var="negocio" items="${funcionario.negocios}">
-														<option>${negocio.areaAtuacao}</option>
-													</c:forEach>
-													</select>										
-												</td>
-																			
-												
+	
 												<td>
 												<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
 												</td>
@@ -192,6 +204,31 @@
      				</div>
 			    <div class="modal-body">
 			        <table class="table table-striped" id="dataTableTecnologia">
+						<thead >
+							<tr>
+							</tr>
+						</thead>
+						<tbody >
+							
+						</tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			    </div>
+		  	</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="simpleModalNegocio">
+ 			<div class="modal-dialog">
+   			<div class="modal-content">
+     				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Negocios</h4>
+     				</div>
+			    <div class="modal-body">
+			        <table class="table table-striped" id="dataTableNegocio">
 						<thead >
 							<tr>
 							</tr>
