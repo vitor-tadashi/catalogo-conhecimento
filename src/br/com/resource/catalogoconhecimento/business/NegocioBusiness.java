@@ -80,12 +80,14 @@ public class NegocioBusiness {
 		if(negocioDao.verificarPorProjeto(id)){
 			negocioDao.remover(id);	
 		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
-			
-			
+			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");	
 		}
-		
-		
+	}
+	
+	public List<NegocioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException{
+		NegocioDAO negocioDao = new NegocioDAO();
+		List<NegocioBean> listaNegocios = negocioDao.obterPorFuncionario(id);
+		return listaNegocios;
 	}
 	
 	public void reativar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException{
