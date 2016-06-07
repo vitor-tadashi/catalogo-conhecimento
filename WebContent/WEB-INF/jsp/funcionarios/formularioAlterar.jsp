@@ -53,8 +53,8 @@
 								
 												<div class="col-sm-2">
 													<div class="form-group">
-														<label class="control-label">Telefone:
-															<input type="text" class="form-control" maxlength="10" placeholder="(99)9999-9999" name="telefone" value="${funcionario.telefone}">
+														<label class="control-label">Telefone/Celular:
+															<input type="text" class="form-control" maxlength="11" placeholder="(99)9999-9999" name="telefone" value="${funcionario.telefone}">
 														</label>
 													</div>
 												</div><!-- /.col -->
@@ -171,7 +171,7 @@ $(document).ready(function() {
 	                stringLength: {
 	                    enabled: true,
 	                    min:10,
-	                    max:10,
+	                    max:11,
 	                    message: 'Digitar número de telefone com DDD.'
 	                },
 	                notEmpty: {
