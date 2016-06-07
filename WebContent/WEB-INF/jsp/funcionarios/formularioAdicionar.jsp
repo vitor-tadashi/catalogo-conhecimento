@@ -84,7 +84,7 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome de usuario:
-															<input type="text" class="form-control"  maxlength="10" name="nomeUser">
+															<input type="text" class="form-control"  maxlength="50" name="nomeUser">
 														</label>
 													</div>
 												</div><!-- /.col -->
@@ -258,14 +258,14 @@ $(document).ready(function() {
             		},
 		        	stringLength: {
 	                	 enabled: true,
-	                     min:8,
-	                     max:10,
-	                     message: 'Mínimo de 8 e máximo de 10 caracteres.'
+	                     min:6,
+	                     max:50,
+	                     message: 'Mínimo de 6 e máximo de 50 caracteres.'
 	                },
                 	regexp: {
                    		enabled: true,
-                    	regexp:'^([\\r\\e\\R\\E]{2,2})+([0-9]{6,6})$',
-                    	message:'RE do funcionário inválido.'
+                    	regexp:'[a-zA-Z0-9._-]+$', //^([\\r\\e\\R\\E]{2,2})+([0-9]{6,6})$
+                    	message:'Usuário inválido.'
               		}
         		}
 	        },
