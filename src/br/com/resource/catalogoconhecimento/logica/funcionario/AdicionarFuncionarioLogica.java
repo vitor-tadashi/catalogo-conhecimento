@@ -1,7 +1,7 @@
 package br.com.resource.catalogoconhecimento.logica.funcionario;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,6 @@ public class AdicionarFuncionarioLogica implements Logica{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
 		String nome = request.getParameter("nome");
 		String telefone = request.getParameter("telefone");
 		String nomeUsuario = request.getParameter("nomeUser");
@@ -35,7 +34,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		String data = request.getParameter("dataNascimento");
 		String[] negocios = request.getParameterValues("negociosArray");
 		
-		LocalDate dataFormatada = FuncionarioBusiness.formatarData(data);
+		Date dataFormatada = new FuncionarioBusiness().formatarData(data);
 		
 		CargoBean cargoBean = new CargoBean();
 		CargoBusiness cargoBusiness = new CargoBusiness();
