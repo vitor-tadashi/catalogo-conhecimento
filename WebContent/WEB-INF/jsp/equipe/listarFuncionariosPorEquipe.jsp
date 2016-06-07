@@ -29,7 +29,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Lista de Funcionários Por Equipe</h3>
+								<h3>Equipe ${equipe.nome}</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
@@ -58,7 +58,7 @@
 													</c:forEach>
 												</td>
 												<td>
-													<a href="mvc?logica=equipe.DeletarFuncionarioEquipeLogica&idEquipe=${idEquipe}&idFuncionario=${funcionarioEquipe.id}">
+													<a href="mvc?logica=equipe.DeletarFuncionarioEquipeLogica&idEquipe=${equipe.id}&idFuncionario=${funcionarioEquipe.id}">
 													<i class="fa fa-times fa-lg"></i></a>
 												</td>
 			 								<tr>
@@ -79,7 +79,7 @@
 														</c:forEach>
 													</select>		
 													<input type="hidden" name="logicaAtual" value="equipe.ListarFuncionariosPorEquipeLogica" />														<input type="hidden" name="logica" value="equipe.FormularioInserirFuncionarioPorEquipeLogica">
-													<input type="hidden" name="idEquipe" value="${idEquipe}">							
+													<input type="hidden" name="idEquipe" value="${equipe.id}">							
 												</div>		
 												<div class="form-group">
 													<button class="btn btn-success" type="submit">Inserir Funcionário</button>
