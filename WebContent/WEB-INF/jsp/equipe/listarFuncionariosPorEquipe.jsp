@@ -118,7 +118,7 @@
 		<!-- /.padding-md -->
 	</div>
 	<!-- /main-container -->
-	
+	</div>
 	<div class="modal fade" id="simpleModalTecnologia">
  			<div class="modal-dialog">
    			<div class="modal-content">
