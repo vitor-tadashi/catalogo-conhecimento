@@ -94,20 +94,20 @@ public class EquipeDAO {
 
 	// DELETAR DADOS NA TABELA DE EQUIPE
 
-	public void deletar(EquipeBean id) throws SQLException, ClassNotFoundException {
+	public void deletar(int id) throws SQLException, ClassNotFoundException {
 		Connection conec = ConnectionFactory.createConnection();
 		conec.setAutoCommit(false);
 
 		String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
 		PreparedStatement stmt2 = conec.prepareStatement(sql2);
-		stmt2.setInt(1, id.getId());
+		stmt2.setInt(1, id);
 		stmt2.executeUpdate();
 
 		String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
 		stmt.setString(1, "n");
-		stmt.setInt(2, id.getId());
+		stmt.setInt(2, id);
 		stmt.executeUpdate();
 
 		conec.commit();
@@ -367,6 +367,23 @@ public class EquipeDAO {
 		return listaEquipes;
 		
 		
+	}
+
+	public boolean verificarPorFuncionarios(int id) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe = ?";
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1,id);
+		
+		ResultSet rs = ps.executeQuery();
+		boolean check = true;
+		while(rs.next()){
+			check = false;
+		}
+		conec.close();
+		ps.close();
+		
+		return check;
 	}
 
 }

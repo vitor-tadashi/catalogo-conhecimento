@@ -42,7 +42,7 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome
-															<input type="text" class="form-control"  name="nome">
+															<input type="text" class="form-control" maxlenght="150" name="nome">
 														</label>
 													</div>
 												</div>	
@@ -119,9 +119,9 @@ $(document).ready(function() {
                 validators: {
                     stringLength: {
                         enabled: true,
-                        min:4,
-                        max:80,
-                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
+                        min:2,
+                        max:150,
+                        message: 'Mínimo de 2 e máximo de 150 caracteres.'
                     },
                     notEmpty: {
                         message: '* Campo Obrigatório.'
