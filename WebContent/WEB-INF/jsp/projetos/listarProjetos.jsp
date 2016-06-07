@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Listar Projetos</title>
+<title>Lista de Projetos</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
 <script type="text/javascript">
 	
@@ -100,7 +100,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Listar Projetos</h3>
+								<h3>Lista de Projetos</h3>
 
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp" />

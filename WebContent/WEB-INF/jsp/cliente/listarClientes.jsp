@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>Lista Clientes</title>
+<title>Lista de Clientes</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 

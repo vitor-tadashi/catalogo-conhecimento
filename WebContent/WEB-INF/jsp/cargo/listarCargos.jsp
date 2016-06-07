@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head> 
-	<title>Listar Cargos</title>
+	<title>Lista de Cargos</title>
 	<c:import url="/resources/jspImport/head.jsp" />
 </head>
 <body class="overflow-hidden">
@@ -18,7 +18,7 @@
 				<li><i class="fa fa-home"></i><a href="index.jsp">
 						Principal</a></li>
 				<li>Cargos</li>
-				<li class="active">Listar Cargos</li>
+				<li class="active">Lista de Cargos</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -28,7 +28,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Listar Cargos</h3>
+								<h3>Lista de Cargos</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
