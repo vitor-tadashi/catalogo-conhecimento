@@ -6,16 +6,6 @@ public class ConcorrenteBean {
 	private String nome;
 	private String descricao;
 
-	public ConcorrenteBean(int id, String nome, String descricao) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.descricao = descricao;
-	}
-	
-	public ConcorrenteBean(){
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -39,4 +29,5 @@ public class ConcorrenteBean {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 }

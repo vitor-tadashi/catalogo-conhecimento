@@ -1,13 +1,11 @@
 package br.com.resource.catalogoconhecimento.bean;
 
 public class ConcorrenteClienteBean {
+
 	private int id;
 	private ClienteBean cliente;
 	private ConcorrenteBean concorrente;
 	private double valorHora;
-
-	public ConcorrenteClienteBean() {
-	}
 
 	public int getIdConcorrenteCliente() {
 		return id;

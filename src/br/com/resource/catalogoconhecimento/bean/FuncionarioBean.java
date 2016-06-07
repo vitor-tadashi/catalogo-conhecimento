@@ -1,6 +1,6 @@
 package br.com.resource.catalogoconhecimento.bean;
 
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,29 +12,16 @@ public class FuncionarioBean {
 	private String telefone;
 	private String nomeUser;
 	private String email;
-	private List<TecnologiaBean> tecnologias;
 	private String cpf;
 	private String rg;
 	private Date dataNascimento;
-	private List<NegocioBean> negocios;
+	private List<TecnologiaBean> listaTecnologia;
+	private List<NegocioBean> listaNegocio;
 
 	public FuncionarioBean() {
+		listaTecnologia = new ArrayList<>();
+		listaNegocio = new ArrayList<>();
 	}
-
-	public FuncionarioBean(int idFuncionario, CargoBean cargo, String nomeFuncionario, String telefone, String nomeUser,
-			String email, String cpf, String rg, Date dataNascimento) {
-
-		this.id = idFuncionario;
-		this.cargo = cargo;
-		this.nome = nomeFuncionario;
-		this.telefone = telefone;
-		this.nomeUser = nomeUser;
-		this.email = email;
-		this.cpf = cpf;
-		this.rg = rg;
-		this.dataNascimento = dataNascimento;
-	}
-
 
 	public int getId() {
 		return id;
@@ -84,12 +71,12 @@ public class FuncionarioBean {
 		this.email = email;
 	}
 
-	public List<TecnologiaBean> getTecnologias() {
-		return tecnologias;
+	public List<TecnologiaBean> getListaTecnologia() {
+		return listaTecnologia;
 	}
 
-	public void setTecnologias(List<TecnologiaBean> tecnologias) {
-		this.tecnologias = tecnologias;
+	public void setListaTecnologia(List<TecnologiaBean> listaTecnologia) {
+		this.listaTecnologia = listaTecnologia;
 	}
 	
 	public String getCpf() {
@@ -118,13 +105,12 @@ public class FuncionarioBean {
 	}
 
 	
-	public List<NegocioBean> getNegocios() {
-		return negocios;
+	public List<NegocioBean> getListaNegocio() {
+		return listaNegocio;
 	}
 
-	public void setNegocios(List<NegocioBean> negocios) {
-		this.negocios = negocios;
+	public void setListaNegocio(List<NegocioBean> listaNegocio) {
+		this.listaNegocio = listaNegocio;
 	}	
 
-	
 }

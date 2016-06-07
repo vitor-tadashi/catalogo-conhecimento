@@ -6,18 +6,6 @@ public class EquipeBean {
 	private String observacao;
 	private String nome;
 
-	public EquipeBean() {
-
-	}
-
-	public EquipeBean(int id, String observacao, String nome) {
-		super();
-
-		this.id = id;
-		this.observacao = observacao;
-		this.nome = nome;
-	}
-
 	public String getObservacao() {
 		return observacao;
 	}
@@ -41,4 +29,5 @@ public class EquipeBean {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 }

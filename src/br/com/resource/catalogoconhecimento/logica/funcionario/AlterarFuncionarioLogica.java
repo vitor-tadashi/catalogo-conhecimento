@@ -62,8 +62,8 @@ public class AlterarFuncionarioLogica implements Logica {
 		funcionarioBean.setNomeUser(nomeUsuario);
 		funcionarioBean.setEmail(email);
 		funcionarioBean.setCargo(cargoBean);
-		funcionarioBean.setTecnologias(listaTecnologia);
-		funcionarioBean.setNegocios(listaNegocio);
+		funcionarioBean.setListaTecnologia(listaTecnologia);
+		funcionarioBean.setListaNegocio(listaNegocio);
 		
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		funcionarioBusiness.atualizar(funcionarioBean);
