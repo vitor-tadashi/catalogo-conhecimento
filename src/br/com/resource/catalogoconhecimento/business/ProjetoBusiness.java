@@ -32,6 +32,8 @@ public class ProjetoBusiness {
 		}
 		else if(projetoBean.getObservacao().length() > 255){
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.255)");
+		}else{
+			projetoDao.inserir(projetoBean);
 		}
 	}
 
