@@ -119,14 +119,14 @@
 
 							<div class="row">
 								<header>
-									<h3>Barra de Pesquisa!</h3>
+									<h3></h3>
 								</header>
 								<div class="col-xs-8 col-xs-offset-2">
 									<div class="input-group input-group">
 										<div class="input-group-btn search-panel">
 											<form name="busca" method="post" action="mvc">
 												<select class="btn btn-primary btn-xs" class="selectpicker"
-													name="logica" style="margin-bottom: 12px; height: 31px;">
+													name="logica" style="margin-bottom: 11px; height: 32px;">
 													<optgroup label="Filtros">
 														<option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
 														<option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
@@ -137,10 +137,9 @@
 											name="filtro" /> <span class="input-group-btn">
 											<button type="submit" class="btn btn-primary btn-xs"
 												value="Submit Button"
-												style="margin-bottom: 10px; height: 32px;">
+												style="margin-bottom: 11px; height: 32px;">
 												Pesquisar</button>
 										</span>
-										</form>
 									</div>
 								</div> 
 							</div>
@@ -155,7 +154,6 @@
 
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 
-	</div>
 	<!-- /wrapper -->
 
 	<a href="" id="scroll-to-top" class="hidden-print"><i
