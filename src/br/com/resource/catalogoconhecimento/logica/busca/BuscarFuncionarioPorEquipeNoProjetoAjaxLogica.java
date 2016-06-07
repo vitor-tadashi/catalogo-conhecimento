@@ -18,7 +18,6 @@ public class BuscarFuncionarioPorEquipeNoProjetoAjaxLogica implements Logica {
 		// TODO Auto-generated method stub
 		int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
 
-		
 		List<FuncionarioBean>funcionarios = new FuncionarioBusiness().listarPorEquipe(idEquipe);
 		
 		return new Gson().toJson(funcionarios);

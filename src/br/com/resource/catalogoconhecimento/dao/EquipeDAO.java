@@ -338,5 +338,33 @@ public class EquipeDAO {
 			 		
 		
 	}
+	
+	public List<EquipeBean> obterPorProjeto (int idProjeto) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		
+		String sql ="SELECT e.*, e.nome FROM Equipe AS e "
+				+"INNER JOIN ProjetoEquipe AS pe ON e.idEquipe = pe.idEquipe "
+				+"INNER JOIN Projeto AS p ON p.idProjeto = pe.idProjeto WHERE p.idProjeto = ? ";
+		
+		PreparedStatement ps = conec.prepareStatement(sql);
+		
+		ps.setInt(1, idProjeto);
+		ResultSet rs = ps.executeQuery();
+		List<EquipeBean> listaEquipes = new ArrayList<EquipeBean>();
+		
+		EquipeBean equipeBean = null;
+		while (rs.next()) {
+			
+			equipeBean = new EquipeBean();
+			equipeBean.setId(rs.getInt("idEquipe"));
+			equipeBean.setNome(rs.getString("nome"));
+			
+			listaEquipes.add(equipeBean);
+		}
+		
+		return listaEquipes;
+		
+		
+	}
 
 }

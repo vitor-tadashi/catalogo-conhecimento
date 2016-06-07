@@ -128,6 +128,12 @@ public class EquipeBusiness {
 		
 	}
 	
+	public List<EquipeBean> obterPorProjeto(int idProjeto) throws ClassNotFoundException, SQLException {
+		
+		return equipeDAO.obterPorProjeto(idProjeto);
+		
+	}
+	
 	public boolean validarNome(String nome){
 		return (nome.matches("[A-Za-zÀ-ú0-9'\\s]{1,50}"));
 	}
