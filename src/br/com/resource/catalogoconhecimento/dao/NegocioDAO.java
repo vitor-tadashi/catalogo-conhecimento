@@ -41,16 +41,12 @@ public class NegocioDAO {
 		ResultSet rs = ps.executeQuery();
 
 		ArrayList<NegocioBean> negocios = new ArrayList<NegocioBean>();
-		NegocioBean negocio = null;
-
 		while (rs.next()) {
+			NegocioBean negocioBean = new NegocioBean();
+			negocioBean.setId(rs.getInt("idNegocio"));
+			negocioBean.setAreaAtuacao(rs.getString("areaAtuacao"));
 
-			int idNegocio = rs.getInt("idNegocio");
-
-			String areaAtuacao = rs.getString("areaAtuacao");
-
-			negocio = new NegocioBean(idNegocio, areaAtuacao);
-			negocios.add(negocio);
+			negocios.add(negocioBean);
 		}
 
 		conexao.close();

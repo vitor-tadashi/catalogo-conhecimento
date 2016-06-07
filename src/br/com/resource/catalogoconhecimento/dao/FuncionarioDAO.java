@@ -93,8 +93,8 @@ public class FuncionarioDAO {
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-			funcionarioBean.setTecnologias(tecnologias);
-			funcionarioBean.setNegocios(negocios);
+			funcionarioBean.setListaTecnologia(tecnologias);
+			funcionarioBean.setListaNegocio(negocios);
 			
 
 			listaFuncionarios.add(funcionarioBean);
@@ -264,7 +264,7 @@ public class FuncionarioDAO {
 
 			List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness
 					.joinTecnologiaFuncionario(funcionarioBean.getId());
-			funcionarioBean.setTecnologias(tecnologias);
+			funcionarioBean.setListaTecnologia(tecnologias);
 
 			listaFuncionarios.add(funcionarioBean);
 		}

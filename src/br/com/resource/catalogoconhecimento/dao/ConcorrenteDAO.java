@@ -34,12 +34,11 @@ public class ConcorrenteDAO {
 		ps.setString(1, "s");
 		ResultSet rs = ps.executeQuery();
 		List<ConcorrenteBean> listaConcorrentes = new ArrayList<ConcorrenteBean>();
-		ConcorrenteBean concorrenteBean =  null;
 		while (rs.next()) {
-			int id = rs.getInt("idConcorrente");
-			String nome = rs.getString("nomeConcorrente");
-			String descricao = rs.getString("descricao");
-			concorrenteBean = new ConcorrenteBean(id, nome, descricao);
+			ConcorrenteBean concorrenteBean =  new ConcorrenteBean();
+			concorrenteBean.setId(rs.getInt("idConcorrente"));
+			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
+			concorrenteBean.setDescricao(rs.getString("descricao"));
 			listaConcorrentes.add(concorrenteBean);
 		}
 		conn.close();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjetoBean {
+	
 	private int id;
 	private ClienteBean cliente;
 	private String nome;
@@ -13,15 +14,6 @@ public class ProjetoBean {
 	private List<EquipeBean> listaEquipe;
 
 	public ProjetoBean() {
-		listaNegocio = new ArrayList<>();
-		listaTecnologia = new ArrayList<>();
-	}
-
-	public ProjetoBean(int idProjeto, ClienteBean cliente, String nomeProjeto, String observacao) {
-		this.id = idProjeto;
-		this.cliente = cliente;
-		this.nome = nomeProjeto;
-		this.observacao = observacao;
 		listaNegocio = new ArrayList<>();
 		listaTecnologia = new ArrayList<>();
 		listaEquipe = new ArrayList<>();

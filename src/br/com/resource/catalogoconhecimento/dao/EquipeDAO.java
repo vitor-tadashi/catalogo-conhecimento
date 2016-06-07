@@ -32,22 +32,18 @@ public class EquipeDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		ArrayList<EquipeBean> equipes = new ArrayList<EquipeBean>();
-
-		EquipeBean equipe = null;
-
+		List<EquipeBean> listaEquipe = new ArrayList<EquipeBean>();
 		while (rs.next()) {
+			EquipeBean equipeBean = new EquipeBean();
+			equipeBean.setId(rs.getInt("idEquipe"));
+			equipeBean.setNome(rs.getString("nome"));
+			equipeBean.setObservacao(rs.getString("observacao"));
 
-			int id = rs.getInt("idEquipe");
-			String observacao = rs.getString("observacao");
-			String nome = rs.getString("nome");
-
-			equipe = new EquipeBean(id, observacao, nome);
-			equipes.add(equipe);
+			listaEquipe.add(equipeBean);
 		}
 
 		conec.close();
-		return equipes;
+		return listaEquipe;
 	}
 
 	// INSERIR DADOS NA TABELA DE EQUIPE
@@ -181,13 +177,16 @@ public class EquipeDAO {
 		
 		ResultSet rs = ps.executeQuery();
 
-		EquipeBean equipe = null;
+		EquipeBean equipeBean = null;
 		while (rs.next()) {
-
-			equipe = new EquipeBean(rs.getInt("idEquipe"), rs.getString("nome"), rs.getString("observacao"));
+			equipeBean = new EquipeBean();
+			equipeBean.setId(rs.getInt("idEquipe"));
+			equipeBean.setNome(rs.getString("nome"));
+			equipeBean.setObservacao(rs.getString("observacao"));
 		}
 		conexao.close();
-		return equipe;
+		
+		return equipeBean;
 	}
 
 	//INSERIR DADOS NA TABELA POR EQUIPE
