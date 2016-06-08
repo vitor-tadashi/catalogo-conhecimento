@@ -30,7 +30,7 @@ public class RemoverConcorrenteDoClienteLogica implements Logica {
 		request.setAttribute("clienteBean", clienteBean);
 		request.setAttribute("listaConcorrente", listaConcorrente);
 		
-		return "/WEB-INF/jsp/concorrente/listarConcorrentePorCliente.jsp";
+		return "/WEB-INF/jsp/cliente/listarConcorrentePorCliente.jsp";
 	}
 
 }
