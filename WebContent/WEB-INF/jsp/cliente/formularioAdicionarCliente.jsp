@@ -7,6 +7,34 @@
 <head>
 	<title>Adicionar Cliente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
+
+	<script type="text/javascript">
+		function add() {
+			//var id = $("#idConcorrente").val();
+			var concorrente = $("#concorrente").val();
+			var valorConcorrente = $("#valorConcorrente").val();
+			var count = $('#tbConcorrente tbody tr').length;
+			addConcorrente(concorrente, valorConcorrente, count);
+		}
+	
+		function addConcorrente(nome, valor, count) {
+			var row = $("<tr />")
+			$("#tbConcorrente tbody").append(row);
+			row.append("<td>" + nome + "</td>");
+			row.append("<td>" + valor + "</td>");
+			row.append("<td><button class='delete' type='button'>-</button></td>");
+			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
+			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
+			//row.append("<input type='hidden' name='idConcorrente" + count + "' id='idConcorrente" + count + "' value='" + id + "' />");
+			$("#countConcorrente").val(count);
+		}
+
+		$(document).ready(function() {
+			$("#tbConcorrente").on('click', '.delete', function() {
+				$(this).closest('tr').remove();
+			});
+		});
+	</script>
 </head>
 
 <body class="overflow-hidden">
@@ -81,9 +109,32 @@
 														</label>
 													</div>
 												</div><!-- /.col -->
+												<div class="col-md-4">
+												<select id="concorrente">
+													<c:forEach var="concorrente" items="${concorrentes}">
+														<option>${concorrente.nome}</option>
+														<!--<input type="hidden" id="idConcorrente" value="${concorrente.id}">-->
+													</c:forEach>
+												</select> 
+												<input id="valorConcorrente" type="text">
+												<button type="button" onclick="add()">+</button>
+												<br> <br>
+												<table class="table table-striped" id="tbConcorrente">
+													<thead>
+														<tr>
+															<th>Concorrente</th>
+															<th>Valor</th>
+															<th>Remover</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div><!-- /.col -->
 											</div><!-- /.row -->
 											<input type="hidden" name="logicaAtual" value="cliente.FormularioAdicionarClienteLogica">
 											<input type="hidden" name="logica" value="cliente.AdicionarClienteLogica">
+											<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>

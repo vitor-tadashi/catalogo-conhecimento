@@ -26,6 +26,22 @@ public class ConcorrenteDAO {
 		ps.close();
 		conn.close();
 	}
+	
+	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean) throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.createConnection();
+		
+		String sql = "INSERT INTO ConcorrenteCliente (idCliente, idConcorrente, valorHora) VALUES (?, ?, ?)";
+
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setInt(1, concorrenteClienteBean.getCliente().getId());
+		ps.setInt(2, concorrenteClienteBean.getConcorrente().getId());
+		ps.setDouble(3, concorrenteClienteBean.getValorHora());
+		
+		ps.executeUpdate();
+		
+		ps.close();
+		conexao.close();
+	}
 
 	public List<ConcorrenteBean> listar() throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
@@ -39,7 +55,10 @@ public class ConcorrenteDAO {
 			int id = rs.getInt("idConcorrente");
 			String nome = rs.getString("nomeConcorrente");
 			String descricao = rs.getString("descricao");
-			concorrenteBean = new ConcorrenteBean(id, nome, descricao);
+			concorrenteBean = new ConcorrenteBean(); 
+			concorrenteBean.setId(id);
+			concorrenteBean.setNome(nome);
+			concorrenteBean.setDescricao(descricao);
 			listaConcorrentes.add(concorrenteBean);
 		}
 		conn.close();

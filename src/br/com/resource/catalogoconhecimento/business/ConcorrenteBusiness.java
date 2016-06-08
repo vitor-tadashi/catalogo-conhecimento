@@ -29,18 +29,29 @@ public class ConcorrenteBusiness {
 			concorrenteBean.setDescricao("-");
 		}
 
-		if (!validarNome(concorrenteBean.getNome())) {
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else if (concorrenteBean.getNome().length() > 100) {
-			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
-		} else if (concorrenteBean.getDescricao().length() > 255) {
-			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
-		} else if (this.existe(concorrenteBean)) {
-			this.reativar(concorrenteBean);
-		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-			throw new NomeRepetidoException("Este nome já está cadastrado!");
-		} else {
+//		if (!validarNome(concorrenteBean.getNome())) {
+//			throw new AtributoNuloException("Por favor, digite um nome válido!");
+//		} else if (concorrenteBean.getNome().length() > 100) {
+//			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
+//		} else if (concorrenteBean.getDescricao().length() > 255) {
+//			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
+//		} else if (this.existe(concorrenteBean)) {
+//			this.reativar(concorrenteBean);
+//		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
+//			throw new NomeRepetidoException("Este nome já está cadastrado!");
+//		} else {
 			concorrenteDao.adicionar(concorrenteBean);
+//		}
+	}
+	
+	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean) 
+			throws ClassNotFoundException, SQLException, AtributoNuloException {
+		if (concorrenteClienteBean.getCliente() == null) {
+			throw new AtributoNuloException("Cliente Inválido!"); 
+		} else if (concorrenteClienteBean.getConcorrente() == null) {
+			throw new AtributoNuloException("Concorrente Inválido!");
+		} else {
+			concorrenteDao.adicionarConcorrenteCliente(concorrenteClienteBean);
 		}
 	}
 

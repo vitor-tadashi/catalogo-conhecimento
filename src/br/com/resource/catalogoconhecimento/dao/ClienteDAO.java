@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ClienteDAO {
 	public void adicionar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "INSERT INTO Cliente(nomeCliente, logradouro, CEP, numero, CNPJ, email, ativo) VALUES(?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, clienteBean.getNome());
 		ps.setString(2, clienteBean.getLogradouro());
 		ps.setString(3, clienteBean.getCep());
@@ -26,6 +27,14 @@ public class ClienteDAO {
 		ps.setString(6, clienteBean.getEmail());
 		ps.setString(7, String.valueOf('S'));
 		ps.executeUpdate();
+		ResultSet rs = ps.getGeneratedKeys();
+		int newId = 0;
+
+		if (rs.next()) {
+			newId = rs.getInt(1);
+			clienteBean.setId(newId);
+		}
+
 		ps.close();
 		conn.close();
 	}
