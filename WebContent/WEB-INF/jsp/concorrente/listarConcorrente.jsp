@@ -65,12 +65,6 @@
 													<a href="mvc?logica=concorrente.ListarClientePorConcorrenteLogica&id=${concorrente.id}&logicaAtual=concorrente.ListarConcorrenteLogica">
 														<i class="fa fa-users fa-lg" ></i></a>
 												</td>
-											
-											
-											
-											
-											
-											
 											</tr>
 										</c:forEach>
 									</tbody>

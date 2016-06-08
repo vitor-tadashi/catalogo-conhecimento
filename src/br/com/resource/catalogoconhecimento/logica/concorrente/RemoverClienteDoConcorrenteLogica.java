@@ -1,6 +1,7 @@
 package br.com.resource.catalogoconhecimento.logica.concorrente;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,20 +12,25 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class ListarClientePorConcorrenteLogica implements Logica {
+public class RemoverClienteDoConcorrenteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<ConcorrenteClienteBean> listaConcorrenteCliente = new ConcorrenteBusiness()
-				.listarPorConcorrente(Integer.parseInt(request.getParameter("id")));
+		int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+		int idConcorrente = Integer.parseInt(request.getParameter("idConcorrente"));
 		
-		ConcorrenteBean concorrenteBean = new ConcorrenteBusiness().obterPorId(Integer.parseInt(request.getParameter("id")));
+		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
+		concorrenteBusiness.removerConcorrenteCliente(idCliente, idConcorrente);
+		
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorConcorrente(idConcorrente);
 		List<ClienteBean> listaCliente = new ClienteBusiness().listar();
+		ConcorrenteBean concorrenteBean = concorrenteBusiness.obterPorId(idConcorrente);
 		
 		request.setAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
 		request.setAttribute("concorrenteBean", concorrenteBean);
-		request.setAttribute("listaCliente", listaCliente);
+		request.setAttribute("listaConcorrente", listaCliente);
 		
 		return "/WEB-INF/jsp/concorrente/listarClientePorConcorrente.jsp";
 	}
+
 }

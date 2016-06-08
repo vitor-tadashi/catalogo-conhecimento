@@ -3,7 +3,6 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
@@ -29,25 +28,25 @@ public class ConcorrenteBusiness {
 			concorrenteBean.setDescricao("-");
 		}
 
-//		if (!validarNome(concorrenteBean.getNome())) {
-//			throw new AtributoNuloException("Por favor, digite um nome válido!");
-//		} else if (concorrenteBean.getNome().length() > 100) {
-//			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
-//		} else if (concorrenteBean.getDescricao().length() > 255) {
-//			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
-//		} else if (this.existe(concorrenteBean)) {
-//			this.reativar(concorrenteBean);
-//		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-//			throw new NomeRepetidoException("Este nome já está cadastrado!");
-//		} else {
+		if (!validarNome(concorrenteBean.getNome())) {
+			throw new AtributoNuloException("Por favor, digite um nome válido!");
+		} else if (concorrenteBean.getNome().length() > 100) {
+			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
+		} else if (concorrenteBean.getDescricao().length() > 255) {
+			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
+		} else if (this.existe(concorrenteBean)) {
+			this.reativar(concorrenteBean);
+		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
+			throw new NomeRepetidoException("Este nome já está cadastrado!");
+		} else {
 			concorrenteDao.adicionar(concorrenteBean);
-//		}
+		}
 	}
-	
-	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean) 
+
+	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean)
 			throws ClassNotFoundException, SQLException, AtributoNuloException {
 		if (concorrenteClienteBean.getCliente() == null) {
-			throw new AtributoNuloException("Cliente Inválido!"); 
+			throw new AtributoNuloException("Cliente Inválido!");
 		} else if (concorrenteClienteBean.getConcorrente() == null) {
 			throw new AtributoNuloException("Concorrente Inválido!");
 		} else {
@@ -65,16 +64,11 @@ public class ConcorrenteBusiness {
 		}
 	}
 
-	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int idConcorrente)
+	public List<ConcorrenteClienteBean> listarPorConcorrente(int idConcorrente)
 			throws SQLException, ClassNotFoundException, ConsultaNulaException {
-		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarConcorrenteCliente(idConcorrente);
-		
-		if (listaConcorrenteCliente.isEmpty()) {
-			ConcorrenteBean concorrenteBean = this.obterPorId(idConcorrente);
-			throw new ConsultaNulaException("Não existem clientes no " + concorrenteBean.getNome());
-		} else {
-			return listaConcorrenteCliente;
-		}
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarPorConcorrente(idConcorrente);
+
+		return listaConcorrenteCliente;
 	}
 
 	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente)
@@ -94,15 +88,11 @@ public class ConcorrenteBusiness {
 		return concorrenteDao.existe(concorrenteBean);
 	}
 
-	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente)
+			throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarPorCliente(idCliente);
 
-		if (listaConcorrenteCliente.isEmpty()) {
-			ClienteBean clienteBean = new ClienteBusiness().obterPorId(idCliente);
-			throw new ConsultaNulaException("Não existem concorrentes no " + clienteBean.getNome());
-		} else {
-			return listaConcorrenteCliente;
-		}
+		return listaConcorrenteCliente;
 	}
 
 	public void alterar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException,
@@ -127,14 +117,15 @@ public class ConcorrenteBusiness {
 	}
 
 	public void remover(int idConcorrente) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
-		if(concorrenteDao.verificarPorCliente(idConcorrente)){
-			concorrenteDao.remover(idConcorrente);	
-		}else{
+		if (concorrenteDao.verificarPorCliente(idConcorrente)) {
+			concorrenteDao.remover(idConcorrente);
+		} else {
 			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
 		}
-			
-		
-		
+	}
+	
+	public void removerConcorrenteCliente(int idCliente, int idConcorrente) throws ClassNotFoundException, SQLException {
+		concorrenteDao.removerConcorrenteCliente(idCliente, idConcorrente);
 	}
 
 	public void reativar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {

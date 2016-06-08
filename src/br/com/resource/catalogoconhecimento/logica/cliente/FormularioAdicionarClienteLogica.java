@@ -13,8 +13,9 @@ public class FormularioAdicionarClienteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<ConcorrenteBean> listaConcorrentes = new ConcorrenteBusiness().listar();
-		request.setAttribute("concorrentes", listaConcorrentes);
+		List<ConcorrenteBean> listaConcorrente = new ConcorrenteBusiness().listar();
+		request.setAttribute("concorrentes", listaConcorrente);
+		
 		return "/WEB-INF/jsp/cliente/formularioAdicionarCliente.jsp";
 	}
 }

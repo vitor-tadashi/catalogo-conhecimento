@@ -7,6 +7,31 @@
 <head>
 	<title>Adicionar Concorrente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
+	<script type="text/javascript">
+		function add() {
+			var cliente = $("#cliente").val();
+			var valorConcorrente = $("#valorConcorrente").val();
+			var count = $('#tbCliente tbody tr').length;
+			addCliente(cliente, valorConcorrente, count);
+		}
+	
+		function addCliente(nome, valor, count) {
+			var row = $("<tr />")
+			$("#tbCliente tbody").append(row);
+			row.append("<td>" + nome + "</td>");
+			row.append("<td>" + valor + "</td>");
+			row.append("<td><button class='delete' type='button'>-</button></td>");
+			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
+			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
+			$("#countCliente").val(count);
+		}
+
+		$(document).ready(function() {
+			$("#tbCliente").on('click', '.delete', function() {
+				$(this).closest('tr').remove();
+			});
+		});
+	</script>
 </head>
 
 <body class="overflow-hidden">
@@ -39,21 +64,44 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-sm-2">
+												<div class="col-md-8">
 													<div class="form-group">
 														<label class="control-label">Nome
 															<input type="text" class="form-control"  name="nome">
 														</label> 
-												</div>	 
+													</div>	 
 													<div class="form-group">
 														<label class="control-label">Descrição
 															<textarea class="form-control" name="descricao"></textarea>
 														</label>
 													</div>
 												</div><!-- /.col -->
+												<div class="col-md-8">
+													<h4>Adicionar Clientes</h4>
+													<select id="cliente">
+														<c:forEach var="cliente" items="${listaCliente}">
+															<option>${cliente.nome}</option>
+														</c:forEach>
+													</select> 
+													<input id="valorConcorrente" type="text">
+													<button type="button" onclick="add()">+</button>
+													<br> <br>
+													<table class="table table-striped" id="tbCliente">
+														<thead>
+															<tr>
+																<th>Cliente</th>
+																<th>Valor</th>
+																<th>Remover</th>
+															</tr>
+														</thead>
+														<tbody>
+														</tbody>
+													</table>
+												</div><!-- /.col -->
 											</div><!-- /.row -->
 											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAdicionarConcorrenteLogica">
 											<input type="hidden" name="logica" value="concorrente.AdicionarConcorrenteLogica">
+											<input type="hidden" id="countCliente" name="countCliente" value="0">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>
@@ -107,12 +155,8 @@ $(document).ready(function() {
 	            validators: {
 	                stringLength: {
 	                    enabled: true,
-	                    min:10,
 	                    max:255,
-	                    message: 'Mínimo de 10 e máximo de 255 caracteres.'
-	                },
-	                notEmpty: {
-	                    message: '* Campo Obrigatório.'
+	                    message: 'Máximo de 255 caracteres.'
 	                },
 	                regexp: {
 	                    enabled: true,

@@ -36,7 +36,7 @@
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
 								
-								<span class="label label-info pull-right">${fn:length(clientes)}
+								<span class="label label-info pull-right">${fn:length(listaCliente)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -55,7 +55,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="cliente" items="${clientes}">
+										<c:forEach var="cliente" items="${listaCliente}">
 											<tr>
 												<td>${cliente.nome}</td>
 												<td>${cliente.cnpj}</td>
@@ -70,7 +70,7 @@
 													href="mvc?logica=cliente.RemoverClienteLogica&id=${cliente.id}"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 												<td style="text-align: center;">	
-													<a href="mvc?logica=concorrente.ListarConcorrentePorClienteLogica&id=${cliente.id}&logicaAtual=cliente.ListarClienteLogica">
+													<a href="mvc?logica=cliente.ListarConcorrentePorClienteLogica&id=${cliente.id}">
 														<i class="fa fa-users fa-lg" ></i></a>
 												</td>													
 											</tr>
@@ -96,7 +96,7 @@
 		<!-- /.padding-md -->
 	</div>
 	<!-- main-container -->
-	
+	</div>
 		<!-- Import Logout Action -->
 		<c:import url="/resources/jspImport/logout.jsp" />
 

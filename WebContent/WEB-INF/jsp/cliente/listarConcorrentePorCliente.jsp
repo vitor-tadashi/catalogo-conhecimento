@@ -7,29 +7,31 @@
 <html>
 
 <head>
-	<title>Lista de Concorrentes do Cliente</title>
-	<c:import url="/resources/jspImport/head.jsp"></c:import>
-	<script type="text/javascript">
+<title>Lista de Concorrentes do Cliente</title>
+<c:import url="/resources/jspImport/head.jsp"></c:import>
+<script type="text/javascript">
 		function add() {
-			var cliente = $("#cliente").val();
+			var concorrente = $("#concorrente").val();
 			var valorConcorrente = $("#valorConcorrente").val();
-			var count = $('#tbCliente tbody tr').length;
-			addCliente(cliente, valorConcorrente, count);
+			var count = $('#tbConcorrente tbody tr').length;
+			if (valorConcorrente != "" && valorConcorrente != "0") {
+				addConcorrente(concorrente, valorConcorrente, count);
+			}
 		}
 	
-		function addCliente(nome, valor, count) {
+		function addConcorrente(nome, valor, count) {
 			var row = $("<tr />")
-			$("#tbCliente tbody").append(row);
+			$("#tbConcorrente tbody").append(row);
 			row.append("<td>" + nome + "</td>");
 			row.append("<td>" + valor + "</td>");
 			row.append("<td><button class='delete' type='button'>-</button></td>");
 			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
 			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
-			$("#countCliente").val(count);
+			$("#countConcorrente").val(count);
 		}
 
 		$(document).ready(function() {
-			$("#tbCliente").on('click', '.delete', function() {
+			$("#tbConcorrente").on('click', '.delete', function() {
 				$(this).closest('tr').remove();
 			});
 		});
@@ -56,7 +58,7 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Concorrente ${concorrenteBean.nome}</h3>
+								<h3>Cliente ${clienteBean.nome}</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
@@ -68,7 +70,8 @@
 								<table class="table table-striped" id="dataTable">
 									<thead>
 										<tr>
-											<th>Nome do Cliente</th>
+											<th>Nome do Concorrente</th>
+											<th>Descrição</th>
 											<th>Valor/hora</th>
 											<th style="width: 20px;">Excluir</th>
 										</tr>
@@ -76,10 +79,11 @@
 									<tbody>
 										<c:forEach var="concorrenteCliente" items="${listaConcorrenteCliente}">
 											<tr>
-												<td>${concorrenteCliente.cliente.nome}</td>
+												<td>${concorrenteCliente.concorrente.nome}</td>
+												<td>${concorrenteCliente.concorrente.descricao}</td>
 												<td>${concorrenteCliente.valorHora}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.RemoverClienteDoConcorrenteLogica&idCliente=${concorrenteCliente.cliente.id}&idConcorrente=${concorrenteBean.id}"><i class="fa fa-times fa-lg"></i></a>
+													href="mvc?logica=cliente.RemoverConcorrenteDoClienteLogica&idCliente=${clienteBean.id}&idConcorrente=${concorrenteCliente.concorrente.id}"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 											</tr>
 										</c:forEach>
@@ -88,7 +92,7 @@
 							</div>
 							<form class="no-margin" id="formAdd"  method="POST" action="mvc">
 								<div class="panel-heading">
-									<h3>Adicionar Cliente</h3>
+									<h3>Adicionar Concorrente</h3>
 								</div>
 								<div class="panel-body">
 									<div class="row">
@@ -96,19 +100,20 @@
 										<!-- Messagem Erro-->
 										<c:import url="/resources/jspImport/msgErro.jsp"/>
 										<div class="col-md-8">
-											<h4>Adicionar Clientes</h4>
-											<select id="cliente">
-												<c:forEach var="cliente" items="${listaCliente}">
-													<option>${cliente.nome}</option>
+											<h4>Adicionar Concorrentes</h4>
+											<select id="concorrente">
+												<c:forEach var="concorrente" items="${listaConcorrente}">
+													<option>${concorrente.nome}</option>
+													<!--<input type="hidden" id="idConcorrente" value="${concorrente.id}">-->
 												</c:forEach>
 											</select> 
 											<input id="valorConcorrente" type="text">
 											<button type="button" onclick="add()">+</button>
 											<br> <br>
-											<table class="table table-striped" id="tbCliente">
+											<table class="table table-striped" id="tbConcorrente">
 												<thead>
 													<tr>
-														<th>Cliente</th>
+														<th>Concorrente</th>
 														<th>Valor</th>
 														<th>Remover</th>
 													</tr>
@@ -118,10 +123,10 @@
 											</table>
 										</div><!-- /.col -->
 									</div><!-- /.row -->
-									<input type="hidden" name="logicaAtual" value="concorrente.ListarConcorrenteLogica">
-									<input type="hidden" name="logica" value="concorrente.AdicionarClienteNoConcorrenteLogica">
-									<input type="hidden" id="countCliente" name="countCliente" value="0">
-									<input type="hidden" id="idConcorrente" name="idConcorrente" value="${concorrenteBean.id}">
+									<input type="hidden" name="logicaAtual" value="cliente.ListarClienteLogica">
+									<input type="hidden" name="logica" value="cliente.AdicionarConcorrenteNoClienteLogica">
+									<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
+									<input type="hidden" id="idCliente" name="idCliente" value="${clienteBean.id}">
 								</div>
 								<div class="panel-footer text-left">
 									<button class="btn btn-success" type="submit">Adicionar</button>
@@ -140,11 +145,10 @@
 		<!-- /.padding-md -->
 	</div>
 	<!-- main-container -->
-	</div>
+	
 		<!-- Import Logout Action -->
 		<c:import url="/resources/jspImport/logout.jsp" />
 
 		<c:import url="/resources/jspImport/footer.jsp"></c:import>
-</body>
 
 </html>

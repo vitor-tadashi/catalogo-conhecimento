@@ -12,9 +12,9 @@ public class ListarClienteLogica implements Logica {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<ClienteBean> listaClientes = new ClienteBusiness().listar();
+		List<ClienteBean> listaCliente = new ClienteBusiness().listar();
 		
-		request.setAttribute("clientes", listaClientes);
+		request.setAttribute("listaCliente", listaCliente);
 		
 		return "/WEB-INF/jsp/cliente/listarClientes.jsp";
 	}

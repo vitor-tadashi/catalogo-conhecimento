@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.logica.cliente;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,29 +12,23 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.logica.Logica;
 
-public class AdicionarClienteLogica implements Logica {
+public class AdicionarConcorrenteNoClienteLogica implements Logica {
 
+	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ClienteBean clienteBean = new ClienteBean();
-		clienteBean.setNome(request.getParameter("nome").trim());
-		clienteBean.setLogradouro(request.getParameter("logradouro").trim());
-		clienteBean.setCep(request.getParameter("cep").trim());
-		clienteBean.setNumero(request.getParameter("numero").trim());
-		clienteBean.setCnpj(request.getParameter("cnpj").trim());
-		clienteBean.setEmail(request.getParameter("email").trim());
+		int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+		ClienteBean clienteBean = new ClienteBusiness().obterPorId(idCliente);
 
-		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		clienteBusiness.adicionar(clienteBean);
-
-		Integer countConcorrente = Integer.parseInt(request.getParameter("countConcorrente"));
-		ConcorrenteBean concorrenteBean;
-		ConcorrenteClienteBean concorrenteClienteBean;
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
+
+		ConcorrenteBean concorrenteBean;
+		Integer countConcorrente = Integer.parseInt(request.getParameter("countConcorrente"));
+
 		for (int i = 0; i <= countConcorrente; i++) {
 			String nomeConcorrente = request.getParameter("txtNome" + i);
 			if (nomeConcorrente != null) {
 				concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
-				concorrenteClienteBean = new ConcorrenteClienteBean();
+				ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
 				concorrenteClienteBean.setCliente(clienteBean);
 				concorrenteClienteBean.setConcorrente(concorrenteBean);
 				concorrenteClienteBean.setValorHora(Integer.parseInt(request.getParameter("valorHora" + i)));
@@ -40,8 +36,15 @@ public class AdicionarClienteLogica implements Logica {
 				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
 			}
 		}
+		
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
+		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
 
-		return "mvc?logica=cliente.ListarClienteLogica";
+		request.setAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
+		request.setAttribute("clienteBean", clienteBean);
+		request.setAttribute("listaConcorrente", listaConcorrente);
+		
+		return "/WEB-INF/jsp/concorrente/listarConcorrentePorCliente.jsp";
 	}
 
 }

@@ -22,7 +22,7 @@ public class ClienteBusiness {
 		ClienteBean clienteDesativado = this.obterNomeDesativado(clienteBean);
 		ClienteBean ClienteClone = this.obterPorNome(clienteBean.getNome());
 
-		/*if (!validarNome(clienteBean.getNome())) {
+		if (!validarNome(clienteBean.getNome())) {
 			throw new TamanhoCampoException("Por Favor, digite um nome válido!");
 		} else if (clienteDesativado != null) {
 			this.reativar(clienteBean);
@@ -39,12 +39,12 @@ public class ClienteBusiness {
 		} else if (!validarCnpj(clienteBean.getCnpj())) {
 			throw new Exception("CNPJ inválido");
 		} else {
-			if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj())) {*/
+			if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj())) {
 				clienteDao.adicionar(clienteBean);
-		/*	} else {
+		} else {
 				throw new BusinessException("CNPJ já consta na base de dados");
 			}
-		}*/
+		}
 	}
 
 	public List<ClienteBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {

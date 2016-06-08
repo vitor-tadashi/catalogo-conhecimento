@@ -10,7 +10,6 @@
 
 	<script type="text/javascript">
 		function add() {
-			//var id = $("#idConcorrente").val();
 			var concorrente = $("#concorrente").val();
 			var valorConcorrente = $("#valorConcorrente").val();
 			var count = $('#tbConcorrente tbody tr').length;
@@ -25,7 +24,6 @@
 			row.append("<td><button class='delete' type='button'>-</button></td>");
 			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
 			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
-			//row.append("<input type='hidden' name='idConcorrente" + count + "' id='idConcorrente" + count + "' value='" + id + "' />");
 			$("#countConcorrente").val(count);
 		}
 
@@ -110,10 +108,10 @@
 													</div>
 												</div><!-- /.col -->
 												<div class="col-md-4">
+												<h4>Adicionar Concorrentes</h4>
 												<select id="concorrente">
 													<c:forEach var="concorrente" items="${concorrentes}">
 														<option>${concorrente.nome}</option>
-														<!--<input type="hidden" id="idConcorrente" value="${concorrente.id}">-->
 													</c:forEach>
 												</select> 
 												<input id="valorConcorrente" type="text">

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,20 @@ public class ConcorrenteDAO {
 	public void adicionar(ConcorrenteBean concorrenteBean) throws ClassNotFoundException, SQLException {
 		String sql = "INSERT INTO CONCORRENTE(nomeConcorrente, descricao, ativo) VALUES(?, ?, ?)";
 		Connection conn = ConnectionFactory.createConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, concorrenteBean.getNome());
 		ps.setString(2, concorrenteBean.getDescricao());
-		ps.setString(3, "s");
+		ps.setString(3, "S");
 		ps.executeUpdate();
+
+		ResultSet rs = ps.getGeneratedKeys();
+		int newId = 0;
+
+		if (rs.next()) {
+			newId = rs.getInt(1);
+			concorrenteBean.setId(newId);
+		}
+
 		ps.close();
 		conn.close();
 	}
@@ -61,7 +71,7 @@ public class ConcorrenteDAO {
 		return listaConcorrentes;
 	}
 	
-	public List<ConcorrenteClienteBean> listarConcorrenteCliente(int id) throws SQLException, ClassNotFoundException {
+	public List<ConcorrenteClienteBean> listarPorConcorrente(int id) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente FROM Concorrente AS CO"
 				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
@@ -223,6 +233,20 @@ public class ConcorrenteDAO {
 		ps.setString(1, "n");
 		ps.setInt(2, idConcorrente);
 		ps.executeUpdate();
+		conn.close();
+	}
+	
+	public void removerConcorrenteCliente(int idCliente, int idConcorrente) throws ClassNotFoundException, SQLException {
+		Connection conn = ConnectionFactory.createConnection();
+		
+		String sql = "DELETE FROM ConcorrenteCliente WHERE idCliente = ? AND idConcorrente = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, idCliente);
+		ps.setInt(2, idConcorrente);
+		ps.executeUpdate();
+		
+		ps.close();
 		conn.close();
 	}
 	
