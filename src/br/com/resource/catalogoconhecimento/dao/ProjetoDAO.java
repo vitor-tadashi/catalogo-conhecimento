@@ -40,11 +40,13 @@ public class ProjetoDAO {
 		List<TecnologiaBean> listaTecnologia = null;
 		List<EquipeBean> listaEquipe = null;
 		while (rs.next()) {
-
 			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
 
-			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, rs.getString("nomeProjeto"),
-					rs.getString("observacao"));
+			projeto = new ProjetoBean();
+			projeto.setId(rs.getInt("idProjeto"));
+			projeto.setNome(rs.getString("nomeProjeto"));
+			projeto.setObservacao(rs.getString("observacao"));
+			projeto.setCliente(cliente);
 
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
 			listaTecnologia = new TecnologiaDAO().listarPorProjeto(projeto);
@@ -137,8 +139,11 @@ public class ProjetoDAO {
 		if (rs.next()) {
 			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
 
-			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, rs.getString("nomeProjeto"),
-					rs.getString("observacao"));
+			projeto = new ProjetoBean();
+			projeto.setId(rs.getInt("idProjeto"));
+			projeto.setNome(rs.getString("nomeProjeto"));
+			projeto.setObservacao(rs.getString("observacao"));
+			projeto.setCliente(cliente);
 		}
 		conexao.close();
 		return projeto;
@@ -163,8 +168,11 @@ public class ProjetoDAO {
 
 		if (rs.next()) {
 			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
-			projetoBean = new ProjetoBean(rs.getInt("idProjeto"), cliente, rs.getString("nomeProjeto"),
-					rs.getString("observacao"));
+			projeto = new ProjetoBean();
+			projeto.setId(rs.getInt("idProjeto"));
+			projeto.setNome(rs.getString("nomeProjeto"));
+			projeto.setObservacao(rs.getString("observacao"));
+			projeto.setCliente(cliente);
 		}
 		conexao.close();
 		return projetoBean;
@@ -206,8 +214,11 @@ public class ProjetoDAO {
 		while (rs.next()) {
 			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
 
-			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, rs.getString("nomeProjeto"),
-					rs.getString("observacao"));
+			projeto = new ProjetoBean();
+			projeto.setId(rs.getInt("idProjeto"));
+			projeto.setNome(rs.getString("nomeProjeto"));
+			projeto.setObservacao(rs.getString("observacao"));
+			projeto.setCliente(cliente);
 
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
 			listaTecnologia = new TecnologiaDAO().listarPorProjeto(projeto);
@@ -269,8 +280,11 @@ public class ProjetoDAO {
 		while (rs.next()) {
 			cliente = clienteBusiness.obterPorId(rs.getInt("idCliente"));
 
-			projeto = new ProjetoBean(rs.getInt("idProjeto"), cliente, rs.getString("nomeProjeto"),
-					rs.getString("observacao"));
+			projeto = new ProjetoBean();
+			projeto.setId(rs.getInt("idProjeto"));
+			projeto.setNome(rs.getString("nomeProjeto"));
+			projeto.setObservacao(rs.getString("observacao"));
+			projeto.setCliente(cliente);
 
 			listaNegocio = new NegocioDAO().obterPorProjeto(projeto);
 			listaTecnologia = new TecnologiaDAO().listarPorProjeto(projeto);

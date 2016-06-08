@@ -55,7 +55,7 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Telefone:
-															<input type="text" class="form-control" maxlength="10" placeholder="(99)9999-9999"  name="telefone">
+															<input type="text" class="form-control" maxlength="11" placeholder="(99)9999-9999"  name="telefone">
 														</label>
 													</div>
 												</div><!-- /.col -->
@@ -84,7 +84,7 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome de usuario:
-															<input type="text" class="form-control"  maxlength="80" name="nomeUser">
+															<input type="text" class="form-control"  maxlength="50" name="nomeUser">
 														</label>
 													</div>
 												</div><!-- /.col -->
@@ -210,7 +210,7 @@ $(document).ready(function() {
 	                stringLength: {
 	                    enabled: true,
 	                    min:10,
-	                    max:10,
+	                    max:11,
 	                    message: 'Digitar número de telefone com DDD.'
 	                },
 	                notEmpty: {
@@ -247,7 +247,7 @@ $(document).ready(function() {
                     regexp: {
                         enabled: true,
                         regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,8}$',
-                        message: 'E-mail inválido, requerido um @ e um domínio completo'
+                        message: 'E-mail inválido, requerido um @ e um domínio completo.'
                     }
                 }
             },
@@ -258,11 +258,16 @@ $(document).ready(function() {
             		},
 		        	stringLength: {
 	                	 enabled: true,
-	                     min:4,
-	                     max:80,
-	                     message: 'Mínimo de 4 e máximo de 80 caracteres.'
-	                }
-	        	}
+	                     min:6,
+	                     max:50,
+	                     message: 'Mínimo de 6 e máximo de 50 caracteres.'
+	                },
+                	regexp: {
+                   		enabled: true,
+                    	regexp:'[a-zA-Z0-9._-]+$', //^([\\r\\e\\R\\E]{2,2})+([0-9]{6,6})$
+                    	message:'Usuário inválido.'
+              		}
+        		}
 	        },
             cpf: {
                 validators: {
@@ -270,7 +275,7 @@ $(document).ready(function() {
                         enabled: true,
                         min:11,
                         max:11,
-                        message: 'CPF contém 11 caracteres'
+                        message: 'CPF contém 11 caracteres.'
                     },
                     notEmpty: {
                         message: '* Campo Obrigatório.'
@@ -278,7 +283,7 @@ $(document).ready(function() {
                     regexp: {
                         enabled: true,
                         regexp: '^[0-9]{11}$',
-                        message: 'Informe somente números sem espaços e caracteres especiais'
+                        message: 'Informe somente números sem espaços e caracteres especiais.'
                     }
                 }
             },
@@ -288,7 +293,7 @@ $(document).ready(function() {
                         enabled: true,
                         min:9,
                         max:9,
-                        message: 'RG contém 11 caracteres'
+                        message: 'RG contém 11 caracteres.'
                     },
                     notEmpty: {
                         message: '* Campo Obrigatório.'
@@ -296,7 +301,7 @@ $(document).ready(function() {
                     regexp: {
                         enabled: true,
                         regexp: '^[0-9]{9}$',
-                        message: 'Informe somente números sem espaços e caracteres especiais'
+                        message: 'Informe somente números sem espaços e caracteres especiais.'
                     }
                 }
             },
@@ -306,7 +311,7 @@ $(document).ready(function() {
                         enabled: true,
                         min:10,
                         max:10,
-                        message: 'Data inválida'
+                        message: 'Data inválida.'
                     },
                      notEmpty: {
                         message: '* Campo Obrigatório.'

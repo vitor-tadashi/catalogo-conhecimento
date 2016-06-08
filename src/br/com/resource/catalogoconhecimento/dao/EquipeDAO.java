@@ -32,22 +32,18 @@ public class EquipeDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		ArrayList<EquipeBean> equipes = new ArrayList<EquipeBean>();
-
-		EquipeBean equipe = null;
-
+		List<EquipeBean> listaEquipe = new ArrayList<EquipeBean>();
 		while (rs.next()) {
+			EquipeBean equipeBean = new EquipeBean();
+			equipeBean.setId(rs.getInt("idEquipe"));
+			equipeBean.setNome(rs.getString("nome"));
+			equipeBean.setObservacao(rs.getString("observacao"));
 
-			int id = rs.getInt("idEquipe");
-			String observacao = rs.getString("observacao");
-			String nome = rs.getString("nome");
-
-			equipe = new EquipeBean(id, observacao, nome);
-			equipes.add(equipe);
+			listaEquipe.add(equipeBean);
 		}
 
 		conec.close();
-		return equipes;
+		return listaEquipe;
 	}
 
 	// INSERIR DADOS NA TABELA DE EQUIPE
@@ -94,20 +90,20 @@ public class EquipeDAO {
 
 	// DELETAR DADOS NA TABELA DE EQUIPE
 
-	public void deletar(EquipeBean id) throws SQLException, ClassNotFoundException {
+	public void deletar(int id) throws SQLException, ClassNotFoundException {
 		Connection conec = ConnectionFactory.createConnection();
 		conec.setAutoCommit(false);
 
 		String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
 		PreparedStatement stmt2 = conec.prepareStatement(sql2);
-		stmt2.setInt(1, id.getId());
+		stmt2.setInt(1, id);
 		stmt2.executeUpdate();
 
 		String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
 		PreparedStatement stmt = conec.prepareStatement(sql);
 
 		stmt.setString(1, "n");
-		stmt.setInt(2, id.getId());
+		stmt.setInt(2, id);
 		stmt.executeUpdate();
 
 		conec.commit();
@@ -181,13 +177,16 @@ public class EquipeDAO {
 		
 		ResultSet rs = ps.executeQuery();
 
-		EquipeBean equipe = null;
+		EquipeBean equipeBean = null;
 		while (rs.next()) {
-
-			equipe = new EquipeBean(rs.getInt("idEquipe"), rs.getString("nome"), rs.getString("observacao"));
+			equipeBean = new EquipeBean();
+			equipeBean.setId(rs.getInt("idEquipe"));
+			equipeBean.setNome(rs.getString("nome"));
+			equipeBean.setObservacao(rs.getString("observacao"));
 		}
 		conexao.close();
-		return equipe;
+		
+		return equipeBean;
 	}
 
 	//INSERIR DADOS NA TABELA POR EQUIPE
@@ -317,11 +316,12 @@ public class EquipeDAO {
 		
 		String sql ="SELECT f.idFuncionario, f.nomeFuncionario, e.nome FROM Funcionario AS f "
 			+"INNER JOIN EquipeFuncionario AS ef  ON f.idFuncionario = ef.idFuncionario "
-			+"INNER JOIN Equipe AS e ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? ";
+			+"INNER JOIN Equipe AS e ON e.idEquipe = ef.idEquipe WHERE f.idFuncionario=? and f.ativo = ? ";
 		
 				PreparedStatement ps = conec.prepareStatement(sql);
 				
 				ps.setInt(1, idFuncionario);
+				ps.setString(2,  "s");
 				ResultSet rs = ps.executeQuery();
 				List<EquipeBean> listaEquipes = new ArrayList<EquipeBean>();
 
@@ -337,6 +337,52 @@ public class EquipeDAO {
 				return listaEquipes;
 			 		
 		
+	}
+	
+	public List<EquipeBean> obterPorProjeto (int idProjeto) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		
+		String sql ="SELECT e.*, e.nome FROM Equipe AS e "
+				+"INNER JOIN ProjetoEquipe AS pe ON e.idEquipe = pe.idEquipe "
+				+"INNER JOIN Projeto AS p ON p.idProjeto = pe.idProjeto WHERE p.idProjeto = ? and e.ativo = ?";
+		
+		PreparedStatement ps = conec.prepareStatement(sql);
+		
+		ps.setInt(1, idProjeto);
+		ps.setString(2,  "s");
+		ResultSet rs = ps.executeQuery();
+		List<EquipeBean> listaEquipes = new ArrayList<EquipeBean>();
+		
+		EquipeBean equipeBean = null;
+		while (rs.next()) {
+			
+			equipeBean = new EquipeBean();
+			equipeBean.setId(rs.getInt("idEquipe"));
+			equipeBean.setNome(rs.getString("nome"));
+			
+			listaEquipes.add(equipeBean);
+		}
+		
+		return listaEquipes;
+		
+		
+	}
+
+	public boolean verificarPorFuncionarios(int id) throws ClassNotFoundException, SQLException {
+		Connection conec = ConnectionFactory.createConnection();
+		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe = ?";
+		PreparedStatement ps = conec.prepareStatement(sql);
+		ps.setInt(1,id);
+		
+		ResultSet rs = ps.executeQuery();
+		boolean check = true;
+		while(rs.next()){
+			check = false;
+		}
+		conec.close();
+		ps.close();
+		
+		return check;
 	}
 
 }

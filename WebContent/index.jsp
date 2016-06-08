@@ -59,7 +59,7 @@
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive"
-							style="text-align: center">
+							style="height:700px; text-align: center">
 							<div id="carousel-example-generic" class="carousel slide"
 								data-ride="carousel" style="width: 60%; margin: 0 auto;"
 								data-interval="3500">
@@ -118,27 +118,27 @@
 							<hr>
 
 							<div class="row">
-								<header>
-									<h3></h3>
+								<header> 
+									<h3>Catálogo de Conhecimentos</h3>  
 								</header>
 								<div class="col-xs-8 col-xs-offset-2">
 									<div class="input-group input-group">
 										<div class="input-group-btn search-panel">
 											<form name="busca" method="post" action="mvc">
-												<select class="btn btn-primary btn-xs" class="selectpicker"
-													name="logica" style="margin-bottom: 11px; height: 32px;">
+												<span class="input-group-btn"><select class="btn btn-primary btn-xs" class="selectpicker"
+													name="logica" style="margin-bottom: 11px; height: 33.5px;">
 													<optgroup label="Filtros">
 														<option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
 														<option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
 													</optgroup>
-												</select>
+												</select></span>
 										</div>
 										<input type="hidden" id="filtro" class="form-control"
 											name="filtro" /> <span class="input-group-btn">
 											<button type="submit" class="btn btn-primary btn-xs"
 												value="Submit Button"
-												style="margin-bottom: 11px; height: 32px;">
-												Pesquisar</button>
+												style="margin-bottom: 11px; height: 33.5px;">
+												<i class="fa fa-search"></i> Pesquisar</button>
 										</span>
 									</div>
 								</div> 

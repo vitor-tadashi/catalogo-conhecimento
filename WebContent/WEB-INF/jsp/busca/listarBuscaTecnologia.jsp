@@ -8,11 +8,9 @@
 
 	<title>Resultado da Busca</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import> 
-			<script type="text/javascript">
+<script type="text/javascript">
 	
-		$(document).ready(function(){
-			$("#filtro").tagit();
-		})
+		
 		
 		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
 			
@@ -26,56 +24,72 @@
 		
 $(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
 			
-			$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario) {
+			$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
 			        });
 	            });
 	        });
-
-
-$(document).on("click", "#btnNegocioPorProjeto", function() { 
-	
-	$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
-		$("#dataTableNegocio tbody tr").detach();	
-		$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
-			drawRowNegocios(item);
-	        });
-        });
-    });	
-    
-$(document).on("click", "#btnEquipePorProjeto", function() { 
-	
-	$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
-		$("#dataTableEquipe tbody tr").detach();	
-		$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
-			drawRowEquipe(item);
-	        });
-        });
-    });	
 		
-		function drawRowTecnologias(rowData) {
-		    var row = $("<tr />")
+		$(document).on("click", "#btnNegocioPorProjeto", function() { 
+			
+			$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
+				$("#dataTableNegocio tbody tr").detach();	
+				$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
+					drawRowNegocios(item);
+			        });
+		        });
+		    });	
 		    
-		    $("#dataTableTecnologias tbody").append(row);
-            row.append($("<td>" + rowData.nome + "</td>"));
-		}
+		$(document).on("click", "#btnEquipePorProjeto", function() { 
+			
+			$.post("ajax?logica=busca.BuscarEquipeNoProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
+				$("#dataTableEquipe tbody tr").detach();	
+				$.each(listaEquipeProjeto, function(index, item) { // Iterate over the JSON array.
+					drawRowEquipe(item);
+			        });
+		        });
+		    });	
 		
-		function drawRowNegocios(rowData) {
-		    var row = $("<tr />")
-		    
-		    $("#dataTableNegocio tbody").append(row);
-            row.append($("<td>" + rowData.areaAtuacao + "</td>"));
-		}
-		
-		function drawRowEquipe(rowData) {
-		    var row = $("<tr />")
-		    
-		    $("#dataTableEquipe tbody").append(row);
-            row.append($("<td>" + rowData.nome + "</td>"));
-		}
-	</script>
+		$(document).on("click", "#btnFuncionarioPorEquipe", function() { 
+			
+			$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
+				$("#dataTableFuncionario tbody tr").detach();	
+				$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
+					drawRowFuncionario(item);
+			        });
+		        });
+		    });	
+				
+				function drawRowTecnologias(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableTecnologias tbody").append(row);
+		            row.append($("<td>"+ rowData.nome+"</td>"));
+				}
+				
+				function drawRowNegocios(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableNegocio tbody").append(row);
+		            row.append($("<td>" + rowData.areaAtuacao + "</td>"));
+				}
+				
+				function drawRowEquipe(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableEquipe tbody").append(row);
+		            row.append($("<td><a id='btnFuncionarioPorEquipe' id-equipe="+rowData.id+ " href='#simpleModalFuncionario' role='button' data-toggle='modal' class='btn btn-primary btn-small'>"+rowData.nome+"</a></td>"));
+				}
+				
+				function drawRowFuncionario(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableFuncionario tbody").append(row);
+		            row.append($("<td>" + rowData.nome + "</td>"));
+				}
+			</script>
 	
 </head>
 <body>
@@ -159,9 +173,8 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 												<td>${projeto.cliente.nome}</td>
 												
 												<td>
-													<c:forEach var="equipe" items="${projeto.listaEquipe}">
-													<a id="btnEquipePorProjeto" id-equipe="${equipe.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">${equipe.nome}</a>
-													</c:forEach>
+													<a id="btnEquipePorProjeto" id-projeto="${projeto.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
+												
 												</td>
 												
 												<td>${projeto.observacao}</td>	
@@ -232,6 +245,7 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
 		<!-- /.padding-md -->
 	</div>
  
+	
 		<!--Modal-->
 	<div class="modal fade" id="simpleModalTecnologia">
  			<div class="modal-dialog">
@@ -294,6 +308,31 @@ $(document).on("click", "#btnEquipePorProjeto", function() {
      				</div>
 			    <div class="modal-body">
 			        <table class="table table-striped" id="dataTableEquipe">
+						<thead >
+							<tr>
+								<th>Equipes</th>
+							</tr>
+						</thead>
+						<tbody >
+							
+						</tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			    </div>
+		  	</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal fade" id="simpleModalFuncionario">
+ 			<div class="modal-dialog">
+   			<div class="modal-content">
+     				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Funcionário</h4>
+     				</div>
+			    <div class="modal-body">
+			        <table class="table table-striped" id="dataTableFuncionario">
 						<thead >
 							<tr>
 								<th>Funcionários</th>

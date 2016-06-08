@@ -9,15 +9,6 @@ public class ClienteBean {
 	private String numero;
 	private String cnpj;
 	private String email;
-	private char ativo;
-
-	public char getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(char ativo) {
-		this.ativo = ativo;
-	}
 
 	public int getId() {
 		return id;
@@ -74,4 +65,5 @@ public class ClienteBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 }

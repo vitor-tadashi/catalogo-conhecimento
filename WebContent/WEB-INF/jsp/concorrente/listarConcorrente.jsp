@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>Lista Concorrentes</title>
+<title>Lista de Concorrentes</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 

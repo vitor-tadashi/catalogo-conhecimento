@@ -25,7 +25,7 @@ public class ClienteDAO {
 		ps.setString(4, clienteBean.getNumero());
 		ps.setString(5, clienteBean.getCnpj());
 		ps.setString(6, clienteBean.getEmail());
-		ps.setString(7, String.valueOf('S'));
+		ps.setString(7, "S");
 		ps.executeUpdate();
 		ResultSet rs = ps.getGeneratedKeys();
 		int newId = 0;
@@ -60,7 +60,6 @@ public class ClienteDAO {
 			clienteBean.setNumero(rs.getString("numero"));
 			clienteBean.setCnpj(rs.getString("cnpj"));
 			clienteBean.setEmail(rs.getString("email"));
-			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 			listaClientes.add(clienteBean);
 		}
 		conn.close();
@@ -113,7 +112,6 @@ public class ClienteDAO {
 			clienteBean.setNumero(rs.getString("numero"));
 			clienteBean.setCnpj(rs.getString("cnpj"));
 			clienteBean.setEmail(rs.getString("email"));
-			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 			conn.close();
 		}
 		return clienteBean;
@@ -139,7 +137,6 @@ public class ClienteDAO {
 			clienteBean.setNumero(rs.getString("numero"));
 			clienteBean.setCnpj(rs.getString("cnpj"));
 			clienteBean.setEmail(rs.getString("email"));
-			clienteBean.setAtivo(rs.getString("ativo").charAt(0));
 		}
 
 		ps.close();
@@ -195,7 +192,7 @@ public class ClienteDAO {
 		ps.setString(3, clienteBean.getNumero());
 		ps.setString(4, clienteBean.getCnpj());
 		ps.setString(5, clienteBean.getEmail());
-		ps.setString(6, "s");
+		ps.setString(6, "S");
 		ps.setString(7, clienteBean.getNome());
 		ps.executeUpdate();
 		conexao.close();
