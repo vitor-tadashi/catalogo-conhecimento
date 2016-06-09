@@ -18,6 +18,7 @@ import br.com.resource.catalogoconhecimento.exceptions.EmailInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RgInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 public class FuncionarioBusiness {
 
@@ -229,8 +230,12 @@ public class FuncionarioBusiness {
 		// }
 	}
 
-	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException {
-		return funcionarioDAO.listarPorNegocio(nomeNegocio);
+	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
+		try{
+			return funcionarioDAO.listarPorNegocio(nomeNegocio);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	private boolean validarNome(String nome) {

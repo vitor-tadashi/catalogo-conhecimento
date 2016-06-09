@@ -12,6 +12,7 @@ import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ProjetoBusiness {
@@ -100,14 +101,20 @@ public class ProjetoBusiness {
 			return listaProjeto;
 		}
 	}
+	
 	public List<ProjetoBean> obterPorNegocio(String nomeNegocio)
-			throws ConsultaNulaException, ClassNotFoundException, SQLException {
+			throws BusinessException {
+		
+		try{
 		List<ProjetoBean> listaProjeto = projetoDao.obterPorNegocio(nomeNegocio);
 		
 		if (listaProjeto == null) {
 			throw new ConsultaNulaException("Não há projetos cadastrados!");
 		} else {
 			return listaProjeto;
+		}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 	
