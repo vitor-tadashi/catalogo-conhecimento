@@ -1,0 +1,10 @@
+diff a/WebContent/index.html b/WebContent/index.html	(rejected hunks)
+@@ -374,7 +374,7 @@
+ 							        <div class="col-xs-8 col-xs-offset-2"><!-- col-md-6 -->
+ 									    <div class="input-group">
+ 							                <div class="input-group-btn search-panel">
+-							                    <button type="button" class="form-control" data-toggle="dropdown">
++							                    <button type="button" class="btn btn-primary" data-toggle="dropdown" style="margin-bottom:12px;height:37px;">
+ 							                    	<span id="search_concept">Buscar por</span> <span class="caret"></span>
+ 							                    </button>
+ 							                    <ul class="dropdown-menu" role="menu">
