@@ -231,9 +231,9 @@ public class FuncionarioBusiness {
 	}
 
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
-		try{
+		try {
 			return funcionarioDAO.listarPorNegocio(nomeNegocio);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -349,7 +349,7 @@ public class FuncionarioBusiness {
 
 		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataFormatada = formatador.parse(data);
-		
+
 		if (dataFormatada.after(dataAtual)) {
 			throw new DataInvalidaException("Data inserida inválida!");
 		}
