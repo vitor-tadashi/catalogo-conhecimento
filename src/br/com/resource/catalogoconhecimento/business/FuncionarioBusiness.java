@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -20,6 +22,7 @@ import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
+@Component
 public class FuncionarioBusiness {
 
 	private FuncionarioDAO funcionarioDAO;

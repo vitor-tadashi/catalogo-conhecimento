@@ -13,13 +13,12 @@ public class HelloController {
 	@Autowired
 	private ProjetoBusiness projetoBusiness;
 	
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 		
 		System.out.println(projetoBusiness.hashCode());
 		
-		model.addAttribute("message", "Spring 3 MVC Hello World");
-		return "hello";
+		return "index";
 
 	}
 

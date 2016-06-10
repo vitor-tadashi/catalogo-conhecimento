@@ -17,8 +17,10 @@ public class BuscaController {
 
 	@Autowired
 	private ProjetoBusiness projetoBusiness;
+	
 	@Autowired
 	private NegocioBusiness negocioBusiness;
+	
 	@Autowired
 	private FuncionarioBusiness funcionarioBusiness;
 
