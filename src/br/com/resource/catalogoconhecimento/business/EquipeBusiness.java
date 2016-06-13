@@ -135,10 +135,13 @@ public class EquipeBusiness {
 
 	}
 
-	public List<EquipeBean> obterPorProjeto(int idProjeto) throws ClassNotFoundException, SQLException {
+	public List<EquipeBean> obterPorProjeto(int idProjeto) throws BusinessException {
 
-		return equipeDAO.obterPorProjeto(idProjeto);
-
+		try {
+			return equipeDAO.obterPorProjeto(idProjeto);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public boolean validarNome(String nome) {

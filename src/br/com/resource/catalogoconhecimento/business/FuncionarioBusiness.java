@@ -125,17 +125,16 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
 	 */
-	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias)
-			throws BusinessException {
+	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws BusinessException {
 		try {
-		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorTecnologias(nomeTecnologias);
+			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorTecnologias(nomeTecnologias);
 
-		if (listaFuncionario == null) {
-			throw new ConsultaNulaException("Não há funcionários cadastrados");
-		} else {
-			return listaFuncionario;
-		}
-		}catch(Exception e){
+			if (listaFuncionario == null) {
+				throw new ConsultaNulaException("Não há funcionários cadastrados");
+			} else {
+				return listaFuncionario;
+			}
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -224,17 +223,15 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
 	 */
-	public List<FuncionarioBean> listarPorEquipe(int id)
-			throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorEquipe(id);
+	public List<FuncionarioBean> listarPorEquipe(int id) throws BusinessException {
 
-		// if (listaFuncionario.isEmpty()) {
-		// EquipeBean equipe = new EquipeBusiness().obterPorId(id);
-		// throw new ConsultaNulaException("Não existem funcionários na " +
-		// equipe.getNome());
-		// } else {
-		return listaFuncionario;
-		// }
+		try {
+			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorEquipe(id);
+
+			return listaFuncionario;
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {

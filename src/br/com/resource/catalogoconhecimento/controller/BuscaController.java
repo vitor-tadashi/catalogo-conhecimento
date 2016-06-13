@@ -9,16 +9,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
+import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
-import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Controller
 public class BuscaController {
@@ -34,6 +39,9 @@ public class BuscaController {
 
 	@Autowired
 	private TecnologiaBusiness tecnologiaBusiness;
+	
+	@Autowired
+	private EquipeBusiness equipeBusiness;
 
 	@RequestMapping(value = "listarPorNegocio", method = RequestMethod.POST)
 	public String listarPorNegocio(String filtro, Model model) throws BusinessException {
@@ -110,5 +118,46 @@ public class BuscaController {
 		model.addAttribute("msgErro", exception.getMessage());
 		return "index";
 	}
+
+	@RequestMapping(value = "buscarTecnologiaPorFuncionario", method = RequestMethod.POST)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario( @RequestParam("idFuncionario") String id)
+			throws BusinessException {
+		int idFuncionario = Integer.parseInt(id);
+		return tecnologiaBusiness.obterPorFuncionario(idFuncionario);
+	}
+	
+	@RequestMapping(value = "buscarTecnologiaPorProjeto", method = RequestMethod.POST)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorProjeto( @RequestParam("idProjeto") String id)
+			throws BusinessException {
+		int idProjeto = Integer.parseInt(id);
+		
+		return tecnologiaBusiness.listarPorProjeto(projetoBusiness.obterPorId(idProjeto));
+	}
+	
+	@RequestMapping(value = "buscarNegocioPorProjeto", method = RequestMethod.POST)
+	public @ResponseBody List<NegocioBean> buscarNegocioPorProjeto( @RequestParam("idProjeto") String id)
+			throws BusinessException {
+		int idProjeto = Integer.parseInt(id);
+		
+		return negocioBusiness.obterPorProjeto(projetoBusiness.obterPorId(idProjeto));
+	}
+	
+	@RequestMapping(value = "buscarEquipePorProjeto", method = RequestMethod.POST)
+	public @ResponseBody List<EquipeBean> buscarEquipePorProjeto( @RequestParam("idProjeto") String id)
+			throws BusinessException {
+		int idProjeto = Integer.parseInt(id);
+		
+		return equipeBusiness.obterPorProjeto(idProjeto);
+	}
+	
+	@RequestMapping(value = "buscarFuncionariosPorEquipe", method = RequestMethod.POST)
+	public @ResponseBody List<FuncionarioBean> FuncionarioPorEquipe( @RequestParam("idEquipe") String id)
+			throws BusinessException {
+		int idEquipe = Integer.parseInt(id);
+		
+		return funcionarioBusiness.listarPorEquipe(idEquipe);
+	}
+	
+	
 
 }

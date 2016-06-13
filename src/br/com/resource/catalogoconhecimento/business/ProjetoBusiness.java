@@ -71,8 +71,12 @@ public class ProjetoBusiness {
 	}
 
 	// LISTA POR ID
-	public ProjetoBean obterPorId(int idProjeto) throws ClassNotFoundException, SQLException {
-		return projetoDao.obterPorId(idProjeto);
+	public ProjetoBean obterPorId(int idProjeto) throws BusinessException {
+		try {
+			return projetoDao.obterPorId(idProjeto);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 
 	}
 

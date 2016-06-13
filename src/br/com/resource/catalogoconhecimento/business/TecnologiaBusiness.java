@@ -56,13 +56,18 @@ public class TecnologiaBusiness {
 	}
 
 	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projetoBean)
-			throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean);
+			throws BusinessException {
+		try {
+			List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean);
+		
 
 		if (listaTecnologia.isEmpty()) {
 			throw new ConsultaNulaException("Não há tecnologias cadastradas");
 		} else {
 			return listaTecnologia;
+		}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -83,8 +88,12 @@ public class TecnologiaBusiness {
 		return tecnologiaDao.obterDesativado(tecnologiaBean);
 	}
 
-	public List<TecnologiaBean> obterPorFuncionario(int idFuncionario) throws SQLException, ClassNotFoundException {
-		return tecnologiaDao.listarPorFuncionario(idFuncionario);
+	public List<TecnologiaBean> obterPorFuncionario(int idFuncionario) throws BusinessException {
+		try{
+			return tecnologiaDao.listarPorFuncionario(idFuncionario);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException, BusinessException {

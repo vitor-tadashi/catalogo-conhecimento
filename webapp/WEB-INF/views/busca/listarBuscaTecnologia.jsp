@@ -14,7 +14,7 @@
 		
 		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarTecnologiaPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
+			$.post("<c:url value = 'buscarTecnologiaPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
@@ -24,7 +24,7 @@
 		
 $(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
 			
-			$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
+			$.post("<c:url value = 'buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
@@ -34,7 +34,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		
 		$(document).on("click", "#btnNegocioPorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
+			$.post("<c:url value = 'buscarNegocioPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
 				$("#dataTableNegocio tbody tr").detach();	
 				$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
 					drawRowNegocios(item);
@@ -44,7 +44,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		    
 		$(document).on("click", "#btnEquipePorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarEquipeNoProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
+			$.post("<c:url value = 'buscarEquipePorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
 				$("#dataTableEquipe tbody tr").detach();	
 				$.each(listaEquipeProjeto, function(index, item) { // Iterate over the JSON array.
 					drawRowEquipe(item);
@@ -54,7 +54,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		
 		$(document).on("click", "#btnFuncionarioPorEquipe", function() { 
 			
-			$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
+			$.post("<c:url value = 'buscarFuncionariosPorEquipe'/>", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
 				$("#dataTableFuncionario tbody tr").detach();	
 				$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
 					drawRowFuncionario(item);

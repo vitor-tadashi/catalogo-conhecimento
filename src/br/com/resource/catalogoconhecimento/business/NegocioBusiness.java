@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
+import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.NegocioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
@@ -116,6 +117,14 @@ public class NegocioBusiness {
 
 	public boolean validarAreaAtuacao(String areaAtuacao) {
 		return (areaAtuacao.matches("[A-Za-zÀ-ú0-9'\\s]{1,50}"));
+	}
+	
+	public List<NegocioBean> obterPorProjeto(ProjetoBean projetoBean) throws BusinessException{
+		try{
+			return new NegocioDAO().obterPorProjeto(projetoBean);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 }
