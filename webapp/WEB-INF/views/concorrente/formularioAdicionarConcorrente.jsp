@@ -64,28 +64,44 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
-												<div class="col-md-8">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome
 															<input type="text" class="form-control"  name="nome">
 														</label> 
-													</div>	 
+													</div>
+												</div>	
+												<div class="col-sm-2">	 
 													<div class="form-group">
 														<label class="control-label">Descrição
 															<textarea class="form-control" name="descricao"></textarea>
 														</label>
 													</div>
 												</div><!-- /.col -->
-												<div class="col-md-8">
+											</div>	
+											<div class="row">
+												<div class="col-md-4">
 													<h4>Adicionar Clientes</h4>
-													<select id="cliente">
-														<c:forEach var="cliente" items="${listaCliente}">
-															<option>${cliente.nome}</option>
-														</c:forEach>
-													</select> 
-													<input id="valorConcorrente" type="text">
-													<button type="button" onclick="add()">+</button>
-													<br> <br>
+												<div class="col-sm-6">	 
+													<div class="form-group">
+														<select id="cliente" class="form-control" >
+															<c:forEach var="cliente" items="${listaCliente}">
+																<option>${cliente.nome}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+												<div class="col-sm-4">	 
+													<div class="form-group"> 
+														<input id="valorConcorrente" class="form-control" placeholder="Valor/Hora" type="text">
+													</div>
+												</div>
+												<div class="col-sm-2">	 
+													<div class="form-group">		
+														<button type="button" class="form-control"  onclick="add()">+</button>
+													</div>
+												</div>
+												<br><br>
 													<table class="table table-striped" id="tbCliente">
 														<thead>
 															<tr>
