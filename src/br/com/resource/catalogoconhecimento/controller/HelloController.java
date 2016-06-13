@@ -16,7 +16,6 @@ public class HelloController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 		
-		System.out.println(projetoBusiness.hashCode());
 		
 		return "index";
 

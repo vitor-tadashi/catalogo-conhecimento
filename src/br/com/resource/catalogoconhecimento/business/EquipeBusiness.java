@@ -2,6 +2,9 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
@@ -12,6 +15,7 @@ import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 
+@Component
 public class EquipeBusiness {
 
 	private EquipeDAO equipeDAO;
