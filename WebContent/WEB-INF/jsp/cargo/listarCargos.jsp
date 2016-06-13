@@ -49,10 +49,10 @@
 										<c:forEach var="cargo" items="${cargos}">
 											<tr>
 												<td>${cargo.nome}</td>
-												<td style="text-align: center;">
+												<td style="text-align: center;" name=alt${cargo.nome}>
 													<a href="mvc?logica=cargo.FormularioAlterarCargoLogica&id=${cargo.id}">
 													<i class="fa fa-edit fa-lg"></a></td>
-												<td style="text-align: center;">
+												<td style="text-align: center;" name=del${cargo.nome}>
 													<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargo.id}&logicaAtual=cargo.ListarCargoLogica">
 													<i class="fa fa-times fa-lg"></a></td>
 											</tr>

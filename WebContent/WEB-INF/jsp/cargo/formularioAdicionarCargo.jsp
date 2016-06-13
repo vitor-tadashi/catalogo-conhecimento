@@ -46,7 +46,7 @@
 											<input type="hidden" name="logica" value="cargo.AdicionarCargoLogica">
 										</div>
 										<div class="panel-footer text-left">
-											<button class="btn btn-success" type="submit">Adicionar</button>
+											<button class="btn btn-success" id="submit" type="submit">Adicionar</button>
 										</div>
 									</form>
 								</div><!-- /panel -->

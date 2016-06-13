@@ -46,10 +46,10 @@
 										</div>
 										<!-- /.row -->
 										<input type="hidden" name="logicaAtual" value="tecnologia.FormularioAdicionarTecnologiaLogica" /> 
-											<input type="hidden" name="logica" value="tecnologia.AdicionarTecnologiaLogica">
+										<input type="hidden" name="logica" value="tecnologia.AdicionarTecnologiaLogica">
 									</div>
 									<div class="panel-footer text-left">
-										<button class="btn btn-success" type="submit">Adicionar</button>
+										<button class="btn btn-success" id="submit" type="submit">Adicionar</button>
 									</div>
 								</form>
 							</div>
