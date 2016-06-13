@@ -109,13 +109,26 @@
 												</div><!-- /.col -->
 												<div class="col-md-4">
 												<h4>Adicionar Concorrentes</h4>
-												<select id="concorrente">
-													<c:forEach var="concorrente" items="${concorrentes}">
-														<option>${concorrente.nome}</option>
-													</c:forEach>
-												</select> 
-												<input id="valorConcorrente" type="text">
-												<button type="button" onclick="add()">+</button>
+													
+												<div class="col-sm-6">
+													<div class="form-group">
+														<select id="concorrente" class="form-control">
+															<c:forEach var="concorrente" items="${concorrentes}">
+																<option>${concorrente.nome}</option>
+															</c:forEach>
+														</select> 
+													</div>
+												</div>			
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input id="valorConcorrente" class="form-control" placeholder="Valor/Hora"type="text">
+													</div>
+												</div>		
+												<div class="col-md-2">
+													<div class="form-group">		
+														<button type="button" class="form-control" onclick="add()">+</button>
+													</div>
+												</div>			
 												<br> <br>
 												<table class="table table-striped" id="tbConcorrente">
 													<thead>

@@ -15,7 +15,7 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class FuncionarioNegocioDAO {
 	
 	private String sqlInserir = "INSERT INTO FuncionarioNegocio (idFuncionario, idNegocio) VALUES (?, ?)";
-	private String sqlConsultar = "SELECT * FROM TecnologiaFuncionario WHERE idFuncionario = ?";
+	private String sqlConsultar = "SELECT * FROM FuncionarioNegocio WHERE idFuncionario = ?";
 	private final String sqlDeletar = "Delete FROM FuncionarioNegocio WHERE idFuncionario = ?";
 	Connection conexao;
 	
