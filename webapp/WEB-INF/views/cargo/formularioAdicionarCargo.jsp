@@ -25,7 +25,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="adicionarCargo">
 										<div class="panel-heading">
 											<h3>Adicionar Cargo</h3>
 										</div>
@@ -42,8 +42,6 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="cargo.FormularioAdicionarCargoLogica" />
-											<input type="hidden" name="logica" value="cargo.AdicionarCargoLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>

@@ -18,6 +18,7 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
@@ -66,7 +67,7 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public List<FuncionarioBean> listar() throws SQLException, ClassNotFoundException {
+	public List<FuncionarioBean> listar() throws SQLException, ClassNotFoundException, BusinessException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -114,7 +115,7 @@ public class FuncionarioDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void alterar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
+	public void alterar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =? WHERE idFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -133,7 +134,7 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public void remover(int id) throws SQLException, ClassNotFoundException {
+	public void remover(int id) throws SQLException, ClassNotFoundException, BusinessException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -171,7 +172,7 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterPorId(int id) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorId(int id) throws SQLException, ClassNotFoundException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
@@ -208,7 +209,7 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorNome(String nome) throws SQLException, ClassNotFoundException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -244,7 +245,7 @@ public class FuncionarioDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws ClassNotFoundException, SQLException {
+	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws ClassNotFoundException, SQLException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT f.idFuncionario, f.nomeFuncionario, f.email FROM Funcionario AS f"
 				+ " INNER JOIN EquipeFuncionario AS ef  ON f.idFuncionario = ef.idFuncionario"
@@ -285,7 +286,7 @@ public class FuncionarioDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterDesativado(String nome) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterDesativado(String nome) throws SQLException, ClassNotFoundException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? AND ativo =?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -322,7 +323,7 @@ public class FuncionarioDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws ClassNotFoundException, SQLException {
+	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws ClassNotFoundException, SQLException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT f.* FROM Funcionario f "
@@ -362,7 +363,7 @@ public class FuncionarioDAO {
 		return listaFuncionario;
 	}
 
-	public void reativar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException {
+	public void reativar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "UPDATE Funcionario SET ativo = ? WHERE CPF = ?";
@@ -375,7 +376,7 @@ public class FuncionarioDAO {
 	}
 	
 	
-	public FuncionarioBean obterPorCpf(String cpf) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorCpf(String cpf) throws SQLException, ClassNotFoundException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE CPF = ? AND ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -406,7 +407,7 @@ public class FuncionarioDAO {
 	}
 
 
-	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException{
+	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException,BusinessException{
 		
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -450,7 +451,7 @@ public class FuncionarioDAO {
 	}
 	
 	
-	public FuncionarioBean obterPorEmail(String email) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorEmail(String email) throws SQLException, ClassNotFoundException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE email = ? AND ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -480,7 +481,7 @@ public class FuncionarioDAO {
 
 	}
 	
-	public FuncionarioBean obterPorUser(String user) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorUser(String user) throws SQLException, ClassNotFoundException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeUser = ? AND ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -510,7 +511,7 @@ public class FuncionarioDAO {
 
 	}
 	
-	public FuncionarioBean obterPorRg(String rg) throws SQLException, ClassNotFoundException {
+	public FuncionarioBean obterPorRg(String rg) throws SQLException, ClassNotFoundException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE RG = ? AND ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -541,7 +542,7 @@ public class FuncionarioDAO {
 	}
 	
 	
-	public List<FuncionarioBean> listarPorNome(String nome) throws SQLException, ClassNotFoundException {
+	public List<FuncionarioBean> listarPorNome(String nome) throws SQLException, ClassNotFoundException,BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario LIKE '%"+nome+"%' and ativo = 's'";
 		PreparedStatement ps = conexao.prepareStatement(sql);

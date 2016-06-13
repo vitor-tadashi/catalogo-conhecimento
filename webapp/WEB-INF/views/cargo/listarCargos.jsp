@@ -50,18 +50,25 @@
 											<tr>
 												<td>${cargo.nome}</td>
 												<td style="text-align: center;">
-													<a href="mvc?logica=cargo.FormularioAlterarCargoLogica&id=${cargo.id}">
+													<a href="
+													<c:url value='formularioAlterarCargo'>
+													<c:param name='idCargo' value='${cargo.id}'/>
+													</c:url>
+													">													
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;">
-													<a href="mvc?logica=cargo.RemoverCargoLogica&id=${cargo.id}&logicaAtual=cargo.ListarCargoLogica">
+												<a href="
+													<c:url value='excluirCargo'>
+													<c:param name='idCargo' value='${cargo.id}'/>
+													</c:url>
+													">	
 													<i class="fa fa-times fa-lg"></a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a
-										href="mvc?logica=cargo.FormularioAdicionarCargoLogica">
+									<a href="<c:url value='formularioAdicionarCargo'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Novo Cargo</button>
 									</a>
 								</div>

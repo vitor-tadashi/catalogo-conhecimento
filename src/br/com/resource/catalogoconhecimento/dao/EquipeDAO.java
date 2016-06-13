@@ -16,6 +16,7 @@ import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
@@ -228,7 +229,7 @@ public class EquipeDAO {
 	//SELECIONAR DADOS NA TABELA POR EQUIPE
 	
 	public EquipeFuncionarioBean listarPorEquipe(int idEquipe, int idFuncionario)
-			throws ClassNotFoundException, SQLException {
+			throws ClassNotFoundException, SQLException, BusinessException {
 		Connection conec = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe=" + idEquipe + " and idFuncionario="
 				+ idFuncionario;

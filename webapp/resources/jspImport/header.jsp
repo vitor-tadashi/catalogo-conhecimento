@@ -187,7 +187,7 @@
 									</span>
 									</a>
 								</li>
-								<li><a href="mvc?logica=cargo.ListarCargoLogica">
+								<li><a href="<c:url value='listarCargo'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
@@ -196,7 +196,7 @@
 									</span>
 									</a>
 								</li>
-								<li><a href="mvc?logica=cargo.FormularioAdicionarCargoLogica">
+								<li><a href="<c:url value='formularioAdicionarCargo'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
