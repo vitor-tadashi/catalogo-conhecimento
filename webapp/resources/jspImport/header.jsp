@@ -1,10 +1,11 @@
 <!-- Overlay Div -->
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<div id="overlay" class="transparent"></div>
 
 	<div id="wrapper" class="preload">
 		<div id="top-nav" class="skin-1 fixed">
 			<div class="brand" >
-				<a href="index.jsp"><img src="resources/img/logowhite-resource.png" class="pull-center"style="height:45px; width:135px; padding-left:10px;padding-right:10px;" ></a>
+				<a href="<c:url value='/'/>"><img src="resources/img/logowhite-resource.png" class="pull-center"style="height:45px; width:135px; padding-left:10px;padding-right:10px;" ></a>
 			</div><!-- /brand -->
 
       <!-- Button menu layout mobile -->

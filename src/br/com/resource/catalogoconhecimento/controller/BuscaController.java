@@ -1,10 +1,12 @@
 package br.com.resource.catalogoconhecimento.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
@@ -24,9 +26,10 @@ public class BuscaController {
 	@Autowired
 	private FuncionarioBusiness funcionarioBusiness;
 
-	@RequestMapping("/listarPorNegocio")
-	public String listarPorNegocio(String[] array, Model model) throws BusinessException {
+	@RequestMapping(value = "listarPorNegocio", method = RequestMethod.POST)
+	public String listarPorNegocio(String filtro, Model model) throws BusinessException {
 
+		String [] array = filtro.split(",");
 		String nomeNegocio = "";
 
 		for (int i = 0; i < array.length; i++) {

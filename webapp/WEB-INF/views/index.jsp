@@ -16,24 +16,6 @@
 		$("#filtro").tagit();
 	})
 
-	$(document).on("click", "#btnTeste", function() {
-		$.post("ajax?logica=busca.BuscarPorTecnologiaAjaxLogica", {
-			idProjeto : $(this).attr('id-projeto')
-		}, function(responseJson) {
-			$("#dataTableTecnologias tbody tr").detach();
-			$.each(responseJson, function(index, item) { // Iterate over the JSON array.
-				drawRowTecnologias(item);
-			});
-		});
-	});
-
-	function drawRowTecnologias(rowData) {
-		var row = $("<tr />")
-
-		$("#dataTableTecnologias tbody").append(row);
-		row.append($("<td>" + rowData.id + "</td>"));
-		row.append($("<td>" + rowData.nome + "</td>"));
-	}
 </script>
 
 </head>
@@ -77,27 +59,27 @@
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">
 									<div class="item active">
-										<img src="resources/img/Carousel_empresas-main1.png" alt="...">
+										<img src="<c:url value='/resources/img/Carousel_empresas-main1.png'/>" alt="...">
 										<div class="carousel-caption"></div>
 									</div>
 									<div class="item">
-										<img src="resources/img/Carousel_Resource_2.png" alt="...">
+										<img src="<c:url value='/resources/img/Carousel_Resource_2.png'/>" alt="...">
 										<div class="carousel-caption"></div>
 									</div>
 									<div class="item">
-										<img src="resources/img/Carousel_Resource_3.png" alt="...">
+										<img src="<c:url value='/resources/img/Carousel_Resource_3.png'/>" alt="...">
 										<div class="carousel-caption"></div>
 									</div>
 									<div class="item">
-										<img src="resources/img/Carousel_Resource_4.png" alt="...">
+										<img src="<c:url value='/resources/img/Carousel_Resource_4.png'/>" alt="...">
 										<div class="carousel-caption"></div>
 									</div>
 									<div class="item">
-										<img src="resources/img/Carousel_Resource_5.png" alt="...">
+										<img src="<c:url value='/resources/img/Carousel_Resource_5.png'/>" alt="...">
 										<div class="carousel-caption"></div>
 									</div>
 									<div class="item">
-										<img src="resources/img/Carousel_Resource_6.png" alt="...">
+										<img src="<c:url value='/resources/img/Carousel_Resource_6.png'/>" alt="...">
 										<div class="carousel-caption"></div>
 									</div>
 								</div>
@@ -124,12 +106,12 @@
 								<div class="col-xs-8 col-xs-offset-2">
 									<div class="input-group input-group">
 										<div class="input-group-btn search-panel">
-											<form name="busca" method="post" action="mvc">
+											<form name="busca" method="post" action="listarPorNegocio">
 												<span class="input-group-btn"><select class="btn btn-primary btn-xs" class="selectpicker"
 													name="logica" style="margin-bottom: 11px; height: 33.5px;">
 													<optgroup label="Filtros">
 														<option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
-														<option value="busca.ListarPorNegocioBuscaLogica">Negócio</option>
+														<option value="listarPorNegocio">Negócio</option>
 													</optgroup>
 												</select></span>
 										</div>
@@ -140,6 +122,7 @@
 												style="margin-bottom: 11px; height: 33.5px;">
 												<i class="fa fa-search"></i> Pesquisar</button>
 										</span>
+										</form>
 									</div>
 								</div> 
 							</div>
