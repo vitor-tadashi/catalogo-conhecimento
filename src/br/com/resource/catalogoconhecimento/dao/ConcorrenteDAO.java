@@ -173,7 +173,7 @@ public class ConcorrenteDAO {
 
 	public ConcorrenteBean obterPorNome(String nomeConcorrente) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Concorrente WHERE nomeConcorrente = ?";
+		String sql = "SELECT * FROM Concorrente WHERE nomeConcorrente = ? AND ativo = 'S'";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, nomeConcorrente);
 		ResultSet rs = ps.executeQuery();
@@ -233,7 +233,7 @@ public class ConcorrenteDAO {
 		Connection conn = ConnectionFactory.createConnection();
 		String deleteSQL = "UPDATE CONCORRENTE SET ATIVO = ? WHERE idConcorrente = ?";
 		PreparedStatement ps = conn.prepareStatement(deleteSQL);
-		ps.setString(1, "n");
+		ps.setString(1, "N");
 		ps.setInt(2, idConcorrente);
 		ps.executeUpdate();
 		conn.close();
@@ -278,9 +278,9 @@ public class ConcorrenteDAO {
 		
 		ResultSet rs = ps.executeQuery();
 		
-		boolean check = true;
+		boolean check = false;
 		while(rs.next()){
-			check = false;
+			check = true;
 		}
 		conec.close();
 		ps.close();

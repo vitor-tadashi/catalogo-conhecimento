@@ -37,8 +37,6 @@ public class ConcorrenteBusiness {
 			throw new TamanhoCampoException("Nome: Número limite de caracteres excedido(máx.50)");
 		} else if (concorrenteBean.getDescricao().length() > 255) {
 			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
-		} else if (this.existe(concorrenteBean)) {
-			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
 			throw new NomeRepetidoException("Este nome já está cadastrado!");
 		} else {
@@ -109,8 +107,6 @@ public class ConcorrenteBusiness {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (concorrenteBean.getDescricao().length() > 255) {
 			throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
-		} else if (this.existe(concorrenteBean)) {
-			this.reativar(concorrenteBean);
 		} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
 			throw new NomeRepetidoException("Este nome já está cadastrado!");
 		} else {
@@ -120,7 +116,7 @@ public class ConcorrenteBusiness {
 	}
 
 	public void remover(int idConcorrente) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
-		if (concorrenteDao.verificarPorCliente(idConcorrente)) {
+		if (!concorrenteDao.verificarPorCliente(idConcorrente)) {
 			concorrenteDao.remover(idConcorrente);
 		} else {
 			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
@@ -129,10 +125,6 @@ public class ConcorrenteBusiness {
 	
 	public void removerConcorrenteCliente(int idCliente, int idConcorrente) throws ClassNotFoundException, SQLException {
 		concorrenteDao.removerConcorrenteCliente(idCliente, idConcorrente);
-	}
-
-	public void reativar(ConcorrenteBean concorrenteBean) throws SQLException, ClassNotFoundException {
-		concorrenteDao.reativar(concorrenteBean);
 	}
 
 	public boolean validarNome(String nome) {
