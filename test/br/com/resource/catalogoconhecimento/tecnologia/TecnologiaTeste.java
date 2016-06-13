@@ -15,44 +15,53 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TecnologiaTeste {
 
 	private WebDriver driver;
-	
-//	@Test
-//	public void adicionarTecnologiaComSucesso() {
-//		// String tecnologia = adicionarTecnologia();
-//		long t = new Timestamp(System.currentTimeMillis()).getTime();
-//		String tecnologia = "Selenium" + t;
-//		driver.get(
-//				"http://localhost:8080/catalogoconhecimento/mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica");
-//		driver.findElement(By.name("nome")).sendKeys(tecnologia);
-//		driver.findElement(By.id("submit")).click();
-//		WebElement altTecnologia = driver.findElement(By.name("alt" + tecnologia));
-//		WebElement delTecnologia = driver.findElement(By.name("del" + tecnologia));
-//
-//		Assert.assertTrue("Deveria conter: " + tecnologia, altTecnologia.isDisplayed() && delTecnologia.isDisplayed());
-//	}
+
+	// @Test
+	// public void adicionarTecnologiaComSucesso() {
+	// // String tecnologia = adicionarTecnologia();
+	// long t = new Timestamp(System.currentTimeMillis()).getTime();
+	// String tecnologia = "Selenium" + t;
+	// driver.get(
+	// "http://localhost:8080/catalogoconhecimento/mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica");
+	// driver.findElement(By.name("nome")).sendKeys(tecnologia);
+	// driver.findElement(By.id("submit")).click();
+	// WebElement altTecnologia = driver.findElement(By.name("alt" +
+	// tecnologia));
+	// WebElement delTecnologia = driver.findElement(By.name("del" +
+	// tecnologia));
+	//
+	// Assert.assertTrue("Deveria conter: " + tecnologia,
+	// altTecnologia.isDisplayed() && delTecnologia.isDisplayed());
+	// }
 
 	@Test
 	public void adicionarCargoComSucesso() {
 		// String tecnologia = adicionarTecnologia();
 		long t = new Timestamp(System.currentTimeMillis()).getTime();
 		String cargo = "Selenium" + t;
-		driver.get(
-				"http://localhost:8080/catalogoconhecimento/mvc?logica=cargo.FormularioAdicionarCargoLogica");
+		driver.get("http://localhost:8080/catalogoconhecimento/mvc?logica=cargo.FormularioAdicionarCargoLogica");
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.name("nome")));
+		driver.findElement(By.name("nome")).click();
 		driver.findElement(By.name("nome")).clear();
 		driver.findElement(By.name("nome")).sendKeys(cargo);
 		driver.findElement(By.id("submit")).click();
-//		WebElement altCargo = driver.findElement(By.name("alt" + cargo));
-//		WebElement delCargo = driver.findElement(By.name("del" + cargo));
-//
-//		Assert.assertTrue("Deveria conter: " + cargo, altCargo.isDisplayed() && delCargo.isDisplayed());
+		// WebElement altCargo = driver.findElement(By.name("alt" + cargo));
+		// WebElement delCargo = driver.findElement(By.name("del" + cargo));
+		//
+		// Assert.assertTrue("Deveria conter: " + cargo, altCargo.isDisplayed()
+		// && delCargo.isDisplayed());
 		System.out.println(driver.getCurrentUrl());
-		Assert.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/catalogoconhecimento/mvc?logica=cargo.ListarCargoLogica"));
+		Assert.assertTrue(driver.getCurrentUrl()
+				.equals("http://localhost:8080/catalogoconhecimento/mvc?logica=cargo.ListarCargoLogica"));
 	}
-	
+
 	// @Test
 	// public void alterarTecnologiaComSucesso() {
 	// String tecnologia = adicionarTecnologia();
@@ -106,7 +115,7 @@ public class TecnologiaTeste {
 		capabilities.setCapability(CapabilityType.TAKES_SCREENSHOT, false);
 		capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
 		driver = new PhantomJSDriver(capabilities);
-		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		// driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
 	@After
