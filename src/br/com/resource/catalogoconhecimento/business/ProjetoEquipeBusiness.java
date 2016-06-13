@@ -3,11 +3,14 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoEquipeDAO;
 
+@Component
 public class ProjetoEquipeBusiness {
 
 	ProjetoEquipeDAO projetoEquipeDAO;

@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -18,7 +20,9 @@ import br.com.resource.catalogoconhecimento.exceptions.EmailInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RgInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
+@Component
 public class FuncionarioBusiness {
 
 	private FuncionarioDAO funcionarioDAO;
@@ -122,13 +126,17 @@ public class FuncionarioBusiness {
 	 * @throws ConsultaNulaException
 	 */
 	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias)
-			throws ClassNotFoundException, SQLException, ConsultaNulaException {
+			throws BusinessException {
+		try {
 		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorTecnologias(nomeTecnologias);
 
 		if (listaFuncionario == null) {
 			throw new ConsultaNulaException("Não há funcionários cadastrados");
 		} else {
 			return listaFuncionario;
+		}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -229,8 +237,12 @@ public class FuncionarioBusiness {
 		// }
 	}
 
-	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws ClassNotFoundException, SQLException {
-		return funcionarioDAO.listarPorNegocio(nomeNegocio);
+	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
+		try {
+			return funcionarioDAO.listarPorNegocio(nomeNegocio);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	private boolean validarNome(String nome) {
@@ -344,7 +356,7 @@ public class FuncionarioBusiness {
 
 		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataFormatada = formatador.parse(data);
-		
+
 		if (dataFormatada.after(dataAtual)) {
 			throw new DataInvalidaException("Data inserida inválida!");
 		}

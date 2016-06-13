@@ -3,13 +3,17 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ClienteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
+@Component
 public class ClienteBusiness {
 
 	private ClienteDAO clienteDao;
@@ -18,32 +22,34 @@ public class ClienteBusiness {
 		clienteDao = new ClienteDAO();
 	}
 
-	public void adicionar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException, Exception {
-		ClienteBean clienteDesativado = this.obterNomeDesativado(clienteBean);
-		ClienteBean ClienteClone = this.obterPorNome(clienteBean.getNome());
+	public void adicionar(ClienteBean clienteBean) throws BusinessException {
+		try {
+			ClienteBean clienteDesativado = this.obterNomeDesativado(clienteBean);
+			ClienteBean ClienteClone = this.obterPorNome(clienteBean.getNome());
 
-		if (!validarNome(clienteBean.getNome())) {
-			throw new TamanhoCampoException("Por Favor, digite um nome válido!");
-		} else if (clienteDesativado != null) {
-			this.reativar(clienteBean);
-		} else if (ClienteClone != null) {
-			throw new NomeRepetidoException("Este nome já exite na base de dados.");
-		} else if (!validarEmail(clienteBean.getEmail())) {
-			throw new Exception("Email inválido");
-		} else if (!validarLogradouro(clienteBean.getLogradouro())) {
-			throw new Exception("Logradouro inválido");
-		} else if (!validarNumero(clienteBean.getNumero())) {
-			throw new Exception("Número inválido");
-		} else if (!validarCep(clienteBean.getCep())) {
-			throw new Exception("CEP inválido");
-		} else if (!validarCnpj(clienteBean.getCnpj())) {
-			throw new Exception("CNPJ inválido");
-		} else {
-			if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj())) {
-				clienteDao.adicionar(clienteBean);
-		} else {
-				throw new BusinessException("CNPJ já consta na base de dados");
+			if (!validarNome(clienteBean.getNome())) {
+				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
+			} else if (clienteDesativado != null) {
+				this.reativar(clienteBean);
+			} else if (ClienteClone != null) {
+				throw new NomeRepetidoException("Este nome já exite na base de dados.");
+			} else if (!validarEmail(clienteBean.getEmail())) {
+				throw new Exception("Email inválido");
+			} else if (!validarLogradouro(clienteBean.getLogradouro())) {
+				throw new Exception("Logradouro inválido");
+			} else if (!validarNumero(clienteBean.getNumero())) {
+				throw new Exception("Número inválido");
+			} else if (!validarCep(clienteBean.getCep())) {
+				throw new Exception("CEP inválido");
+			} else if (!validarCnpj(clienteBean.getCnpj())) {
+				throw new Exception("CNPJ inválido");
+			} else {
+				if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj()))
+					clienteDao.adicionar(clienteBean);
 			}
+
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -57,45 +63,46 @@ public class ClienteBusiness {
 		}
 	}
 
-	public void alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException, Exception {
-		ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
-		ClienteBean clienteClone = this.obterPorNome(clienteBean.getNome());
+	public void alterar(ClienteBean clienteBean) throws BusinessException {
+		try {
+			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
+			ClienteBean clienteClone = this.obterPorNome(clienteBean.getNome());
 
-		if (cliente == null) {
-			throw new Exception("Cliente não consta na base de dados");
-		} else if (!validarNome(clienteBean.getNome())) {
-			throw new TamanhoCampoException("Por Favor, digite um nome válido!");
-		} else if (clienteClone != null && clienteClone.getId() != clienteBean.getId()) {
-			throw new NomeRepetidoException("Este nome já exite na base de dados.");
-		} else if (!validarEmail(clienteBean.getEmail())) {
-			throw new Exception("Email inválido");
-		} else if (!validarLogradouro(clienteBean.getLogradouro())) {
-			throw new Exception("Logradouro inválido");
-		} else if (!validarNumero(clienteBean.getNumero())) {
-			throw new Exception("Número inválido");
-		} else if (!validarCep(clienteBean.getCep())) {
-			throw new Exception("CEP inválido");
-		} else if (!validarCnpj(clienteBean.getCnpj())) {
-			throw new Exception("CNPJ inválido");
-		} else {
-//			if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj())&& clienteClone.getId() != clienteBean.getId()) {
+			if (cliente == null) {
+				throw new Exception("Cliente não consta na base de dados");
+			} else if (!validarNome(clienteBean.getNome())) {
+				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
+			} else if (clienteClone != null && clienteClone.getId() != clienteBean.getId()) {
+				throw new NomeRepetidoException("Este nome já exite na base de dados.");
+			} else if (!validarEmail(clienteBean.getEmail())) {
+				throw new Exception("Email inválido");
+			} else if (!validarLogradouro(clienteBean.getLogradouro())) {
+				throw new Exception("Logradouro inválido");
+			} else if (!validarNumero(clienteBean.getNumero())) {
+				throw new Exception("Número inválido");
+			} else if (!validarCep(clienteBean.getCep())) {
+				throw new Exception("CEP inválido");
+			} else if (!validarCnpj(clienteBean.getCnpj())) {
+				throw new Exception("CNPJ inválido");
+			} else {
 				clienteDao.alterar(clienteBean);
-			/*} else {
-				throw new BusinessException("CNPJ já consta na base de dados");
-			}*/
+			}
+
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
-		
-		
-		
-		
-		
 	}
 
-	public void remover(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
+	public void remover(ClienteBean clienteBean) throws BusinessException {
+		try {
+			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
 
-		if (cliente != null) {
-			clienteDao.remover(clienteBean);
+			if (cliente != null) {
+				clienteDao.remover(clienteBean);
+			}
+
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 

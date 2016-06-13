@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
@@ -18,6 +20,7 @@ import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
+@Repository
 public class FuncionarioDAO {
 
 	/**

@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
@@ -15,6 +18,7 @@ import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
+@Repository
 public class EquipeDAO {
 
 	Connection conec = null;
