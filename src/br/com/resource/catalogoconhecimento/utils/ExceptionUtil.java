@@ -16,6 +16,7 @@ import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
 public abstract class ExceptionUtil {
 
 	public static BusinessException handleException(Exception e){
+		
 		String error = "Sistema indisponivel no momento!";
 		
 		if(e instanceof NomeRepetidoException){
