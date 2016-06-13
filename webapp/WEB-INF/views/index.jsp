@@ -14,7 +14,14 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#filtro").tagit();
+		
+		$("#selectsearch").change(function() {
+			  var action = $(this).val() == "listarPorTecnologia" ? "listarPorTecnologia" : "listarPorNegocio";
+			  $("#search-form").attr("action", action);
+			  console.log(action);
+			});
 	})
+
 
 </script>
 
@@ -104,14 +111,14 @@
 									<h3>Catálogo de Conhecimentos</h3>  
 								</header>
 								<div class="col-xs-8 col-xs-offset-2">
+									<form id = "search-form"name="busca" method="post" action="listarPorTecnologia">
 									<div class="input-group input-group">
 										<div class="input-group-btn search-panel">
-											<form name="busca" method="post" action="listarPorNegocio">
-												<span class="input-group-btn"><select class="btn btn-primary btn-xs" class="selectpicker"
+												<span class="input-group-btn"><select id="selectsearch" class="btn btn-primary btn-xs" class="selectpicker"
 													name="logica" style="margin-bottom: 11px; height: 33.5px;">
 													<optgroup label="Filtros">
-														<option value="busca.ListarPorTecnologiaBuscaLogica">Tecnologia</option>
-														<option value="listarPorNegocio">Negócio</option>
+														<option value="listarPorTecnologia">Tecnologia</option>
+														<option value = "listarPorNegocio">Negócio</option>
 													</optgroup>
 												</select></span>
 										</div>
@@ -122,9 +129,9 @@
 												style="margin-bottom: 11px; height: 33.5px;">
 												<i class="fa fa-search"></i> Pesquisar</button>
 										</span>
-										</form>
 									</div>
-								</div> 
+								</form> 
+								</div>
 							</div>
 							<c:import url="/resources/jspImport/msgErro.jsp" />
 						</div>

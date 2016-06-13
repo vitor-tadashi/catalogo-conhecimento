@@ -88,14 +88,17 @@ public class ProjetoBusiness {
 
 	}
 
-	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias)
-			throws ConsultaNulaException, ClassNotFoundException, SQLException {
-		List<ProjetoBean> listaProjeto = projetoDao.obterPorTecnologias(nomeTecnologias);
+	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias) throws BusinessException {
+		try {
+			List<ProjetoBean> listaProjeto = projetoDao.obterPorTecnologias(nomeTecnologias);
 
-		if (listaProjeto == null) {
-			throw new ConsultaNulaException("Não há projetos cadastrados!");
-		} else {
-			return listaProjeto;
+			if (listaProjeto == null) {
+				throw new ConsultaNulaException("Não há projetos cadastrados!");
+			} else {
+				return listaProjeto;
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 

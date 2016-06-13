@@ -14,30 +14,34 @@ import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class TecnologiaBusiness {
-	
+
 	private TecnologiaDAO tecnologiaDao;
-	
+
 	public TecnologiaBusiness() {
 		tecnologiaDao = new TecnologiaDAO();
 	}
 
-	public void adicionar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
-			TamanhoCampoException, NomeRepetidoException, AtributoNuloException {
+	public void adicionar(TecnologiaBean tecnologiaBean) throws BusinessException {
 
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-		TecnologiaBean tecnologiaClone = this.obterPorNome(tecnologiaBean.getNome());
+		try {
+			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+			TecnologiaBean tecnologiaClone = this.obterPorNome(tecnologiaBean.getNome());
 
-		if (tecnologiaBean.getNome().equals("")) {
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else if (tecnologiaBean.getNome().length() > 50) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
-		} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
-			throw new NomeRepetidoException("Este nome já consta na base de dados");
-		} else {
-			tecnologiaDao.adicionar(tecnologiaBean);
+			if (tecnologiaBean.getNome().equals("")) {
+				throw new AtributoNuloException("Por favor, digite um nome válido!");
+			} else if (tecnologiaBean.getNome().length() > 50) {
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+			} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
+				throw new NomeRepetidoException("Este nome já consta na base de dados");
+			} else {
+				tecnologiaDao.adicionar(tecnologiaBean);
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -50,8 +54,9 @@ public class TecnologiaBusiness {
 			return listaTecnologia;
 		}
 	}
-	
-	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projetoBean) throws ClassNotFoundException, SQLException, ConsultaNulaException {
+
+	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projetoBean)
+			throws ClassNotFoundException, SQLException, ConsultaNulaException {
 		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean);
 
 		if (listaTecnologia.isEmpty()) {
@@ -65,8 +70,12 @@ public class TecnologiaBusiness {
 		return tecnologiaDao.obterPorId(id);
 	}
 
-	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		return tecnologiaDao.obterPorNome(nome);
+	public TecnologiaBean obterPorNome(String nome) throws BusinessException {
+		try {
+			return tecnologiaDao.obterPorNome(nome);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public TecnologiaBean obterNomeDesativado(TecnologiaBean tecnologiaBean)
@@ -78,8 +87,7 @@ public class TecnologiaBusiness {
 		return tecnologiaDao.listarPorFuncionario(idFuncionario);
 	}
 
-	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException,
-			BusinessException {
+	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException, BusinessException {
 
 		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
 		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
@@ -90,7 +98,7 @@ public class TecnologiaBusiness {
 			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
 		} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
 			throw new NomeRepetidoException("Este nome já exite na base de dados");
-		}else {
+		} else {
 			tecnologiaDao.alterar(tecnologiaBean);
 		}
 	}
@@ -106,9 +114,5 @@ public class TecnologiaBusiness {
 	public void reativar(TecnologiaBean tecnologia) throws SQLException, ClassNotFoundException {
 		tecnologiaDao.reativar(tecnologia);
 	}
-	
-	
-	
-	
-	
+
 }

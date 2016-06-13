@@ -126,13 +126,17 @@ public class FuncionarioBusiness {
 	 * @throws ConsultaNulaException
 	 */
 	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias)
-			throws ClassNotFoundException, SQLException, ConsultaNulaException {
+			throws BusinessException {
+		try {
 		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorTecnologias(nomeTecnologias);
 
 		if (listaFuncionario == null) {
 			throw new ConsultaNulaException("Não há funcionários cadastrados");
 		} else {
 			return listaFuncionario;
+		}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
