@@ -221,7 +221,7 @@ $(document).ready(function() {
                     regexp: {
                         enabled: true,
                         regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,9}$',
-                        message: 'E-mail inválido, requerido um @ e um domínico completo'
+                        message: 'E-mail inválido, requerido um @ e um domínio completo'
                     }
                 }
             },

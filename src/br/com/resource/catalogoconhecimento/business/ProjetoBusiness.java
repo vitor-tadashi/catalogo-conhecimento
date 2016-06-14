@@ -41,40 +41,44 @@ public class ProjetoBusiness {
 	}
 
 	// CONSULTA NA TABELA PROJETO
-	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<ProjetoBean> listaProjeto = projetoDao.listar();
-
-		if (listaProjeto.isEmpty()) {
-			throw new ConsultaNulaException("Não há projetos cadastrados!");
-		} else {
-			return listaProjeto;
+	public List<ProjetoBean> listar() throws BusinessException {
+		try {
+			List<ProjetoBean> listaProjeto = projetoDao.listar();
+			if (listaProjeto.isEmpty()) {
+				throw new ConsultaNulaException("Não há projetos cadastrados!");
+			} else {
+				return listaProjeto;
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	// ATUALIZAR NA TABELA PROJETO
-	public void atualizar(ProjetoBean projetoBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, NomeRepetidoException {
-		ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
+	public void atualizar(ProjetoBean projetoBean) throws BusinessException {
+		try {
+			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
-		if (projetoBean.getNome().length() > 150) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
-		} else if ((projetoClone != null
-				&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome()))
-				&& projetoBean.getId() != projetoClone.getId()) {
-			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
-					+ projetoClone.getCliente().getNome());
-		} else {
-			projetoDao.atualizar(projetoBean);
+			if (projetoBean.getNome().length() > 150) {
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
+			} else if ((projetoClone != null
+					&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome()))
+					&& projetoBean.getId() != projetoClone.getId()) {
+				throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
+						+ projetoClone.getCliente().getNome());
+			} else {
+				projetoDao.atualizar(projetoBean);
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	// LISTA POR ID
 	public ProjetoBean obterPorId(int idProjeto) throws BusinessException {
 		try {
 			return projetoDao.obterPorId(idProjeto);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 

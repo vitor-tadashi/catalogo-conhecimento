@@ -16,6 +16,7 @@ import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
@@ -24,7 +25,7 @@ public class ProjetoDAO {
 	Connection conn = null;
 
 	// SELECIONAR NA TABELA PROJETO
-	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException {
+	public List<ProjetoBean> listar() throws ClassNotFoundException, SQLException, BusinessException {
 		Connection conn = ConnectionFactory.createConnection();
 
 		String sql = "Select * from Projeto where ativo = ?";
@@ -63,7 +64,6 @@ public class ProjetoDAO {
 
 		conn.close();
 		return projetos;
-
 	}
 
 	// ADICIONAR NA TABELA PROJETO
@@ -89,7 +89,6 @@ public class ProjetoDAO {
 
 		stmt.close();
 		conn.close();
-
 	}
 
 	// ATUALIZAR NA TABELA PROJETO
@@ -106,7 +105,6 @@ public class ProjetoDAO {
 
 		stmt.executeUpdate();
 		conn.close();
-
 	}
 
 	// DELETA NA TABELA PROJETO
@@ -122,11 +120,10 @@ public class ProjetoDAO {
 
 		stmt.executeUpdate();
 		conn.close();
-
 	}
 
 	// LISTAR PROJETO POR IDPROJETO
-	public ProjetoBean obterPorId(int idProjeto) throws SQLException, ClassNotFoundException {
+	public ProjetoBean obterPorId(int idProjeto) throws SQLException, ClassNotFoundException, BusinessException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Projeto WHERE idProjeto = ?";
@@ -153,7 +150,8 @@ public class ProjetoDAO {
 
 	}
 
-	public ProjetoBean obterPorNome(ProjetoBean projeto) throws SQLException, ClassNotFoundException {
+	public ProjetoBean obterPorNome(ProjetoBean projeto)
+			throws SQLException, ClassNotFoundException, BusinessException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Projeto WHERE nomeProjeto = ? and idCliente = ? and ativo = ?";
@@ -194,7 +192,8 @@ public class ProjetoDAO {
 		conexao.close();
 	}
 
-	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias) throws SQLException, ClassNotFoundException {
+	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias)
+			throws SQLException, ClassNotFoundException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao" + " FROM Projeto p"
@@ -260,7 +259,8 @@ public class ProjetoDAO {
 		return projetoBean;
 	}
 
-	public List<ProjetoBean> obterPorNegocio(String nomeNegocio) throws SQLException, ClassNotFoundException {
+	public List<ProjetoBean> obterPorNegocio(String nomeNegocio)
+			throws SQLException, ClassNotFoundException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT p.idProjeto, p.idCliente, p.nomeProjeto, p.observacao" + " FROM Projeto p"
@@ -324,7 +324,6 @@ public class ProjetoDAO {
 
 			listaProjeto.add(projetoBean);
 		}
-
 		ps.close();
 		conexao.close();
 

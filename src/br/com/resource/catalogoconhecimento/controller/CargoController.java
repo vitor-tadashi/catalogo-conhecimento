@@ -1,7 +1,5 @@
 package br.com.resource.catalogoconhecimento.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -53,7 +51,7 @@ public class CargoController {
 	}
 
 	@RequestMapping(value = "excluirCargo", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idCargo") String id, HttpServletRequest request) throws BusinessException {
+	public String excluir(@RequestParam("idCargo") String id) throws BusinessException {
 		int idCargo = Integer.parseInt(id);
 		cargoBusiness.remover(idCargo);
 		return "redirect:listarCargo";
