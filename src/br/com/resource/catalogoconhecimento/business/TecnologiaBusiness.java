@@ -45,13 +45,16 @@ public class TecnologiaBusiness {
 		}
 	}
 
-	public List<TecnologiaBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		List<TecnologiaBean> listaTecnologia = tecnologiaDao.listar();
-
-		if (listaTecnologia.isEmpty()) {
-			throw new ConsultaNulaException("Não há tecnologias cadastradas");
-		} else {
-			return listaTecnologia;
+	public List<TecnologiaBean> listar() throws BusinessException{
+		try{
+			List<TecnologiaBean> listaTecnologia = tecnologiaDao.listar();
+			if (listaTecnologia.isEmpty()) {
+				throw new ConsultaNulaException("Não há tecnologias cadastradas");
+			} else {
+				return listaTecnologia;
+			}	
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);				
 		}
 	}
 
@@ -71,8 +74,12 @@ public class TecnologiaBusiness {
 		}
 	}
 
-	public TecnologiaBean obterPorId(int id) throws ClassNotFoundException, SQLException {
-		return tecnologiaDao.obterPorId(id);
+	public TecnologiaBean obterPorId(int id) throws BusinessException {
+		try{
+			return tecnologiaDao.obterPorId(id);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public TecnologiaBean obterPorNome(String nome) throws BusinessException {
@@ -96,27 +103,36 @@ public class TecnologiaBusiness {
 		}
 	}
 
-	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException, BusinessException {
-
-		TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
-		TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
-
-		if (tecnologiaBean.getNome().equals("")) {
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
-		} else if (tecnologiaBean.getNome().length() > 50) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
-		} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
-			throw new NomeRepetidoException("Este nome já exite na base de dados");
-		} else {
-			tecnologiaDao.alterar(tecnologiaBean);
+	public void alterar(TecnologiaBean tecnologiaBean) throws BusinessException {
+		try{
+			TecnologiaDAO tecnologiaDao = new TecnologiaDAO();
+			TecnologiaBean tecnologiaClone = tecnologiaDao.obterPorNome(tecnologiaBean.getNome());
+			
+			if (tecnologiaBean.getNome().equals("")) {
+				throw new AtributoNuloException("Por favor, digite um nome válido!");
+			} else if (tecnologiaBean.getNome().length() > 50) {
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.50)");
+			} else if (tecnologiaClone != null && tecnologiaClone.getId() != tecnologiaBean.getId()) {
+				throw new NomeRepetidoException("Este nome já exite na base de dados");
+			} else {
+				tecnologiaDao.alterar(tecnologiaBean);
+			}	
+		}catch(Exception e){
+			 throw ExceptionUtil.handleException(e);
+			
 		}
 	}
 
-	public void remover(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
-		if (tecnologiaDao.verificarPorFuncionario(id) && tecnologiaDao.verificarPorProjeto(id)) {
-			tecnologiaDao.remover(id);
-		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+	public void remover(int id) throws BusinessException {
+		
+		try{
+			if (tecnologiaDao.verificarPorFuncionario(id) && tecnologiaDao.verificarPorProjeto(id)) {
+				tecnologiaDao.remover(id);
+			} else {
+				throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+			}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 

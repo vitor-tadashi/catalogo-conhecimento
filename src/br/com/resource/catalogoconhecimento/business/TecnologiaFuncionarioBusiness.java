@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.TecnologiaFuncionarioDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 @Component
 public class TecnologiaFuncionarioBusiness {
 
@@ -23,8 +25,13 @@ public class TecnologiaFuncionarioBusiness {
 		return linhasAfetadas;
 	}
 
-	public List<TecnologiaBean> listar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException {
-		return tecnologiaFuncionarioDAO.listar(funcionario);
+	public List<TecnologiaBean> listar(FuncionarioBean funcionario) throws BusinessException {
+		try{
+			return tecnologiaFuncionarioDAO.listar(funcionario);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);			
+		}
+		
 	}
 
 	public List<TecnologiaBean> joinTecnologiaFuncionario(int idFuncionario)

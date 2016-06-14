@@ -39,7 +39,7 @@ public class FuncionarioBusiness {
 	 * @return id, criado no bd, do novo funcionário adicionado
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
-	 * @throws BusinessException 
+	 * @throws BusinessException
 	 */
 	public int adicionar(FuncionarioBean funcionarioBean)
 			throws ClassNotFoundException, SQLException, BusinessException {
@@ -101,13 +101,19 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
 	 */
-	public List<FuncionarioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException, BusinessException {
-		List<FuncionarioBean> listaFuncionario = funcionarioDAO.listar();
+	public List<FuncionarioBean> listar()
+			throws BusinessException {
+		try {
 
-		if (listaFuncionario.isEmpty()) {
-			throw new ConsultaNulaException("Não existem funcionários cadastrados");
-		} else {
-			return listaFuncionario;
+			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listar();
+
+			if (listaFuncionario.isEmpty()) {
+				throw new ConsultaNulaException("Não existem funcionários cadastrados");
+			} else {
+				return listaFuncionario;
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -142,7 +148,8 @@ public class FuncionarioBusiness {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public FuncionarioBean obterPorId(int idFuncionario) throws ClassNotFoundException, SQLException,BusinessException {
+	public FuncionarioBean obterPorId(int idFuncionario)
+			throws ClassNotFoundException, SQLException, BusinessException {
 
 		return funcionarioDAO.obterPorId(idFuncionario);
 	}
@@ -157,8 +164,8 @@ public class FuncionarioBusiness {
 	 * @throws TamanhoCampoException
 	 * @throws EmailInvalidoException
 	 */
-	public void atualizar(FuncionarioBean funcionarioBean)
-			throws ClassNotFoundException, SQLException, TamanhoCampoException, EmailInvalidoException,BusinessException {
+	public void atualizar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException,
+			TamanhoCampoException, EmailInvalidoException, BusinessException {
 
 		if (funcionarioBean.getNome().trim().equals("")) {
 			throw new NullPointerException("Preencha o campo de nome corretamante");
@@ -204,7 +211,7 @@ public class FuncionarioBusiness {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public FuncionarioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException,BusinessException {
+	public FuncionarioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException, BusinessException {
 
 		return funcionarioDAO.obterPorNome(nome);
 	}
@@ -339,7 +346,8 @@ public class FuncionarioBusiness {
 				+ CPF.substring(9, 11));
 	}
 
-	public List<FuncionarioBean> listarPorNome(String nome) throws ClassNotFoundException, SQLException,BusinessException {
+	public List<FuncionarioBean> listarPorNome(String nome)
+			throws ClassNotFoundException, SQLException, BusinessException {
 		return funcionarioDAO.listarPorNome(nome);
 	}
 

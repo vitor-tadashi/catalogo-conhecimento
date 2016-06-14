@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoEquipeDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Component
 public class ProjetoEquipeBusiness {
@@ -28,7 +28,7 @@ public class ProjetoEquipeBusiness {
 		return linhasAfetadas;
 	}
 	
-	public List<EquipeBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
+	public List<EquipeBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException, BusinessException{
 		
 			return projetoEquipeDAO.listar(projeto);
 	

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
@@ -41,7 +42,7 @@ public class ProjetoEquipeDAO {
 		
 	}
 	
-	public List<EquipeBean> listar(ProjetoBean projeto) throws SQLException, ClassNotFoundException{
+	public List<EquipeBean> listar(ProjetoBean projeto) throws SQLException, ClassNotFoundException, BusinessException{
 		PreparedStatement ps = conexao.prepareStatement(sqlConsultar);
 		ps.setInt(1, projeto.getId());
 		
