@@ -27,7 +27,10 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="alterarCargo">
+									<form class="no-margin" id="formAlt" method="POST" 
+									action="<c:url value='alterarCargo'>
+									<c:param name='paginaAtual' value='formularioAlterarCargo'/>
+											</c:url>">
 										<div class="panel-heading">
 											<h3>Alterar Cargo</h3>
 										</div>
