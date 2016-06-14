@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoTecnologiaDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ProjetoTecnologiaBusiness {
@@ -29,9 +31,14 @@ public class ProjetoTecnologiaBusiness {
 			return linhasAfetadas;
 		}
 
-		public List<TecnologiaBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
-
-			return projetoTecnologiaDAO.listar(projeto);
+		public List<TecnologiaBean> listar(ProjetoBean projeto) throws BusinessException{
+			try{
+				return projetoTecnologiaDAO.listar(projeto);				
+			}catch(Exception e){
+				throw ExceptionUtil.handleException(e);
+				
+			}
+			
 
 		}
 
