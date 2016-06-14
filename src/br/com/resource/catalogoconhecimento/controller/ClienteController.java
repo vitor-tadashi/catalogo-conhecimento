@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -55,6 +57,39 @@ public class ClienteController {
 		return "redirect:listarClientes";
 	}
 
+	@RequestMapping(value = "adicionarConcorrenteNoClienteLogica", method = RequestMethod.POST)
+	public String adicionarConcorrenteNoClienteLogica(Model model,
+			@RequestParam("countConcorrente") String countConcorrenteParam,
+			@RequestParam("idCliente") String idClienteParam, @RequestParam("txtNome") String txtNome,
+			@RequestParam("valorHora") String valorHoraParam) throws BusinessException {
+
+		int idCliente = Integer.parseInt(idClienteParam);
+		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
+		ConcorrenteBean concorrenteBean;
+		Integer countConcorrente = Integer.parseInt(countConcorrenteParam);
+
+		for (int i = 0; i <= countConcorrente; i++) {
+			String nomeConcorrente = txtNome + i;
+			if (nomeConcorrente != null) {
+				concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
+				ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
+				concorrenteClienteBean.setCliente(clienteBean);
+				concorrenteClienteBean.setConcorrente(concorrenteBean);
+				concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam + i));
+				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
+			}
+		}
+
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
+		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
+
+		model.addAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
+		model.addAttribute("clienteBean", clienteBean);
+		model.addAttribute("listaConcorrente", listaConcorrente);
+
+		return "redirect:listarConcorrentePorCliente";
+	}
+
 	@RequestMapping(value = "formularioAlterarCliente", method = RequestMethod.GET)
 	public String formularioAlterarCliente(Model model, @RequestParam("id") String id) throws BusinessException {
 		int idCliente = Integer.parseInt(id);
@@ -62,7 +97,7 @@ public class ClienteController {
 		return "cliente/formularioAlterarCliente";
 	}
 
-	@RequestMapping(value = "alterarCliente", method = RequestMethod.PUT)
+	@RequestMapping(value = "alterarCliente", method = RequestMethod.POST)
 	public String alterarCliente(ClienteBean clienteBean) throws BusinessException {
 		clienteBusiness.alterar(clienteBean);
 		return "redirect:listarClientes";
@@ -72,6 +107,47 @@ public class ClienteController {
 	public String listarCliente(Model model) throws BusinessException {
 		model.addAttribute("listaCliente", clienteBusiness.listar());
 		return "cliente/listarClientes";
+	}
+
+	@RequestMapping(value = "listarClientePorConcorrente", method = RequestMethod.GET)
+	public String listarClientePorConcorrente(Model model, @RequestParam("idCliente") String id) throws BusinessException {
+		int idCliente = Integer.parseInt(id);
+
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
+		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
+		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
+
+		model.addAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
+		model.addAttribute("clienteBean", clienteBean);
+		model.addAttribute("listaConcorrente", listaConcorrente);
+
+		return "cliente/listarConcorrentePorCliente";
+	}
+
+	@RequestMapping(value = "removerCliente", method = RequestMethod.GET)
+	public String removerCliente(ClienteBean clienteBean) throws BusinessException {
+		clienteBusiness.remover(clienteBean);
+		return "redirect:listarClientes";
+	}
+
+	@RequestMapping(value = "RemoverConcorrenteDoClienteLogica", method = RequestMethod.GET)
+	public String RemoverConcorrenteDoClienteLogica(Model model, @RequestParam("idCliente") String idClienteParam,
+			@RequestParam("idConcorrente") String idConcorrenteParam) throws BusinessException {
+
+		int idCliente = Integer.parseInt(idClienteParam);
+		int idConcorrente = Integer.parseInt(idConcorrenteParam);
+
+		concorrenteBusiness.removerConcorrenteCliente(idCliente, idConcorrente);
+
+		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
+		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
+		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
+
+		model.addAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
+		model.addAttribute("clienteBean", clienteBean);
+		model.addAttribute("listaConcorrente", listaConcorrente);
+
+		return "redirect:listarConcorrentePorCliente";
 	}
 
 	@ExceptionHandler(BusinessException.class)
