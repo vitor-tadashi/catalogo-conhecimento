@@ -25,7 +25,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="adicionarNegocio">
 										<div class="panel-heading">
 											<h3>Adicionar Negócio</h3>
 										</div>
@@ -41,8 +41,8 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="negocio.FormularioAdicionarNegocioLogica" />
-											<input type="hidden" name="logica" value="negocio.AdicionarNegocioLogica">
+											<!-- <input type="hidden" name="logicaAtual" value="negocio.FormularioAdicionarNegocioLogica" />
+											<input type="hidden" name="logica" value="negocio.AdicionarNegocioLogica"> -->
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>
@@ -114,6 +114,5 @@ $(document).ready(function() {
 });
 </script>	
 		
-	
 </body>
 </html>

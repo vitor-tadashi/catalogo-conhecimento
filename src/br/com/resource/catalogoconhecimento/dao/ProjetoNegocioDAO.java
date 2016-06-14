@@ -53,7 +53,7 @@ public class ProjetoNegocioDAO {
 		while(rs.next()){
 			NegocioBean negocio = new NegocioBean();
 			int id = rs.getInt("idNegocio");
-			negocio = negocioBusiness.obterPorId(id);
+			//negocio = negocioBusiness.obterPorId(id);
 			negocios.add(negocio);
 		}
 		
