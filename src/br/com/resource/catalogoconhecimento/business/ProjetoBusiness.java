@@ -24,19 +24,25 @@ public class ProjetoBusiness {
 	}
 
 	// INSERE NA TABELA PROJETO
-	public void inserir(ProjetoBean projetoBean) throws Exception {
-		ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
+	public void inserir(ProjetoBean projetoBean) throws BusinessException {
+		try {
+			ProjetoDAO projetoDao = new ProjetoDAO();
+			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
-		if (!validarNome(projetoBean.getNome())) {
-			throw new BusinessException("Por favor, digite um nome válido!");
-		} else if (projetoClone != null
-				&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
-			throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
-					+ projetoClone.getCliente().getNome());
-		} else if (projetoBean.getObservacao().length() > 255) {
-			throw new TamanhoCampoException("Número limite de caracteres excedido(máx.255)");
-		} else {
-			projetoDao.inserir(projetoBean);
+			if (!validarNome(projetoBean.getNome())) {
+				throw new BusinessException("Por favor, digite um nome válido!");
+			} else if (projetoClone != null
+					&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
+				throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
+						+ projetoClone.getCliente().getNome());
+			} else if (projetoBean.getObservacao().length() > 255) {
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.255)");
+			} else {
+				projetoDao.inserir(projetoBean);
+			}
+
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -85,15 +91,18 @@ public class ProjetoBusiness {
 	}
 
 	// DELETA NA TABELA PROJETO
-	public void deletar(int id) throws ClassNotFoundException, SQLException, RegistroVinculadoException {
+	public void remover(int id) throws BusinessException {
+		try {
 
-		if (projetoDao.verificarPorEquipe(id) && projetoDao.verificarPorNegocio(id)
-				&& projetoDao.verificarPorTecnologia(id)) {
-			projetoDao.deletar(id);
-		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+			if (projetoDao.verificarPorEquipe(id) && projetoDao.verificarPorNegocio(id)
+					&& projetoDao.verificarPorTecnologia(id)) {
+				projetoDao.deletar(id);
+			} else {
+				throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	public List<ProjetoBean> obterPorTecnologias(String nomeTecnologias) throws BusinessException {

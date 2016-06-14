@@ -25,9 +25,10 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarCargo'>
-																								<c:param name='paginaAtual' value='formularioAdicionarCargo'/>
-																								</c:url>">
+									<form class="no-margin" id="formAdd"  method="POST" 
+									action="<c:url value='adicionarCargo'>
+									<c:param name='paginaAtual' value='formularioAdicionarCargo'/>
+											</c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Cargo</h3>
 										</div>
@@ -35,10 +36,10 @@
 											<div class="row">
 												
 												<!-- Message Erro-->
-												<c:import url="/resources/jspImport/msgErro.jsp"/>
-												<div class="col-lg-2">
-													<div class="form-group">
-														<label class="control-label">Cargo
+													<c:import url="/resources/jspImport/msgErro.jsp"/>
+														<div class="col-sm-2">
+															<div class="form-group">
+															<label class="control-label">Cargo
 															<input type="text" class="form-control"  maxlength="80"  name="nome"/>
 														</label>
 													</div>

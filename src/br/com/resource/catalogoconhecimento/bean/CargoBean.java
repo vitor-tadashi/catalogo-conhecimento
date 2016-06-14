@@ -1,15 +1,30 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "Cargo")
 public class CargoBean {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name="idCargo", unique = true, nullable = false)
+	private Integer id;
+	
+	@Column(name = "nomeCargo")
 	private String nome;
 
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

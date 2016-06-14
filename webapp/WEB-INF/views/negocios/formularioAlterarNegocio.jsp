@@ -25,29 +25,31 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAlt"  method="POST" action="mvc">
+										<form class="no-margin" id="formAlt"  method="POST"
+										 action="<c:url value='alterarNegocio'>
+										<c:param name='paginaAtual' value='formularioAlterarNegocio'/>
+												</c:url>">
 											<div class="panel-heading">
 												<h3>Alterar Negocio</h3>
 											</div>
 											<div class="panel-body">
 												<div class="row">
 												<!-- Message Erro-->
-													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
-													<input type="hidden" class="form-control input-sm" name="id" value="${negocioBean.id}" readonly>
+													<c:import url="/resources/jspImport/msgErro.jsp"/>
+													
 													<div class="col-sm-2">
 														<div class="form-group">
 															<label class="control-label">Área de Atuação
-																<input type="text" class="form-control" maxlength="100" name="areaAtuacao" value="${negocioBean.areaAtuacao}">
-																<input type="hidden" name="id" value="${negocioBean.id}" readonly>
+																<input type="hidden" class="form-control" name="id" value="${negocio.id}" readonly>
+																<input type="text" class="form-control" maxlength="100" name="areaAtuacao" value="${negocio.areaAtuacao}">
 															</label>
 														</div>
 													</div><!-- /.col -->
 												</div><!-- /.row -->
-												<input type="hidden" name="logica" value="negocio.AlterarNegocioLogica">		
-												<input type="hidden" name="logicaAtual" value="negocio.FormularioAlterarNegocioLogica&id=${negocioBean.id}">
+												
 										 	</div> 
 											<div class="panel-footer text-left">
-												<button class="btn btn-success" id="submitAlterar" type="submit">Alterar</button>
+												<button class="btn btn-success" type="submit">Alterar</button>
 											</div> 
 										</form>
 									</div><!-- /panel -->

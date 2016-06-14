@@ -16,16 +16,13 @@ public class ProjetoNegocioBusiness {
 
 	public ProjetoNegocioBusiness() throws ClassNotFoundException, SQLException {
 		
-		
 			this.projetoNegocioDAO = new ProjetoNegocioDAO();
-		
 	}
 	
 	public int inserir(ProjetoBean projeto, List<NegocioBean>negocios) throws SQLException{
 		int linhasAfetadas = 0;
 		
 			linhasAfetadas = projetoNegocioDAO.inserir(projeto, negocios);
-	
 		
 		return linhasAfetadas;
 	}
@@ -33,13 +30,11 @@ public class ProjetoNegocioBusiness {
 	public List<NegocioBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException{
 		
 			return projetoNegocioDAO.listar(projeto);
-	
 	}
 	
 	public void atualizar(ProjetoBean projeto, List<NegocioBean> negocios) throws SQLException{
 		
 			projetoNegocioDAO.atualizar(projeto, negocios);
-		
 	}
 
 }
