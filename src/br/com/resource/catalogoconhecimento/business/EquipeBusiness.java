@@ -64,13 +64,16 @@ public class EquipeBusiness {
 	}
 
 	// DELETAR NA BASE
-	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
-
+	public void deletar(int id) throws BusinessException {
+		try{
 		if (equipeDAO.verificarPorFuncionarios(id)) {
 			equipeDAO.deletar(id);
 		} else {
 			throw new RegistroVinculadoException(
 					"Essa Equipe não pode ser removida, pois possui vínculos com Funcionários");
+		}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -96,23 +99,29 @@ public class EquipeBusiness {
 
 	// LISTAR NA BASE
 
-	public List<EquipeBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
+	public List<EquipeBean> listar() throws BusinessException {
 
-		List<EquipeBean> listaEquipe = equipeDAO.listar();
+		try {
+			List<EquipeBean> listaEquipe = equipeDAO.listar();
 
-		if (listaEquipe.isEmpty()) {
-			throw new ConsultaNulaException("Não há equipes cadastradas");
-		} else {
-			return listaEquipe;
+			if (listaEquipe.isEmpty()) {
+				throw new ConsultaNulaException("Não há equipes cadastradas");
+			} else {
+				return listaEquipe;
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	// LISTAR POR ID NA BASE
 
-	public EquipeBean obterPorId(int id) throws ClassNotFoundException, SQLException {
-
-		return equipeDAO.obterPorId(id);
-
+	public EquipeBean obterPorId(int id) throws BusinessException {
+		try {
+			return equipeDAO.obterPorId(id);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	// LISTAR POR NOME NA BASE
@@ -124,9 +133,12 @@ public class EquipeBusiness {
 
 	// DELETAR POR EQUIPE NA BASE
 
-	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
-
+	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws BusinessException {
+		try{
 		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
