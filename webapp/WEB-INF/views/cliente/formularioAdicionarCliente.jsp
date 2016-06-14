@@ -55,7 +55,9 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarCliente'>
+																								<c:param name='paginaAtual' value='formularioAdicionarCliente'/>
+																								</c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Cliente</h3>
 										</div>
@@ -143,8 +145,6 @@
 												</table>
 											</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="cliente.FormularioAdicionarClienteLogica">
-											<input type="hidden" name="logica" value="cliente.AdicionarClienteLogica">
 											<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
 										</div>
 										<div class="panel-footer text-left">

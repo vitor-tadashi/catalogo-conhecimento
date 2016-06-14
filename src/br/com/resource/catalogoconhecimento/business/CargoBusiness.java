@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -102,16 +101,16 @@ public class CargoBusiness {
 	}
 
 	public void remover(int id) throws BusinessException {
-		try{
-		
-		CargoDAO cargoDao = new CargoDAO();
+		try {
 
-		if (cargoDao.verificarPorFuncionario(id)) {
-			cargoDao.remover(id);
-		} else {
-			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
-		}
-		}catch(Exception e){
+			CargoDAO cargoDao = new CargoDAO();
+
+			if (cargoDao.verificarPorFuncionario(id)) {
+				cargoDao.remover(id);
+			} else {
+				throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+			}
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}

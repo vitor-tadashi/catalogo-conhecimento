@@ -9,10 +9,12 @@ import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ConcorrenteBusiness {
@@ -55,13 +57,16 @@ public class ConcorrenteBusiness {
 		}
 	}
 
-	public List<ConcorrenteBean> listar() throws SQLException, ClassNotFoundException, ConsultaNulaException {
-		List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
-
-		if (listaConcorrente.isEmpty()) {
-			throw new ConsultaNulaException("Não há concorrentes cadastrados!");
-		} else {
-			return listaConcorrente;
+	public List<ConcorrenteBean> listar() throws BusinessException {
+		try {
+			List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
+			if (listaConcorrente.isEmpty()) {
+				throw new ConsultaNulaException("Não há concorrentes cadastrados");
+			} else {
+				return listaConcorrente;
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -122,8 +127,9 @@ public class ConcorrenteBusiness {
 			throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
 		}
 	}
-	
-	public void removerConcorrenteCliente(int idCliente, int idConcorrente) throws ClassNotFoundException, SQLException {
+
+	public void removerConcorrenteCliente(int idCliente, int idConcorrente)
+			throws ClassNotFoundException, SQLException {
 		concorrenteDao.removerConcorrenteCliente(idCliente, idConcorrente);
 	}
 
