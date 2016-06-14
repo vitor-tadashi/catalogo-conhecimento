@@ -58,7 +58,7 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=tecnologia.ListarTecnologiaLogica">
+								<li><a href="<c:url value='listarTecnologia'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
@@ -67,7 +67,7 @@
 									</span>
 									</a>
 								</li>
-								<li><a href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+								<li><a href="<c:url value='formularioAdicionarTecnologia'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
