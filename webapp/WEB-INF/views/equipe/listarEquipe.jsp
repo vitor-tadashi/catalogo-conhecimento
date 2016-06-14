@@ -19,6 +19,7 @@
 						Principal</a></li>
 				<li>Equipes</li>
 				<li class="active">Listar Equipes</li>
+				
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -53,21 +54,34 @@
 												<td>${equipe.nome}</td>
 												<td>${equipe.observacao}</td>
 												<td style="text-align: center;">
-													<a href="mvc?logica=equipe.FormularioAtualizarEquipeLogica&idEquipe=${equipe.id}">
+													<a href="
+													<c:url value='formularioAlterarEquipe'>
+													<c:param name='idEquipe' value='${equipe.id}'/>
+													</c:url>
+													">
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;">
-													<a href="mvc?logica=equipe.DeletarEquipeLogica&idEquipe=${equipe.id}&logicaAtual=equipe.ListarEquipeLogica">
+													<a href="
+													<c:url value='excluirEquipe'>
+													<c:param name='idEquipe' value='${equipe.id}'/>
+													<c:param name='paginaAtual' value='listarEquipe'/>
+													</c:url>
+													">
 													<i class="fa fa-times fa-lg"></a></td>
 													
 												<td style="text-align: center;">	
-													<a href="mvc?logica=equipe.ListarFuncionariosPorEquipeLogica&idEquipe=${equipe.id}&logicaAtual=equipe.ListarEquipeLogica">
+													<a href="
+													<c:url value='listarFuncionarioPorEquipe'>
+													<c:param name='idEquipe' value='${equipe.id}'/>
+													</c:url>
+													">
 														<i class="fa fa-users fa-lg" ></a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="mvc?logica=equipe.FormularioInserirEquipeLogica&idEquipe=${equipe.id}">
+								<a href="<c:url value='formularioAdicionarEquipe'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Nova Equipe</button>
 										</a>
 									</div> 
