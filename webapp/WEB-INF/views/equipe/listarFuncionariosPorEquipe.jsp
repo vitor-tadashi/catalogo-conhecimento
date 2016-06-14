@@ -10,7 +10,7 @@
 	<script type="text/javascript">
 	
 	$(document).on("click", "#btnTecnologia", function() { 
-	$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionario')}, function(listaTecnologias) {
+	$.post("<c:url value = 'buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-funcionario')}, function(listaTecnologias) {
 	    $("#dataTableTecnologia tbody tr").detach();	
 	    $.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
 	        drawRowTecnologia(item);
@@ -74,14 +74,19 @@
 													<a id="btnTecnologia" id-funcionario="${funcionarioEquipe.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>										
 												</td>
 												<td>
-													<a href="mvc?logica=equipe.DeletarFuncionarioEquipeLogica&idEquipe=${equipe.id}&idFuncionario=${funcionarioEquipe.id}">
+													<a href="
+													<c:url value='deletarFuncionarioPorEquipe'>
+													<c:param name='idEquipe' value='${equipe.id}'/>
+													<c:param name='idFuncionario' value='${funcionarioEquipe.id}'/>
+													</c:url>
+													">
 													<i class="fa fa-times fa-lg"></i></a>
 												</td>
 			 								<tr>
 			 							</c:forEach>
 			 						</tbody>	
 								</table>
-								<form name="formAdicionaFuncionarioEquipe" method="POST" action="mvc">
+								<form name="formAdicionaFuncionarioEquipe" method="POST" action="adicionarFuncionarioNaEquipe">
 									<div class="panel-heading">
 										<h4>Inserir Funcionário na Equipe</h4>
 									</div>
@@ -94,7 +99,6 @@
 															<option value="${funcionario.id}">${funcionario.nome}</option>
 														</c:forEach>
 													</select>		
-													<input type="hidden" name="logicaAtual" value="equipe.ListarFuncionariosPorEquipeLogica" />														<input type="hidden" name="logica" value="equipe.FormularioInserirFuncionarioPorEquipeLogica">
 													<input type="hidden" name="idEquipe" value="${equipe.id}">							
 												</div>		
 												<div class="form-group">
