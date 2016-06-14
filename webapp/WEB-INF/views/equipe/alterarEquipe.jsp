@@ -26,7 +26,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="mvc">
+									<form class="no-margin" id="formAlt" method="POST" action="alterarEquipe">
 										<div class="panel-heading">
 											<h3>Alterar Equipe</h3>
 										</div>
@@ -39,17 +39,15 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome da Equipe
-															<input type="hidden" class="form-control input-sm" name="idEquipe" value="${equipes.id}">
-															<input type="text" class="form-control" maxlength="50" name="nome" value="${equipes.nome}">
+															<input type="hidden" class="form-control input-sm" name="idEquipe" value="${equipe.id}">
+															<input type="text" class="form-control" maxlength="50" name="nome" value="${equipe.nome}">
 														</label>
 													</div>
 													<div class="form-group">
-														<textarea class="form-control" rows="8" minlength="20" maxlength="250" name="observacao">${equipes.observacao}</textarea>	
+														<textarea class="form-control" rows="8" minlength="20" maxlength="250" name="observacao">${equipe.observacao}</textarea>	
 													</div>
 												</div><!-- /.col --> 		
 											</div><!-- /.row -->
-											<input type="hidden" name="logica" value="equipe.AtualizarEquipeLogica">
-											<input type="hidden" name="logicaAtual" value="equipe.FormularioAtualizarEquipeLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

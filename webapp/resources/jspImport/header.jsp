@@ -151,7 +151,7 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="mvc?logica=equipe.ListarEquipeLogica">
+								<li><a href="<c:url value='listarEquipe'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
@@ -160,7 +160,7 @@
 									</span>
 									</a>
 								</li>
-								<li><a href="mvc?logica=equipe.FormularioInserirEquipeLogica">
+								<li><a href="<c:url value='formularioAdicionarEquipe'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 

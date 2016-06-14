@@ -27,7 +27,7 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+										<form class="no-margin" id="formAdd"  method="POST" action="adicionarEquipe">
 											<div class="panel-heading">
 											<h3>Adicionar Equipe</h3>
 											</div>
@@ -48,8 +48,6 @@
 															</label>
 														</div>
 													</div><!-- /.col -->
-													<input type="hidden" name="logica" value="equipe.InserirEquipeLogica">
-													<input type="hidden" name="logicaAtual" value="equipe.FormularioInserirEquipeLogica">
 												</div><!-- /.row -->
 											</div>
 											<div class="panel-footer text-left">
