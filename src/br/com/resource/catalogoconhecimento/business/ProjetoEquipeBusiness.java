@@ -24,14 +24,12 @@ public class ProjetoEquipeBusiness {
 		
 			linhasAfetadas = projetoEquipeDAO.inserir(projeto, equipes);
 	
-		
 		return linhasAfetadas;
 	}
 	
 	public List<EquipeBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException, BusinessException{
 		
 			return projetoEquipeDAO.listar(projeto);
-	
 	}
 	
 	public void atualizar(ProjetoBean projeto, List<EquipeBean> equipes) throws SQLException{
@@ -39,7 +37,4 @@ public class ProjetoEquipeBusiness {
 		projetoEquipeDAO.atualizar(projeto, equipes);
 		
 	}
-
-	
-	
 }
