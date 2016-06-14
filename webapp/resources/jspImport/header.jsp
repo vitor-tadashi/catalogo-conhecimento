@@ -169,7 +169,7 @@
 									</span>
 									</a>
 								</li>
-								<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica">
+								<li><a href="<c:url value='listarFuncionario'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 
@@ -178,7 +178,7 @@
 									</span>
 									</a>
 								</li>
-								<li><a href="mvc?logica=funcionario.FormularioAdicionarFuncionarioLogica">
+								<li><a href="<c:url value='formularioAdicionarFuncionario'/>">
 									<span class="submenu-label">
 										<span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i> 

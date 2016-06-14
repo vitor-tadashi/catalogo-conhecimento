@@ -139,12 +139,18 @@
 												
 							
 													
-												<td style="text-align: center;"><a
-													href="mvc?logica=funcionario.FormularioAlterarLogica&nomeFuncionario=${funcionario.nome}">
-													<i class="fa fa-edit fa-lg"></a></td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=funcionario.RemoverFuncionarioLogica&idFuncionario=${funcionario.id}">
-													<i	class="fa fa-times fa-lg"></a></td>
+												<td style="text-align: center;"><a href="
+													<c:url value='formularioAlterarFuncionario'>
+													<c:param name='idFuncionario' value='${funcionario.id}'/>
+													</c:url>
+													">													
+													<i class="fa fa-edit fa-lg"></a></</td>
+												<td style="text-align: center;"><a href="
+													<c:url value='excluirFuncionario'>
+													<c:param name='idFuncionario' value='${funcionario.id}'/>
+													</c:url>
+													">	
+													<i class="fa fa-times fa-lg"></a></td>
 											</tr>
 										</c:forEach>
 									</tbody>

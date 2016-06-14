@@ -68,10 +68,14 @@ public class CargoBusiness {
 		}
 	}
 
-	public CargoBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		CargoDAO cargoDao = new CargoDAO();
-
-		return cargoDao.obterPorNome(nome);
+	public CargoBean obterPorNome(String nome) throws BusinessException {
+		try{
+			CargoDAO cargoDao = new CargoDAO();
+			
+			return cargoDao.obterPorNome(nome);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {

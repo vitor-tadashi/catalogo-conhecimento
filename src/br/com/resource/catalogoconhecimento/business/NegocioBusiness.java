@@ -40,14 +40,18 @@ public class NegocioBusiness {
 		}
 	}
 
-	public List<NegocioBean> listar() throws ClassNotFoundException, SQLException, ConsultaNulaException {
-		NegocioDAO negocioDao = new NegocioDAO();
-		List<NegocioBean> listaNegocio = negocioDao.listar();
-
-		if (listaNegocio.isEmpty()) {
-			throw new ConsultaNulaException("Não há negócios cadastrados");
-		} else {
-			return listaNegocio;
+	public List<NegocioBean> listar() throws BusinessException {
+		try{
+			NegocioDAO negocioDao = new NegocioDAO();
+			List<NegocioBean> listaNegocio = negocioDao.listar();
+			
+			if (listaNegocio.isEmpty()) {
+				throw new ConsultaNulaException("Não há negócios cadastrados");
+			} else {
+				return listaNegocio;
+			}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 
 	}

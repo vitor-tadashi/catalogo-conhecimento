@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioNegocioDAO;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class FuncionarioNegocioBusiness {
@@ -18,10 +20,14 @@ public class FuncionarioNegocioBusiness {
 		this.funcionarioNegocioDao = new FuncionarioNegocioDAO();
 	}
 	
-	public int adicionar(FuncionarioBean funcionario, List<NegocioBean> negocios) throws SQLException{
-		int linhasAfetadas = 0;
-		linhasAfetadas = funcionarioNegocioDao.adicionar(funcionario, negocios);
-		return linhasAfetadas;
+	public int adicionar(FuncionarioBean funcionario, List<NegocioBean> negocios) throws BusinessException{
+		try{
+			int linhasAfetadas = 0;
+			linhasAfetadas = funcionarioNegocioDao.adicionar(funcionario, negocios);
+			return linhasAfetadas;
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 	
 	public List<NegocioBean> listar(FuncionarioBean funcionario) throws ClassNotFoundException, SQLException{

@@ -19,10 +19,14 @@ public class TecnologiaFuncionarioBusiness {
 		this.tecnologiaFuncionarioDAO = new TecnologiaFuncionarioDAO();
 	}
 
-	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws SQLException {
-		int linhasAfetadas = 0;
-		linhasAfetadas = tecnologiaFuncionarioDAO.adicionar(funcionario, tecnologias);
-		return linhasAfetadas;
+	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws BusinessException {
+		try{
+			int linhasAfetadas = 0;
+			linhasAfetadas = tecnologiaFuncionarioDAO.adicionar(funcionario, tecnologias);
+			return linhasAfetadas;		
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);			
+		}
 	}
 
 	public List<TecnologiaBean> listar(FuncionarioBean funcionario) throws BusinessException {
