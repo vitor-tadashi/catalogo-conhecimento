@@ -6,7 +6,6 @@
 	version="2.0">
 
 	<persistence-unit name="Cargo">
-
 		<!-- provedor/implementacao do JPA -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
@@ -29,7 +28,6 @@
 
 			<!-- atualiza o banco, gera as tabelas se for preciso -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-
 		</properties>
 	</persistence-unit>
 </persistence>
