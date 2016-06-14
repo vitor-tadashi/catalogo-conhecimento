@@ -47,12 +47,18 @@
 											<c:forEach var="tecnologia" items="${tecnologias}">
 												<tr>
 													<td>${tecnologia.nome}</td>
-													<td style="text-align: center;"><a
-														href="mvc?logica=tecnologia.FormularioAlterarTecnologiaLogica&id=${tecnologia.id}"><i
-															class="fa fa-edit fa-lg"></a></td>
-													<td style="text-align: center;"><a
-														href="mvc?logica=tecnologia.RemoverTecnologiaLogica&id=${tecnologia.id}&logicaAtual=tecnologia.ListarTecnologiaLogica"><i
-															class="fa fa-times fa-lg"></a></td>
+													<td style="text-align: center;"><a href="
+													<c:url value='formularioAlterarTecnologia'>
+													<c:param name='idTecnologia' value='${tecnologia.id}'/>
+													</c:url>
+													">													
+													<i class="fa fa-edit fa-lg"></a></td>
+													<td style="text-align: center;"><a href="
+													<c:url value='excluirTecnologia'>
+													<c:param name='idTecnologia' value='${tecnologia.id}'/>
+													</c:url>
+													">	
+													<i class="fa fa-times fa-lg"></a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
