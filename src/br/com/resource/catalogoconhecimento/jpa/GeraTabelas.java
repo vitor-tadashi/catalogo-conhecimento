@@ -9,11 +9,13 @@ import br.com.resource.catalogoconhecimento.bean.CargoBean;
 public class GeraTabelas {
 
 	public static void main(String[] args) {
+		
+
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("catalogoconhecimentoDB");
+		EntityManager manager = factory.createEntityManager();
+		
 		CargoBean cargoBean = new CargoBean();
 		cargoBean.setNome("Teste");
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Cargo");
-		EntityManager manager = factory.createEntityManager();
 		
 		manager.getTransaction().begin();    
 		manager.persist(cargoBean);

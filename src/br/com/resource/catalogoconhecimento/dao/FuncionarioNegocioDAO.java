@@ -52,7 +52,7 @@ public class FuncionarioNegocioDAO {
 		while (rs.next()){
 			NegocioBean negocioBean = new NegocioBean();
 			int id = rs.getInt("idNegocio");
-			negocioBean = negocioBusiness.obterPorId(id);
+			//negocioBean = negocioBusiness.obterPorId(id);
 			negocios.add(negocioBean);
 		}
 

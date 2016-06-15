@@ -30,7 +30,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<h4 class="text-info">#FabricaDeSoftware</h4>
+							<h4 class="text-info">#TeamTadashi</h4>
 						</div>
 					</div><!-- /.row -->
 				</div>

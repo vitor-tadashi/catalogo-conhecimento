@@ -1,8 +1,6 @@
 package br.com.resource.catalogoconhecimento.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,7 +32,7 @@ public class CargoController {
 		return "redirect:listarCargo";
 	}
 	
-	@RequestMapping(value = "listarCargo", method = RequestMethod.GET)
+	@RequestMapping(value = "listarCargo", method = { RequestMethod.GET, RequestMethod.POST})
 	public String listarCargo(Model model) throws BusinessException{
 		
 		model.addAttribute("cargos", cargoBusiness.listar());
@@ -65,6 +63,6 @@ public class CargoController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception){
 		model.addAttribute("msgErro", exception.getMessage());
-		return "index";
+		return "forward:listarCargo";
 	}
 }

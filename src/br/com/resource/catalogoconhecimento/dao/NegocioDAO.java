@@ -34,7 +34,6 @@ public class NegocioDAO {
 
 	// LISTA
 	public List<NegocioBean> listar() throws SQLException, ClassNotFoundException {
-
 		Connection conexao = ConnectionFactory.createConnection();
 
 		String sql = "SELECT * FROM Negocio where ativo = ?";
@@ -43,17 +42,17 @@ public class NegocioDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		ArrayList<NegocioBean> negocios = new ArrayList<NegocioBean>();
+		ArrayList<NegocioBean> listanegocio = new ArrayList<NegocioBean>();
 		while (rs.next()) {
 			NegocioBean negocioBean = new NegocioBean();
 			negocioBean.setId(rs.getInt("idNegocio"));
 			negocioBean.setAreaAtuacao(rs.getString("areaAtuacao"));
 
-			negocios.add(negocioBean);
+			listanegocio.add(negocioBean);
 		}
-
+		ps.close();	
 		conexao.close();
-		return negocios;
+		return listanegocio;
 	}
 
 	// ATUALIZA

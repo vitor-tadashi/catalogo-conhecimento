@@ -64,7 +64,7 @@ public class BuscaController {
 		}
 
 		if (nomeNegocio.isEmpty()) {
-			throw new BusinessException("Pesquisa inv·lida! Este nome de negÛcio n„o existe");
+			throw new BusinessException("Pesquisa inv√°lida! Este nome de neg√≥cio n√£o existe");
 		}
 		List<ProjetoBean> projetos = projetoBusiness.obterPorNegocio(nomeNegocio);
 
@@ -99,7 +99,7 @@ public class BuscaController {
 		}
 
 		if (nomeTecnologias.isEmpty()) {
-			throw new BusinessException("Pesquisa inv·lida! Este nome de tecnologia n„o existe");
+			throw new BusinessException("Pesquisa inv√°lida! Este nome de tecnologia n√£o existe");
 		}
 
 		List<ProjetoBean> projetos = projetoBusiness.obterPorTecnologias(nomeTecnologias);

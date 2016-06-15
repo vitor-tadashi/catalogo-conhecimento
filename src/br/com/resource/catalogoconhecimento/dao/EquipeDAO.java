@@ -141,38 +141,10 @@ public class EquipeDAO {
 		return equipe;
 
 	}
-	
-	//SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
-	
-	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
-		
-		Connection conec = ConnectionFactory.createConnection();
-		
-		String sql = "SELECT * FROM Equipe WHERE nome = ?";
-		
-		PreparedStatement stmt = conec.prepareStatement(sql);
-		stmt.setString(1, nome);
-		
-		ResultSet rs = stmt.executeQuery();
-		
-		EquipeBean equipe = new EquipeBean();
-		
-		while (rs.next()) {
-			
-			equipe.setId(rs.getInt("idEquipe"));
-			equipe.setObservacao(rs.getString("observacao"));
-			equipe.setNome(rs.getString("nome"));
-			
-		}
-		
-		conec.close();
-		return equipe;
-		
-	}
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
 
-	public EquipeBean listarPorNome(String nome) throws SQLException, ClassNotFoundException {
+	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Equipe WHERE nome = ? and ativo = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
