@@ -27,13 +27,13 @@ public class NegocioBusiness {
 			NegocioBean negocioClone = this.obterPorNome(negocioBean.getAreaAtuacao());
 
 			if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
-				throw new AtributoNuloException("Por Favor, digite uma área de atuação válida!");
+				throw new AtributoNuloException("Por Favor, digite uma ï¿½rea de atuaï¿½ï¿½o vï¿½lida!");
 			} else if (negocioBean.getAreaAtuacao().length() > 100) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.100)");
+				throw new TamanhoCampoException("Nï¿½mero limite de caracteres excedido(mï¿½x.100)");
 			} else if (negocioDesativado != null) {
 				this.reativar(negocioBean);
 			} else if (negocioClone != null && negocioClone.getId() != negocioBean.getId()) {
-				throw new NomeRepetidoException("Este nome já exite na base de dados.");
+				throw new NomeRepetidoException("Este nome jï¿½ exite na base de dados.");
 			} else {
 				negocioDao.adicionar(negocioBean);
 			}
@@ -49,7 +49,7 @@ public class NegocioBusiness {
 			List<NegocioBean> listaNegocio = negocioDao.listar();
 
 			if (listaNegocio.isEmpty()) {
-				throw new ConsultaNulaException("Não há negócios cadastrados");
+				throw new ConsultaNulaException("Nï¿½o hï¿½ negï¿½cios cadastrados");
 			} else {
 				return listaNegocio;
 			}
@@ -67,9 +67,9 @@ public class NegocioBusiness {
 			if (negocioBean.getAreaAtuacao().equals("")) {
 				throw new AtributoNuloException("Por favor, digite uma area de atuacao valida!");
 			} else if (negocioBean.getAreaAtuacao().length() > 80) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.80)");
+				throw new TamanhoCampoException("Nï¿½mero limite de caracteres excedido(mï¿½x.80)");
 			} else if (negocioClone != null && negocioClone.getId() != negocioBean.getId()) {
-				throw new NomeRepetidoException("Este nome já exite na base de dados");
+				throw new NomeRepetidoException("Este nome jï¿½ exite na base de dados");
 			} else if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
 				throw new CaracteresEspeciaisException("Por favor, digite um nome sem caracteres especiais");
 			} else {
@@ -87,7 +87,7 @@ public class NegocioBusiness {
 			if (negocioDao.verificarPorProjeto(id)) {
 				negocioDao.remover(id);
 			} else {
-				throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+				throw new RegistroVinculadoException("Registro nï¿½o pode ser removido pois possui vï¿½nculos");
 			}
 
 		} catch (Exception e) {
@@ -104,9 +104,13 @@ public class NegocioBusiness {
 		}
 	}
 
-	public NegocioBean obterPorNome(String areaAtuacao) throws ClassNotFoundException, SQLException {
+	public NegocioBean obterPorNome(String areaAtuacao) throws BusinessException {
+		try{
 		NegocioDAO negocioDao = new NegocioDAO();
 		return negocioDao.obterPorNome(areaAtuacao);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public NegocioBean obterNomeDesativado(NegocioBean negocioBean) throws ClassNotFoundException, SQLException {
@@ -127,7 +131,7 @@ public class NegocioBusiness {
 	}
 
 	public boolean validarAreaAtuacao(String areaAtuacao) {
-		return (areaAtuacao.matches("[A-Za-zÀ-ú0-9'\\s]{1,50}"));
+		return (areaAtuacao.matches("[A-Za-zï¿½-ï¿½0-9'\\s]{1,50}"));
 	}
 
 	public List<NegocioBean> obterPorProjeto(ProjetoBean projetoBean) throws BusinessException {
