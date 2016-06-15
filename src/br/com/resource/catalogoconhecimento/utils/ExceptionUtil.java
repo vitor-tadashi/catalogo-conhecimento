@@ -2,6 +2,7 @@ package br.com.resource.catalogoconhecimento.utils;
 
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.CpfInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.DataInvalidaException;
@@ -41,6 +42,8 @@ public abstract class ExceptionUtil {
 			error = "Por favor, digite um rg válido";
 		}else if(e instanceof UserInvalidoException){
 			error = "Nome de usuário inválido";
+		}else if(e instanceof CaracteresEspeciaisException){
+			error = "Por favor, não digite caracteres especiais";
 		}
 		
 		return new BusinessException(error);

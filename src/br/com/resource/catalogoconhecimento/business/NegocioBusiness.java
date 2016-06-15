@@ -2,12 +2,15 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.NegocioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
@@ -68,7 +71,7 @@ public class NegocioBusiness {
 			} else if (negocioClone != null && negocioClone.getId() != negocioBean.getId()) {
 				throw new NomeRepetidoException("Este nome já exite na base de dados");
 			} else if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
-				throw new BusinessException("Por favor, digite um nome sem caracteres especiais");
+				throw new CaracteresEspeciaisException("Por favor, digite um nome sem caracteres especiais");
 			} else {
 				negocioDao.alterar(negocioBean);
 			}
