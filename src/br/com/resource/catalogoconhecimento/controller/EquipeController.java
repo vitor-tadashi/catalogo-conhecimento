@@ -40,7 +40,7 @@ public class EquipeController {
 
 	}
 
-	@RequestMapping(value = "listarEquipe", method = RequestMethod.GET)
+	@RequestMapping(value = "listarEquipe", method = { RequestMethod.GET, RequestMethod.POST})
 	public String listarEquipe(Model model) throws BusinessException {
 		model.addAttribute("equipes", equipeBusiness.listar());
 		return "equipe/listarEquipe";
@@ -84,8 +84,7 @@ public class EquipeController {
 	}
 
 	@RequestMapping(value = "listarFuncionarioPorEquipe", method = { RequestMethod.GET, RequestMethod.POST })
-	public String listarFuncionarioPorEquipe(Model model, @RequestParam("idEquipe") String idEquipe,
-			@ModelAttribute("idEquipe") String idE) throws BusinessException {
+	public String listarFuncionarioPorEquipe(Model model, @RequestParam("idEquipe") String idEquipe) throws BusinessException {
 
 		List<FuncionarioBean> listaFuncionario = funcionarioBusiness.listar();
 		List<FuncionarioBean> funcionarioEquipe = funcionarioBusiness.listarPorEquipe(Integer.parseInt(idEquipe));
@@ -100,7 +99,7 @@ public class EquipeController {
 
 	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
 	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
-			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws BusinessException {
+			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
 
 		int idEquipe = Integer.parseInt(idEq);
 		int idFuncionario = Integer.parseInt(idFunc);
