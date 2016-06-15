@@ -5,9 +5,7 @@
 <html>
 <head>
 	<title>Adicionar Tecnologia</title>
-	 
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
-
 </head>
 <body class="overflow-hidden">
 	<c:import url="/resources/jspImport/header.jsp"></c:import>
@@ -27,8 +25,11 @@
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default">
-								<form class="no-margin" name="formAdd" id="formAdd" method="POST" action="adcionarTecnologia">
-									<div class="panel-heading">
+								<form class="no-margin" id="formAdd" method="POST"
+								 action="<c:url value='adicionarTecnologia'>
+									<c:param name='paginaAtual' value='formularioAdicionarTecnologia'/>
+											</c:url>">
+										<div class="panel-heading">
 										<h3>Adicionar Tecnologia</h3>
 									</div>
 									<div class="panel-body">

@@ -26,7 +26,7 @@ public class TecnologiaController {
 		return "tecnologias/formularioAdicionarTecnologia";	
 	}
 	
-	@RequestMapping(value = "adcionarTecnologia", method = RequestMethod.POST)
+	@RequestMapping(value = "adicionarTecnologia", method = RequestMethod.POST)
 	public String adicionar(TecnologiaBean tecnologiaBean) throws BusinessException{
 		tecnologiaBusiness.adicionar(tecnologiaBean);
 		
@@ -50,8 +50,7 @@ public class TecnologiaController {
 	}
 	
 	@RequestMapping(value = "alterarTecnologia", method = RequestMethod.POST)
-	public String alterar(TecnologiaBean tecnologiaBean, @RequestParam("idTecnologia") String idTecnologia ) throws BusinessException{
-		tecnologiaBean.setId(Integer.parseInt(idTecnologia));
+	public String alterar(TecnologiaBean tecnologiaBean) throws BusinessException{
 		tecnologiaBusiness.alterar(tecnologiaBean);
 		return "redirect:listarTecnologia";
 	}

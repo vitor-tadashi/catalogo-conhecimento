@@ -64,8 +64,7 @@
 										</tbody>
 									</table>
 									<div class="panel-footer text-left">
-										<a
-											href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+										<a href="<c:url value='formularioAdicionarTecnologia'/>">
 											<button class="btn btn-success" type="submit">Cadastrar
 												Nova Tecnologia</button>
 										</a>
