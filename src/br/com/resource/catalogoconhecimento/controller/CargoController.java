@@ -31,7 +31,7 @@ public class CargoController {
 		return "redirect:listarCargo";
 	}
 
-	@RequestMapping(value = "listarCargo", method = RequestMethod.GET)
+	@RequestMapping(value = "listarCargo", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarCargo(Model model) throws BusinessException {
 		model.addAttribute("cargos", cargoBusiness.listar());
 		return "cargo/listarCargos";
@@ -61,6 +61,6 @@ public class CargoController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "index";
+		return "forward:listarCargo";
 	}
 }

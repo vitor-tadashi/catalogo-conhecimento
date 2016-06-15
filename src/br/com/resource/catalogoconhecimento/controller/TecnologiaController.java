@@ -50,7 +50,8 @@ public class TecnologiaController {
 	}
 	
 	@RequestMapping(value = "alterarTecnologia", method = RequestMethod.POST)
-	public String alterar(TecnologiaBean tecnologiaBean) throws BusinessException{
+	public String alterar(TecnologiaBean tecnologiaBean, @RequestParam("idTecnologia") String idTecnologia ) throws BusinessException{
+		tecnologiaBean.setId(Integer.parseInt(idTecnologia));
 		tecnologiaBusiness.alterar(tecnologiaBean);
 		return "redirect:listarTecnologia";
 	}

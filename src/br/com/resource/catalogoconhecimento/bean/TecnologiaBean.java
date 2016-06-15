@@ -5,6 +5,11 @@ public class TecnologiaBean {
 	private int id;
 	private String nome;
 
+	
+	
+	public TecnologiaBean() {
+	}
+
 	public int getId() {
 		return id;
 	}

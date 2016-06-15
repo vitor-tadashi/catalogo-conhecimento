@@ -2,7 +2,6 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -42,54 +41,61 @@ public class FuncionarioBusiness {
 	 * @throws BusinessException
 	 */
 	public int adicionar(FuncionarioBean funcionarioBean)
-			throws ClassNotFoundException, SQLException, BusinessException {
-		int id = 0;
-
-		FuncionarioBean funcionarioCloneCpf = funcionarioDAO.obterPorCpf(funcionarioBean.getCpf());
-		FuncionarioBean funcionarioCloneMail = funcionarioDAO.obterPorEmail(funcionarioBean.getEmail());
-		FuncionarioBean funcionarioCloneUser = funcionarioDAO.obterPorUser(funcionarioBean.getNomeUser());
-		FuncionarioBean funcionarioCloneRg = funcionarioDAO.obterPorRg(funcionarioBean.getRg());
-
-		if (funcionarioBean.getNome().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de nome corretamante");
-		} else if (!validarNome(funcionarioBean.getNome().trim())) {
-			throw new TamanhoCampoException(
-					"Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
-		} else if (funcionarioBean.getTelefone().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de telefone corretamante");
-		} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
-			throw new TamanhoCampoException(
-					"Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
-		} else if (funcionarioBean.getEmail().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de e-mail corretamante");
-		} else if (!validarEmail(funcionarioBean.getEmail())) {
-			throw new EmailInvalidoException("Digite um email válido");
-		} else if (funcionarioCloneMail != null) {
-			throw new EmailInvalidoException("O e-mail: " + funcionarioBean.getEmail() + " já foi cadastrado na base");
-		} else if (funcionarioBean.getCpf().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de CPF corretamante");
-		} else if (!validarCPF(funcionarioBean.getCpf())) {
-			throw new CpfInvalidoException("Digite um CPF válido");
-		} else if (funcionarioCloneCpf != null) {
-			throw new CpfInvalidoException("O CPF " + funcionarioBean.getCpf() + " já foi cadastrado na base");
-		} else if (funcionarioBean.getNomeUser().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de nome de usuário corretamante");
-		} else if (!validarUser(funcionarioBean.getNomeUser())) {
-			throw new UserInvalidoException("Digite um nome de usuario valido");
-		} else if (funcionarioCloneUser != null) {
-			throw new UserInvalidoException(
-					"O nome de usuário " + funcionarioBean.getNomeUser() + " já foi cadastrado na base");
-		} else if (funcionarioBean.getRg().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de RG corretamante");
-		} else if (!validarRG(funcionarioBean.getRg())) {
-			throw new RgInvalidoException("Digite um RG válido");
-		} else if (funcionarioCloneRg != null) {
-			throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " já foi cadastrado na base");
-		} else {
-			id = funcionarioDAO.adicionar(funcionarioBean);
+			throws BusinessException {
+		try{
+			
+			int id = 0;
+			
+			FuncionarioBean funcionarioCloneCpf = funcionarioDAO.obterPorCpf(funcionarioBean.getCpf());
+			FuncionarioBean funcionarioCloneMail = funcionarioDAO.obterPorEmail(funcionarioBean.getEmail());
+			FuncionarioBean funcionarioCloneUser = funcionarioDAO.obterPorUser(funcionarioBean.getNomeUser());
+			FuncionarioBean funcionarioCloneRg = funcionarioDAO.obterPorRg(funcionarioBean.getRg());
+			
+			if (funcionarioBean.getNome().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de nome corretamante");
+			} else if (!validarNome(funcionarioBean.getNome().trim())) {
+				throw new TamanhoCampoException(
+						"Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
+			} else if (funcionarioBean.getTelefone().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de telefone corretamante");
+			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
+				throw new TamanhoCampoException(
+						"Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
+			} else if (funcionarioBean.getEmail().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de e-mail corretamante");
+			} else if (!validarEmail(funcionarioBean.getEmail())) {
+				throw new EmailInvalidoException("Digite um email válido");
+			} else if (funcionarioCloneMail != null) {
+				throw new EmailInvalidoException("O e-mail: " + funcionarioBean.getEmail() + " já foi cadastrado na base");
+			} else if (funcionarioBean.getCpf().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de CPF corretamante");
+			} else if (!validarCPF(funcionarioBean.getCpf())) {
+				throw new CpfInvalidoException("Digite um CPF válido");
+			} else if (funcionarioCloneCpf != null) {
+				throw new CpfInvalidoException("O CPF " + funcionarioBean.getCpf() + " já foi cadastrado na base");
+			} else if (funcionarioBean.getNomeUser().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de nome de usuário corretamante");
+			} else if (!validarUser(funcionarioBean.getNomeUser())) {
+				throw new UserInvalidoException("Digite um nome de usuario valido");
+			} else if (funcionarioCloneUser != null) {
+				throw new UserInvalidoException(
+						"O nome de usuário " + funcionarioBean.getNomeUser() + " já foi cadastrado na base");
+			} else if (funcionarioBean.getRg().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de RG corretamante");
+			} else if (!validarRG(funcionarioBean.getRg())) {
+				throw new RgInvalidoException("Digite um RG válido");
+			} else if (funcionarioCloneRg != null) {
+				throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " já foi cadastrado na base");
+			} else {
+				id = funcionarioDAO.adicionar(funcionarioBean);
+			}
+			
+			return id;
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 
-		return id;
+		
 
 	}
 
@@ -351,17 +357,21 @@ public class FuncionarioBusiness {
 		return funcionarioDAO.listarPorNome(nome);
 	}
 
-	public Date formatarData(String data) throws BusinessException, ParseException {
-		Date dataAtual = new Date(System.currentTimeMillis());
-
-		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		Date dataFormatada = formatador.parse(data);
-
-		if (dataFormatada.after(dataAtual)) {
-			throw new DataInvalidaException("Data inserida inválida!");
+	public Date formatarData(String data) throws BusinessException {
+		try{
+			Date dataAtual = new Date(System.currentTimeMillis());
+			
+			DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+			Date dataFormatada = formatador.parse(data);
+			
+			if (dataFormatada.after(dataAtual)) {
+				throw new DataInvalidaException("Data inserida inválida!");
+			}
+			
+			return dataFormatada;	
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);			
 		}
-
-		return dataFormatada;
 	}
 
 }

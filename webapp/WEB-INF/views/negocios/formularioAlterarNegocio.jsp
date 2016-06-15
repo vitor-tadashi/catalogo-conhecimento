@@ -77,38 +77,20 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	nomeNegocio: {
-                validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:4,
-                        max:80,
-                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
-                    },
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-                        message: 'Negocio inválido.'
-                    }
-                }
-            },
             areaAtuacao: {
 	            validators: {
 	                stringLength: {
 	                    enabled: true,
 	                    min:2,
-	                    max:100,
-	                    message: 'Mínimo de 2 e máximo de 100 caracteres.'
+	                    max:80,
+	                    message: 'Mínimo de 2 e máximo de 80 caracteres.'
 	                },
 	                notEmpty: {
 	                    message: '* Campo Obrigatório.'
 	                },
 	                regexp: {
 	                    enabled: true,
-	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]+$',
 	                    message: 'Area de atuação inválida.'
 	               }
 	            }

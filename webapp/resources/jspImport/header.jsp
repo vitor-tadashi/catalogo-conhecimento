@@ -53,14 +53,14 @@
 						</span> <span class="text"> Tecnologias </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="mvc?logica=tecnologia.ListarTecnologiaLogica">
+							<li><a href="<c:url value='listarTecnologia'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Tecnologias
 								</span>
 							</a></li>
 							<li><a
-								href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+								href="<c:url value='formularioAdicionarTecnologia'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Tecnologia
@@ -109,14 +109,14 @@
 						</span> <span class="text"> Equipes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="mvc?logica=equipe.ListarEquipeLogica"> <span
+							<li><a href="<c:url value='listarEquipe'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Equipes
 								</span>
 							</a></li>
 							<li><a
-								href="mvc?logica=equipe.FormularioInserirEquipeLogica"> <span
+								href="<c:url value='formularioAdicionarEquipe'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Equipe

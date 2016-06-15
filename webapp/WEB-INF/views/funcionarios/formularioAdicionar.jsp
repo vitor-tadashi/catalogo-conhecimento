@@ -34,7 +34,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+									<form class="no-margin" id="formAdd"  method="POST" action="adicionarFuncionario">
 										<div class="panel-heading">
 											<h3>Adicionar Funcionário</h3>
 										</div>
@@ -122,7 +122,7 @@
 														<div class="checkbox">
 															<c:forEach items="${tecnologias}" var="tecnologias">
 																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray" value="${tecnologias.nome}"data-fv-choice="true" data-fv-choice-min="1"  
+																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologias.nome}"data-fv-choice="true" data-fv-choice-min="1"  
 																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
 																	<span class="custom-checkbox"></span>
 																	${tecnologias.nome}
@@ -139,7 +139,7 @@
 														<div class="checkbox">
 															<c:forEach items="${negocios}" var="negocios">
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray" value="${negocios.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
+																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
 																	data-fv-choice-message="Escolha no mínimo 1 Área de Negócio"/>
 																	<span class="custom-checkbox"></span>
 																	${negocios.areaAtuacao}
@@ -151,9 +151,6 @@
 												</div><!-- /.col --> 
 												
 											</div><!-- /.row -->
-
-											<input type="hidden" name="logicaAtual" value="funcionario.FormularioAdicionarFuncionarioLogica" />
-											<input type="hidden" name="logica" value="funcionario.AdicionarFuncionarioLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>
