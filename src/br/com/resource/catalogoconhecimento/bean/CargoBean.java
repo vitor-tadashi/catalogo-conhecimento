@@ -6,23 +6,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "Cargo")
 public class CargoBean {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "idCargo")
-	private int id;
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name="idCargo", unique = true, nullable = false)
+	private Integer id;
 	
-	@Column(name = "nomeCargo", nullable = false)
+	@Column(name = "nomeCargo")
 	private String nome;
 
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

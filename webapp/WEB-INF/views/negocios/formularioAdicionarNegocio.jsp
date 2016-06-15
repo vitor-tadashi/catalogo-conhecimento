@@ -25,12 +25,16 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="adicionarNegocio">
+									<form class="no-margin" id="formAdd"  method="POST" 
+									action="<c:url value='adicionarNegocio'>
+									<c:param name='paginaAtual' value='formularioAdicionarNegocio'/>
+											</c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Negócio</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
+											
 												<!-- Message Erro-->
 													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
 														<div class="col-sm-2">
@@ -41,8 +45,6 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<!-- <input type="hidden" name="logicaAtual" value="negocio.FormularioAdicionarNegocioLogica" />
-											<input type="hidden" name="logica" value="negocio.AdicionarNegocioLogica"> -->
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>

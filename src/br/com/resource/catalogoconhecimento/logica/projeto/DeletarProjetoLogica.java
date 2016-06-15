@@ -17,7 +17,7 @@ public class DeletarProjetoLogica implements Logica {
 		ProjetoBusiness projetoBusiness = new ProjetoBusiness();
 
 		
-		projetoBusiness.deletar(idProjeto);
+		projetoBusiness.remover(idProjeto);
 		
 
 		return "mvc?logica=projeto.ListarProjetoLogica";

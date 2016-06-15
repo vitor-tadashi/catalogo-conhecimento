@@ -137,5 +137,4 @@ public class NegocioBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
 }
