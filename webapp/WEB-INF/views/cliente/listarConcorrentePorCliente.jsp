@@ -35,7 +35,7 @@
 				$(this).closest('tr').remove();
 			});
 		});
-	</script>
+</script>
 </head>
 
 <body class="overflow-hidden">
@@ -82,15 +82,16 @@
 												<td>${concorrenteCliente.concorrente.nome}</td>
 												<td>${concorrenteCliente.concorrente.descricao}</td>
 												<td>${concorrenteCliente.valorHora}</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=cliente.RemoverConcorrenteDoClienteLogica&idCliente=${clienteBean.id}&idConcorrente=${concorrenteCliente.concorrente.id}"><i class="fa fa-times fa-lg"></i></a>
+												<td style="text-align: center;">
+												<a href="<c:url value='removerConcorrenteDoCliente'> <c:param name='idCliente' value='${cliente.id}'/> <c:param name='idConcorrente' value='${concorrenteCliente.concorrente.id}'/></c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-							<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+							<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarConcorrenteNoCliente'>
+									<c:param name='countConcorrente' value='0'/> <c:param name='idCliente' value="${clienteBean.id}"/> <c:param name='txtNome' value='0'/> <c:param name='valorHora' value='0'/> </c:url>">
 								<div class="panel-heading">
 									<h3>Adicionar Concorrente</h3>
 								</div>
@@ -123,10 +124,6 @@
 											</table>
 										</div><!-- /.col -->
 									</div><!-- /.row -->
-									<input type="hidden" name="logicaAtual" value="cliente.ListarClienteLogica">
-									<input type="hidden" name="logica" value="cliente.AdicionarConcorrenteNoClienteLogica">
-									<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
-									<input type="hidden" id="idCliente" name="idCliente" value="${clienteBean.id}">
 								</div>
 								<div class="panel-footer text-left">
 									<button class="btn btn-success" type="submit">Adicionar</button>

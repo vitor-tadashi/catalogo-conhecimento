@@ -57,8 +57,8 @@ public class ClienteController {
 		return "redirect:listarClientes";
 	}
 
-	@RequestMapping(value = "adicionarConcorrenteNoClienteLogica", method = RequestMethod.POST)
-	public String adicionarConcorrenteNoClienteLogica(Model model,
+	@RequestMapping(value = "adicionarConcorrenteNoCliente", method = RequestMethod.POST)
+	public String adicionarConcorrenteNoCliente(Model model,
 			@RequestParam("countConcorrente") String countConcorrenteParam,
 			@RequestParam("idCliente") String idClienteParam, @RequestParam("txtNome") String txtNome,
 			@RequestParam("valorHora") String valorHoraParam) throws BusinessException {
@@ -110,7 +110,8 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "listarClientePorConcorrente", method = RequestMethod.GET)
-	public String listarClientePorConcorrente(Model model, @RequestParam("idCliente") String id) throws BusinessException {
+	public String listarClientePorConcorrente(Model model, @RequestParam("idCliente") String id)
+			throws BusinessException {
 		int idCliente = Integer.parseInt(id);
 
 		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
@@ -130,8 +131,8 @@ public class ClienteController {
 		return "redirect:listarClientes";
 	}
 
-	@RequestMapping(value = "RemoverConcorrenteDoClienteLogica", method = RequestMethod.GET)
-	public String RemoverConcorrenteDoClienteLogica(Model model, @RequestParam("idCliente") String idClienteParam,
+	@RequestMapping(value = "removerConcorrenteDoCliente", method = RequestMethod.GET)
+	public String removerConcorrenteDoCliente(Model model, @RequestParam("idCliente") String idClienteParam,
 			@RequestParam("idConcorrente") String idConcorrenteParam) throws BusinessException {
 
 		int idCliente = Integer.parseInt(idClienteParam);

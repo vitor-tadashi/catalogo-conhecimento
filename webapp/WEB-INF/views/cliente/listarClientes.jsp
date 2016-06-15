@@ -77,7 +77,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="formularioAdicionarCliente">
+									<a href="<c:url value='formularioAdicionarCliente'> </c:url>">
 										<button class="btn btn-success" type="submit">Adicionar Novo Cliente</button>
 									</a>
 								</div>
