@@ -90,14 +90,14 @@
 						</span> <span class="text"> Projetos </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="mvc?logica=projeto.ListarProjetoLogica"> <span
+							<li> <a href="<c:url value='listarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Projetos
 								</span>
 							</a></li>
-							<li><a
-								href="mvc?logica=projeto.FormularioInserirProjetoLogica"> <span
+							<li>
+								<a href="<c:url value='formularioAdicionarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Projetos
@@ -122,14 +122,13 @@
 									</span> Cadastrar Equipe
 								</span>
 							</a></li>
-							<li><a href="mvc?logica=funcionario.ListarFuncionarioLogica">
+							<li><a href="<c:url value='listarFuncionario'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Funcionários
 								</span>
 							</a></li>
-							<li><a
-								href="mvc?logica=funcionario.FormularioAdicionarFuncionarioLogica">
+							<li><a href="<c:url value='formularioAdicionarFuncionario'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Funcionário
@@ -153,14 +152,13 @@
 						</span> <span class="text"> Clientes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="mvc?logica=cliente.ListarClienteLogica"> <span
+							<li> <a href="<c:url value='listarClientes'/>"><span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Clientes
 								</span>
 							</a></li>
-							<li><a
-								href="mvc?logica=cliente.FormularioAdicionarClienteLogica">
+							<li><a href="<c:url value='formularioAdicionarCliente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cliente
@@ -172,14 +170,13 @@
 						</span> <span class="text"> Concorrentes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="mvc?logica=concorrente.ListarConcorrenteLogica">
+							<li> <a href="<c:url value='listarConcorrentes'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Concorrentes
 								</span>
 							</a></li>
-							<li><a
-								href="mvc?logica=concorrente.FormularioAdicionarConcorrenteLogica">
+							<li><a href="<c:url value='formularioAdicionarConcorrente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Concorrente

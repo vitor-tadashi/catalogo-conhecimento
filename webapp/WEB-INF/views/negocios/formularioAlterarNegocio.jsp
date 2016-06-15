@@ -7,64 +7,74 @@
 		<title>Alterar Negócio</title>
 		<c:import url="/resources/jspImport/head.jsp"></c:import>
 	</head>
-	<body class="overflow-hidden">
-		<c:import url="/resources/jspImport/header.jsp"></c:import>
-		<div id="main-container" style="width: auto">
-			<div id="breadcrumb">
-				<ul class="breadcrumb">
-					<li><i class="fa fa-home"></i><a href="index.jsp">
-							Principal</a></li>
-					<li>Negócios</li>
-					<li class="active">Alterar Negócio</li>
-				</ul>
-			</div>
-			<!--breadcrumb-->
-			<div class="padding-md">
-					<div class="row">
-						<div class="col-md-12 col-sm-12">
-							<div class="tab-content">
-								<div class="tab-pane fade in active" id="research">
-									<div class="panel panel-default">
-										<form class="no-margin" id="formAlt"  method="POST"
-										 action="<c:url value='alterarNegocio'>
+<body class="overflow-hidden">
+	<c:import url="/resources/jspImport/header.jsp" />
+	<div id="main-container" style="width: auto">
+		<div id="breadcrumb">
+			<ul class="breadcrumb">
+				<li><i class="fa fa-home"></i><a href="index.jsp">
+						Principal</a></li>
+				<li>Negócios</li>
+				<li class="active">Alterar Negócio</li>
+			</ul>
+		</div>
+		<!--breadcrumb-->
+		<div class="padding-md">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="research">
+							<div class="panel panel-default">
+								<form class="no-margin" id="formAlt" method="POST"
+									action="<c:url value='alterarNegocio'>
 										<c:param name='paginaAtual' value='formularioAlterarNegocio'/>
 												</c:url>">
-											<div class="panel-heading">
-												<h3>Alterar Negocio</h3>
+									<div class="panel-heading">
+										<h3>Alterar Negocio</h3>
+									</div>
+									<div class="panel-body">
+										<div class="row">
+											<!-- Message Erro-->
+											<c:import url="/resources/jspImport/msgErro.jsp" />
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Área de Atuação <input
+														type="hidden" class="form-control" name="id"
+														value="${negocio.id}" readonly> <input type="text"
+														class="form-control" maxlength="100" name="areaAtuacao"
+														value="${negocio.areaAtuacao}">
+													</label>
+												</div>
 											</div>
-											<div class="panel-body">
-												<div class="row">
-												<!-- Message Erro-->
-													<c:import url="/resources/jspImport/msgErro.jsp"/>
-													
-													<div class="col-sm-2">
-														<div class="form-group">
-															<label class="control-label">Área de Atuação
-																<input type="hidden" class="form-control" name="id" value="${negocio.id}" readonly>
-																<input type="text" class="form-control" maxlength="100" name="areaAtuacao" value="${negocio.areaAtuacao}">
-															</label>
-														</div>
-													</div><!-- /.col -->
-												</div><!-- /.row -->
-												
-										 	</div> 
-											<div class="panel-footer text-left">
-												<button class="btn btn-success" type="submit">Alterar</button>
-											</div> 
-										</form>
-									</div><!-- /panel -->
-								</div>
-							</div><!-- /tab-content -->
-						</div><!-- /.col -->
-					</div><!-- /.row -->	
-				</div><!-- /.padding-md -->
-			</div><!-- /main-container -->
-		</div><!-- /wrapper -->
-		<!-- Import Logout Action -->
-		<c:import url="/resources/jspImport/logout.jsp"></c:import>
-		<c:import url="/resources/jspImport/footer.jsp"></c:import>
-		
-		<script type="text/javascript">
+											<!-- /.col -->
+										</div>
+										<!-- /.row -->
+
+									</div>
+									<div class="panel-footer text-left">
+										<button class="btn btn-success" type="submit">Alterar</button>
+									</div>
+								</form>
+							</div>
+							<!-- /panel -->
+						</div>
+					</div>
+					<!-- /tab-content -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.padding-md -->
+	</div>
+	<!-- /main-container -->
+
+	<!-- Import Logout Action -->
+	<c:import url="/resources/jspImport/logout.jsp"></c:import>
+	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+
+	<script>
 $(document).ready(function() {
     $('#formAlt').formValidation({
         err: {
@@ -90,7 +100,7 @@ $(document).ready(function() {
 	                },
 	                regexp: {
 	                    enabled: true,
-	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]+$',
+	                    regexp: '[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]+$',
 	                    message: 'Area de atuação inválida.'
 	               }
 	            }
@@ -99,6 +109,5 @@ $(document).ready(function() {
     });
 });
 </script>
-		
-	</body>
+</body>
 </html>
