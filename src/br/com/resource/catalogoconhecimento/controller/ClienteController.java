@@ -1,7 +1,5 @@
 package br.com.resource.catalogoconhecimento.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -29,7 +27,7 @@ public class ClienteController {
 	private ConcorrenteBusiness concorrenteBusiness;
 
 	@RequestMapping(value = "formularioAdicionarCliente", method = RequestMethod.GET)
-	public String formularioAdicionar(Model model) throws BusinessException {
+	public String formularioAdicionarCliente(Model model) throws BusinessException {
 		model.addAttribute("concorrentes", concorrenteBusiness.listar());
 		return "cliente/formularioAdicionarCliente";
 	}
@@ -82,13 +80,9 @@ public class ClienteController {
 				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
 			}
 		}
-
-		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
-		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
-
-		model.addAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
+		model.addAttribute("listaConcorrenteCliente", concorrenteBusiness.listarPorCliente(idCliente));
 		model.addAttribute("clienteBean", clienteBean);
-		model.addAttribute("listaConcorrente", listaConcorrente);
+		model.addAttribute("listaConcorrente", concorrenteBusiness.listar());
 
 		return "redirect:listarConcorrentePorCliente";
 	}
@@ -115,15 +109,11 @@ public class ClienteController {
 	@RequestMapping(value = "listarClientePorConcorrente", method = RequestMethod.GET)
 	public String listarClientePorConcorrente(Model model, @RequestParam("idCliente") String id)
 			throws BusinessException {
+
 		int idCliente = Integer.parseInt(id);
-
-		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
-		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
-		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
-
-		model.addAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
-		model.addAttribute("clienteBean", clienteBean);
-		model.addAttribute("listaConcorrente", listaConcorrente);
+		model.addAttribute("listaConcorrenteCliente", concorrenteBusiness.listarPorCliente(idCliente));
+		model.addAttribute("clienteBean", clienteBusiness.obterPorId(idCliente));
+		model.addAttribute("listaConcorrente", concorrenteBusiness.listar());
 
 		return "cliente/listarConcorrentePorCliente";
 	}
@@ -144,13 +134,9 @@ public class ClienteController {
 
 		concorrenteBusiness.removerConcorrenteCliente(idCliente, idConcorrente);
 
-		List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteBusiness.listarPorCliente(idCliente);
-		List<ConcorrenteBean> listaConcorrente = concorrenteBusiness.listar();
-		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
-
-		model.addAttribute("listaConcorrenteCliente", listaConcorrenteCliente);
-		model.addAttribute("clienteBean", clienteBean);
-		model.addAttribute("listaConcorrente", listaConcorrente);
+		model.addAttribute("listaConcorrenteCliente", concorrenteBusiness.listarPorCliente(idCliente));
+		model.addAttribute("clienteBean", clienteBusiness.obterPorId(idCliente));
+		model.addAttribute("listaConcorrente", concorrenteBusiness.listar());
 
 		return "redirect:listarConcorrentePorCliente";
 	}
