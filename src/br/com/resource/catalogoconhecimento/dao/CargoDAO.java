@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
-public class CargoDAO {
+@Repository
+public class CargoDAO  extends GenericDAOImpl<CargoBean, Integer>  {
 
 	public void adicionar(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();

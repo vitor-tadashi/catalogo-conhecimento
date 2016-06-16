@@ -3,7 +3,9 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
@@ -18,10 +20,14 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class CargoBusiness {
-
+	
+	@Autowired
+	private CargoDAO cargoDao;
+	
+	@Transactional
 	public void adicionar(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
+			/*CargoDAO cargoDao = new CargoDAO();
 			CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
 			CargoBean cargoClone = this.obterPorNome(cargoBean.getNome());
 
@@ -35,11 +41,17 @@ public class CargoBusiness {
 				throw new NomeRepetidoException("Este nome já consta na base de dados");
 			} else {
 				cargoDao.adicionar(cargoBean);
-			}
+			}*/
 
+		/*	GenericDAOImpl genericDao = new GenericDAOImpl();
+			genericDao.save(cargoBean);*/
+			
+			cargoDao.save(cargoBean); 
+			
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
+		
 	}
 
 	public List<CargoBean> listar() throws BusinessException {
