@@ -8,18 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("equipe")
 public class EquipeController {
 
 	@Autowired
@@ -27,6 +30,9 @@ public class EquipeController {
 
 	@Autowired
 	private FuncionarioBusiness funcionarioBusiness;
+	
+	@Autowired
+	private TecnologiaBusiness tecnologiaBusiness;
 
 	@RequestMapping(value = "formularioAdicionarEquipe", method = RequestMethod.GET)
 	public String formularioAdicionar() {
@@ -115,6 +121,13 @@ public class EquipeController {
 	public String exceptionHandler(BusinessException exception, Model model){
 		model.addAttribute("msgErro", exception.getMessage());
 		return "forward:listarEquipe";
+	}
+	
+	@RequestMapping(value = "buscarTecnologiaPorFuncionario", method = RequestMethod.POST)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario( @RequestParam("idFuncionario") String id)
+			throws BusinessException {
+		int idFuncionario = Integer.parseInt(id);
+		return tecnologiaBusiness.obterPorFuncionario(idFuncionario);
 	}
 
 }

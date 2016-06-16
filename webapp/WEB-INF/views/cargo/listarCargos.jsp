@@ -51,7 +51,7 @@
 												<td>${cargo.nome}</td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='formularioAlterarCargo'>
+													<c:url value='/cargo/formularioAlterarCargo'>
 													<c:param name='idCargo' value='${cargo.id}'/>
 													</c:url>
 													">													
@@ -68,7 +68,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='formularioAdicionarCargo'/>">
+									<a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Novo Cargo</button>
 									</a>
 								</div>

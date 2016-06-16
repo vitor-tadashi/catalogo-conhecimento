@@ -75,7 +75,7 @@
 												</td>
 												<td>
 													<a href="
-													<c:url value='deletarFuncionarioPorEquipe'>
+													<c:url value='/equipe/deletarFuncionarioPorEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													<c:param name='idFuncionario' value='${funcionarioEquipe.id}'/>
 													</c:url>
@@ -86,7 +86,7 @@
 			 							</c:forEach>
 			 						</tbody>	
 								</table>
-								<form name="formAdicionaFuncionarioEquipe" method="POST" action="adicionarFuncionarioNaEquipe">
+								<form name="formAdicionaFuncionarioEquipe" method="POST" action="/catalogoconhecimento/equipe/adicionarFuncionarioNaEquipe">
 									<div class="panel-heading">
 										<h4>Inserir Funcionário na Equipe</h4>
 									</div>

@@ -26,6 +26,7 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("busca")
 public class BuscaController {
 
 	@Autowired
