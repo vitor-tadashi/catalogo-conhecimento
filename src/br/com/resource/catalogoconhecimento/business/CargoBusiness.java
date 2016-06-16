@@ -3,7 +3,9 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
@@ -19,33 +21,25 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 @Component
 public class CargoBusiness {
 
+	@Autowired
+	private CargoDAO cargoDao;
+
+	@Transactional
 	public void adicionar(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-			CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
-			CargoBean cargoClone = this.obterPorNome(cargoBean.getNome());
-
-			if (!validarNome(cargoBean.getNome())) {
-				throw new CaracteresEspeciaisException("Por favor, digite um nome válido!");
-			} else if (cargoBean.getNome().length() > 80) {
-				throw new TamanhoCampoException("Número de caracteres excedido(máx. 80)");
-			} else if (cargoDesativada != null) {
-				this.reativar(cargoBean);
-			} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
-				throw new NomeRepetidoException("Este nome já consta na base de dados");
-			} else {
-				cargoDao.adicionar(cargoBean);
-			}
+			
+			cargoDao.adicionar(cargoBean);
 
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-	}
 
+	}
+	@Transactional
 	public List<CargoBean> listar() throws BusinessException {
 		try {
 
-			CargoDAO cargoDao = new CargoDAO();
+
 			List<CargoBean> listaCargo = cargoDao.listar();
 
 			if (listaCargo.isEmpty()) {
@@ -69,11 +63,11 @@ public class CargoBusiness {
 	}
 
 	public CargoBean obterPorNome(String nome) throws BusinessException {
-		try{
+		try {
 			CargoDAO cargoDao = new CargoDAO();
-			
+
 			return cargoDao.obterPorNome(nome);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -106,16 +100,16 @@ public class CargoBusiness {
 	}
 
 	public void remover(int id) throws BusinessException {
-		try{
-		
-		CargoDAO cargoDao = new CargoDAO();
+		try {
 
-		if (cargoDao.verificarPorFuncionario(id)) {
-			cargoDao.remover(id);
-		} else {
-			throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
-		}
-		}catch(Exception e){
+			CargoDAO cargoDao = new CargoDAO();
+
+			if (cargoDao.verificarPorFuncionario(id)) {
+				cargoDao.remover(id);
+			} else {
+				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
+			}
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}

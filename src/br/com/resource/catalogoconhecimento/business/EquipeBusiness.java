@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
@@ -18,11 +19,9 @@ import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 @Component
 public class EquipeBusiness {
 
+	@Autowired
 	private EquipeDAO equipeDAO;
 
-	public EquipeBusiness() {
-		equipeDAO = new EquipeDAO();
-	}
 
 	// INSERIR NA BASE
 	public void inserir(EquipeBean equipeBean) throws BusinessException {
@@ -31,11 +30,11 @@ public class EquipeBusiness {
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
 
 			if (!validarNome(equipeBean.getNome())) {
-				throw new TamanhoCampoException("Por Favor, digite um nome v�lido");
+				throw new TamanhoCampoException("Por Favor, digite um nome válido");
 			} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
-				throw new NomeRepetidoException("Esta equipe j� consta na base de dados");
+				throw new NomeRepetidoException("Esta equipe já consta na base de dados");
 			} else if (equipeBean.getObservacao().length() > 500) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.500)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máxs.500)");
 			} else {
 				equipeDAO.inserir(equipeBean);
 			}
@@ -53,7 +52,7 @@ public class EquipeBusiness {
 			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
 
 			if (equipeFuncionario != null) {
-				throw new NomeRepetidoException("Este nome j� consta nessa Equipe");
+				throw new NomeRepetidoException("Este nome já consta nessa Equipe");
 			} else {
 				equipeDAO.inserirPorEquipe(equipe, funcionario);
 			}
@@ -70,7 +69,7 @@ public class EquipeBusiness {
 			equipeDAO.deletar(id);
 		} else {
 			throw new RegistroVinculadoException(
-					"Essa Equipe n�o pode ser removida, pois possui v�nculos com Funcion�rios");
+					"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
 		}
 		}catch(Exception e){
 			throw ExceptionUtil.handleException(e);
@@ -84,11 +83,11 @@ public class EquipeBusiness {
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipe.getNome());
 
 			if (!validarNome(equipe.getNome()) || equipe.getNome().equals("")) {
-				throw new TamanhoCampoException("Por Favor, digite um nome v�lido");
+				throw new TamanhoCampoException("Por Favor, digite um nome válido");
 			} else if (equipeigual != null && equipeigual.getId() != equipe.getId()) {
-				throw new NomeRepetidoException("Este nome j� consta na base de dados");
+				throw new NomeRepetidoException("Este nome já consta na base de dados");
 			} else if (equipe.getObservacao().length() > 500) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.500)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 			} else {
 				equipeDAO.atualizar(equipe);
 			}
@@ -105,7 +104,7 @@ public class EquipeBusiness {
 			List<EquipeBean> listaEquipe = equipeDAO.listar();
 
 			if (listaEquipe.isEmpty()) {
-				throw new ConsultaNulaException("N�o h� equipes cadastradas");
+				throw new ConsultaNulaException("Não há equipes cadastradas");
 			} else {
 				return listaEquipe;
 			}

@@ -16,6 +16,7 @@ import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("/cargo")
 public class CargoController {
 
 	@Autowired
@@ -27,7 +28,8 @@ public class CargoController {
 	}
 	
 	@RequestMapping(value = "adicionarCargo", method = RequestMethod.POST)
-	public String adiciona(CargoBean cargoBean) throws BusinessException{
+	public String adiciona(CargoBean cargoBean, @RequestParam("ativo")String ativo) throws BusinessException{
+		cargoBean.setAtivo(ativo.charAt(0));
 		cargoBusiness.adicionar(cargoBean);
 		return "redirect:listarCargo";
 	}

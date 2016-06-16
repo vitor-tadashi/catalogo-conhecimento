@@ -6,7 +6,7 @@
 	<div id="top-nav" class="skin-1 fixed">
 		<div class="brand">
 			<a href="<c:url value='/'/>"><img
-				src="resources/img/logowhite-resource.png" class="pull-center"
+				src="<c:url value='/resources/img/logowhite-resource.png'/>" class="pull-center"
 				style="height: 45px; width: 135px; padding-left: 10px; padding-right: 10px;"></a>
 		</div>
 		<!-- /brand -->
@@ -53,13 +53,14 @@
 						</span> <span class="text"> Tecnologias </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarTecnologia'/>"> <span
-									class="submenu-label"> <span class="menu-icon"> <i
-											class="fa fa-angle-right fa-lg"></i>
+							<li><a href="<c:url value='listarTecnologia'/>">
+									<span class="submenu-label"> <span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Tecnologias
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarTecnologia'/>">
+							<li><a
+								href="<c:url value='formularioAdicionarTecnologia'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Tecnologia
@@ -89,15 +90,16 @@
 						</span> <span class="text"> Projetos </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarProjeto'/>"> <span
+							<li> <a href="<c:url value='listarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Projetos
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarProjeto'/>">
-									<span class="submenu-label"> <span class="menu-icon">
-											<i class="fa fa-angle-right fa-lg"></i>
+							<li>
+								<a href="<c:url value='formularioAdicionarProjeto'/>"> <span
+									class="submenu-label"> <span class="menu-icon"> <i
+											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Projetos
 								</span>
 							</a></li>
@@ -107,38 +109,38 @@
 						</span> <span class="text"> Equipes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarEquipe'/>"> <span
+							<li><a href="<c:url value='/equipe/listarEquipe'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Equipes
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarEquipe'/>">
-									<span class="submenu-label"> <span class="menu-icon">
-											<i class="fa fa-angle-right fa-lg"></i>
+							<li><a
+								href="<c:url value='/equipe/formularioAdicionarEquipe'/>"> <span
+									class="submenu-label"> <span class="menu-icon"> <i
+											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Equipe
 								</span>
 							</a></li>
-							<li><a href="<c:url value='listarFuncionario'/>"> <span
-									class="submenu-label"> <span class="menu-icon"> <i
-											class="fa fa-angle-right fa-lg"></i>
+							<li><a href="<c:url value='listarFuncionario'/>">
+									<span class="submenu-label"> <span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Funcionários
 								</span>
 							</a></li>
-							<li><a
-								href="<c:url value='formularioAdicionarFuncionario'/>"> <span
-									class="submenu-label"> <span class="menu-icon"> <i
-											class="fa fa-angle-right fa-lg"></i>
+							<li><a href="<c:url value='formularioAdicionarFuncionario'/>">
+									<span class="submenu-label"> <span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Funcionário
 								</span>
 							</a></li>
-							<li><a href="<c:url value='listarCargo'/>"> <span
+							<li><a href="<c:url value='/cargo/listarCargo'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Cargos
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarCargo'/>">
+							<li><a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cargo
@@ -150,11 +152,12 @@
 						</span> <span class="text"> Clientes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarClientes'/>"><span
+							<li> <a href="<c:url value='listarClientes'/>"><span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Clientes
-								</span> </a></li>
+								</span>
+							</a></li>
 							<li><a href="<c:url value='formularioAdicionarCliente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
@@ -167,16 +170,15 @@
 						</span> <span class="text"> Concorrentes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarConcorrentes'/>"> <span
-									class="submenu-label"> <span class="menu-icon"> <i
-											class="fa fa-angle-right fa-lg"></i>
+							<li> <a href="<c:url value='listarConcorrentes'/>">
+									<span class="submenu-label"> <span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Concorrentes
 								</span>
 							</a></li>
-							<li><a
-								href="<c:url value='formularioAdicionarConcorrente'/>"> <span
-									class="submenu-label"> <span class="menu-icon"> <i
-											class="fa fa-angle-right fa-lg"></i>
+							<li><a href="<c:url value='formularioAdicionarConcorrente'/>">
+									<span class="submenu-label"> <span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Concorrente
 								</span>
 							</a></li>
