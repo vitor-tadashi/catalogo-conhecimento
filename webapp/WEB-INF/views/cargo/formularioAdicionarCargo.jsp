@@ -41,6 +41,7 @@
 															<div class="form-group">
 															<label class="control-label">Cargo
 															<input type="text" class="form-control"  maxlength="80"  name="nome"/>
+															<input type ="hidden" name="ativo" value = "S"/>
 														</label>
 													</div>
 												</div><!-- /.col -->
