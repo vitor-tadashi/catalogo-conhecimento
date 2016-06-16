@@ -105,7 +105,7 @@
 											<th>Telefone</th>
 											<th>Tecnologia(s)</th>
 											<th>Negócio(s)</th>
-											<th>Equipes</th>
+											<th>Equipe(s)</th>
 											<th>Nome de Usuário</th>
 											<th>Cargo</th>
 											<th>CPF</th>

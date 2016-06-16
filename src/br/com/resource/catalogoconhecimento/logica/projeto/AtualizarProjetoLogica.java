@@ -81,7 +81,7 @@ public class AtualizarProjetoLogica implements Logica{
 		projeto.setObservacao(observacao.trim());
 
 
-		projetoBusiness.atualizar(projeto);
+		projetoBusiness.alterar(projeto);
 
 		ProjetoNegocioBusiness projetoNegocio = new ProjetoNegocioBusiness();
 		projetoNegocio.atualizar(projeto, listaNegocio);

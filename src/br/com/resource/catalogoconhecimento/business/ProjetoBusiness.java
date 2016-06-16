@@ -24,7 +24,7 @@ public class ProjetoBusiness {
 	}
 
 	// INSERE NA TABELA PROJETO
-	public void inserir(ProjetoBean projetoBean) throws BusinessException {
+	public void adicionar(ProjetoBean projetoBean) throws BusinessException {
 		try {
 			ProjetoDAO projetoDao = new ProjetoDAO();
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
@@ -38,7 +38,7 @@ public class ProjetoBusiness {
 			} else if (projetoBean.getObservacao().length() > 255) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.255)");
 			} else {
-				projetoDao.inserir(projetoBean);
+				projetoDao.adicionar(projetoBean);
 			}
 
 		} catch (Exception e) {
@@ -63,7 +63,7 @@ public class ProjetoBusiness {
 	}
 
 	// ATUALIZAR NA TABELA PROJETO
-	public void atualizar(ProjetoBean projetoBean) throws BusinessException {
+	public void alterar(ProjetoBean projetoBean) throws BusinessException {
 		try {
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
@@ -75,7 +75,7 @@ public class ProjetoBusiness {
 				throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
 						+ projetoClone.getCliente().getNome());
 			} else {
-				projetoDao.atualizar(projetoBean);
+				projetoDao.alterar(projetoBean);
 			}
 
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class ProjetoBusiness {
 
 			if (projetoDao.verificarPorEquipe(id) && projetoDao.verificarPorNegocio(id)
 					&& projetoDao.verificarPorTecnologia(id)) {
-				projetoDao.deletar(id);
+				projetoDao.remover(id);
 			} else {
 				throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
 			}

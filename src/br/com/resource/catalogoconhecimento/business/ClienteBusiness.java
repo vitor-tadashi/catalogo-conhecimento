@@ -110,8 +110,13 @@ public class ClienteBusiness {
 		return clienteDao.obterPorId(idCliente);
 	}
 
-	public ClienteBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		return clienteDao.obterPorNome(nome);
+	public ClienteBean obterPorNome(String nome) throws BusinessException {
+		try {
+			return clienteDao.obterPorNome(nome);
+
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public ClienteBean obterNomeDesativado(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
