@@ -12,8 +12,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Negócios</li>
 				<li class="active">Adicionar Negócio</li>
 			</ul>
@@ -36,11 +37,10 @@
 											<div class="row">
 											
 												<!-- Message Erro-->
-													<c:import url="/resources/jspImport/msgErro.jsp"></c:import>
-														<div class="col-sm-2">
+													<c:import url="/resources/jspImport/msgErro.jsp"/>														<div class="col-sm-2">
 															<div class="form-group">
 									   						<label class="control-label">Area de Atuação
-															<input type="text" class="form-control" maxlength="100" name="areaAtuacao" required>
+															<input type="text" class="form-control" maxlength="100" name="areaAtuacao"/>
 														</label>
 													</div>
 												</div><!-- /.col -->
@@ -75,24 +75,6 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	nomeNegocio: {
-                validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:4,
-                        max:80,
-                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
-                    },
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
-                        message: 'Negocio inválido.'
-                    }
-                }
-            },
             areaAtuacao: {
 	            validators: {
 	                stringLength: {
@@ -106,7 +88,7 @@ $(document).ready(function() {
 	                },
 	                regexp: {
 	                    enabled: true,
-	                    regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+	                    regexp: '[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
 	                    message: 'Area de atuação inválida.'
 	               }
 	            }

@@ -12,8 +12,8 @@
 		<div id="main-container" style="width: auto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					<li><i class="fa fa-home"></i><a href="index.jsp">
-							Principal</a></li>
+					<li><i class="fa fa-home"></i>		
+					<a href="<c:url value='/'/>">Principal</a></li>
 					<li>Tecnologias</li>
 					<li class="active">Alterar Tecnologia</li>
 				</ul>
@@ -25,7 +25,10 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAlt"  method="POST" action="alterarTecnologia">
+										<form class="no-margin" id="formAlt"  method="POST"
+											action="<c:url value='alterarTecnologia'>
+										<c:param name='paginaAtual' value='formularioAlterarTecnologia'/>
+												</c:url>">
 											<div class="panel-heading">
 												<h3>Alterar Tecnologia</h3>
 											</div>
@@ -36,8 +39,8 @@
 													<div class="col-lg-2">
 														<div class="form-group">
 															<label class="control-label">Nome da Tecnologia
-																<input type="text" class="form-control" maxlength="50" name="nome" value="${tecnologia.nome}">
 																<input type="hidden" name="id" value="${tecnologia.id}" readonly>
+																<input type="text" class="form-control" maxlength="50" name="nome" value="${tecnologia.nome}">
 															</label>
 														</div>
 													</div><!-- /.col -->
@@ -85,7 +88,7 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '^[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
+                        regexp: '[A-Za-zÀ-ú0-9\s\@\#\$\%\&\*]',
                         message: 'Tecnologia inválida.'
                     }
                 }

@@ -15,8 +15,8 @@
 		<div id="main-container" style="width: auto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					<li><i class="fa fa-home"></i><a href="index.jsp">
-							Principal</a></li>
+					<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
 					<li>Tecnologias</li>
 					<li class="active">Lista de Tecnologias</li>
 				</ul>
@@ -64,8 +64,7 @@
 										</tbody>
 									</table>
 									<div class="panel-footer text-left">
-										<a
-											href="mvc?logica=tecnologia.FormularioAdicionarTecnologiaLogica">
+										<a href="<c:url value='formularioAdicionarTecnologia'/>">
 											<button class="btn btn-success" type="submit">Cadastrar
 												Nova Tecnologia</button>
 										</a>
