@@ -2,32 +2,24 @@ package br.com.resource.catalogoconhecimento.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
+
 
 public interface GenericDAO<T, K extends Serializable> {
 
 	Class<T> getEntityClass();
 
-	T findById(final K id);
+	T obterPorId(final K id);
 
-	List<T> findAll();
+	List<T> listar();
 
 	List<T> findAll(String propertyOrder, Boolean isDesc);
 
-	List<T> findByExample(final T exampleInstance);
-
 	List<T> findByNamedQuery(final String queryName, Object... params);
 
-	List<T> findByNamedQueryAndNamedParams(final String queryName, final Map<String, ? extends Object> params);
+	T adicionar(final T entity);
 
-	int countAll();
+	void remover(final T entity);
 
-	int countByExample(final T exampleInstance);
-
-	T save(final T entity);
-
-	void delete(final T entity);
-
-	public T update(T entity);
+	public T alterar(T entity);
 
 }

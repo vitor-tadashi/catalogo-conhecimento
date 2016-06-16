@@ -3,20 +3,14 @@ package br.com.resource.catalogoconhecimento.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * JPA implementation of the GenericRepository. Note that this implementation
@@ -58,27 +52,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	}
 
 	@Override
-	public int countAll() {
-		return countByCriteria();
-
-	}
-
-	@Override
-	public int countByExample(final T exampleInstance) {
-		Criteria crit = null;
-		try {
-			Session session = (Session) entityManager.getDelegate();
-			crit = session.createCriteria(getEntityClass());
-			crit.setProjection(Projections.rowCount());
-			crit.add(Example.create(exampleInstance));
-		} catch (Exception e) {
-
-		}
-		return (Integer) crit.list().get(0);
-	}
-
-	@Override
-	public List<T> findAll() {
+	public List<T> listar() {
 		List<T> ret = null;
 		try {
 			ret = findByCriteria();
@@ -101,22 +75,10 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 		return ret;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByExample(final T exampleInstance) {
-		List<T> result = null;
-		try {
-			Session session = (Session) entityManager.getDelegate();
-			Criteria crit = session.createCriteria(getEntityClass());
-			result = crit.list();
-		} catch (Exception e) {
 
-		}
-		return result;
-	}
 
 	@Override
-	public T findById(final ID id) {
+	public T obterPorId(final ID id) {
 		T result = null;
 		try {
 			result = entityManager.find(entityClass, id);
@@ -144,22 +106,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQueryAndNamedParams(final String name, final Map<String, ? extends Object> params) {
-		List<T> result = null;
-		try {
-			javax.persistence.Query query = entityManager.createNamedQuery(name);
 
-			for (final Map.Entry<String, ? extends Object> param : params.entrySet()) {
-				query.setParameter(param.getKey(), param.getValue());
-			}
-			result = (List<T>) query.getResultList();
-		} catch (Exception e) {
-
-		}
-		return result;
-	}
 
 	/**
 	 * Use this inside subclasses as a convenience method.
@@ -243,7 +190,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	}
 
 	@Override
-	public void delete(T entity) {
+	public void remover(T entity) {
 		try {
 			entityManager.remove(entity);
 		} catch (Exception e) {
@@ -252,7 +199,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	}
 
 	@Override
-	public T save(T entity) {
+	public T adicionar(T entity) {
 		try {
 			entityManager.persist(entity);
 
@@ -263,7 +210,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	}
 
 	@Override
-	public T update(T entity) {
+	public T alterar(T entity) {
 		try {
 			entityManager.merge(entity);
 		} catch (Exception e) {
