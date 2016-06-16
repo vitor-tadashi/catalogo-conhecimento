@@ -16,6 +16,7 @@ import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("/cargo")
 public class CargoController {
 
 	@Autowired

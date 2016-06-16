@@ -27,7 +27,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="alterarEquipe">
+									<form class="no-margin" id="formAlt" method="POST" action="/equipe/alterarEquipe">
 										<div class="panel-heading">
 											<h3>Alterar Equipe</h3>
 										</div>
