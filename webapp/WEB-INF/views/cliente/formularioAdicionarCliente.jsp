@@ -55,9 +55,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarCliente'>
-																								<c:param name='paginaAtual' value='formularioAdicionarCliente'/>
-																								</c:url>">
+									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarCliente'> <c:param name='countConcorrente' value='count'/> <c:param name='txtNome' value='concorrente'/> <c:param name='valorHora' value='valorConcorrente'/> </c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Cliente</h3>
 										</div>
@@ -220,7 +218,7 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,9}$',
+                        regexp: '^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$',
                         message: 'E-mail inválido, requerido um @ e um domínio completo'
                     }
                 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
+@Controller
 public class ClienteController {
 
 	@Autowired
@@ -39,22 +41,23 @@ public class ClienteController {
 
 		clienteBusiness.adicionar(clienteBean);
 
-		int countConcorrente = Integer.parseInt(countConcorrenteParam);
-		ConcorrenteBean concorrenteBean;
-		ConcorrenteClienteBean concorrenteClienteBean;
-
-		for (int i = 0; i <= countConcorrente; i++) {
-			String nomeConcorrente = txtNome + i;
-			if (nomeConcorrente != null) {
-				concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
-				concorrenteClienteBean = new ConcorrenteClienteBean();
-				concorrenteClienteBean.setCliente(clienteBean);
-				concorrenteClienteBean.setConcorrente(concorrenteBean);
-				concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam + i));
-				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
-			}
-		}
-		return "redirect:listarClientes";
+		// int countConcorrente = Integer.parseInt(countConcorrenteParam);
+		// ConcorrenteBean concorrenteBean;
+		// ConcorrenteClienteBean concorrenteClienteBean;
+		//
+		// for (int i = 0; i <= countConcorrente; i++) {
+		// String nomeConcorrente = txtNome + i;
+		// if (nomeConcorrente != null) {
+		// concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
+		// concorrenteClienteBean = new ConcorrenteClienteBean();
+		// concorrenteClienteBean.setCliente(clienteBean);
+		// concorrenteClienteBean.setConcorrente(concorrenteBean);
+		// concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam +
+		// i));
+		// concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
+		// }
+		// }
+		return "redirect:listarCliente";
 	}
 
 	@RequestMapping(value = "adicionarConcorrenteNoCliente", method = RequestMethod.POST)
@@ -91,7 +94,7 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "formularioAlterarCliente", method = RequestMethod.GET)
-	public String formularioAlterarCliente(Model model, @RequestParam("id") String id) throws BusinessException {
+	public String formularioAlterarCliente(Model model, @RequestParam("idCliente") String id) throws BusinessException {
 		int idCliente = Integer.parseInt(id);
 		model.addAttribute("cliente", clienteBusiness.obterPorId(idCliente));
 		return "cliente/formularioAlterarCliente";
@@ -100,7 +103,7 @@ public class ClienteController {
 	@RequestMapping(value = "alterarCliente", method = RequestMethod.POST)
 	public String alterarCliente(ClienteBean clienteBean) throws BusinessException {
 		clienteBusiness.alterar(clienteBean);
-		return "redirect:listarClientes";
+		return "redirect:listarCliente";
 	}
 
 	@RequestMapping(value = "listarCliente", method = RequestMethod.GET)
@@ -126,9 +129,10 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "removerCliente", method = RequestMethod.GET)
-	public String removerCliente(ClienteBean clienteBean) throws BusinessException {
-		clienteBusiness.remover(clienteBean);
-		return "redirect:listarClientes";
+	public String removerCliente(@RequestParam("idCliente") String idClienteParam) throws BusinessException {
+		int idCliente = Integer.parseInt(idClienteParam);
+		clienteBusiness.remover(idCliente);
+		return "redirect:listarCliente";
 	}
 
 	@RequestMapping(value = "removerConcorrenteDoCliente", method = RequestMethod.GET)

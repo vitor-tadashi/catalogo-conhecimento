@@ -89,11 +89,11 @@ public class ClienteDAO {
 		conn.close();
 	}
 
-	public void remover(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
+	public void remover(int idCliente) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, clienteBean.getId());
+		stmt.setInt(1, idCliente);
 		stmt.executeUpdate();
 		conn.close();
 	}
@@ -189,7 +189,7 @@ public class ClienteDAO {
 
 		String sql = "UPDATE Cliente SET logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE nomeCliente = ?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
-		
+
 		ps.setString(1, clienteBean.getLogradouro());
 		ps.setString(2, clienteBean.getCep());
 		ps.setString(3, clienteBean.getNumero());

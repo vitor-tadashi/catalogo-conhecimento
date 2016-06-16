@@ -93,11 +93,11 @@ public class ClienteBusiness {
 		}
 	}
 
-	public void remover(ClienteBean clienteBean) throws BusinessException {
+	public void remover(int idCliente) throws BusinessException {
 		try {
-			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
+			ClienteBean cliente = clienteDao.obterPorId(idCliente);
 			if (cliente != null) {
-				clienteDao.remover(clienteBean);
+				clienteDao.remover(idCliente);
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
