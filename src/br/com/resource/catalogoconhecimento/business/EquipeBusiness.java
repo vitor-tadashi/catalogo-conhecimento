@@ -23,11 +23,11 @@ public class EquipeBusiness {
 	@Autowired
 	private EquipeDAO equipeDAO;
 
-
 	// INSERIR NA BASE
+	@Transactional
 	public void inserir(EquipeBean equipeBean) throws BusinessException {
-		try {
 
+		try {
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
 
 			if (!validarNome(equipeBean.getNome())) {
@@ -37,13 +37,11 @@ public class EquipeBusiness {
 			} else if (equipeBean.getObservacao().length() > 500) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido(máxs.500)");
 			} else {
-				equipeDAO.inserir(equipeBean);
+				equipeDAO.adicionar(equipeBean);
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	// INSERIR O FUNCION�RIO NA BASE
@@ -65,14 +63,14 @@ public class EquipeBusiness {
 
 	// DELETAR NA BASE
 	public void deletar(int id) throws BusinessException {
-		try{
-		if (equipeDAO.verificarPorFuncionarios(id)) {
-			equipeDAO.deletar(id);
-		} else {
-			throw new RegistroVinculadoException(
-					"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
-		}
-		}catch(Exception e){
+		try {
+			if (equipeDAO.verificarPorFuncionarios(id)) {
+				equipeDAO.deletar(id);
+			} else {
+				throw new RegistroVinculadoException(
+						"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
+			}
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -98,7 +96,7 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR NA BASE
-	
+
 	@Transactional
 	public List<EquipeBean> listar() throws BusinessException {
 
@@ -135,9 +133,9 @@ public class EquipeBusiness {
 	// DELETAR POR EQUIPE NA BASE
 
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws BusinessException {
-		try{
-		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
-		}catch(Exception e){
+		try {
+			equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -158,7 +156,7 @@ public class EquipeBusiness {
 	}
 
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-z�-�0-9'\\s]{1,50}"));
+		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{1,50}"));
 	}
 
 }
