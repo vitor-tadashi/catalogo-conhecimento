@@ -15,8 +15,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Equipes</li>
 				<li class="active">Listar Equipes</li>
 				
@@ -55,14 +56,14 @@
 												<td>${equipe.observacao}</td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='formularioAlterarEquipe'>
+													<c:url value='/equipe/formularioAlterarEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													</c:url>
 													">
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='excluirEquipe'>
+													<c:url value='/equipe/excluirEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													<c:param name='paginaAtual' value='listarEquipe'/>
 													</c:url>
@@ -71,7 +72,7 @@
 													
 												<td style="text-align: center;">	
 													<a href="
-													<c:url value='listarFuncionarioPorEquipe'>
+													<c:url value='/equipe/listarFuncionarioPorEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													</c:url>
 													">
@@ -81,7 +82,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-								<a href="<c:url value='formularioAdicionarEquipe'/>">
+								<a href="<c:url value='/equipe/formularioAdicionarEquipe'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Nova Equipe</button>
 										</a>
 									</div> 

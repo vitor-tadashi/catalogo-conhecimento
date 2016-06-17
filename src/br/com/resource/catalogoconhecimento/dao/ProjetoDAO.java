@@ -67,7 +67,7 @@ public class ProjetoDAO {
 	}
 
 	// ADICIONAR NA TABELA PROJETO
-	public void inserir(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
+	public void adicionar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "Insert into Projeto(idCliente, nomeProjeto,observacao, ativo) values(?,?,?,?)";
 
@@ -93,7 +93,7 @@ public class ProjetoDAO {
 	}
 
 	// ATUALIZAR NA TABELA PROJETO
-	public void atualizar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
+	public void alterar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 
 		String sql = "Update Projeto set idCliente = ?, nomeProjeto = ?, observacao = ? where idProjeto = ?";
@@ -110,7 +110,7 @@ public class ProjetoDAO {
 	}
 
 	// DELETA NA TABELA PROJETO
-	public void deletar(int id) throws ClassNotFoundException, SQLException {
+	public void remover(int id) throws ClassNotFoundException, SQLException {
 
 		Connection conn = ConnectionFactory.createConnection();
 

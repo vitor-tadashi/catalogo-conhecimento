@@ -13,8 +13,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Equipes</li>
 				<li class="active">Alterar Equipe</li>
 			</ul>
@@ -26,7 +27,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="alterarEquipe">
+									<form class="no-margin" id="formAlt" method="POST" action="/equipe/alterarEquipe">
 										<div class="panel-heading">
 											<h3>Alterar Equipe</h3>
 										</div>
