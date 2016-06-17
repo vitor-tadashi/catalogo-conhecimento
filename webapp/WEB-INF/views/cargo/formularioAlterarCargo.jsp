@@ -44,6 +44,7 @@
 													<div class="form-group">
 														<label class="control-label">Cargo
 															<input type="hidden" class="form-control input-sm" name="id" value="${cargo.id}">
+															<input type ="hidden" name="ativo" value = "S"/>
 															<input type="text" class="form-control"  maxlength="80"  name="nome" value="${cargo.nome}">
 														</label>
 													</div>
