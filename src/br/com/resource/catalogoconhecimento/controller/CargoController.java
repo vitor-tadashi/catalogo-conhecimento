@@ -55,9 +55,11 @@ public class CargoController {
 	}
 	
 	@RequestMapping(value = "excluirCargo", method = RequestMethod.GET)
-	public String excluir( @RequestParam("idCargo") String id, HttpServletRequest request) throws BusinessException{
+	public String excluir( @RequestParam("idCargo") String id,@RequestParam("ativo") String ativo, HttpServletRequest request) throws BusinessException{
 		int idCargo = Integer.parseInt(id);
-		cargoBusiness.remover(idCargo);
+		CargoBean cargo = cargoBusiness.obterPorId(idCargo);
+		cargo.setAtivo(ativo.charAt(0));
+		cargoBusiness.remover(cargo);
 		return "redirect:listarCargo";
 	}
 	

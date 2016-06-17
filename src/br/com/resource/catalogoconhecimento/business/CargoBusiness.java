@@ -98,13 +98,13 @@ public class CargoBusiness {
 		}
 	}
 	@Transactional
-	public void remover(int id) throws BusinessException {
+	public void remover(CargoBean cargoBean) throws BusinessException {
 		try {
 
 
 
-			if (cargoDao.verificarPorFuncionario(id)) {
-				cargoDao.remover(id);
+			if (cargoDao.verificarPorFuncionario(cargoBean.getId())) {
+				cargoDao.remover(cargoBean);
 			} else {
 				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
 			}
