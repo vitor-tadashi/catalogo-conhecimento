@@ -144,7 +144,7 @@
 													<c:param name='idFuncionario' value='${funcionario.id}'/>
 													</c:url>
 													">													
-													<i class="fa fa-edit fa-lg"></a></</td>
+													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;"><a href="
 													<c:url value='excluirFuncionario'>
 													<c:param name='idFuncionario' value='${funcionario.id}'/>
@@ -156,7 +156,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="mvc?logica=funcionario.FormularioAdicionarFuncionarioLogica">
+									<a href="formularioAdicionarFuncionario">
 										<button class="btn btn-success" type="submit">Cadastrar
 										Novo Funcionário</button>
 										</a>
