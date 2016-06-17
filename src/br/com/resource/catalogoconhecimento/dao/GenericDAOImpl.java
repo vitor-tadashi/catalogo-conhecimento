@@ -75,8 +75,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 		return ret;
 	}
 
-
-
 	@Override
 	public T obterPorId(final ID id) {
 		T result = null;

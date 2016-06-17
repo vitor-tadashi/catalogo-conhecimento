@@ -44,7 +44,7 @@ public class BuscaController {
 	@Autowired
 	private EquipeBusiness equipeBusiness;
 
-	@RequestMapping(value = "listarPorNegocio", method = RequestMethod.POST)
+	@RequestMapping(value = "negocio", method = RequestMethod.POST)
 	public String listarPorNegocio(String filtro, Model model) throws BusinessException {
 
 		if (filtro.trim().equals("")) {
@@ -74,10 +74,10 @@ public class BuscaController {
 		model.addAttribute("projetos", projetos);
 		model.addAttribute("funcionarios", listaFuncionario);
 
-		return "busca/listarBuscaNegocio";
+		return "/busca/listarBuscaNegocio";
 	}
 
-	@RequestMapping(value = "listarPorTecnologia", method = RequestMethod.POST)
+	@RequestMapping(value = "tecnologia", method = RequestMethod.POST)
 	public String listarPorTecnologias(String filtro, Model model) throws BusinessException {
 
 		if (filtro.trim().equals("")) {
@@ -110,7 +110,7 @@ public class BuscaController {
 		model.addAttribute("projetos", projetos);
 		model.addAttribute("funcionarios", listaFuncionario);
 
-		return "busca/listarBuscaTecnologia";
+		return "/busca/listarBuscaTecnologia";
 	}
 
 	@ExceptionHandler(BusinessException.class)

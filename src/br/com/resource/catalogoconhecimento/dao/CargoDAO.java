@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
@@ -21,80 +20,31 @@ public class CargoDAO  extends GenericDAOImpl<CargoBean, Integer>  {
 		@SuppressWarnings("unchecked")
 		List<CargoBean> listaCargo = entityManager.createQuery("SELECT c from CargoBean AS c WHERE c.ativo = 'S'").getResultList();
 		return listaCargo;
+		
 	}
 
 	public CargoBean obterPorId(int id) throws SQLException, ClassNotFoundException {
 		
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Cargo WHERE idCargo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, id);
-
-		ResultSet rs = ps.executeQuery();
-
-		CargoBean cargoBean = new CargoBean();
-		while (rs.next()) {
-			cargoBean.setId(rs.getInt("idCargo"));
-			cargoBean.setNome(rs.getString("nomeCargo"));
-		}
-		
-		ps.close();
-		conexao.close();
-		
-		return cargoBean;
+		CargoBean cargobean = (CargoBean) entityManager.createQuery("SELECT C FROM CargoBean AS C WHERE C.id = ?").getSingleResult();	
+		return cargobean;
 	}
 	
 	public CargoBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Cargo WHERE nomeCargo = ? and ativo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, nome);
-		ps.setString(2,  "s");
 		
-		ResultSet rs = ps.executeQuery();
-
-		CargoBean cargoBean = null;
-		while (rs.next()) {
-			cargoBean = new CargoBean();
-			cargoBean.setId(rs.getInt("idCargo"));
-			cargoBean.setNome(rs.getString("nomeCargo"));
-		}
-		
-		ps.close();
-		conexao.close();
-		
-		return cargoBean;
+		CargoBean cargobean = (CargoBean) entityManager.createQuery("SELECT C FROM CargoBean AS C WHERE C.nome = ? and ativo = 's' ").getSingleResult();
+		return cargobean;
 	}
 	
 	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Funcionario WHERE idCargo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, id);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
-		while (rs.next()) {
-			FuncionarioBean funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-
-			listaFuncionario.add(funcionarioBean);
-		}
 		
-		ps.close();
-		conexao.close();
-
+		@SuppressWarnings("unchecked")
+		List<FuncionarioBean> listaFuncionario = entityManager.createQuery("SELECT F FROM FuncionarioBean as F WHERE F.id = ?").getResultList();
 		return listaFuncionario;
 	}
 	
 	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException{
+		
+	
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE idCargo = ?";
 		
@@ -118,27 +68,30 @@ public class CargoDAO  extends GenericDAOImpl<CargoBean, Integer>  {
 	
 	public CargoBean obterNomeDesativado(CargoBean cargoBean)
 			throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Cargo WHERE nomeCargo = ? AND ativo  = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, cargoBean.getNome());
-		ps.setString(2, "n");
-
-		ResultSet rs = ps.executeQuery();
-
-		cargoBean = null;
-		while (rs.next()) {
-			cargoBean = new CargoBean();
-			cargoBean.setId(rs.getInt("idCargo"));
-			cargoBean.setNome(rs.getString("nomeCargo"));
-		}
-
-		ps.close();
-		conexao.close();
 		
-		return cargoBean;
+	CargoBean nomeDesativado = (CargoBean) entityManager.createQuery("SELECT C FROM Cargo as C WHERE nome = ? AND ativo = 'n' ").getSingleResult();	
+	
+//		Connection conexao = ConnectionFactory.createConnection();
+//
+//		String sql = "SELECT * FROM Cargo WHERE nomeCargo = ? AND ativo  = ?";
+//
+//		PreparedStatement ps = conexao.prepareStatement(sql);
+//		ps.setString(1, cargoBean.getNome());
+//		ps.setString(2, "n");
+//
+//		ResultSet rs = ps.executeQuery();
+//
+//		cargoBean = null;
+//		while (rs.next()) {
+//			cargoBean = new CargoBean();
+//			cargoBean.setId(rs.getInt("idCargo"));
+//			cargoBean.setNome(rs.getString("nomeCargo"));
+//		}
+//
+//		ps.close();
+//		conexao.close();
+		
+		return nomeDesativado;
 	}
 	
 
