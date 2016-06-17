@@ -17,8 +17,8 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 
 	public List<CargoBean> listar() {
-		TypedQuery<CargoBean> query = entityManager
-				.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S'", CargoBean.class);
+		TypedQuery<CargoBean> query = entityManager.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S'",
+				CargoBean.class);
 		List<CargoBean> listaCargo = query.getResultList();
 		return listaCargo;
 	}
@@ -30,43 +30,43 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 		return cargobean;
 	}
 
-	public CargoBean obterPorNome(String nome)  {
-		
+	public CargoBean obterPorNome(String nome) {
+
 		try {
-			
-		TypedQuery<CargoBean> query = entityManager
-				.createQuery("SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", CargoBean.class);
-		CargoBean cargobean = query.setParameter("nome", nome).getSingleResult();
-		
-		return cargobean;
-		
+			TypedQuery<CargoBean> query = entityManager.createQuery(
+					"SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", CargoBean.class);
+			CargoBean cargobean = query.setParameter("nome", nome).getSingleResult();
+			return cargobean;
 		} catch (Exception e) {
-		
 			return null;
 		}
-	
-		
-	}
-	
-	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
-		TypedQuery<CargoBean> query = entityManager
-				.createQuery("SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'N'", CargoBean.class);
-		CargoBean cargoBeanDesativado = query.setParameter("nome", cargoBean.getNome()).getSingleResult();
-		return cargoBeanDesativado;
 	}
 
-//	public List<FuncionarioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
-//		@SuppressWarnings("unchecked")
-//		List<FuncionarioBean> listaFuncionario = entityManager
-//				.createQuery("SELECT f FROM FuncionarioBean as f WHERE f.id = ?").getResultList();
-//		return listaFuncionario;
-//	}
+	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
+
+		try {
+			TypedQuery<CargoBean> query = entityManager.createQuery(
+					"SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'N'", CargoBean.class);
+			CargoBean cargoBeanDesativado = query.setParameter("nome", cargoBean.getNome()).getSingleResult();
+			return cargoBeanDesativado;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	// public List<FuncionarioBean> obterPorFuncionario(int id) throws
+	// ClassNotFoundException, SQLException {
+	// @SuppressWarnings("unchecked")
+	// List<FuncionarioBean> listaFuncionario = entityManager
+	// .createQuery("SELECT f FROM FuncionarioBean as f WHERE f.id =
+	// ?").getResultList();
+	// return listaFuncionario;
+	// }
 
 	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException {
 
 		Connection conexao = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Funcionario WHERE idCargo = ?";
-
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, id);
 
@@ -76,42 +76,8 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 		while (rs.next()) {
 			check = false;
 		}
-
 		ps.close();
 		conexao.close();
-
 		return check;
-
 	}
-
-//	public void remover(int id) throws SQLException, ClassNotFoundException {
-//		Connection conexao = ConnectionFactory.createConnection();
-//
-//		String sql = "UPDATE Cargo SET ativo = 'n' WHERE idCargo = ?";
-//
-//		PreparedStatement ps = conexao.prepareStatement(sql);
-//		ps.setString(1, "n");
-//		ps.setInt(2, id);
-//
-//		ps.executeUpdate();
-//
-//		ps.close();
-//		conexao.close();
-//	}
-
-//	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
-//		Connection conexao = ConnectionFactory.createConnection();
-//
-//		String sql = "UPDATE Cargo SET ativo = ? WHERE nomeCargo = ?";
-//
-//		PreparedStatement ps = conexao.prepareStatement(sql);
-//		ps.setString(1, "s");
-//		ps.setString(2, cargoBean.getNome());
-//
-//		ps.executeUpdate();
-//
-//		ps.close();
-//		conexao.close();
-//	}
-
 }
