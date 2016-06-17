@@ -27,18 +27,15 @@ public class CargoBusiness {
 	@Transactional
 	public void adicionar(CargoBean cargoBean) throws BusinessException {
 		try {
-			
 			cargoDao.adicionar(cargoBean);
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-
 	}
+	
 	@Transactional
 	public List<CargoBean> listar() throws BusinessException {
 		try {
-
 			List<CargoBean> listaCargo = cargoDao.listar();
 
 			if (listaCargo.isEmpty()) {
@@ -50,6 +47,7 @@ public class CargoBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
+	
 	@Transactional
 	public CargoBean obterPorId(int id) throws BusinessException {
 		try {
@@ -60,6 +58,7 @@ public class CargoBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
+	
 	@Transactional
 	public CargoBean obterPorNome(String nome) throws BusinessException {
 		try {
@@ -70,12 +69,14 @@ public class CargoBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
+	
 	@Transactional
 	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
 		CargoDAO cargoDao = new CargoDAO();
 
 		return cargoDao.obterNomeDesativado(cargoBean);
 	}
+	
 	@Transactional
 	public void alterar(CargoBean cargoBean) throws BusinessException {
 		try {
@@ -97,12 +98,10 @@ public class CargoBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
+	
 	@Transactional
 	public void remover(CargoBean cargoBean) throws BusinessException {
 		try {
-
-
-
 			if (cargoDao.verificarPorFuncionario(cargoBean.getId())) {
 				cargoDao.remover(cargoBean);
 			} else {
@@ -112,16 +111,17 @@ public class CargoBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-	@Transactional
-	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
-		CargoDAO cargoDao = new CargoDAO();
-
-		cargoDao.reativar(cargoBean);
-	}
+	
+//	@Transactional
+//	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
+//		CargoDAO cargoDao = new CargoDAO();
+//
+//		cargoDao.reativar(cargoBean);
+//	}
+	
 	@Transactional
 	public boolean validarNome(String nome) {
 		return (nome.matches("[A-Za-z�-�0-9\\s]{2,80}"));
-
 	}
 
 }
