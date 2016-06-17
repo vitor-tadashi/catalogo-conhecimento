@@ -16,7 +16,7 @@
 		$("#filtro").tagit();
 		
 		$("#selectsearch").change(function() {
-			  var action = $(this).val() == "listarPorTecnologia" ? "listarPorTecnologia" : "listarPorNegocio";
+			  var action = $(this).val() == "/catalogoconhecimento/busca/tecnologia" ? "/catalogoconhecimento/busca/tecnologia" : "/catalogoconhecimento/busca/negocio";
 			  $("#search-form").attr("action", action);
 			  console.log(action);
 			});
@@ -111,14 +111,14 @@
 									<h3>Catálogo de Conhecimentos</h3>  
 								</header>
 								<div class="col-xs-8 col-xs-offset-2">
-									<form id = "search-form"name="busca" method="post" action="listarPorTecnologia">
+									<form id = "search-form"name="busca" method="post" action="/catalogoconhecimento/busca/tecnologia">
 									<div class="input-group input-group">
 										<div class="input-group-btn search-panel">
 												<span class="input-group-btn"><select id="selectsearch" class="btn btn-primary btn-xs" class="selectpicker"
 													name="logica" style="margin-bottom: 11px; height: 33.5px;">
 													<optgroup label="Filtros">
-														<option value="listarPorTecnologia">Tecnologia</option>
-														<option value = "listarPorNegocio">Negócio</option>
+														<option value="/catalogoconhecimento/busca/tecnologia">Tecnologia</option>
+														<option value = "/catalogoconhecimento/busca/Negocio">Negócio</option>
 													</optgroup>
 												</select></span>
 										</div>
