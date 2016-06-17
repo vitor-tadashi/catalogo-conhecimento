@@ -32,7 +32,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="mvc">
+									<form class="no-margin" id="formAlt"  method="POST" action="alterarFuncionario">
 										<div class="panel-heading">
 											<h3>Alterar Funcionário</h3>
 										</div>
@@ -63,7 +63,7 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Cargo:
-																<select class="form-control input-sm"  name="cargo">
+																<select class="form-control"  name="cargo.id">
 																	<c:forEach items="${cargos}" var="cargos">
 																		<option value="${cargos.id}">${cargos.nome}</option>
 																	</c:forEach>
@@ -77,45 +77,37 @@
 														<label class="control-label">Tecnologia:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${tecnologias}" var="tecnologias">
+															<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray" value="${tecnologias.nome}"data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
+																	<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" />
 																	<span class="custom-checkbox"></span>
-																	${tecnologias.nome}
+																	${tecnologia.nome}
 																</label>
 																<br>
 															</c:forEach>
 														</div>	
 													</div>
-												</div><!-- /.col -->
+												</div><!-- /.col --> 
 												
 												
 												<div class="col-sm-2">
 													<div class="form-group">
-														<label class="control-label">Negócio:
+														<label class="control-label">Negócios:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocios">
+															<c:forEach items="${negocios}" var="negocio" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray" value="${negocios.areaAtuacao}"data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Área de Negócio"/>
+																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />
 																	<span class="custom-checkbox"></span>
-																	${negocios.areaAtuacao}
+																	${negocio.areaAtuacao}
 																</label>
 																<br>
 															</c:forEach>
 														</div>	
 													</div>
 												</div><!-- /.col -->  
-												
-																										
-																								
-						
 											</div><!-- /.row -->
 
-											<input type="hidden" name="logica" value="funcionario.AlterarFuncionarioLogica">
-											<input type="hidden" name = "logicaAtual" value = "funcionario.FormularioAlterarLogica&idFuncionario=${funcionario.id}">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>
