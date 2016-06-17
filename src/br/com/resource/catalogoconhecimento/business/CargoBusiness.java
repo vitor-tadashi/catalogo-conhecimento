@@ -51,8 +51,6 @@ public class CargoBusiness {
 	@Transactional
 	public CargoBean obterPorId(int id) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-
 			return cargoDao.obterPorId(id);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -62,8 +60,6 @@ public class CargoBusiness {
 	@Transactional
 	public CargoBean obterPorNome(String nome) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-
 			return cargoDao.obterPorNome(nome);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -72,15 +68,12 @@ public class CargoBusiness {
 	
 	@Transactional
 	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
-		CargoDAO cargoDao = new CargoDAO();
-
 		return cargoDao.obterNomeDesativado(cargoBean);
 	}
 	
 	@Transactional
 	public void alterar(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
 			CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
 
 			if (cargoBean.getNome().equals("")) {
@@ -102,11 +95,11 @@ public class CargoBusiness {
 	@Transactional
 	public void remover(CargoBean cargoBean) throws BusinessException {
 		try {
-			if (cargoDao.verificarPorFuncionario(cargoBean.getId())) {
+//			if (cargoDao.verificarPorFuncionario(cargoBean.getId())) {
 				cargoDao.remover(cargoBean);
-			} else {
-				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
-			}
+//			} else {
+//				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
+//			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}

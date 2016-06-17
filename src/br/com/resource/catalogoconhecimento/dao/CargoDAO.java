@@ -18,7 +18,7 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 
 	public List<CargoBean> listar() {
 		TypedQuery<CargoBean> query = entityManager
-				.createQuery("SELECT c from CargoBean AS c WHERE c.ativo = 'S'", CargoBean.class);
+				.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S'", CargoBean.class);
 		List<CargoBean> listaCargo = query.getResultList();
 		return listaCargo;
 	}
@@ -73,20 +73,20 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 
 	}
 
-	public void remover(int id) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "UPDATE Cargo SET ativo = 'n' WHERE idCargo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, "n");
-		ps.setInt(2, id);
-
-		ps.executeUpdate();
-
-		ps.close();
-		conexao.close();
-	}
+//	public void remover(int id) throws SQLException, ClassNotFoundException {
+//		Connection conexao = ConnectionFactory.createConnection();
+//
+//		String sql = "UPDATE Cargo SET ativo = 'n' WHERE idCargo = ?";
+//
+//		PreparedStatement ps = conexao.prepareStatement(sql);
+//		ps.setString(1, "n");
+//		ps.setInt(2, id);
+//
+//		ps.executeUpdate();
+//
+//		ps.close();
+//		conexao.close();
+//	}
 
 //	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
 //		Connection conexao = ConnectionFactory.createConnection();
