@@ -70,7 +70,7 @@
 													<a href="<c:url value='removerCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 												<td style="text-align: center;">	
-													<a href="<c:url value='listarClientePorConcorrente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
+													<a href="<c:url value='listarConcorrentePorCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
 												</td>													
 											</tr>
 										</c:forEach>

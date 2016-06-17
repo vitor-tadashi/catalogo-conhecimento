@@ -39,20 +39,20 @@ public class ConcorrenteController {
 
 		concorrenteBusiness.adicionar(concorrenteBean);
 
-//		Integer countCliente = Integer.parseInt(countClienteParam);
-//		ClienteBean clienteBean;
-//		ConcorrenteClienteBean concorrenteClienteBean;
-//		for (int i = 0; i <= countCliente; i++) {
-//			String nomeCliente = txtNome + i;
-//			if (nomeCliente != null) {
-//				clienteBean = clienteBusiness.obterPorNome(nomeCliente);
-//				concorrenteClienteBean = new ConcorrenteClienteBean();
-//				concorrenteClienteBean.setCliente(clienteBean);
-//				concorrenteClienteBean.setConcorrente(concorrenteBean);
-//				concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam));
-//				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
-//			}
-//		}
+		// Integer countCliente = Integer.parseInt(countClienteParam);
+		// ClienteBean clienteBean;
+		// ConcorrenteClienteBean concorrenteClienteBean;
+		// for (int i = 0; i <= countCliente; i++) {
+		// String nomeCliente = txtNome + i;
+		// if (nomeCliente != null) {
+		// clienteBean = clienteBusiness.obterPorNome(nomeCliente);
+		// concorrenteClienteBean = new ConcorrenteClienteBean();
+		// concorrenteClienteBean.setCliente(clienteBean);
+		// concorrenteClienteBean.setConcorrente(concorrenteBean);
+		// concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam));
+		// concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
+		// }
+		// }
 		return "redirect:listarConcorrente";
 	}
 
@@ -105,17 +105,17 @@ public class ConcorrenteController {
 		return "concorrente/listarConcorrente";
 	}
 
-//	@RequestMapping(value = "listarClientePorConcorrente", method = RequestMethod.GET)
-//	public String listarClientePorConcorrente(Model model, @RequestParam("idConcorrente") String idConcorrenteParam)
-//			throws BusinessException {
-//
-//		model.addAttribute("listaConcorrenteCliente",
-//				concorrenteBusiness.listarPorConcorrente(Integer.parseInt(idConcorrenteParam)));
-//		model.addAttribute("concorrenteBean", concorrenteBusiness.obterPorId(Integer.parseInt(idConcorrenteParam)));
-//		model.addAttribute("listaCliente", clienteBusiness.listar());
-//
-//		return "concorrente/listarClientePorConcorrente";
-//	}
+	@RequestMapping(value = "listarClientePorConcorrente", method = RequestMethod.GET)
+	public String listarClientePorConcorrente(Model model, @RequestParam("idConcorrente") String idConcorrenteParam)
+			throws BusinessException {
+
+		model.addAttribute("listaConcorrenteCliente",
+				concorrenteBusiness.listarPorConcorrente(Integer.parseInt(idConcorrenteParam)));
+		model.addAttribute("concorrenteBean", concorrenteBusiness.obterPorId(Integer.parseInt(idConcorrenteParam)));
+		model.addAttribute("listaCliente", clienteBusiness.listar());
+
+		return "concorrente/listarClientePorConcorrente";
+	}
 
 	@RequestMapping(value = "removerConcorrente", method = RequestMethod.GET)
 	public String removerConcorrente(@RequestParam("idConcorrente") String idConcorrenteParam)

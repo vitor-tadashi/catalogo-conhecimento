@@ -9,7 +9,7 @@ public class ClienteBean {
 	private String numero;
 	private String cnpj;
 	private String email;
-
+	
 	public int getId() {
 		return id;
 	}

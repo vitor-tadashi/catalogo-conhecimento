@@ -106,7 +106,7 @@ public class ClienteController {
 		return "cliente/listarClientes";
 	}
 
-	@RequestMapping(value = "listarClientePorConcorrente", method = RequestMethod.GET)
+	@RequestMapping(value = "listarConcorrentePorCliente", method = RequestMethod.GET)
 	public String listarClientePorConcorrente(Model model, @RequestParam("idCliente") String id)
 			throws BusinessException {
 
