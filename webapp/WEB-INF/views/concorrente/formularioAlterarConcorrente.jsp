@@ -29,7 +29,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="mvc">
+									<form class="no-margin" id="formAlt"  method="POST" action="alterarConcorrente">
 										<div class="panel-heading">
 											<h3>Alterar Concorrente</h3>
 										</div>

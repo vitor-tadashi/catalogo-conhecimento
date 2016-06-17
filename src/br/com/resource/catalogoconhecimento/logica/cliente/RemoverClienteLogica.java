@@ -17,7 +17,7 @@ public class RemoverClienteLogica implements Logica {
 		clienteBean.setId(Integer.parseInt(request.getParameter("id")));
 
 		ClienteBusiness clienteBusiness = new ClienteBusiness();
-		clienteBusiness.remover(clienteBean);
+		clienteBusiness.remover(clienteBean.getId());
 
 		return "mvc?logica=cliente.ListarClienteLogica";
 	}

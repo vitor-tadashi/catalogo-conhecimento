@@ -78,8 +78,8 @@
 											<tr>
 												<td>${concorrenteCliente.cliente.nome}</td>
 												<td>${concorrenteCliente.valorHora}</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.RemoverClienteDoConcorrenteLogica&idCliente=${concorrenteCliente.cliente.id}&idConcorrente=${concorrenteBean.id}"><i class="fa fa-times fa-lg"></i></a>
+												<td style="text-align: center;">
+													<a href="<c:url value='removerClientedoConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> <c:param name='idCliente' value='${concorrenteCliente.cliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 											</tr>
 										</c:forEach>
@@ -118,8 +118,6 @@
 											</table>
 										</div><!-- /.col -->
 									</div><!-- /.row -->
-									<input type="hidden" name="logicaAtual" value="concorrente.ListarConcorrenteLogica">
-									<input type="hidden" name="logica" value="concorrente.AdicionarClienteNoConcorrenteLogica">
 									<input type="hidden" id="countCliente" name="countCliente" value="0">
 									<input type="hidden" id="idConcorrente" name="idConcorrente" value="${concorrenteBean.id}">
 								</div>
