@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
@@ -97,7 +98,8 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR NA BASE
-
+	
+	@Transactional
 	public List<EquipeBean> listar() throws BusinessException {
 
 		try {
