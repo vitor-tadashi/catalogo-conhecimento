@@ -159,7 +159,7 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='formularioAdicionarProjetos'/>">
+									<a href="<c:url value='formularioAdicionarProjeto'/>">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Projeto</button>
 									</a>

@@ -28,12 +28,12 @@ public class ProjetoController {
 	@Autowired
 	NegocioBusiness negocioBusiness;
 
-	@RequestMapping(value = "formularioAdicionarProjetos", method = RequestMethod.GET)
+	@RequestMapping(value = "formularioAdicionarProjeto", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {
-		return "projetos/formularioAdicionarProjetos";
+		return "projetos/formularioAdicionarProjeto";
 	}
 	
-//	CLIENTE, NOME, OBSERVAÇÃO
+//	CLIENTE, NOME, OBSERVAï¿½ï¿½O
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
 	public String adicionarProjeto(ProjetoBean projetoBean,
 		@RequestParam(value = "cliente") String cliente)throws BusinessException {
@@ -46,32 +46,32 @@ public class ProjetoController {
 		return "redirect:listarProjetos";
 	}
 
-	@RequestMapping(value = "listarProjetos", method = RequestMethod.GET)
+	@RequestMapping(value = "listarProjeto", method = RequestMethod.GET)
 	public String listar(Model model) throws BusinessException {
 
 		model.addAttribute("projeto", projetoBusiness.listar());
 
-		return "projetos/listarProjetos";
+		return "projetos/listarProjeto";
 	}
 	
-	@RequestMapping(value = "formularioAlterarProjetos", method = RequestMethod.GET)
+	@RequestMapping(value = "formularioAlterarProjeto", method = RequestMethod.GET)
 	public String alterar(Model model, @RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
 		model.addAttribute("projeto", negocioBusiness.obterPorId(idProjeto));
-		return "projetos/formularioAlterarProjetos";
+		return "projetos/formularioAlterarProjeto";
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
 	public String alterar(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.alterar(projetoBean);
-		return "redirect:listarProjetos";
+		return "redirect:listarProjeto";
 	}
 	
 	@RequestMapping(value = "removerProjeto", method = RequestMethod.GET)
 	public String remover(@RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
 		projetoBusiness.remover(idProjeto);
-		return "redirect:listarProjeto";
+		return "redirect:listarProjeto"; 
 	}
 
 	@ExceptionHandler(BusinessException.class)
