@@ -30,11 +30,22 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 		return cargobean;
 	}
 
-	public CargoBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
+	public CargoBean obterPorNome(String nome)  {
+		
+		try {
+			
 		TypedQuery<CargoBean> query = entityManager
 				.createQuery("SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", CargoBean.class);
 		CargoBean cargobean = query.setParameter("nome", nome).getSingleResult();
+		
 		return cargobean;
+		
+		} catch (Exception e) {
+		
+			return null;
+		}
+	
+		
 	}
 	
 	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
