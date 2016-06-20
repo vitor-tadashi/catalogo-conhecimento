@@ -39,7 +39,8 @@
 											<div class="col-lg-2">
 												<div class="form-group">
 													<label class="control-label">Nome da Tecnologia 
-														<input type="text" class="form-control" maxlength="50" name="nome" > 	
+														<input type="text" class="form-control" maxlength="50" name="nome" >
+														<input type ="hidden" name="ativo" value = "S"/>
 													</label>
 												</div>
 											</div>

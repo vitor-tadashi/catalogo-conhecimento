@@ -20,45 +20,45 @@ public class TecnologiaController {
 	@Autowired
 	TecnologiaBusiness tecnologiaBusiness;
 	
-	
 	@RequestMapping(value = "formularioAdicionarTecnologia", method = RequestMethod.GET)
-	public String formularioAdicionar(){	
+	public String formularioAdicionar() {
 		return "tecnologias/formularioAdicionarTecnologia";	
 	}
 	
 	@RequestMapping(value = "adicionarTecnologia", method = RequestMethod.POST)
-	public String adicionar(TecnologiaBean tecnologiaBean) throws BusinessException{
+	public String adicionar(TecnologiaBean tecnologiaBean, @RequestParam("ativo")String ativo) throws BusinessException {
+		tecnologiaBean.setNome(tecnologiaBean.getNome().trim());
+		tecnologiaBean.setAtivo(ativo.charAt(0));
 		tecnologiaBusiness.adicionar(tecnologiaBean);
-		
 		return "redirect:listarTecnologia";
 	}
 	
 	@RequestMapping(value = "listarTecnologia", method = RequestMethod.GET)
-	public String listarTecnologia(Model model) throws BusinessException{
-		
+	public String listarTecnologia(Model model) throws BusinessException {
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
-		
 		return "tecnologias/listarTecnologia";
 	}
 	
 	@RequestMapping(value = "formularioAlterarTecnologia", method = RequestMethod.GET)
-	public String alterar(Model model, @RequestParam("idTecnologia") String id) throws BusinessException{
+	public String formularioAlterar(Model model, @RequestParam("idTecnologia") String id) throws BusinessException {
 		int idTecnologia = Integer.parseInt(id);
 		model.addAttribute("tecnologia", tecnologiaBusiness.obterPorId(idTecnologia));
-		
 		return "tecnologias/formularioAlterarTecnologia";
 	}
 	
 	@RequestMapping(value = "alterarTecnologia", method = RequestMethod.POST)
-	public String alterar(TecnologiaBean tecnologiaBean) throws BusinessException{
+	public String alterar(TecnologiaBean tecnologiaBean) throws BusinessException {
+		tecnologiaBean.setNome(tecnologiaBean.getNome().trim());
 		tecnologiaBusiness.alterar(tecnologiaBean);
 		return "redirect:listarTecnologia";
 	}
 	
-	@RequestMapping(value = "excluirTecnologia", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idTecnologia") String id) throws BusinessException{
+	@RequestMapping(value = "removerTecnologia", method = RequestMethod.GET)
+	public String remover(@RequestParam("idTecnologia") String id, @RequestParam("ativo") String ativo) throws BusinessException {
 		int idTecnologia = Integer.parseInt(id);
-		tecnologiaBusiness.remover(idTecnologia);
+		TecnologiaBean tecnologiaBean = tecnologiaBusiness.obterPorId(idTecnologia);
+		tecnologiaBean.setAtivo(ativo.charAt(0));
+		tecnologiaBusiness.remover(tecnologiaBean);
 		return "redirect:listarTecnologia";		
 	}
 	

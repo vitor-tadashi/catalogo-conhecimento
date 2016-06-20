@@ -200,7 +200,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	public T adicionar(T entity) {
 		try {
 			entityManager.persist(entity);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

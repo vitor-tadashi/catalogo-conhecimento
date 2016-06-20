@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
@@ -14,64 +16,24 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
-public class TecnologiaDAO {
+public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 
 	/**
-	 * Adicionar uma tecnologia
-	 * 
-	 * @param tecnologiaBean
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public void adicionar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "INSERT INTO Tecnologia(nomeTecnologia, ativo) VALUES(?, ?)";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, tecnologiaBean.getNome());
-		ps.setString(2, "s");
-
-		ps.executeUpdate();
-
-		ps.close();
-		conexao.close();
-	}
-
-	/**
-	 * Listar todas as tecnologias disponÌveis
+	 * Listar todas as tecnologias dispon√≠veis
 	 * 
 	 * @return List<TecnologiaBean>
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public List<TecnologiaBean> listar() throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Tecnologia WHERE ativo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, "s");
-
-		ResultSet rs = ps.executeQuery();
-
-		ArrayList<TecnologiaBean> listaTecnologia = new ArrayList<TecnologiaBean>();
-		TecnologiaBean tecnologiaBean = null;
-		while (rs.next()) {
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-			listaTecnologia.add(tecnologiaBean);
-		}
-
-		ps.close();
-		conexao.close();
-
+	public List<TecnologiaBean> listar() {
+		TypedQuery<TecnologiaBean> query = entityManager
+				.createQuery("SELECT t FROM TecnologiaBean AS t WHERE t.ativo = 'S'", TecnologiaBean.class);
+		List<TecnologiaBean> listaTecnologia = query.getResultList();
 		return listaTecnologia;
 	}
 	
 	/**
-	 * Lista todas as tecnologias de um funcion·rio
+	 * Lista todas as tecnologias de um funcion√°rio
 	 * 
 	 * @param idFuncionario
 	 * @return List<TecnologiaBean> 
@@ -150,152 +112,127 @@ public class TecnologiaDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public TecnologiaBean obterPorId(int id) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Tecnologia WHERE idTecnologia = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, id);
-
-		ResultSet rs = ps.executeQuery();
-
-		TecnologiaBean tecnologiaBean = null;
-		while (rs.next()) {
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
+	public TecnologiaBean obterPorId(int id) {
+		try {
+			TypedQuery<TecnologiaBean> query = entityManager
+					.createQuery("SELECT t FROM TecnologiaBean AS t WHERE t.id = :id AND t.ativo = 'S'", TecnologiaBean.class);
+			TecnologiaBean tecnologiaBean = query.setParameter("id", id).getSingleResult();
+			return tecnologiaBean;
+		} catch (Exception e) {
+			return null;
 		}
-
-		ps.close();
-		conexao.close();
-
-		return tecnologiaBean;
 	}
 
 	/**
 	 * Pesquisa uma tecnologia pelo seu nome
 	 * 
-	 * @param nome
+	 * @param String
 	 * @return TecnologiaBean
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public TecnologiaBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ? and ativo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, nome);
-		ps.setString(2, "s");
-
-		ResultSet rs = ps.executeQuery();
-
-		TecnologiaBean tecnologiaBean = null;
-		while (rs.next()) {
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
+	public TecnologiaBean obterPorNome(String nome) {
+		try {
+			TypedQuery<TecnologiaBean> query = entityManager
+					.createQuery("SELECT t FROM TecnologiaBean AS t WHERE t.nome = :nome AND t.ativo = 'S'", TecnologiaBean.class);
+			TecnologiaBean tecnologiaBean = query.setParameter("nome", nome).getSingleResult();
+			return tecnologiaBean;
+		} catch (Exception e) {
+			return null;
 		}
-
-		ps.close();
-		conexao.close();
-
-		return tecnologiaBean;
 	}
 
-	/**
-	 * Obtem uma tecnologia desativada
-	 * 
-	 * @param tecnologiaBean
-	 * @return TecnologiaBean
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public TecnologiaBean obterDesativado(TecnologiaBean tecnologiaBean)
-			throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
+//	/**
+//	 * Obtem uma tecnologia desativada
+//	 * 
+//	 * @param tecnologiaBean
+//	 * @return TecnologiaBean
+//	 * @throws SQLException
+//	 * @throws ClassNotFoundException
+//	 */
+//	public TecnologiaBean obterDesativado(TecnologiaBean tecnologiaBean)
+//			throws SQLException, ClassNotFoundException {
+//		Connection conexao = ConnectionFactory.createConnection();
+//
+//		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ? and ativo  = ?";
+//
+//		PreparedStatement ps = conexao.prepareStatement(sql);
+//		ps.setString(1, tecnologiaBean.getNome());
+//		ps.setString(2, "n");
+//
+//		ResultSet rs = ps.executeQuery();
+//
+//		tecnologiaBean = null;
+//		while (rs.next()) {
+//			tecnologiaBean = new TecnologiaBean();
+//			tecnologiaBean.setId(rs.getInt("idTecnologia"));
+//			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
+//		}
+//
+//		ps.close();
+//		conexao.close();
+//
+//		return tecnologiaBean;
+//	}
 
-		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ? and ativo  = ?";
+////	/**
+////	 * Altera um tecnologia
+////	 * 
+////	 * @param tecnologiaBean
+////	 * @throws ClassNotFoundException
+////	 * @throws SQLException
+////	 */
+////	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException {
+////		Connection conexao = ConnectionFactory.createConnection();
+////
+////		String sql = "UPDATE Tecnologia SET nomeTecnologia = ? WHERE idTecnologia = ?";
+////
+////		PreparedStatement ps = conexao.prepareStatement(sql);
+////		ps.setString(1, tecnologiaBean.getNome());
+////		ps.setInt(2, tecnologiaBean.getId());
+////
+////		ps.executeUpdate();
+////
+////		ps.close();
+////		conexao.close();
+////	}
+//
+//	/**
+//	 * Remove uma tecnologia
+//	 * 
+//	 * @param id
+//	 * @throws SQLException
+//	 * @throws ClassNotFoundException
+//	 */
+//	public void remover(int id) throws SQLException, ClassNotFoundException {
+//		Connection conexao = ConnectionFactory.createConnection();
+//
+//		String sql = "update Tecnologia set ativo = ? WHERE idTecnologia = ?";
+//
+//		PreparedStatement ps = conexao.prepareStatement(sql);
+//		ps.setString(1, "n");
+//		ps.setInt(2, id);
+//
+//		ps.executeUpdate();
+//
+//		ps.close();
+//		conexao.close();
+//	}
 
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, tecnologiaBean.getNome());
-		ps.setString(2, "n");
-
-		ResultSet rs = ps.executeQuery();
-
-		tecnologiaBean = null;
-		while (rs.next()) {
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-		}
-
-		ps.close();
-		conexao.close();
-
-		return tecnologiaBean;
-	}
-
-	/**
-	 * Altera um tecnologia
-	 * 
-	 * @param tecnologiaBean
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "UPDATE Tecnologia SET nomeTecnologia = ? WHERE idTecnologia = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, tecnologiaBean.getNome());
-		ps.setInt(2, tecnologiaBean.getId());
-
-		ps.executeUpdate();
-
-		ps.close();
-		conexao.close();
-	}
-
-	/**
-	 * Remove uma tecnologia
-	 * 
-	 * @param id
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public void remover(int id) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "update Tecnologia set ativo = ? WHERE idTecnologia = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, "n");
-		ps.setInt(2, id);
-
-		ps.executeUpdate();
-
-		ps.close();
-		conexao.close();
-	}
-
-	public void reativar(TecnologiaBean tecnologiaBean) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "UPDATE Tecnologia SET ativo = ? WHERE nomeTecnologia = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, "s");
-		ps.setString(2, tecnologiaBean.getNome());
-
-		ps.executeUpdate();
-
-		ps.close();
-		conexao.close();
-	}
+//	public void reativar(TecnologiaBean tecnologiaBean) throws SQLException, ClassNotFoundException {
+//		Connection conexao = ConnectionFactory.createConnection();
+//
+//		String sql = "UPDATE Tecnologia SET ativo = ? WHERE nomeTecnologia = ?";
+//
+//		PreparedStatement ps = conexao.prepareStatement(sql);
+//		ps.setString(1, "s");
+//		ps.setString(2, tecnologiaBean.getNome());
+//
+//		ps.executeUpdate();
+//
+//		ps.close();
+//		conexao.close();
+//	}
 
 	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
