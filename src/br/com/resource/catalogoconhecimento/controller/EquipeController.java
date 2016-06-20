@@ -39,8 +39,10 @@ public class EquipeController {
 		return "equipe/adicionarEquipe";
 	}
 
+	
 	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
-	public String adicionar(EquipeBean equipe) throws BusinessException {
+	public String adicionar(EquipeBean equipe, @RequestParam("ativo")String ativo) throws BusinessException {
+		equipe.setAtivo(ativo.charAt(0));
 		equipeBusiness.inserir(equipe);
 		return "redirect:listarEquipe";
 

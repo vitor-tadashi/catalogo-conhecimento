@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
+
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
@@ -33,26 +36,6 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 				return null;
 			}
 		}
-
-	// INSERIR DADOS NA TABELA DE EQUIPE
-	
-	public void inserir(EquipeBean equipe) throws ClassNotFoundException, SQLException {
-
-		Connection conec = ConnectionFactory.createConnection();
-
-		String sql = "INSERT INTO Equipe(observacao,nome, ativo) VALUES(?,?, ?)";
-
-		PreparedStatement stmt = conec.prepareStatement(sql);
-
-		stmt.setString(1, equipe.getObservacao());
-		stmt.setString(2, equipe.getNome());
-		stmt.setString(3, "s");
-
-		stmt.executeUpdate();
-		stmt.close();
-		conec.close();
-
-	}
 
 	// ATUALIZAR DADOS NA TABELA DE EQUIPE
 
@@ -128,25 +111,15 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
 
 	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Equipe WHERE nome = ? and ativo = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
 		
-		ps.setString(1, nome);
-		ps.setString(2, "s");
-		
-		ResultSet rs = ps.executeQuery();
-
-		EquipeBean equipeBean = null;
-		while (rs.next()) {
-			equipeBean = new EquipeBean();
-			equipeBean.setId(rs.getInt("idEquipe"));
-			equipeBean.setNome(rs.getString("nome"));
-			equipeBean.setObservacao(rs.getString("observacao"));
+		try {
+			TypedQuery<EquipeBean> query = entityManager.createQuery(
+					"SELECT e FROM EquipeBean AS e WHERE e.nome = :nome AND e.ativo = 'S'", EquipeBean.class);
+			EquipeBean equipeBean = query.setParameter("nome", nome).getSingleResult();
+			return equipeBean ;
+		} catch (Exception e) {
+			return null;
 		}
-		conexao.close();
-		
-		return equipeBean;
 	}
 
 	//INSERIR DADOS NA TABELA POR EQUIPE

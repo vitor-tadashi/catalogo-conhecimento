@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
@@ -16,6 +15,7 @@ import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class EquipeBusiness {
@@ -25,7 +25,9 @@ public class EquipeBusiness {
 
 
 	// INSERIR NA BASE
+	@Transactional
 	public void inserir(EquipeBean equipeBean) throws BusinessException {
+		
 		try {
 
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
@@ -37,7 +39,7 @@ public class EquipeBusiness {
 			} else if (equipeBean.getObservacao().length() > 500) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido(máxs.500)");
 			} else {
-				equipeDAO.inserir(equipeBean);
+				equipeDAO.adicionar(equipeBean);
 			}
 
 		} catch (Exception e) {
@@ -158,7 +160,7 @@ public class EquipeBusiness {
 	}
 
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-z�-�0-9'\\s]{1,50}"));
+		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{1,50}"));
 	}
 
 }
