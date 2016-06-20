@@ -22,7 +22,7 @@
 			row.append("<td>" + nome + "</td>");
 			row.append("<td>" + valor + "</td>");
 			row.append("<td><button class='delete' type='button'>-</button></td>");
-			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
+			row.append("<input type='hidden' name='listaConcorrentes[" + count + "].nome' id='txtNome" + count + "' value='" + nome + "'  />");
 			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
 			$("#countConcorrente").val(count);
 		}
