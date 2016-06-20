@@ -64,9 +64,9 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Cargo:
-																<select class="form-control"  name="cargo">
+																<select class="form-control"  name="cargo.id">
 																	<c:forEach items="${cargos}" var="cargos">
-																		<option value="${cargos.nome}">${cargos.nome}</option>
+																		<option value="${cargos.id}">${cargos.nome}</option>
 																	</c:forEach>
 																</select>
 														</label>
@@ -121,12 +121,11 @@
 														<label class="control-label">Tecnologia:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${tecnologias}" var="tecnologias">
+															<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologias.nome}"data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
+																	<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" />
 																	<span class="custom-checkbox"></span>
-																	${tecnologias.nome}
+																	${tecnologia.nome}
 																</label>
 																<br>
 															</c:forEach>
@@ -138,12 +137,11 @@
 														<label class="control-label">Negócios:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocios">
+															<c:forEach items="${negocios}" var="negocio" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Área de Negócio"/>
+																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />
 																	<span class="custom-checkbox"></span>
-																	${negocios.areaAtuacao}
+																	${negocio.areaAtuacao}
 																</label>
 																<br>
 															</c:forEach>
@@ -228,14 +226,6 @@ $(document).ready(function() {
 	                    message: '* Campo Obrigatório.'
 	                }
 	            }
-	        },
-	        'tecnologiasArray': {
-	            validators: {
-	            	choice: {
-                        min: 1,
-                        message: 'Escolha no mínimo %s Tecnologia.'
-	                }
-	            }
 	        }, 
             email: {
                 validators: {
@@ -315,16 +305,7 @@ $(document).ready(function() {
                         message: '* Campo Obrigatório.'
                     } 
                 }
-            },
-
-	        'negociosArray': {
-	            validators: {
-	            	choice: {
-                        min: 1,
-                        message: 'Escolha no mínimo %s Área de Negócio.'
-	                }
-	            }
-	        }            
+            }            
         }
     });
 });

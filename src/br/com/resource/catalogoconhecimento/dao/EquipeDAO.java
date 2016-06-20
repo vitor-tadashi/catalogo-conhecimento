@@ -7,49 +7,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
-
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
-public class EquipeDAO {
-
-	Connection conec = null;
+public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE
-
-	public List<EquipeBean> listar() throws SQLException, ClassNotFoundException {
-
-		Connection conec = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Equipe where ativo = ?";
-
-		PreparedStatement ps = conec.prepareStatement(sql);
-		ps.setString(1, "s");
-
-		ResultSet rs = ps.executeQuery();
-
-		List<EquipeBean> listaEquipe = new ArrayList<EquipeBean>();
-		while (rs.next()) {
-			EquipeBean equipeBean = new EquipeBean();
-			equipeBean.setId(rs.getInt("idEquipe"));
-			equipeBean.setNome(rs.getString("nome"));
-			equipeBean.setObservacao(rs.getString("observacao"));
-
-			listaEquipe.add(equipeBean);
+	
+		public List<EquipeBean> listar() {
+			try {
+			TypedQuery<EquipeBean> query = entityManager
+					.createQuery("SELECT e FROM EquipeBean AS e WHERE e.ativo = 'S'", EquipeBean.class);
+			List<EquipeBean> listaEquipe = query.getResultList();
+			return listaEquipe;
+			} catch (Exception e) {
+				return null;
+			}
 		}
-
-		conec.close();
-		return listaEquipe;
-	}
 
 	// INSERIR DADOS NA TABELA DE EQUIPE
 	

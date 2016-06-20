@@ -38,8 +38,13 @@ public class FuncionarioNegocioBusiness {
 		return funcionarioNegocioDao.joinFuncionarioNegocio(idFuncionario);
 	}
 	
-	public void atualizar(FuncionarioBean funcionarioBean, List<NegocioBean> listaNegocio) throws SQLException {
-		funcionarioNegocioDao.atualizar(funcionarioBean, listaNegocio);
+	public void atualizar(FuncionarioBean funcionarioBean, List<NegocioBean> listaNegocio) throws BusinessException {
+		try{
+			funcionarioNegocioDao.atualizar(funcionarioBean, listaNegocio);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
+		
 
 	}
 
