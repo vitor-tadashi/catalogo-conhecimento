@@ -41,6 +41,7 @@
 														<div class="form-group">
 															<label class="control-label">Nome da Equipe
 																<input type="text" class="form-control" maxlength="50" name="nome" >
+																<input type ="hidden" name="ativo" value = "S"/>
 															</label>
 														</div>  
 														<div class="form-group">
