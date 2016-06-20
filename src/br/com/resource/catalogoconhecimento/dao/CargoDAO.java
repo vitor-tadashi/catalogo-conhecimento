@@ -57,8 +57,7 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 	// public List<FuncionarioBean> obterPorFuncionario(int id) throws
 	// ClassNotFoundException, SQLException {
 	// @SuppressWarnings("unchecked")
-	// List<FuncionarioBean> listaFuncionario = entityManager
-	// .createQuery("SELECT f FROM FuncionarioBean as f WHERE f.id =
+	// List<FuncionarioBean> listaFuncionario = entityManager.createQuery("SELECT f FROM FuncionarioBean as f WHERE f.id =
 	// ?").getResultList();
 	// return listaFuncionario;
 	// }
