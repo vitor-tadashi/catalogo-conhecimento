@@ -40,10 +40,10 @@ public class EquipeController {
 	}
 
 	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
-	public String adicionar(EquipeBean equipe) throws BusinessException {
-		equipeBusiness.inserir(equipe);
+	public String adicionar(EquipeBean equipebean, @RequestParam("ativo")String ativo) throws BusinessException{
+		equipebean.setAtivo(ativo.charAt(0));
+		equipeBusiness.inserir(equipebean);
 		return "redirect:listarEquipe";
-
 	}
 
 	@RequestMapping(value = "listarEquipe", method = { RequestMethod.GET, RequestMethod.POST})

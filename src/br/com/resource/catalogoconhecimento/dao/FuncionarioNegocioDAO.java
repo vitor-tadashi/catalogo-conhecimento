@@ -26,14 +26,17 @@ public class FuncionarioNegocioDAO {
 		conexao = ConnectionFactory.createConnection();
 	}
 	
-	public int adicionar(FuncionarioBean funcionario, List<NegocioBean> negocios) throws SQLException{
+	public int adicionar(FuncionarioBean funcionarioBean, List<NegocioBean> listaNegocios) throws SQLException{
 		PreparedStatement ps = conexao.prepareStatement(sqlInserir);
 		int linhasAfetadas = 0;
 		
-		for(NegocioBean negocio : negocios){
-			ps.setInt(1, funcionario.getId());
-			ps.setInt(2, negocio.getId());
-			linhasAfetadas = ps.executeUpdate();
+		for(NegocioBean negocioBean : listaNegocios){
+			if(!(negocioBean.getId() == 0)){
+				ps.setInt(1, funcionarioBean.getId());
+				ps.setInt(2, negocioBean.getId());
+				linhasAfetadas = ps.executeUpdate();
+			}
+			
 		}
 		
 		ps.close();
