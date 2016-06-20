@@ -53,7 +53,6 @@ public class ProjetoController {
 
 		return "projetos/listarProjeto";
 	}
-	
 	@RequestMapping(value = "formularioAlterarProjeto", method = RequestMethod.GET)
 	public String alterar(Model model, @RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
