@@ -60,6 +60,7 @@
 												<a href="
 													<c:url value='excluirCargo'>
 													<c:param name='idCargo' value='${cargo.id}'/>
+													<c:param name='ativo' value='N'/>
 													</c:url>
 													">	
 													<i class="fa fa-times fa-lg"></a></td>

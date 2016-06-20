@@ -1,9 +1,13 @@
 package br.com.resource.catalogoconhecimento.bean;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name="Funcionario")
 public class FuncionarioBean {
 
 	private int id;

@@ -190,7 +190,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	@Override
 	public void remover(T entity) {
 		try {
-			entityManager.remove(entity);
+			entityManager.merge(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

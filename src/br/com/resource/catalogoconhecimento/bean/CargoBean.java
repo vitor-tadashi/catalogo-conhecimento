@@ -15,7 +15,7 @@ public class CargoBean {
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name="idCargo", unique = true, nullable = false)
 	private Integer id;
-	
+
 	@Column(name = "nomeCargo")
 	private String nome;
 	

@@ -1,10 +1,38 @@
 package br.com.resource.catalogoconhecimento.bean;
 
-public class EquipeBean {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "Equipe")
+public class EquipeBean {
+	
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name="idEquipe", unique = true, nullable = false)
 	private int id;
+	
+	@Column(name="observacao")
 	private String observacao;
+	
+	@Column(name="nome")
 	private String nome;
+	
+	@Column(name="ativo")
+	private char ativo;
+	
+	
+	public char getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(char ativo) {
+		this.ativo = ativo;
+	}
 
 	public String getObservacao() {
 		return observacao;

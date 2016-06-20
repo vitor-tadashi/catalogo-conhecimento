@@ -155,9 +155,12 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 */
 	public FuncionarioBean obterPorId(int idFuncionario)
-			throws ClassNotFoundException, SQLException, BusinessException {
-
-		return funcionarioDAO.obterPorId(idFuncionario);
+			throws BusinessException {
+		try{
+			return funcionarioDAO.obterPorId(idFuncionario);	
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	/**
@@ -170,21 +173,24 @@ public class FuncionarioBusiness {
 	 * @throws TamanhoCampoException
 	 * @throws EmailInvalidoException
 	 */
-	public void atualizar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException,
-			TamanhoCampoException, EmailInvalidoException, BusinessException {
-
-		if (funcionarioBean.getNome().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de nome corretamante");
-		} else if (!validarNome(funcionarioBean.getNome().trim())) {
-			throw new TamanhoCampoException(
-					"Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
-		} else if (funcionarioBean.getTelefone().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de telefone corretamante");
-		} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
-			throw new TamanhoCampoException(
-					"Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
-		} else {
-			funcionarioDAO.alterar(funcionarioBean);
+	public void atualizar(FuncionarioBean funcionarioBean) throws BusinessException {
+		try{
+			if (funcionarioBean.getNome().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de nome corretamante");
+			} else if (!validarNome(funcionarioBean.getNome().trim())) {
+				throw new TamanhoCampoException(
+						"Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
+			} else if (funcionarioBean.getTelefone().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de telefone corretamante");
+			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
+				throw new TamanhoCampoException(
+						"Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
+			} else {
+				funcionarioDAO.alterar(funcionarioBean);
+			}
+			
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -197,14 +203,19 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws BusinessException
 	 */
-	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
-
-		FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
-
-		if (funcionarioExistente != null) {
-			funcionarioDAO.remover(id);
-		} else {
-			throw new BusinessException("Esse usuário não pode ser removido");
+	public void deletar(int id) throws BusinessException {
+		
+		try{
+			FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
+			
+			if (funcionarioExistente != null) {
+				funcionarioDAO.remover(id);
+			} else {
+				throw new BusinessException("Esse usuário não pode ser removido");
+			}
+			
+		}catch(Exception e){
+		 	throw ExceptionUtil.handleException(e);			
 		}
 
 	}
