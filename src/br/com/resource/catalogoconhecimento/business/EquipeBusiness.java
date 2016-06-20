@@ -80,6 +80,7 @@ public class EquipeBusiness {
 	}
 
 	// ATUALIZAR NA BASE
+	@Transactional
 	public void atualizar(EquipeBean equipe) throws BusinessException {
 		try {
 
@@ -92,7 +93,7 @@ public class EquipeBusiness {
 			} else if (equipe.getObservacao().length() > 500) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 			} else {
-				equipeDAO.atualizar(equipe);
+				equipeDAO.alterar(equipe);
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);

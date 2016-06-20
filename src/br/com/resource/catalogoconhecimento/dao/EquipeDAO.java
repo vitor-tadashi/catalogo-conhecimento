@@ -37,28 +37,6 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 			}
 		}
 
-	// ATUALIZAR DADOS NA TABELA DE EQUIPE
-
-	public void atualizar(EquipeBean equipe) throws ClassNotFoundException, SQLException {
-
-		Connection conec = ConnectionFactory.createConnection();
-
-		String sql = "UPDATE Equipe SET nome = ?, observacao = ? WHERE idEquipe = ?";
-
-		PreparedStatement stmt = conec.prepareStatement(sql);
-		if(equipe.getObservacao().trim().equals("")){
-			equipe.setObservacao("-");
-		}
-
-		stmt.setString(1, equipe.getNome());
-		stmt.setString(2, equipe.getObservacao());
-		stmt.setInt(3, equipe.getId());
-
-		stmt.executeUpdate();
-		conec.close();
-
-	}
-
 	// DELETAR DADOS NA TABELA DE EQUIPE
 
 	public void deletar(int id) throws SQLException, ClassNotFoundException {
