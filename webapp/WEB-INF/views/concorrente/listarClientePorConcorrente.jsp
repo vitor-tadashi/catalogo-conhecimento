@@ -118,7 +118,6 @@
 											</table>
 										</div><!-- /.col -->
 									</div><!-- /.row -->
-									<input type="hidden" id="countCliente" name="countCliente" value="0">
 									<input type="hidden" id="idConcorrente" name="idConcorrente" value="${concorrenteBean.id}">
 								</div>
 								<div class="panel-footer text-left">

@@ -22,7 +22,7 @@
 			row.append("<td>" + nome + "</td>");
 			row.append("<td>" + valor + "</td>");
 			row.append("<td><button class='delete' type='button'>-</button></td>");
-			row.append("<input type='hidden' name='listaConcorrentes[" + count + "].nome' id='txtNome" + count + "' value='" + nome + "'  />");
+			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
 			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
 			$("#countConcorrente").val(count);
 		}
@@ -42,8 +42,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Clientes</li>
 				<li class="active">Adicionar Cliente</li>
 			</ul>
@@ -55,7 +56,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarCliente'> <c:param name='countConcorrente' value='count'/> <c:param name='txtNome' value='concorrente'/> <c:param name='valorHora' value='valorConcorrente'/> </c:url>">
+									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarCliente'> <c:param name='countConcorrente'/> <c:param name='txtNome'/> <c:param name='valorHora'/> </c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Cliente</h3>
 										</div>
@@ -217,8 +218,8 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$',
-                        message: 'E-mail inválido, requerido um @ e um domínio completo'
+                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,9}$',
+                        message: 'E-mail inválido, requerido um @ e um domínico completo'
                     }
                 }
             },

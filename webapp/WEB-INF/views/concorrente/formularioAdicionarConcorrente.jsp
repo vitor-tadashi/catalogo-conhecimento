@@ -7,6 +7,7 @@
 <head>
 	<title>Adicionar Concorrente</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
+	
 	<script type="text/javascript">
 		function add() {
 			var cliente = $("#cliente").val();
@@ -54,7 +55,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarConcorrente'> <c:param name='countCliente' value='count'/> <c:param name='txtNome' value='concorrente'/> <c:param name='valorHora' value='valorConcorrente'/> </c:url>">
+									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarConcorrente'> <c:param name='countCliente'/> <c:param name='txtNome'/> <c:param name='valorHora'/> </c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Concorrente</h3>
 										</div>

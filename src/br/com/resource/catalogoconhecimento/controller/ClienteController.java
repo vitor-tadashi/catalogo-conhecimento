@@ -39,22 +39,21 @@ public class ClienteController {
 
 		clienteBusiness.adicionar(clienteBean);
 
-		// int countConcorrente = Integer.parseInt(countConcorrenteParam);
-		// ConcorrenteBean concorrenteBean;
-		// ConcorrenteClienteBean concorrenteClienteBean;
-		//
-		// for (int i = 0; i <= countConcorrente; i++) {
-		// String nomeConcorrente = txtNome + i;
-		// if (nomeConcorrente != null) {
-		// concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
-		// concorrenteClienteBean = new ConcorrenteClienteBean();
-		// concorrenteClienteBean.setCliente(clienteBean);
-		// concorrenteClienteBean.setConcorrente(concorrenteBean);
-		// concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam +
-		// i));
-		// concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
-		// }
-		// }
+		int countConcorrente = Integer.parseInt(countConcorrenteParam);
+		ConcorrenteBean concorrenteBean;
+		ConcorrenteClienteBean concorrenteClienteBean;
+
+		for (int i = 0; i <= countConcorrente; i++) {
+			String nomeConcorrente = txtNome + i;
+			if (nomeConcorrente != null) {
+				concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
+				concorrenteClienteBean = new ConcorrenteClienteBean();
+				concorrenteClienteBean.setCliente(clienteBean);
+				concorrenteClienteBean.setConcorrente(concorrenteBean);
+				concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam + i));
+				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
+			}
+		}
 		return "redirect:listarCliente";
 	}
 
