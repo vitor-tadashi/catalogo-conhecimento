@@ -39,8 +39,10 @@ public class EquipeController {
 		return "equipe/adicionarEquipe";
 	}
 
+	
 	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
-	public String adicionar(EquipeBean equipe) throws BusinessException {
+	public String adicionar(EquipeBean equipe, @RequestParam("ativo")String ativo) throws BusinessException {
+		equipe.setAtivo(ativo.charAt(0));
 		equipeBusiness.inserir(equipe);
 		return "redirect:listarEquipe";
 
@@ -68,9 +70,11 @@ public class EquipeController {
 	}
 
 	@RequestMapping(value = "excluirEquipe", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idEquipe") String id) throws BusinessException {
+	public String excluir( @RequestParam("idEquipe") String id,@RequestParam("ativo") String ativo, HttpServletRequest request) throws BusinessException{
 		int idEquipe = Integer.parseInt(id);
-		equipeBusiness.deletar(idEquipe);
+		EquipeBean equipe = equipeBusiness.obterPorId(idEquipe);
+		equipe.setAtivo(ativo.charAt(0));
+		equipeBusiness.deletar(equipe);
 		return "redirect:listarEquipe";
 
 	}
@@ -103,19 +107,19 @@ public class EquipeController {
 		return "equipe/listarFuncionariosPorEquipe";
 	}
 
-	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
-	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
-			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
-
-		int idEquipe = Integer.parseInt(idEq);
-		int idFuncionario = Integer.parseInt(idFunc);
-
-		equipeBusiness.inserirPorEquipe(idEquipe, idFuncionario);
-		request.setAttribute("idEquipe", idEq);
-
-		return "forward:listarFuncionarioPorEquipe";
-
-	}
+//	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
+//	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
+//			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
+//
+//		int idEquipe = Integer.parseInt(idEq);
+//		int idFuncionario = Integer.parseInt(idFunc);
+//
+//		equipeBusiness.inserirPorEquipe(idEquipe, idFuncionario);
+//		request.setAttribute("idEquipe", idEq);
+//
+//		return "forward:listarFuncionarioPorEquipe";
+//
+//	}
 	
 	@ExceptionHandler(BusinessException.class)
 	public String exceptionHandler(BusinessException exception, Model model){

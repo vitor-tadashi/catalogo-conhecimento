@@ -118,8 +118,10 @@
 												</div><!-- /.col --> 
 												
 											</div>	
-											<input type="hidden" name="logica" value="projeto.AtualizarProjetoLogica">		
-											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
+											
+											<%-- <input type="hidden" name="logica" value="projeto.AtualizarProjetoLogica">		
+											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}"> --%>
+										
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

@@ -33,7 +33,7 @@ public class ProjetoController {
 		return "projetos/formularioAdicionarProjeto";
 	}
 	
-//	CLIENTE, NOME, OBSERVA��O
+//	CLIENTE, NOME, OBSERVACAO
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
 	public String adicionarProjeto(ProjetoBean projetoBean,
 		@RequestParam(value = "cliente") String cliente)throws BusinessException {
@@ -57,7 +57,7 @@ public class ProjetoController {
 	@RequestMapping(value = "formularioAlterarProjeto", method = RequestMethod.GET)
 	public String alterar(Model model, @RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
-		model.addAttribute("projeto", negocioBusiness.obterPorId(idProjeto));
+		model.addAttribute("projeto", projetoBusiness.obterPorId(idProjeto));
 		return "projetos/formularioAlterarProjeto";
 	}
 
