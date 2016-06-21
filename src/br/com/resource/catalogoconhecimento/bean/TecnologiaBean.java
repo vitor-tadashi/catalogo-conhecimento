@@ -12,16 +12,13 @@ public class TecnologiaBean {
 	
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-	@Column(name="idTecnologia", unique = true, nullable = false)
+	@Column(name = "idTecnologia", unique = true, nullable = false)
 	private int id;
 	
 	@Column(name = "nomeTecnologia", nullable = false)
 	private String nome;
-	
+		
 	private char ativo;
-
-	public TecnologiaBean() {
-	}
 
 	public int getId() {
 		return id;
