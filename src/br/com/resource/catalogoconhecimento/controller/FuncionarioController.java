@@ -59,9 +59,7 @@ public class FuncionarioController {
 
 	@RequestMapping(value = "listarFuncionarios", method = RequestMethod.GET)
 	public String listar(Model model) throws BusinessException {
-
-		model.addAttribute("funcionarios", funcionarioBusiness.listar());
-
+		model.addAttribute("listaFuncionario", funcionarioBusiness.listar());
 		return "funcionarios/listarFuncionarios";
 	}
 	
