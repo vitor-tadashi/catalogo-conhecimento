@@ -159,6 +159,12 @@ public class BuscaController {
 		return funcionarioBusiness.listarPorEquipe(idEquipe);
 	}
 	
-	
+	@RequestMapping(value = "buscarEquipePorFuncionario", method = RequestMethod.POST)
+	public @ResponseBody List<EquipeBean> EquipePorFuncionario( @RequestParam("idFuncionario") String id)
+			throws BusinessException {
+		int idFuncionario = Integer.parseInt(id);
+		
+		return equipeBusiness.obterPorFuncionario(idFuncionario);
+	}
 
 }
