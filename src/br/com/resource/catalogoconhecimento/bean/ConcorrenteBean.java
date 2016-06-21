@@ -1,10 +1,27 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Concorrente")
 public class ConcorrenteBean {
 
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name="idConcorrente", unique = true, nullable = false)
 	private int id;
+	
+	@Column(name = "nomeConcorrente")
 	private String nome;
+	
+	@Column(name = "descricao")
 	private String descricao;
+	
+	private char ativo;
 
 	public int getId() {
 		return id;
@@ -28,6 +45,14 @@ public class ConcorrenteBean {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public char getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(char ativo) {
+		this.ativo = ativo;
 	}
 	
 }
