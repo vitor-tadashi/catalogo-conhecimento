@@ -1,30 +1,38 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "Equipe")
 public class EquipeBean {
-	
+
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-	@Column(name="idEquipe", unique = true, nullable = false)
+	@Column(name = "idEquipe", unique = true, nullable = false)
 	private int id;
-	
-	@Column(name="observacao")
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "EquipeFuncionario", joinColumns = {
+			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+
+	@Column(name = "observacao")
 	private String observacao;
-	
-	@Column(name="nome")
+
+	@Column(name = "nome")
 	private String nome;
-	
+
 	private char ativo;
-	
-	
+
 	public char getAtivo() {
 		return ativo;
 	}
@@ -56,5 +64,5 @@ public class EquipeBean {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 }
