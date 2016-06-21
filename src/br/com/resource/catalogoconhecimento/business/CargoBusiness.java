@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,10 +78,10 @@ public class CargoBusiness {
 		}
 	}
 	
-	@Transactional
-	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
-		return cargoDao.obterNomeDesativado(cargoBean);
-	}
+//	@Transactional
+//	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
+//		return cargoDao.obterNomeDesativado(cargoBean);
+//	}
 	
 	@Transactional
 	public void alterar(CargoBean cargoBean) throws BusinessException {

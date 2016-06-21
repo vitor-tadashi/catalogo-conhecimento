@@ -59,6 +59,12 @@ public class FuncionarioBean {
 			inverseJoinColumns = { @JoinColumn(name = "idNegocio", nullable = false, updatable = false) })
 	private List<NegocioBean> listaNegocio;
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "EquipeFuncionario", joinColumns = { 
+			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+	private List<FuncionarioBean> listaFuncionario;
+	
 //	public FuncionarioBean() {
 //		listaTecnologia = new ArrayList<>();
 //		listaNegocio = new ArrayList<>();
@@ -144,6 +150,14 @@ public class FuncionarioBean {
 	public void setAtivo(char ativo) {
 		this.ativo = ativo;
 	}
+	
+	public CargoBean getCargoBean() {
+		return cargoBean;
+	}
+	
+	public void setCargoBean(CargoBean cargoBean) {
+		this.cargoBean = cargoBean;
+	}
 
 	public List<TecnologiaBean> getListaTecnologia() {
 		return listaTecnologia;
@@ -159,6 +173,14 @@ public class FuncionarioBean {
 
 	public void setListaNegocio(List<NegocioBean> listaNegocio) {
 		this.listaNegocio = listaNegocio;
+	}
+
+	public List<FuncionarioBean> getListaFuncionario() {
+		return listaFuncionario;
+	}
+
+	public void setListaFuncionario(List<FuncionarioBean> listaFuncionario) {
+		this.listaFuncionario = listaFuncionario;
 	}	
 
 }

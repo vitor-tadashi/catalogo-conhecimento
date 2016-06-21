@@ -115,7 +115,7 @@ public class NegocioDAO extends GenericDAOImpl<NegocioBean, Integer> {
 		return check;
 	}
 
-	public List<NegocioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+	public List<NegocioBean> listarPorFuncionario(int id) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 		 
 		String sql = "SELECT n.areaAtuacao, n.idNegocio FROM Funcionario AS f "

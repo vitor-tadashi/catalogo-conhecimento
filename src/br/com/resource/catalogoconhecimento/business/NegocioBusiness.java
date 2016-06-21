@@ -123,10 +123,12 @@ public class NegocioBusiness {
 	}
 
 	@Transactional
-	public List<NegocioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
-
-		List<NegocioBean> listaNegocios = negocioDao.obterPorFuncionario(id);
-		return listaNegocios;
+	public List<NegocioBean> listarPorFuncionario(int id) throws BusinessException {
+		try {
+			return negocioDao.listarPorFuncionario(id);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	@Transactional

@@ -127,6 +127,22 @@ public class BuscaController {
 		return tecnologiaBusiness.obterPorFuncionario(idFuncionario);
 	}
 	
+	@RequestMapping(value = "buscarEquipePorFuncionario", method = RequestMethod.POST)
+	public @ResponseBody List<EquipeBean> EquipePorFuncionario( @RequestParam("idFuncionario") String id)
+			throws BusinessException {
+		int idFuncionario = Integer.parseInt(id);
+		
+		return equipeBusiness.obterPorFuncionario(idFuncionario);
+	}
+
+	@RequestMapping(value = "buscarNegocioPorFuncionario", method = RequestMethod.POST)
+	public @ResponseBody List<NegocioBean> NegocioPorFuncionario( @RequestParam("idFuncionario") String id)
+			throws BusinessException {
+		int idFuncionario = Integer.parseInt(id);
+		
+		return negocioBusiness.listarPorFuncionario(idFuncionario);
+	}
+	
 	@RequestMapping(value = "buscarTecnologiaPorProjeto", method = RequestMethod.POST)
 	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorProjeto( @RequestParam("idProjeto") String id)
 			throws BusinessException {
@@ -157,14 +173,6 @@ public class BuscaController {
 		int idEquipe = Integer.parseInt(id);
 		
 		return funcionarioBusiness.listarPorEquipe(idEquipe);
-	}
-	
-	@RequestMapping(value = "buscarEquipePorFuncionario", method = RequestMethod.POST)
-	public @ResponseBody List<EquipeBean> EquipePorFuncionario( @RequestParam("idFuncionario") String id)
-			throws BusinessException {
-		int idFuncionario = Integer.parseInt(id);
-		
-		return equipeBusiness.obterPorFuncionario(idFuncionario);
 	}
 
 }
