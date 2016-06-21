@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
+import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.NegocioDAO;
-import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
@@ -122,12 +122,12 @@ public class NegocioBusiness {
 		return negocioDao.obterNomeDesativado(negocioBean);
 	}
 
-//	@Transactional
-//	public List<NegocioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
-//
-//		List<NegocioBean> listaNegocios = negocioDao.obterPorFuncionario(id);
-//		return listaNegocios;
-//	}
+	@Transactional
+	public List<NegocioBean> obterPorFuncionario(int id) throws ClassNotFoundException, SQLException {
+
+		List<NegocioBean> listaNegocios = negocioDao.obterPorFuncionario(id);
+		return listaNegocios;
+	}
 
 	@Transactional
 	public void reativar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException {
@@ -140,12 +140,12 @@ public class NegocioBusiness {
 		return (areaAtuacao.matches("[A-Za-zÁ-ú0-9'\\s]{2,50}"));
 	}
 
-//	@Transactional
-//	public List<NegocioBean> obterPorProjeto(ProjetoBean projetoBean) throws BusinessException {
-//		try {
-//			return new NegocioDAO().obterPorProjeto(projetoBean);
-//		} catch (Exception e) {
-//			throw ExceptionUtil.handleException(e);
-//		}
-//	}
+	@Transactional
+	public List<NegocioBean> obterPorProjeto(ProjetoBean projetoBean) throws BusinessException {
+		try {
+			return new NegocioDAO().obterPorProjeto(projetoBean);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
+	}
 }
