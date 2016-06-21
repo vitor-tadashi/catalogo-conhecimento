@@ -38,7 +38,6 @@ public class EquipeController {
 	public String formularioAdicionar() {
 		return "equipe/adicionarEquipe";
 	}
-
 	
 	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
 	public String adicionar(EquipeBean equipe, @RequestParam("ativo")String ativo) throws BusinessException {
@@ -90,9 +89,8 @@ public class EquipeController {
 		request.setAttribute("idEquipe", idEq);
 
 		return "forward:listarFuncionarioPorEquipe";
-
 	}
-
+	
 	@RequestMapping(value = "listarFuncionarioPorEquipe", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarFuncionarioPorEquipe(Model model, @RequestParam("idEquipe") String idEquipe) throws BusinessException {
 

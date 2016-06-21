@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +22,11 @@ public class EquipeBean {
 	@Column(name = "idEquipe", unique = true, nullable = false)
 	private int id;
 
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable(name = "EquipeFuncionario", joinColumns = {
-//			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, inverseJoinColumns = {
-//					@JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "EquipeFuncionario", joinColumns = {
+			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+	private List<FuncionarioBean> listaFuncionario;
 
 	@Column(name = "observacao")
 	private String observacao;
