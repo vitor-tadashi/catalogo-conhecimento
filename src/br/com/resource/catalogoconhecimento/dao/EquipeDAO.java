@@ -149,35 +149,7 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 			equipe.setObservacao(rs.getString("observacao"));
 			listaEquipe.add(equipe);
 		}
-		
 		return listaEquipe;
-		
-	}
-	
-	public EquipeBean obterNomeDesativado(EquipeBean equipeBean)
-			throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Equipe WHERE nome = ? and ativo  = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, equipeBean.getNome());
-		ps.setString(2, "n");
-
-		ResultSet rs = ps.executeQuery();
-
-		equipeBean = null;
-		while (rs.next()) {
-			equipeBean = new EquipeBean();
-			equipeBean.setId(rs.getInt("idEquipe"));
-			equipeBean.setNome(rs.getString("nome"));
-			equipeBean.setObservacao(rs.getString("obrservacao"));
-		}
-
-		ps.close();
-		conexao.close();
-
-		return equipeBean;
 	}
 
 	public List<EquipeBean> obterPorFuncionario (int idFuncionario) throws ClassNotFoundException, SQLException {
