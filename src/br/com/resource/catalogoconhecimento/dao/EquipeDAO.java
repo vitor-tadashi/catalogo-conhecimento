@@ -13,12 +13,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
-import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
-import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
-import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
@@ -37,55 +32,18 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 			}
 		}
 
-	// DELETAR DADOS NA TABELA DE EQUIPE
-
-	public void deletar(int id) throws SQLException, ClassNotFoundException {
-		Connection conec = ConnectionFactory.createConnection();
-		conec.setAutoCommit(false);
-
-		String sql2 = "DELETE FROM EquipeFuncionario WHERE idEquipe= ? ";
-		PreparedStatement stmt2 = conec.prepareStatement(sql2);
-		stmt2.setInt(1, id);
-		stmt2.executeUpdate();
-
-		String sql = "Update Equipe set ativo = ? WHERE idEquipe= ?";
-		PreparedStatement stmt = conec.prepareStatement(sql);
-
-		stmt.setString(1, "n");
-		stmt.setInt(2, id);
-		stmt.executeUpdate();
-
-		conec.commit();
-
-	}
-
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
 
 	public EquipeBean obterPorId(int id) throws SQLException, ClassNotFoundException {
-
-		Connection conec = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Equipe WHERE idEquipe = '" + id + "'";
-
-		PreparedStatement stmt = conec.prepareStatement(sql);
-
-		ResultSet rs = stmt.executeQuery();
-
-		EquipeBean equipe = new EquipeBean();
-
-		while (rs.next()) {
-
-			equipe.setId(rs.getInt("idEquipe"));
-			equipe.setObservacao(rs.getString("observacao"));
-			equipe.setNome(rs.getString("nome"));
-
+		
+		try {
+		TypedQuery<EquipeBean> query = entityManager.createQuery("SELECT e FROM EquipeBean as e WHERE e.id = :id AND e.ativo = 'S'", EquipeBean.class);
+		EquipeBean equipeBean = query.setParameter("id", id).getSingleResult();
+		return equipeBean;
+		} catch (Exception e) {
+			return null;
 		}
-
-		conec.close();
-		return equipe;
-
 	}
-
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
 
 	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
@@ -134,35 +92,35 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 
 	//SELECIONAR DADOS NA TABELA POR EQUIPE
 	
-	public EquipeFuncionarioBean listarPorEquipe(int idEquipe, int idFuncionario)
-			throws ClassNotFoundException, SQLException, BusinessException {
-		Connection conec = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe=" + idEquipe + " and idFuncionario="
-				+ idFuncionario;
-		PreparedStatement stmt = conec.prepareStatement(sql);
-		ResultSet rs = stmt.executeQuery();
-
-		EquipeFuncionarioBean equipeFuncionario = null;
-
-		while (rs.next()) {
-			equipeFuncionario = new EquipeFuncionarioBean();
-			EquipeBusiness equipeBusiness = new EquipeBusiness();
-			EquipeBean equipeBean = equipeBusiness.obterPorId(rs.getInt("idEquipe"));
-			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-			FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(rs.getInt("idFuncionario"));
-
-			equipeFuncionario.setId(rs.getInt("idEquipeFuncionario"));
-			equipeFuncionario.setEquipe(equipeBean);
-			equipeFuncionario.setFuncionario(funcionarioBean);
-
-		}
-		
-		stmt.close();
-		conec.close();
-		
-		return equipeFuncionario;
-
-	}
+//	public EquipeFuncionarioBean listarPorEquipe(int idEquipe, int idFuncionario)
+//			throws ClassNotFoundException, SQLException, BusinessException {
+//		Connection conec = ConnectionFactory.createConnection();
+//		String sql = "SELECT * FROM EquipeFuncionario WHERE idEquipe=" + idEquipe + " and idFuncionario="
+//				+ idFuncionario;
+//		PreparedStatement stmt = conec.prepareStatement(sql);
+//		ResultSet rs = stmt.executeQuery();
+//
+//		EquipeFuncionarioBean equipeFuncionario = null;
+//
+//		while (rs.next()) {
+//			equipeFuncionario = new EquipeFuncionarioBean();
+//			EquipeBusiness equipeBusiness = new EquipeBusiness();
+////			EquipeBean equipeBean = equipeBusiness.obterPorId(rs.getInt("idEquipe"));
+//			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+//			FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(rs.getInt("idFuncionario"));
+//
+//			equipeFuncionario.setId(rs.getInt("idEquipeFuncionario"));
+////			equipeFuncionario.setEquipe(equipeBean);
+//			equipeFuncionario.setFuncionario(funcionarioBean);
+//
+//		}
+//		
+//		stmt.close();
+//		conec.close();
+//		
+//		return equipeFuncionario;
+//
+//	}
 	
 	//SELECIONAR DADOS NA TABELA POR PROJETO
 	
