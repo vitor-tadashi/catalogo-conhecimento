@@ -72,7 +72,7 @@ public class FuncionarioController {
 		
 		funcionarioBusiness.adicionar(funcionarioBean);
 		funcionariotecnologia.adicionar(funcionarioBean, funcionarioBean.getListaTecnologia());
-		funcionarioNegocio.adicionar(funcionarioBean, funcionarioBean.getListaNegocio());
+		funcionarioNegocio.inserir(funcionarioBean, funcionarioBean.getListaNegocio());
 		
 		return "redirect:listarFuncionarios";
 
