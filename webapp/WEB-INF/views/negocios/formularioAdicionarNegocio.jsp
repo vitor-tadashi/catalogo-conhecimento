@@ -41,6 +41,7 @@
 															<div class="form-group">
 									   						<label class="control-label">Area de Atuação
 															<input type="text" class="form-control" maxlength="100" name="areaAtuacao"/>
+															<input type ="hidden" name="ativo" value = "S"/>
 														</label>
 													</div>
 												</div><!-- /.col -->

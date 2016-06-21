@@ -40,11 +40,13 @@
 
 											<div class="col-sm-2">
 												<div class="form-group">
-													<label class="control-label">Área de Atuação <input
-														type="hidden" class="form-control" name="id"
-														value="${negocio.id}" readonly> <input type="text"
-														class="form-control" maxlength="100" name="areaAtuacao"
+													<label class="control-label">Área de Atuação 
+													 <input type="text" class="form-control" maxlength="100" name="areaAtuacao"
 														value="${negocio.areaAtuacao}">
+														<input
+														type="hidden" class="form-control" name="id"
+														value="${negocio.id}" readonly>
+														<input type ="hidden" name="ativo" value = "S"/>
 													</label>
 												</div>
 											</div>
