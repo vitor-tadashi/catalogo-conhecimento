@@ -27,8 +27,11 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="mvc">
-										<div class="panel-heading">
+									<form class="no-margin" id="formAlt" method="POST"
+									action="<c:url value='alterarProjeto'>
+										<c:param name='paginaAtual' value='formularioAlterarProjeto'/>
+											</c:url>">
+									<div class="panel-heading">
 											<h3>Alterar Projeto</h3>
 										</div>
 										<div class="panel-body">
@@ -118,8 +121,10 @@
 												</div><!-- /.col --> 
 												
 											</div>	
-											<input type="hidden" name="logica" value="projeto.AtualizarProjetoLogica">		
-											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
+											
+											<%-- <input type="hidden" name="logica" value="projeto.AtualizarProjetoLogica">		
+											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}"> --%>
+										
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

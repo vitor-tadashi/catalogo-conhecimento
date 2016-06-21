@@ -104,7 +104,7 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp" />
 
-								<span class="label label-info pull-right">${fn:length(Projeto)}
+								<span class="label label-info pull-right">${fn:length(projeto)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -122,7 +122,7 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projeto" items="${projeto}">
+										<c:forEach var="projetos" items="${projeto}">
 											<tr>
 												<td>${projeto.nome}</td>
 												<td>
@@ -280,11 +280,10 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 		  	</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	</div>
-	<!-- /main-container -->
-	</div>
+</div>
+<!-- /main-container -->
 
-	<c:import url="/resources/jspImport/logout.jsp"></c:import>
-	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+<c:import url="/resources/jspImport/logout.jsp"></c:import>
+<c:import url="/resources/jspImport/footer.jsp"></c:import>
 </body>
 </html>

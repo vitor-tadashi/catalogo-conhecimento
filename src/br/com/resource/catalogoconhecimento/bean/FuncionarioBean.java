@@ -1,27 +1,74 @@
 package br.com.resource.catalogoconhecimento.bean;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "Funcionario")
 public class FuncionarioBean {
 
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name = "idFuncionario", unique = true, nullable = false)
 	private int id;
-	private CargoBean cargo;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idCargo")
+	private CargoBean cargoBean;
+
+	@Column(name = "nomeFuncionario", nullable = false)
 	private String nome;
+	
 	private String telefone;
 	private String nomeUser;
 	private String email;
+	private char ativo;
+	
+	@Column(name = "CPF", nullable = false)
 	private String cpf;
+	
+	@Column(name = "RG", nullable = false)
 	private String rg;
+	
+	@Temporal(value = TemporalType.DATE)
 	private Date dataNascimento;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "TecnologiaFuncionario", joinColumns = { 
+			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "idTecnologia", nullable = false, updatable = false) })
 	private List<TecnologiaBean> listaTecnologia;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "FuncionarioNegocio", joinColumns = { 
+			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "idNegocio", nullable = false, updatable = false) })
 	private List<NegocioBean> listaNegocio;
 
-	public FuncionarioBean() {
-		listaTecnologia = new ArrayList<>();
-		listaNegocio = new ArrayList<>();
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "EquipeFuncionario", joinColumns = { 
+			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+	private List<FuncionarioBean> listaFuncionario;
+	
+//	public FuncionarioBean() {
+//		listaTecnologia = new ArrayList<>();
+//		listaNegocio = new ArrayList<>();
+//	}
 
 	public int getId() {
 		return id;
@@ -32,11 +79,11 @@ public class FuncionarioBean {
 	}
 
 	public CargoBean getCargo() {
-		return cargo;
+		return cargoBean;
 	}
 
 	public void setCargo(CargoBean cargo) {
-		this.cargo = cargo;
+		this.cargoBean = cargo;
 	}
 
 	public String getNome() {
@@ -71,14 +118,6 @@ public class FuncionarioBean {
 		this.email = email;
 	}
 
-	public List<TecnologiaBean> getListaTecnologia() {
-		return listaTecnologia;
-	}
-
-	public void setListaTecnologia(List<TecnologiaBean> listaTecnologia) {
-		this.listaTecnologia = listaTecnologia;
-	}
-	
 	public String getCpf() {
 		return cpf;
 	}
@@ -104,6 +143,29 @@ public class FuncionarioBean {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public char getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(char ativo) {
+		this.ativo = ativo;
+	}
+	
+	public CargoBean getCargoBean() {
+		return cargoBean;
+	}
+	
+	public void setCargoBean(CargoBean cargoBean) {
+		this.cargoBean = cargoBean;
+	}
+
+	public List<TecnologiaBean> getListaTecnologia() {
+		return listaTecnologia;
+	}
+
+	public void setListaTecnologia(List<TecnologiaBean> listaTecnologia) {
+		this.listaTecnologia = listaTecnologia;
+	}
 	
 	public List<NegocioBean> getListaNegocio() {
 		return listaNegocio;
@@ -111,6 +173,14 @@ public class FuncionarioBean {
 
 	public void setListaNegocio(List<NegocioBean> listaNegocio) {
 		this.listaNegocio = listaNegocio;
+	}
+
+	public List<FuncionarioBean> getListaFuncionario() {
+		return listaFuncionario;
+	}
+
+	public void setListaFuncionario(List<FuncionarioBean> listaFuncionario) {
+		this.listaFuncionario = listaFuncionario;
 	}	
 
 }

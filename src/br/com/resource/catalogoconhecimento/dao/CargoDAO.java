@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
@@ -23,11 +24,15 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 		return listaCargo;
 	}
 
-	public CargoBean obterPorId(int id) throws SQLException, ClassNotFoundException {
-		TypedQuery<CargoBean> query = entityManager
-				.createQuery("SELECT c FROM CargoBean AS c WHERE c.id = :id AND c.ativo = 'S'", CargoBean.class);
-		CargoBean cargobean = query.setParameter("id", id).getSingleResult();
-		return cargobean;
+	public CargoBean obterPorId(int id) throws BusinessException {
+		try {
+			TypedQuery<CargoBean> query = entityManager
+					.createQuery("SELECT c FROM CargoBean AS c WHERE c.id = :id AND c.ativo = 'S'", CargoBean.class);
+			CargoBean cargobean = query.setParameter("id", id).getSingleResult();
+			return cargobean;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public CargoBean obterPorNome(String nome) {
@@ -42,17 +47,17 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 		}
 	}
 
-	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
-
-		try {
-			TypedQuery<CargoBean> query = entityManager.createQuery(
-					"SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'N'", CargoBean.class);
-			CargoBean cargoBeanDesativado = query.setParameter("nome", cargoBean.getNome()).getSingleResult();
-			return cargoBeanDesativado;
-		} catch (Exception e) {
-			return null;
-		}
-	}
+//	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
+//
+//		try {
+//			TypedQuery<CargoBean> query = entityManager.createQuery(
+//					"SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'N'", CargoBean.class);
+//			CargoBean cargoBeanDesativado = query.setParameter("nome", cargoBean.getNome()).getSingleResult();
+//			return cargoBeanDesativado;
+//		} catch (Exception e) {
+//			return null;
+//		}
+//	}
 
 	// public List<FuncionarioBean> obterPorFuncionario(int id) throws
 	// ClassNotFoundException, SQLException {
