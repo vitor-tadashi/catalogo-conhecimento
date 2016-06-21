@@ -18,7 +18,7 @@ public class CargoBean {
 	
 	@Column(name = "nomeCargo")
 	private String nome;
-	
+
 	private char ativo;
 	
 	public char getAtivo() {
