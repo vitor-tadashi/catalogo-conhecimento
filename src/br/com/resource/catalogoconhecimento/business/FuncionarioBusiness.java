@@ -7,9 +7,13 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
@@ -24,18 +28,23 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 @Component
 public class FuncionarioBusiness {
 
+	@Autowired
 	private FuncionarioDAO funcionarioDAO;
 
-	public FuncionarioBusiness() {
+	@Autowired
+	private CargoBusiness cargoBusiness;
+	
+	@Autowired
+	private TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness;
 
-		funcionarioDAO = new FuncionarioDAO();
-	}
-
+	@Autowired
+	private FuncionarioNegocioBusiness funcionarioNegocioBusiness;
+	
 	/**
-	 * Adiciona um novo funionário na base
+	 * Adiciona um novo funcionÃ¡rio
 	 * 
 	 * @param funcionarioBean
-	 * @return id, criado no bd, do novo funcionário adicionado
+	 * @return id, criado no bd, do novo funcionï¿½rio adicionado
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws BusinessException
@@ -55,37 +64,37 @@ public class FuncionarioBusiness {
 				throw new NullPointerException("Preencha o campo de nome corretamante");
 			} else if (!validarNome(funcionarioBean.getNome().trim())) {
 				throw new TamanhoCampoException(
-						"Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
+						"Nï¿½mero limite de caracteres excedido(mï¿½x.150) e/ou caracteres invï¿½lidos inseridos");
 			} else if (funcionarioBean.getTelefone().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de telefone corretamante");
 			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
 				throw new TamanhoCampoException(
-						"Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
+						"Nï¿½mero limite de caracteres excedido(mï¿½x.11) e/ou caracteres invï¿½lidos inseridos");
 			} else if (funcionarioBean.getEmail().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de e-mail corretamante");
 			} else if (!validarEmail(funcionarioBean.getEmail())) {
-				throw new EmailInvalidoException("Digite um email válido");
+				throw new EmailInvalidoException("Digite um email vï¿½lido");
 			} else if (funcionarioCloneMail != null) {
-				throw new EmailInvalidoException("O e-mail: " + funcionarioBean.getEmail() + " já foi cadastrado na base");
+				throw new EmailInvalidoException("O e-mail: " + funcionarioBean.getEmail() + " jï¿½ foi cadastrado na base");
 			} else if (funcionarioBean.getCpf().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de CPF corretamante");
 			} else if (!validarCPF(funcionarioBean.getCpf())) {
-				throw new CpfInvalidoException("Digite um CPF válido");
+				throw new CpfInvalidoException("Digite um CPF vï¿½lido");
 			} else if (funcionarioCloneCpf != null) {
-				throw new CpfInvalidoException("O CPF " + funcionarioBean.getCpf() + " já foi cadastrado na base");
+				throw new CpfInvalidoException("O CPF " + funcionarioBean.getCpf() + " jï¿½ foi cadastrado na base");
 			} else if (funcionarioBean.getNomeUser().trim().equals("")) {
-				throw new NullPointerException("Preencha o campo de nome de usuário corretamante");
+				throw new NullPointerException("Preencha o campo de nome de usuï¿½rio corretamante");
 			} else if (!validarUser(funcionarioBean.getNomeUser())) {
 				throw new UserInvalidoException("Digite um nome de usuario valido");
 			} else if (funcionarioCloneUser != null) {
 				throw new UserInvalidoException(
-						"O nome de usuário " + funcionarioBean.getNomeUser() + " já foi cadastrado na base");
+						"O nome de usuï¿½rio " + funcionarioBean.getNomeUser() + " jï¿½ foi cadastrado na base");
 			} else if (funcionarioBean.getRg().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de RG corretamante");
 			} else if (!validarRG(funcionarioBean.getRg())) {
-				throw new RgInvalidoException("Digite um RG válido");
+				throw new RgInvalidoException("Digite um RG vï¿½lido");
 			} else if (funcionarioCloneRg != null) {
-				throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " já foi cadastrado na base");
+				throw new RgInvalidoException("O RG " + funcionarioBean.getRg() + " jï¿½ foi cadastrado na base");
 			} else {
 				id = funcionarioDAO.adicionar(funcionarioBean);
 			}
@@ -100,9 +109,9 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Lista todos os funcionários ativos
+	 * Lista todos os funcionï¿½rios ativos
 	 * 
-	 * @return Lista de funcionários
+	 * @return Lista de funcionï¿½rios
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
@@ -113,8 +122,19 @@ public class FuncionarioBusiness {
 
 			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listar();
 
+			for (FuncionarioBean funcionarioBean : listaFuncionario) {
+				int id = funcionarioBean.getId();
+				CargoBean cargo = cargoBusiness.obterPorId(id);
+				List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness.joinTecnologiaFuncionario(funcionarioBean.getId());
+				List<NegocioBean> negocios = funcionarioNegocioBusiness.joinFuncionarioNegocio(funcionarioBean.getId());
+			
+				funcionarioBean.setCargo(cargo);
+				funcionarioBean.setListaTecnologia(tecnologias);
+				funcionarioBean.setListaNegocio(negocios);
+			}
+			
 			if (listaFuncionario.isEmpty()) {
-				throw new ConsultaNulaException("Não existem funcionários cadastrados");
+				throw new ConsultaNulaException("NÃ£o existem funcionÃ¡rio cadastrados");
 			} else {
 				return listaFuncionario;
 			}
@@ -124,7 +144,7 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Lista todos os funcionários que possuem as tecnologias especificadas
+	 * Lista todos os funcionï¿½rios que possuem as tecnologias especificadas
 	 * 
 	 * @param nomeTecnologias
 	 * @return List<FuncionarioBean>
@@ -137,7 +157,7 @@ public class FuncionarioBusiness {
 			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listarPorTecnologias(nomeTecnologias);
 
 			if (listaFuncionario == null) {
-				throw new ConsultaNulaException("Não há funcionários cadastrados");
+				throw new ConsultaNulaException("Nï¿½o hï¿½ funcionï¿½rios cadastrados");
 			} else {
 				return listaFuncionario;
 			}
@@ -147,21 +167,28 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Obtem todas informações de um funcinário por id
+	 * Obtem todas informaï¿½ï¿½es de um funcinï¿½rio por id
 	 * 
 	 * @param idFuncionario
-	 * @return informações de um funcinário
+	 * @return informaï¿½ï¿½es de um funcinï¿½rio
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 	public FuncionarioBean obterPorId(int idFuncionario)
-			throws ClassNotFoundException, SQLException, BusinessException {
-
-		return funcionarioDAO.obterPorId(idFuncionario);
+			throws BusinessException {
+		try{
+			FuncionarioBean funcionarioBean = funcionarioDAO.obterPorId(idFuncionario);
+			
+			funcionarioBean.setCargo(cargoBusiness.obterPorId(funcionarioBean.getId()));
+			
+			return funcionarioBean;
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	/**
-	 * Atualiza informações de um funcionário
+	 * Atualiza informaï¿½ï¿½es de um funcionï¿½rio
 	 * 
 	 * @param funcionario
 	 * @return boolean
@@ -170,26 +197,28 @@ public class FuncionarioBusiness {
 	 * @throws TamanhoCampoException
 	 * @throws EmailInvalidoException
 	 */
-	public void atualizar(FuncionarioBean funcionarioBean) throws ClassNotFoundException, SQLException,
-			TamanhoCampoException, EmailInvalidoException, BusinessException {
-
-		if (funcionarioBean.getNome().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de nome corretamante");
-		} else if (!validarNome(funcionarioBean.getNome().trim())) {
-			throw new TamanhoCampoException(
-					"Número limite de caracteres excedido(máx.150) e/ou caracteres inválidos inseridos");
-		} else if (funcionarioBean.getTelefone().trim().equals("")) {
-			throw new NullPointerException("Preencha o campo de telefone corretamante");
-		} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
-			throw new TamanhoCampoException(
-					"Número limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
-		} else {
-			funcionarioDAO.alterar(funcionarioBean);
+	public void atualizar(FuncionarioBean funcionarioBean) throws BusinessException {
+		try{
+			if (funcionarioBean.getNome().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de nome corretamante");
+			} else if (!validarNome(funcionarioBean.getNome().trim())) {
+				throw new TamanhoCampoException(
+						"Nï¿½mero limite de caracteres excedido(mï¿½x.150) e/ou caracteres invï¿½lidos inseridos");
+			} else if (funcionarioBean.getTelefone().trim().equals("")) {
+				throw new NullPointerException("Preencha o campo de telefone corretamante");
+			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
+				throw new TamanhoCampoException(
+						"Nï¿½mero limite de caracteres excedido(mï¿½x.11) e/ou caracteres invï¿½lidos inseridos");
+			} else {
+				funcionarioDAO.alterar(funcionarioBean);
+			}
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	/**
-	 * Remove logicamente um funcionário
+	 * Remove logicamente um funcionï¿½rio
 	 * 
 	 * @param id
 	 * @return boolean
@@ -197,36 +226,46 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws BusinessException
 	 */
-	public void deletar(int id) throws ClassNotFoundException, SQLException, BusinessException {
-
-		FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
-
-		if (funcionarioExistente != null) {
-			funcionarioDAO.remover(id);
-		} else {
-			throw new BusinessException("Esse usuário não pode ser removido");
+	public void deletar(int id) throws BusinessException {
+		try{
+			FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
+			
+			if (funcionarioExistente != null) {
+				funcionarioDAO.remover(id);
+			} else {
+				throw new BusinessException("Esse usuï¿½rio nï¿½o pode ser removido");
+			}
+			
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
 		}
 
 	}
 
 	/**
-	 * Obtem todas informações de um funcionário pelo nome
+	 * Obtem todas informaï¿½ï¿½es de um funcionï¿½rio pelo nome
 	 * 
 	 * @param nome
-	 * @return todas informações de um funcionário
+	 * @return todas informaï¿½ï¿½es de um funcionï¿½rio
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public FuncionarioBean obterPorNome(String nome) throws ClassNotFoundException, SQLException, BusinessException {
-
-		return funcionarioDAO.obterPorNome(nome);
+	public FuncionarioBean obterPorNome(String nome) throws BusinessException {
+		try{
+			FuncionarioBean funcionarioBean = funcionarioDAO.obterPorNome(nome);
+			funcionarioBean.setCargo(cargoBusiness.obterPorId(funcionarioBean.getId()));
+			
+			return funcionarioBean;
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);			
+		}
 	}
 
 	/**
-	 * Obtem informações específicas de um funcionário pelo idEquipe
+	 * Obtem informaï¿½ï¿½es especï¿½ficas de um funcionï¿½rio pelo idEquipe
 	 * 
 	 * @param id
-	 * @return informações específicas de um funcionário
+	 * @return informaï¿½ï¿½es especï¿½ficas de um funcionï¿½rio
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
@@ -251,7 +290,7 @@ public class FuncionarioBusiness {
 	}
 
 	private boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-zÀ-ú? ]+") && nome.length() <= 150);
+		return (nome.matches("[A-Za-zï¿½-ï¿½? ]+") && nome.length() <= 150);
 	}
 
 	public boolean validarNumero(String numero) {
@@ -365,7 +404,7 @@ public class FuncionarioBusiness {
 			Date dataFormatada = formatador.parse(data);
 			
 			if (dataFormatada.after(dataAtual)) {
-				throw new DataInvalidaException("Data inserida inválida!");
+				throw new DataInvalidaException("Data inserida invï¿½lida!");
 			}
 			
 			return dataFormatada;	
