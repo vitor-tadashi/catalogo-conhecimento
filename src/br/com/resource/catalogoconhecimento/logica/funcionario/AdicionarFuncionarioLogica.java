@@ -77,7 +77,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionarioBean.setId(id);
 		
 		TecnologiaFuncionarioBusiness funcionariotecnologia = new TecnologiaFuncionarioBusiness();
-		funcionariotecnologia.inserir(funcionarioBean, listaTecnologia);
+		funcionariotecnologia.adicionar(funcionarioBean, listaTecnologia);
 		
 		FuncionarioNegocioBusiness funcionarioNegocio = new FuncionarioNegocioBusiness();
 		funcionarioNegocio.adicionar(funcionarioBean, listaNegocios);

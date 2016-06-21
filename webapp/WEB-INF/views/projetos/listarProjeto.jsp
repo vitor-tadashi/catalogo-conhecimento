@@ -280,11 +280,10 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 		  	</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	</div>
-	<!-- /main-container -->
-	</div>
+</div>
+<!-- /main-container -->
 
-	<c:import url="/resources/jspImport/logout.jsp"></c:import>
-	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+<c:import url="/resources/jspImport/logout.jsp"></c:import>
+<c:import url="/resources/jspImport/footer.jsp"></c:import>
 </body>
 </html>
