@@ -8,12 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
-import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
@@ -50,36 +48,38 @@ public class EquipeBusiness {
 
 	// INSERIR O FUNCION�RIO NA BASE
 
-	public void inserirPorEquipe(int equipe, int funcionario) throws BusinessException {
-		try {
-			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
-
-			if (equipeFuncionario != null) {
-				throw new NomeRepetidoException("Este nome já consta nessa Equipe");
-			} else {
-				equipeDAO.inserirPorEquipe(equipe, funcionario);
-			}
-
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-		}
-	}
+//	public void inserirPorEquipe(int equipe, int funcionario) throws BusinessException {
+//		try {
+//			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
+//
+//			if (equipeFuncionario != null) {
+//				throw new NomeRepetidoException("Este nome já consta nessa Equipe");
+//			} else {
+//				equipeDAO.inserirPorEquipe(equipe, funcionario);
+//			}
+//
+//		} catch (Exception e) {
+//			throw ExceptionUtil.handleException(e);
+//		}
+//	}
 
 	// DELETAR NA BASE
-	public void deletar(int id) throws BusinessException {
+	@Transactional
+	public void deletar(EquipeBean equipe) throws BusinessException {
 		try{
-		if (equipeDAO.verificarPorFuncionarios(id)) {
-			equipeDAO.deletar(id);
-		} else {
-			throw new RegistroVinculadoException(
-					"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
-		}
+//		if (equipeDAO.verificarPorFuncionarios(equipe)) {
+			equipeDAO.remover(equipe);
+//		} else {
+//			throw new RegistroVinculadoException(
+//					"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
+//		}
 		}catch(Exception e){
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	// ATUALIZAR NA BASE
+	@Transactional
 	public void atualizar(EquipeBean equipe) throws BusinessException {
 		try {
 
@@ -92,7 +92,7 @@ public class EquipeBusiness {
 			} else if (equipe.getObservacao().length() > 500) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 			} else {
-				equipeDAO.atualizar(equipe);
+				equipeDAO.alterar(equipe);
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -118,7 +118,7 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR POR ID NA BASE
-
+	@Transactional
 	public EquipeBean obterPorId(int id) throws BusinessException {
 		try {
 			return equipeDAO.obterPorId(id);
@@ -128,7 +128,7 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR POR NOME NA BASE
-
+	@Transactional
 	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 
 		return equipeDAO.obterPorNome(nome);

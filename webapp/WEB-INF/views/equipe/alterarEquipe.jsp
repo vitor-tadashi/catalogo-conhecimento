@@ -27,7 +27,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="/equipe/alterarEquipe">
+									<form class="no-margin" id="formAlt" method="POST" action="alterarEquipe">
 										<div class="panel-heading">
 											<h3>Alterar Equipe</h3>
 										</div>
@@ -42,6 +42,7 @@
 														<label class="control-label">Nome da Equipe
 															<input type="hidden" class="form-control input-sm" name="idEquipe" value="${equipe.id}">
 															<input type="text" class="form-control" maxlength="50" name="nome" value="${equipe.nome}">
+															<input type ="hidden" name="ativo" value = "S"/>
 														</label>
 													</div>
 													<div class="form-group">
