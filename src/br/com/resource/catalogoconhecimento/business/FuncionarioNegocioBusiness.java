@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.scripting.bsh.BshScriptUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
@@ -38,8 +39,13 @@ public class FuncionarioNegocioBusiness {
 		return funcionarioNegocioDao.joinFuncionarioNegocio(idFuncionario);
 	}
 	
-	public void atualizar(FuncionarioBean funcionarioBean, List<NegocioBean> listaNegocio) throws SQLException {
-		funcionarioNegocioDao.atualizar(funcionarioBean, listaNegocio);
+	public void atualizar(FuncionarioBean funcionarioBean, List<NegocioBean> listaNegocio) throws BusinessException {
+		try{
+			funcionarioNegocioDao.atualizar(funcionarioBean, listaNegocio);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
+		
 
 	}
 
