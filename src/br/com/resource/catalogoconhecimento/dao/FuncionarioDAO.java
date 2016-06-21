@@ -8,15 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
-import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
-import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
@@ -25,10 +21,10 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class FuncionarioDAO {
 
 	/**
-	 * Método para adicionar um novo funcionário
+	 * Mï¿½todo para adicionar um novo funcionï¿½rio
 	 * 
 	 * @param funcionarioBean
-	 * @return id, criado no bd, do novo funcionário adicionado
+	 * @return id, criado no bd, do novo funcionï¿½rio adicionado
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -61,9 +57,9 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * Método para listar todos os funcionários ativos
+	 * Mï¿½todo para listar todos os funcionï¿½rios ativos
 	 * 
-	 * @return Lista de funcionários
+	 * @return Lista de funcionï¿½rios
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -78,18 +74,11 @@ public class FuncionarioDAO {
 		ResultSet rs = ps.executeQuery();
 		ArrayList<FuncionarioBean> listaFuncionarios = new ArrayList<FuncionarioBean>();
 		FuncionarioBean funcionarioBean;
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness = new TecnologiaFuncionarioBusiness();
-		FuncionarioNegocioBusiness funcionarioNegocioBusiness = new FuncionarioNegocioBusiness();
+		
 		while (rs.next()) {
-			CargoBean cargo = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-			List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness
-					.joinTecnologiaFuncionario(rs.getInt("idFuncionario"));
-			List<NegocioBean> negocios = funcionarioNegocioBusiness.joinFuncionarioNegocio(rs.getInt("idFuncionario"));
 
 			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargo);
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
 			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
 			funcionarioBean.setTelefone(rs.getString("telefone"));
@@ -97,8 +86,7 @@ public class FuncionarioDAO {
 			funcionarioBean.setCpf(rs.getString("CPF"));
 			funcionarioBean.setRg(rs.getString("RG"));
 			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-			funcionarioBean.setListaTecnologia(tecnologias);
-			funcionarioBean.setListaNegocio(negocios);
+			
 			
 
 			listaFuncionarios.add(funcionarioBean);
@@ -109,7 +97,7 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * método para alterar informações de um funcionário
+	 * mï¿½todo para alterar informaï¿½ï¿½es de um funcionï¿½rio
 	 * 
 	 * @param funcionarioBean
 	 * @throws ClassNotFoundException
@@ -128,7 +116,7 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * Método para remover logicamente um funcionário
+	 * Mï¿½todo para remover logicamente um funcionï¿½rio
 	 * 
 	 * @param id
 	 * @throws SQLException
@@ -165,10 +153,10 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * Método para obter informações de um funcionário por Id
+	 * Mï¿½todo para obter informaï¿½ï¿½es de um funcionï¿½rio por Id
 	 * 
 	 * @param id
-	 * @return Todas informações do funcionário
+	 * @return Todas informaï¿½ï¿½es do funcionï¿½rio
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -181,13 +169,10 @@ public class FuncionarioDAO {
 		ResultSet rs = ps.executeQuery();
 
 		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
 			
 			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
 			funcionarioBean.setTelefone(rs.getString("telefone"));
 			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
@@ -202,10 +187,10 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * Método para obter informações de um funcionário por nome
+	 * Mï¿½todo para obter informaï¿½ï¿½es de um funcionï¿½rio por nome
 	 * 
 	 * @param nome
-	 * @return Todas informações do funcionário
+	 * @return Todas informaï¿½ï¿½es do funcionï¿½rio
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -217,13 +202,11 @@ public class FuncionarioDAO {
 		ResultSet rs = ps.executeQuery();
 
 		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
 		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+
 
 			funcionarioBean = new FuncionarioBean();
 			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
 			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
 			funcionarioBean.setTelefone(rs.getString("telefone"));
 			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
@@ -238,10 +221,10 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * Método para obter informações específicas funcionários por idEquipe
+	 * Mï¿½todo para obter informaï¿½ï¿½es especï¿½ficas funcionï¿½rios por idEquipe
 	 * 
 	 * @param idEquipe
-	 * @return Lista de funcionários com informações específicas
+	 * @return Lista de funcionï¿½rios com informaï¿½ï¿½es especï¿½ficas
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -278,11 +261,11 @@ public class FuncionarioDAO {
 	}
 
 	/**
-	 * Método para obter informações de um funcionário caso ele já tenha sido
+	 * Mï¿½todo para obter informaï¿½ï¿½es de um funcionï¿½rio caso ele jï¿½ tenha sido
 	 * removido
 	 * 
 	 * @param nome
-	 * @return informações do funcionário removido
+	 * @return informaï¿½ï¿½es do funcionï¿½rio removido
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -316,7 +299,7 @@ public class FuncionarioDAO {
 	}
 	
 	/**
-	 * Lista todos os funcionários de uma tecnologia específica
+	 * Lista todos os funcionï¿½rios de uma tecnologia especï¿½fica
 	 * 
 	 * @param nomeTecnologias
 	 * @return List<FuncionarioBean>
