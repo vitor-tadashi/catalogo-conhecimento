@@ -249,7 +249,9 @@ public class FuncionarioBusiness {
 
 			return listaFuncionario;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
+			
 		}
 	}
 

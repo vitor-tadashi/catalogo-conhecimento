@@ -63,7 +63,7 @@ public class FuncionarioBean {
 	@JoinTable(name = "EquipeFuncionario", joinColumns = { 
 			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
-	private List<FuncionarioBean> listaFuncionario;
+	private List<EquipeBean> equipes;
 	
 //	public FuncionarioBean() {
 //		listaTecnologia = new ArrayList<>();
@@ -175,12 +175,14 @@ public class FuncionarioBean {
 		this.listaNegocio = listaNegocio;
 	}
 
-	public List<FuncionarioBean> getListaFuncionario() {
-		return listaFuncionario;
+	public List<EquipeBean> getEquipes() {
+		return equipes;
 	}
 
-	public void setListaFuncionario(List<FuncionarioBean> listaFuncionario) {
-		this.listaFuncionario = listaFuncionario;
-	}	
+	public void setEquipes(List<EquipeBean> equipes) {
+		this.equipes = equipes;
+	}
+
+	
 
 }
