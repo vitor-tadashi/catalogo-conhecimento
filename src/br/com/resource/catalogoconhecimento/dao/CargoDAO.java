@@ -18,7 +18,7 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 
 	public List<CargoBean> listar() {
-		TypedQuery<CargoBean> query = entityManager.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S'",
+		TypedQuery<CargoBean> query = entityManager.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S' order by c.nome asc",
 				CargoBean.class);
 		List<CargoBean> listaCargo = query.getResultList();
 		return listaCargo;

@@ -10,7 +10,7 @@ public class RemoverConcorrenteLogica implements Logica {
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ConcorrenteBusiness concorrenteBusiness = new ConcorrenteBusiness();
-		concorrenteBusiness.remover(Integer.parseInt(request.getParameter("id")));
+		//concorrenteBusiness.remover(Integer.parseInt(request.getParameter("id")));
 		return "mvc?logica=concorrente.ListarConcorrenteLogica";
 	}
 }
