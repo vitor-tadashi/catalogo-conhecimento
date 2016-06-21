@@ -77,7 +77,7 @@ public class FuncionarioController {
 	}
 	
 	@RequestMapping(value = "formularioAlterarFuncionario", method = RequestMethod.GET)
-	public String alterar(Model model, @RequestParam("idFuncionario") String id) throws BusinessException{
+	public String formularioAlterar(Model model, @RequestParam("idFuncionario") String id) throws BusinessException{
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<CargoBean> listaCargo = cargoBusiness.listar();
 		List<NegocioBean> listaNegocio = negocioBusiness.listar();
@@ -93,19 +93,18 @@ public class FuncionarioController {
 	
 	@RequestMapping(value = "alterarFuncionario", method = RequestMethod.POST)
 	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException{
-		
-		funcionarioBusiness.atualizar(funcionarioBean);
+		funcionarioBusiness.alterar(funcionarioBean);
 		funcionariotecnologia.atualizar(funcionarioBean, funcionarioBean.getListaTecnologia());
 		funcionarioNegocio.atualizar(funcionarioBean, funcionarioBean.getListaNegocio());
 		
 		return "redirect:listarFuncionarios";
 	}
 	
-	@RequestMapping(value = "excluirFuncionario", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idFuncionario") String id) throws BusinessException{
+	@RequestMapping(value = "removerFuncionario", method = RequestMethod.GET)
+	public String remover(@RequestParam("idFuncionario") String id) throws BusinessException{
 		int idFuncionario = Integer.parseInt(id);
-		
-		funcionarioBusiness.deletar(idFuncionario);
+		FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(idFuncionario);
+		funcionarioBusiness.remover(funcionarioBean);
 		
 		return "redirect:listarFuncionarios";
 	}

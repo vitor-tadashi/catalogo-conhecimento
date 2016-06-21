@@ -13,7 +13,7 @@ public class RemoverFuncionarioLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("idFuncionario"));
 
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-		funcionarioBusiness.deletar(id);
+//		funcionarioBusiness.remover(id);
 
 		return "mvc?logica=funcionario.ListarFuncionarioLogica";
 

@@ -159,7 +159,7 @@
 												</a></td>
 												<td style="text-align: center;"><a
 													href="
-													<c:url value='excluirFuncionario'>
+													<c:url value='removerFuncionario'>
 													<c:param name='idFuncionario' value='${funcionario.id}'/>
 													</c:url>
 													">

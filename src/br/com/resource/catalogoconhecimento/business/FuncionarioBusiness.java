@@ -99,9 +99,9 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Lista todos os funcion�rios ativos
+	 * Lista todos os funcionários ativos
 	 * 
-	 * @return Lista de funcion�rios
+	 * @return List<FuncionarioBean>
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
@@ -121,7 +121,7 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Lista todos os funcion�rios que possuem as tecnologias especificadas
+	 * Lista todos os funcionários que possuem as tecnologias especificadas
 	 * 
 	 * @param nomeTecnologias
 	 * @return List<FuncionarioBean>
@@ -173,7 +173,7 @@ public class FuncionarioBusiness {
 	 * @throws TamanhoCampoException
 	 * @throws EmailInvalidoException
 	 */
-	public void atualizar(FuncionarioBean funcionarioBean) throws BusinessException {
+	public void alterar(FuncionarioBean funcionarioBean) throws BusinessException {
 		try {
 			if (funcionarioBean.getNome().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de nome corretamante");
@@ -202,20 +202,16 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws BusinessException
 	 */
-	public void deletar(int id) throws BusinessException {
+	public void remover(FuncionarioBean funcionarioBean) throws BusinessException {
 		try {
-			FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
-
-			if (funcionarioExistente != null) {
-//				funcionarioDAO.remover(id);
-			} else {
-				throw new BusinessException("Esse usu�rio n�o pode ser removido");
-			}
-
+//			if (funcionarioExistente != null) {
+				funcionarioDAO.remover(funcionarioBean);
+//			} else {
+//				throw new BusinessException("Esse usuário não pode ser removido");
+//			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	/**
