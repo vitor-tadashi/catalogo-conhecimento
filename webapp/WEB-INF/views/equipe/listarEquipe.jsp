@@ -63,9 +63,10 @@
 													<i class="fa fa-edit fa-lg"></a></td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='/equipe/excluirEquipe'>
+													<c:url value='excluirEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													<c:param name='paginaAtual' value='listarEquipe'/>
+													<c:param name='ativo' value='N'/>
 													</c:url>
 													">
 													<i class="fa fa-times fa-lg"></a></td>
