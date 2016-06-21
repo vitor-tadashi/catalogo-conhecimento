@@ -31,7 +31,7 @@
 	        
 	$(document).on("click", "#btnTecnologia", function() { 
 	        	
-	$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-func')}, function(listaTecnologias) {
+	$.post("<c:url value = '/busca/buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-func')}, function(listaTecnologias) {
 	    $("#dataTableTecnologia tbody tr").detach();	
 	    $.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
 	        drawRowTecnologia(item);
@@ -94,7 +94,7 @@
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
 								
-								<span class="label label-info pull-right">${fn:length(funcionarios)}
+								<span class="label label-info pull-right">${fn:length(listaFuncionario)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -115,7 +115,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="funcionario" items="${funcionarios}">
+										<c:forEach var="funcionario" items="${listaFuncionario}">
 											<tr>
 												<td>${funcionario.nome}</td>							
 												<td>${funcionario.telefone}</td>
@@ -129,7 +129,7 @@
 												</td>
 	
 												<td>
-												<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
+													<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
 												</td>
 																		
 												<td>${funcionario.nomeUser}</td>											

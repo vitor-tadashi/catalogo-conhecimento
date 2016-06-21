@@ -21,10 +21,11 @@ public class EquipeBusiness {
 	@Autowired
 	private EquipeDAO equipeDAO;
 
+
 	// INSERIR NA BASE
 	@Transactional
 	public void inserir(EquipeBean equipeBean) throws BusinessException {
-
+		
 		try {
 
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
@@ -47,35 +48,32 @@ public class EquipeBusiness {
 
 	// INSERIR O FUNCION�RIO NA BASE
 
-	// public void inserirPorEquipe(int equipe, int funcionario) throws
-	// BusinessException {
-	// try {
-	// EquipeFuncionarioBean equipeFuncionario =
-	// equipeDAO.listarPorEquipe(equipe, funcionario);
-	//
-	// if (equipeFuncionario != null) {
-	// throw new NomeRepetidoException("Este nome já consta nessa Equipe");
-	// } else {
-	// equipeDAO.inserirPorEquipe(equipe, funcionario);
-	// }
-	//
-	// } catch (Exception e) {
-	// throw ExceptionUtil.handleException(e);
-	// }
-	// }
+//	public void inserirPorEquipe(int equipe, int funcionario) throws BusinessException {
+//		try {
+//			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
+//
+//			if (equipeFuncionario != null) {
+//				throw new NomeRepetidoException("Este nome já consta nessa Equipe");
+//			} else {
+//				equipeDAO.inserirPorEquipe(equipe, funcionario);
+//			}
+//
+//		} catch (Exception e) {
+//			throw ExceptionUtil.handleException(e);
+//		}
+//	}
 
 	// DELETAR NA BASE
 	@Transactional
 	public void deletar(EquipeBean equipe) throws BusinessException {
-		try {
-			// if (equipeDAO.verificarPorFuncionarios(equipe)) {
+		try{
+//		if (equipeDAO.verificarPorFuncionarios(equipe)) {
 			equipeDAO.remover(equipe);
-			// } else {
-			// throw new RegistroVinculadoException(
-			// "Essa Equipe não pode ser removida, pois possui vínculos com
-			// Funcionários");
-			// }
-		} catch (Exception e) {
+//		} else {
+//			throw new RegistroVinculadoException(
+//					"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
+//		}
+		}catch(Exception e){
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -102,6 +100,7 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR NA BASE
+	
 	@Transactional
 	public List<EquipeBean> listar() throws BusinessException {
 
@@ -130,48 +129,38 @@ public class EquipeBusiness {
 
 	// LISTAR POR NOME NA BASE
 	@Transactional
-	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException, BusinessException {
+	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 
-		try {
-			return equipeDAO.obterPorNome(nome);
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-
-		}
+		return equipeDAO.obterPorNome(nome);
 	}
 
 	// DELETAR POR EQUIPE NA BASE
 
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws BusinessException {
+		try{
+		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
+	}
+
+	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws BusinessException {
 		try {
-			equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
+			return equipeDAO.obterPorFuncionario(idFuncionario);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
-	// OBTER POR FUNCIONARIO NA EQUIPE 
-	
-	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException, BusinessException {
-		try {
-		return equipeDAO.obterPorFuncionario(idFuncionario);
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-		}
-	}
-
-	//OBTER POR PROJETO NA EQUIPE
-	
 	public List<EquipeBean> obterPorProjeto(int idProjeto) throws BusinessException {
+
 		try {
 			return equipeDAO.obterPorProjeto(idProjeto);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-	
-	// MÉTODO DE  VALIDAÇÃO DOS NOMES DAS EQUIPES
-	
+
 	public boolean validarNome(String nome) {
 		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{1,50}"));
 	}

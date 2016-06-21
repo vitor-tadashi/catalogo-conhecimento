@@ -33,13 +33,13 @@ public class FuncionarioBusiness {
 
 	@Autowired
 	private CargoBusiness cargoBusiness;
-	
+
 	@Autowired
 	private TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness;
 
 	@Autowired
 	private FuncionarioNegocioBusiness funcionarioNegocioBusiness;
-	
+
 	/**
 	 * Adiciona um novo funcionário
 	 * 
@@ -49,17 +49,16 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws BusinessException
 	 */
-	public int adicionar(FuncionarioBean funcionarioBean)
-			throws BusinessException {
-		try{
-			
+	public int adicionar(FuncionarioBean funcionarioBean) throws BusinessException {
+		try {
+
 			int id = 0;
-			
+
 			FuncionarioBean funcionarioCloneCpf = funcionarioDAO.obterPorCpf(funcionarioBean.getCpf());
 			FuncionarioBean funcionarioCloneMail = funcionarioDAO.obterPorEmail(funcionarioBean.getEmail());
 			FuncionarioBean funcionarioCloneUser = funcionarioDAO.obterPorUser(funcionarioBean.getNomeUser());
 			FuncionarioBean funcionarioCloneRg = funcionarioDAO.obterPorRg(funcionarioBean.getRg());
-			
+
 			if (funcionarioBean.getNome().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de nome corretamante");
 			} else if (!validarNome(funcionarioBean.getNome().trim())) {
@@ -75,7 +74,8 @@ public class FuncionarioBusiness {
 			} else if (!validarEmail(funcionarioBean.getEmail())) {
 				throw new EmailInvalidoException("Digite um email v�lido");
 			} else if (funcionarioCloneMail != null) {
-				throw new EmailInvalidoException("O e-mail: " + funcionarioBean.getEmail() + " j� foi cadastrado na base");
+				throw new EmailInvalidoException(
+						"O e-mail: " + funcionarioBean.getEmail() + " j� foi cadastrado na base");
 			} else if (funcionarioBean.getCpf().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de CPF corretamante");
 			} else if (!validarCPF(funcionarioBean.getCpf())) {
@@ -98,13 +98,11 @@ public class FuncionarioBusiness {
 			} else {
 				id = funcionarioDAO.adicionar(funcionarioBean);
 			}
-			
+
 			return id;
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-
-		
 
 	}
 
@@ -116,23 +114,22 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 * @throws ConsultaNulaException
 	 */
-	public List<FuncionarioBean> listar()
-			throws BusinessException {
+	public List<FuncionarioBean> listar() throws BusinessException {
 		try {
-
 			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listar();
 
-			for (FuncionarioBean funcionarioBean : listaFuncionario) {
-				int id = funcionarioBean.getId();
-				CargoBean cargo = cargoBusiness.obterPorId(id);
-				List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness.joinTecnologiaFuncionario(funcionarioBean.getId());
-				List<NegocioBean> negocios = funcionarioNegocioBusiness.joinFuncionarioNegocio(funcionarioBean.getId());
-			
-				funcionarioBean.setCargo(cargo);
-				funcionarioBean.setListaTecnologia(tecnologias);
-				funcionarioBean.setListaNegocio(negocios);
-			}
-			
+//			for (FuncionarioBean funcionarioBean : listaFuncionario) {
+//				int id = funcionarioBean.getId();
+//				CargoBean cargo = cargoBusiness.obterPorId(id);
+//				List<TecnologiaBean> tecnologias = tecnologiaFuncionarioBusiness
+//						.joinTecnologiaFuncionario(funcionarioBean.getId());
+//				List<NegocioBean> negocios = funcionarioNegocioBusiness.joinFuncionarioNegocio(funcionarioBean.getId());
+//
+//				funcionarioBean.setCargo(cargo);
+//				funcionarioBean.setListaTecnologia(tecnologias);
+//				funcionarioBean.setListaNegocio(negocios);
+//			}
+
 			if (listaFuncionario.isEmpty()) {
 				throw new ConsultaNulaException("Não existem funcionário cadastrados");
 			} else {
@@ -174,15 +171,14 @@ public class FuncionarioBusiness {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public FuncionarioBean obterPorId(int idFuncionario)
-			throws BusinessException {
-		try{
+	public FuncionarioBean obterPorId(int idFuncionario) throws BusinessException {
+		try {
 			FuncionarioBean funcionarioBean = funcionarioDAO.obterPorId(idFuncionario);
-			
+
 			funcionarioBean.setCargo(cargoBusiness.obterPorId(funcionarioBean.getId()));
-			
+
 			return funcionarioBean;
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -198,7 +194,7 @@ public class FuncionarioBusiness {
 	 * @throws EmailInvalidoException
 	 */
 	public void atualizar(FuncionarioBean funcionarioBean) throws BusinessException {
-		try{
+		try {
 			if (funcionarioBean.getNome().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de nome corretamante");
 			} else if (!validarNome(funcionarioBean.getNome().trim())) {
@@ -212,7 +208,7 @@ public class FuncionarioBusiness {
 			} else {
 				funcionarioDAO.alterar(funcionarioBean);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -227,16 +223,16 @@ public class FuncionarioBusiness {
 	 * @throws BusinessException
 	 */
 	public void deletar(int id) throws BusinessException {
-		try{
+		try {
 			FuncionarioBean funcionarioExistente = funcionarioDAO.obterPorId(id);
-			
+
 			if (funcionarioExistente != null) {
 				funcionarioDAO.remover(id);
 			} else {
 				throw new BusinessException("Esse usu�rio n�o pode ser removido");
 			}
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 
@@ -251,13 +247,13 @@ public class FuncionarioBusiness {
 	 * @throws SQLException
 	 */
 	public FuncionarioBean obterPorNome(String nome) throws BusinessException {
-		try{
+		try {
 			FuncionarioBean funcionarioBean = funcionarioDAO.obterPorNome(nome);
 			funcionarioBean.setCargo(cargoBusiness.obterPorId(funcionarioBean.getId()));
-			
+
 			return funcionarioBean;
-		}catch(Exception e){
-			throw ExceptionUtil.handleException(e);			
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -397,19 +393,19 @@ public class FuncionarioBusiness {
 	}
 
 	public Date formatarData(String data) throws BusinessException {
-		try{
+		try {
 			Date dataAtual = new Date(System.currentTimeMillis());
-			
+
 			DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 			Date dataFormatada = formatador.parse(data);
-			
+
 			if (dataFormatada.after(dataAtual)) {
 				throw new DataInvalidaException("Data inserida inv�lida!");
 			}
-			
-			return dataFormatada;	
-		}catch(Exception e){
-			throw ExceptionUtil.handleException(e);			
+
+			return dataFormatada;
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 

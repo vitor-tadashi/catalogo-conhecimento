@@ -26,15 +26,13 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 	}
 
 	public CargoBean obterPorId(int id) throws BusinessException {
-		
 		try {
 			TypedQuery<CargoBean> query = entityManager
 					.createQuery("SELECT c FROM CargoBean AS c WHERE c.id = :id AND c.ativo = 'S'", CargoBean.class);
 			CargoBean cargobean = query.setParameter("id", id).getSingleResult();
 			return cargobean;
-			
 		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
+			return null;
 		}
 	}
 
