@@ -64,13 +64,14 @@ public class ProjetoController {
 		model.addAttribute("clientes", listaCliente);
 		model.addAttribute("tecnologias", listaTecnologia);
 		model.addAttribute("equipes", listaEquipe);
-
-		return "projetos/formularioAdicionarProjeto";
+		return "projetos/formularioAdicionar";
 	}
 
-	// CLIENTE, NOME, OBSERVACAO
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto(ProjetoBean projetoBean,  @RequestParam("equipesArray") String[] equipesArray, @RequestParam("tecnologiasArray") String[] tecnologiasArray, @RequestParam("negociosArray") String[] negociosArray)
+	public String adicionarProjeto(ProjetoBean projetoBean,
+			@RequestParam("equipesArray") String[] equipesArray,
+			@RequestParam("tecnologiasArray") String[] tecnologiasArray,
+			@RequestParam("negociosArray") String[] negociosArray)
 			throws BusinessException {
 
 		projetoBusiness.inserir(projetoBean);
@@ -126,6 +127,6 @@ public class ProjetoController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "forward:listarProjeto";
+		return "redirect:listarProjeto";
 	}
 }

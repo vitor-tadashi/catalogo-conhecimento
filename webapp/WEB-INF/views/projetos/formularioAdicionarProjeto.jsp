@@ -27,7 +27,10 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-										<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+										<form class="no-margin" id="formAdd"  method="POST" 
+										action="<c:url value='adicionarProjeto'>
+									<c:param name='paginaAtual' value='formularioAdicionarProjeto'/>
+											</c:url>">
 										<div class="panel-heading">
 											<h3>Cadastrar Projeto</h3>
 										</div>
@@ -68,10 +71,9 @@
 													<div class="form-group">
 														<label class="control-label">Equipe:</label>														
 														<div class="checkbox">
-															<c:forEach items="${equipes}" var="equipe">
+															<c:forEach items="${equipes}" var="equipe" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="equipesArray[]" value="${equipe.nome}" data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Equipe"/>
+																	<input type="checkbox" name="listaEquipe[${count.index}].id" value="${equipe.id}"/>  
 																	<span class="custom-checkbox"></span>
 																	${equipe.nome}
 																</label>
@@ -87,10 +89,9 @@
 														<label class="control-label">Negócio:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocios">
+															<c:forEach items="${negocios}" var="negocio" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray[]" value="${negocios.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Área de Negócio"/>
+																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocios.id}" />  
 																	<span class="custom-checkbox"></span>
 																	${negocios.areaAtuacao}
 																</label>
@@ -104,10 +105,9 @@
 														<label class="control-label">Tecnologia:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${tecnologias}" var="tecnologia">
+															<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologia.nome}" data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
+																	<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" />
 																	<span class="custom-checkbox"></span>
 																	${tecnologia.nome}
 																</label>
@@ -117,8 +117,6 @@
 													</div>
 												</div><!-- /.col -->
 	 										</div>
-											<input type="hidden" name="logica" value="projeto.InserirProjetoLogica">
-											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioInserirProjetoLogica">
  										</div>
  										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Cadastrar</button>
@@ -210,7 +208,6 @@ $(document).ready(function() {
 	                }
 	            }
 	        } 
-	        
         }
     });
 });
