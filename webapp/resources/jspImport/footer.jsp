@@ -46,7 +46,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<h4 class="text-info">#TeamTadashi</h4>
+							<h4 class="text-info">#FábricaDeSoftware</h4>
 						</div>
 					</div><!-- /.row -->
 				</div>

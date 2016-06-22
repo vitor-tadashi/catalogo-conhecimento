@@ -144,10 +144,12 @@ public class EquipeBusiness {
 		}
 	}
 
-	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
-
-		return equipeDAO.obterPorFuncionario(idFuncionario);
-
+	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws BusinessException {
+		try {
+			return equipeDAO.obterPorFuncionario(idFuncionario);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public List<EquipeBean> obterPorProjeto(int idProjeto) throws BusinessException {

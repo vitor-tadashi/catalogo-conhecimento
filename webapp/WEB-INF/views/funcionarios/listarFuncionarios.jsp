@@ -2,81 +2,84 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Lista de Funcionários</title>
-	<c:import url="/resources/jspImport/head.jsp"></c:import> 
-	
-	<script type="text/javascript">
-	
+<title>Lista de Funcionários</title>
+<c:import url="/resources/jspImport/head.jsp"></c:import>
 
-	$(document).on("click", "#btnEquipesPorFuncionario", function() { 
-	
-	$.post("ajax?logica=busca.BuscarEquipePorFuncionarioNoProjetoAjaxLogica", { idFuncionario: $(this).attr('id-funcionario')}, function(listaEquipes) {
-		$("#dataTableEquipe tbody tr").detach();	
-		$.each(listaEquipes, function(index, item) { // Iterate over the JSON array.
-			drawRowEquipe(item);
-	        });
-        });
-    });	
-	
-	        function drawRowEquipe(rowData) {
-		    var row = $("<tr />")
+<script type="text/javascript">
+	$(document).on("click", "#btnEquipesPorFuncionario", function() {
 
-		    $("#dataTableEquipe tbody").append(row);
-            row.append($("<td>" + rowData.nome + "</td>"));
-			}
-	        
-	$(document).on("click", "#btnTecnologia", function() { 
-	        	
-	$.post("ajax?logica=busca.BuscarTecnologiaPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-func')}, function(listaTecnologias) {
-	    $("#dataTableTecnologia tbody tr").detach();	
-	    $.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
-	        drawRowTecnologia(item);
-	       });
-	    });
-	});	
-	        	
-	      function drawRowTecnologia(rowData) {
-	      var row = $("<tr />")
+		$.post("<c:url value = '/busca/buscarEquipePorFuncionario'/>", {
+			idFuncionario : $(this).attr('id-funcionario')
+		}, function(listaEquipes) {
 
-	      $("#dataTableTecnologia tbody").append(row);
-	      row.append($("<td>" + rowData.nome + "</td>"));
-	      }
-	      
-	  	$(document).on("click", "#btnNegocio", function() { 
-        	
-	  		$.post("ajax?logica=busca.BuscarNegocioPorFuncionarioAjaxLogica", { idFuncionario: $(this).attr('id-funcionarioN')}, function(listaNegocios) {
-	  		    $("#dataTableNegocio tbody tr").detach();	
-	  		    $.each(listaNegocios, function(index, item) { // Iterate over the JSON array.
-	  		        drawRowNegocio(item);
-	  		       });
-	  		    });
-	  		});	
-	  		        	
-	  		      function drawRowNegocio(rowData) {
-	  		      var row = $("<tr />")
+			$("#dataTableEquipe tbody tr").detach();
+			$.each(listaEquipes, function(index, item) { // Iterate over the JSON array.
+				drawRowEquipe(item);
+			});
+		});
+	});
 
-	  		      $("#dataTableNegocio tbody").append(row);
-	  		      row.append($("<td>" + rowData.areaAtuacao + "</td>"));
-	  		      }     
-	
-	</script>
-	
-	
-	
+	function drawRowEquipe(rowData) {
+		var row = $("<tr />")
+
+		$("#dataTableEquipe tbody").append(row);
+		row.append($("<td>" + rowData.nome + "</td>"));
+	}
+
+	$(document).on("click", "#btnTecnologia", function() {
+
+		$.post("<c:url value = '/busca/buscarTecnologiaPorFuncionario'/>", {
+			idFuncionario : $(this).attr('id-func')
+		}, function(listaTecnologias) {
+			$("#dataTableTecnologia tbody tr").detach();
+			$.each(listaTecnologias, function(index, item) { // Iterate over the JSON array.
+				drawRowTecnologia(item);
+			});
+		});
+	});
+
+	function drawRowTecnologia(rowData) {
+		var row = $("<tr />")
+
+		$("#dataTableTecnologia tbody").append(row);
+		row.append($("<td>" + rowData.nome + "</td>"));
+	}
+
+	$(document).on("click", "#btnNegocio", function() {
+
+		$.post("<c:url value = '/busca/buscarNegocioPorFuncionario'/>", {
+			idFuncionario : $(this).attr('id-funcionarioN')
+		}, function(listaNegocios) {
+			$("#dataTableNegocio tbody tr").detach();
+			$.each(listaNegocios, function(index, item) { // Iterate over the JSON array.
+				drawRowNegocio(item);
+			});
+		});
+	});
+
+	function drawRowNegocio(rowData) {
+		var row = $("<tr />")
+
+		$("#dataTableNegocio tbody").append(row);
+		row.append($("<td>" + rowData.areaAtuacao + "</td>"));
+	}
+</script>
+
+
+
 </head>
 <body>
 
-	<c:import url="/resources/jspImport/header.jsp"></c:import> 
-	
+	<c:import url="/resources/jspImport/header.jsp"></c:import>
+
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i>
-					<a href="<c:url value='/'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/'/>">Principal</a></li>
 
 				<li>Funcionários</li>
 				<li class="active">Lista de Funcionários</li>
@@ -90,11 +93,11 @@
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
 								<h3>Lista de Funcionários</h3>
-								
+
 								<!-- Message Erro-->
-								<c:import url="/resources/jspImport/msgErro.jsp"/>
-								
-								<span class="label label-info pull-right">${fn:length(funcionarios)}
+								<c:import url="/resources/jspImport/msgErro.jsp" />
+
+								<span class="label label-info pull-right">${fn:length(listaFuncionario)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -115,43 +118,53 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="funcionario" items="${funcionarios}">
+										<c:forEach var="funcionario" items="${listaFuncionario}">
 											<tr>
-												<td>${funcionario.nome}</td>							
+												<td>${funcionario.nome}</td>
 												<td>${funcionario.telefone}</td>
-												
-												<td>
-													<a id="btnTecnologia" id-func="${funcionario.id}" href="#simpleModalTecnologia" role="button" data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>										
+
+												<td><a id="btnTecnologia" id-func="${funcionario.id}"
+													href="#simpleModalTecnologia" role="button"
+													data-toggle="modal" class="btn btn-primary btn-small">Tecnologias</a>
 												</td>
-													
-												<td>
-													<a id="btnNegocio" id-funcionarioN="${funcionario.id}" href="#simpleModalNegocio" role="button" data-toggle="modal" class="btn btn-primary btn-small">Negocios</a>								
+
+												<td><a id="btnNegocio"
+													id-funcionarioN="${funcionario.id}"
+													href="#simpleModalNegocio" role="button"
+													data-toggle="modal" class="btn btn-primary btn-small">Negocios</a>
 												</td>
-	
-												<td>
-												<a id="btnEquipesPorFuncionario" id-funcionario="${funcionario.id}" href="#simpleModalEquipe" role="button" data-toggle="modal" class="btn btn-primary btn-small">Equipes</a>
-												</td>
-																		
-												<td>${funcionario.nomeUser}</td>											
+
+												<td><a id="btnEquipesPorFuncionario"
+													id-funcionario="${funcionario.id}"
+													href="#simpleModalEquipe" role="button" data-toggle="modal"
+													class="btn btn-primary btn-small">Equipes</a></td>
+
+												<td>${funcionario.nomeUser}</td>
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
-												<fmt:parseDate value="${funcionario.dataNascimento}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
-												<td><fmt:formatDate value="${parsedDate}"  type="date" pattern="dd/MM/yyyy" /></td>
-												
-							
-													
-												<td style="text-align: center;"><a href="
+												<fmt:parseDate value="${funcionario.dataNascimento}"
+													pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+												<td><fmt:formatDate value="${parsedDate}" type="date"
+														pattern="dd/MM/yyyy" /></td>
+
+
+
+												<td style="text-align: center;"><a
+													href="
 													<c:url value='formularioAlterarFuncionario'>
 													<c:param name='idFuncionario' value='${funcionario.id}'/>
 													</c:url>
-													">													
-													<i class="fa fa-edit fa-lg"></a></td>
-												<td style="text-align: center;"><a href="
-													<c:url value='excluirFuncionario'>
+													">
+														<i class="fa fa-edit fa-lg">
+												</a></td>
+												<td style="text-align: center;"><a
+													href="
+													<c:url value='removerFuncionario'>
 													<c:param name='idFuncionario' value='${funcionario.id}'/>
 													</c:url>
-													">	
-													<i class="fa fa-times fa-lg"></a></td>
+													">
+														<i class="fa fa-times fa-lg">
+												</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -159,10 +172,10 @@
 								<div class="panel-footer text-left">
 									<a href="formularioAdicionarFuncionario">
 										<button class="btn btn-success" type="submit">Cadastrar
-										Novo Funcionário</button>
-										</a>
-									</div> 
+											Novo Funcionário</button>
+									</a>
 								</div>
+							</div>
 							<!-- /.padding-md -->
 						</div>
 						<!-- /panel -->
@@ -176,87 +189,103 @@
 		<!-- /.padding-md -->
 	</div>
 	<!-- /main-container -->
-	
-		<div class="modal fade" id="simpleModalEquipe">
- 			<div class="modal-dialog">
-   			<div class="modal-content">
-     				<div class="modal-header">
-       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+</div>
+
+	<div class="modal fade" id="simpleModalEquipe">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
 					<h4>Equipes</h4>
-     				</div>
-			    <div class="modal-body">
-			        <table class="table table-striped" id="dataTableEquipe">
-						<thead >
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped" id="dataTableEquipe">
+						<thead>
 							<tr>
 							</tr>
 						</thead>
-						<tbody >
-							
+						<tbody>
+
 						</tbody>
 					</table>
-			    </div>
-			    <div class="modal-footer">
-			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
-			    </div>
-		  	</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-sm btn-success" data-dismiss="modal"
+						aria-hidden="true">Fechar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
 	<div class="modal fade" id="simpleModalTecnologia">
- 			<div class="modal-dialog">
-   			<div class="modal-content">
-     				<div class="modal-header">
-       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
 					<h4>Tecnologias</h4>
-     				</div>
-			    <div class="modal-body">
-			        <table class="table table-striped" id="dataTableTecnologia">
-						<thead >
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped" id="dataTableTecnologia">
+						<thead>
 							<tr>
 							</tr>
 						</thead>
-						<tbody >
-							
+						<tbody>
+
 						</tbody>
 					</table>
-			    </div>
-			    <div class="modal-footer">
-			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
-			    </div>
-		  	</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-sm btn-success" data-dismiss="modal"
+						aria-hidden="true">Fechar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
 	<div class="modal fade" id="simpleModalNegocio">
- 			<div class="modal-dialog">
-   			<div class="modal-content">
-     				<div class="modal-header">
-       				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
 					<h4>Negocios</h4>
-     				</div>
-			    <div class="modal-body">
-			        <table class="table table-striped" id="dataTableNegocio">
-						<thead >
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped" id="dataTableNegocio">
+						<thead>
 							<tr>
 							</tr>
 						</thead>
-						<tbody >
-							
+						<tbody>
+
 						</tbody>
 					</table>
-			    </div>
-			    <div class="modal-footer">
-			        <button class="btn btn-sm btn-success" data-dismiss="modal" aria-hidden="true">Fechar</button>
-			    </div>
-		  	</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	</div> 
-	
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-sm btn-success" data-dismiss="modal"
+						aria-hidden="true">Fechar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	</div>
+
 	<c:import url="/resources/jspImport/logout.jsp"></c:import>
-	
+
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
-	
+
 
 </body>
 </html>

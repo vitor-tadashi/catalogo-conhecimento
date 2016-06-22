@@ -60,7 +60,8 @@
 												<td style="text-align: center;"><a
 													href="
 													<c:url value='removerNegocio'>
-													<c:param name='idNegocio' value='${negocio.id}'/>
+													<c:param name='idNegocio' value='${negocio.id}'/> 
+													<c:param name='ativo' value='n'/>
 													</c:url>
 													">
 														<i class="fa fa-times fa-lg">

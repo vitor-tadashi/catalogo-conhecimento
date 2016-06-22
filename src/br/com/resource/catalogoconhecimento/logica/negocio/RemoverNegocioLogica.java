@@ -13,7 +13,7 @@ public class RemoverNegocioLogica implements Logica {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		NegocioBusiness negocioBusiness = new NegocioBusiness();
-		negocioBusiness.remover(id);
+//		negocioBusiness.remover(id);
 
 		return "mvc?logica=negocio.ListarNegocioLogica";
 	}
