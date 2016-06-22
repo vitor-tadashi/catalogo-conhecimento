@@ -150,8 +150,7 @@
 											<!-- /.col -->
 										</div>
 										<!-- /.row -->
-										<input type="hidden" id="countConcorrente"
-											name="countConcorrente" value="0">
+										<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
 									</div>
 									<div class="panel-footer text-left">
 										<button class="btn btn-success" type="submit">Adicionar</button>

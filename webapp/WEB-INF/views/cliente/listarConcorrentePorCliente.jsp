@@ -9,9 +9,12 @@
 <head>
 <title>Lista de Concorrentes do Cliente</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
-<script type="text/javascript">
+
+	<script type="text/javascript">
+	
 		function add() {
-			var concorrente = $("#concorrente").val();
+			var concorrente = $("#concorrente option:selected").text();
+			var idConcorrente = $("#concorrente option:selected").val();
 			var valorConcorrente = $("#valorConcorrente").val();
 			var count = $('#tbConcorrente tbody tr').length;
 			if (valorConcorrente != "" && valorConcorrente != "0") {
@@ -25,8 +28,8 @@
 			row.append("<td>" + nome + "</td>");
 			row.append("<td>" + valor + "</td>");
 			row.append("<td><button class='delete' type='button'>-</button></td>");
-			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
-			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
+			row.append("<input type='hidden' name='listaConcorrentes[" + count + "].concorrente.id' id='listaConcorrentes[" + count + "].concorrente.id' value='" + idConcorrente + "'  />");
+			row.append("<input type='hidden' name='listaConcorrentes[" + count + "].valorHora' id='listaConcorrentes[" + count + "].valorHora' value='" + valor + "' /></td>");
 			$("#countConcorrente").val(count);
 		}
 
@@ -35,7 +38,8 @@
 				$(this).closest('tr').remove();
 			});
 		});
-</script>
+
+	</script>
 </head>
 
 <body class="overflow-hidden">
