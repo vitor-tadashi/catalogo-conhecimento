@@ -57,7 +57,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="adicionarConcorrente">
+									<form class="no-margin" id="formAdd" method="POST" action="adicionarConcorrente">
 										<div class="panel-heading">
 											<h3>Adicionar Concorrente</h3>
 										</div>

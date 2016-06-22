@@ -35,10 +35,11 @@ public class ConcorrenteController {
 	@RequestMapping(value = "adicionarConcorrente", method = RequestMethod.POST)
 	public String adicionarConcorrente(ConcorrenteBean concorrenteBean) throws BusinessException {
 		concorrenteBusiness.adicionar(concorrenteBean);
-		for (ConcorrenteClienteBean cliente : concorrenteBean.getListaClientes()) {
-			concorrenteBusiness.adicionarConcorrenteCliente(cliente);
+		if (concorrenteBean.getListaClientes() != null) {
+			for (ConcorrenteClienteBean cliente : concorrenteBean.getListaClientes()) {
+				concorrenteBusiness.adicionarConcorrenteCliente(cliente);
+			}
 		}
-
 		return "redirect:listarConcorrente";
 	}
 
