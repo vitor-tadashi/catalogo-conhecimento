@@ -33,26 +33,12 @@ public class ConcorrenteController {
 	}
 
 	@RequestMapping(value = "adicionarConcorrente", method = RequestMethod.POST)
-	public String adicionarConcorrente(ConcorrenteBean concorrenteBean,
-			@RequestParam("countCliente") String countClienteParam, @RequestParam("txtNome") String txtNome,
-			@RequestParam("valorHora") String valorHoraParam) throws BusinessException {
-
+	public String adicionarConcorrente(ConcorrenteBean concorrenteBean) throws BusinessException {
 		concorrenteBusiness.adicionar(concorrenteBean);
+		for (ConcorrenteClienteBean cliente : concorrenteBean.getListaClientes()) {
+			concorrenteBusiness.adicionarConcorrenteCliente(cliente);
+		}
 
-		// Integer countCliente = Integer.parseInt(countClienteParam);
-		// ClienteBean clienteBean;
-		// ConcorrenteClienteBean concorrenteClienteBean;
-		// for (int i = 0; i <= countCliente; i++) {
-		// String nomeCliente = txtNome + i;
-		// if (nomeCliente != null) {
-		// clienteBean = clienteBusiness.obterPorNome(nomeCliente);
-		// concorrenteClienteBean = new ConcorrenteClienteBean();
-		// concorrenteClienteBean.setCliente(clienteBean);
-		// concorrenteClienteBean.setConcorrente(concorrenteBean);
-		// concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam));
-		// concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
-		// }
-		// }
 		return "redirect:listarConcorrente";
 	}
 

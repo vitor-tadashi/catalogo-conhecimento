@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import java.util.List;
+
 public class ClienteBean {
 
 	private int id;
@@ -9,7 +11,8 @@ public class ClienteBean {
 	private String numero;
 	private String cnpj;
 	private String email;
-	
+	private List<ConcorrenteClienteBean> listaConcorrentes;
+
 	public int getId() {
 		return id;
 	}
@@ -65,5 +68,13 @@ public class ClienteBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public List<ConcorrenteClienteBean> getListaConcorrentes() {
+		return listaConcorrentes;
+	}
+
+	public void setListaConcorrentes(List<ConcorrenteClienteBean> listaConcorrentes) {
+		this.listaConcorrentes = listaConcorrentes;
+	}
+
 }

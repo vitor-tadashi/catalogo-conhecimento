@@ -10,10 +10,12 @@
 	
 	<script type="text/javascript">
 		function add() {
+			var cliente = $("#cliente option:selected").text();
+			var idCliente = $("#cliente option:selected").val();
 			var cliente = $("#cliente").val();
 			var valorConcorrente = $("#valorConcorrente").val();
 			var count = $('#tbCliente tbody tr').length;
-			addCliente(cliente, valorConcorrente, count);
+			addCliente(cliente, idCliente, valorConcorrente, count);
 		}
 	
 		function addCliente(nome, valor, count) {
@@ -22,8 +24,8 @@
 			row.append("<td>" + nome + "</td>");
 			row.append("<td>" + valor + "</td>");
 			row.append("<td><button class='delete' type='button'>-</button></td>");
-			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
-			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
+			row.append("<input type='hidden' name='listaClientes[" + count + "].cliente.id' id='listaClientes[" + count + "].cliente.id' value='" + idCliente + "'  />");
+			row.append("<input type='hidden' name='listaClientes[" + count + "].valorHora' id='listaClientes[" + count + "].valorHora' value='" + valor + "' /></td>");
 			$("#countCliente").val(count);
 		}
 
@@ -55,7 +57,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarConcorrente'> <c:param name='countCliente'/> <c:param name='txtNome'/> <c:param name='valorHora'/> </c:url>">
+									<form class="no-margin" id="formAdd"  method="POST" action="adicionarConcorrente">
 										<div class="panel-heading">
 											<h3>Adicionar Concorrente</h3>
 										</div>
@@ -116,6 +118,7 @@
 													</table>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
+											<input type="hidden" id="countConcorrente" name="countCliente" value="0">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Adicionar</button>
