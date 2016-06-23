@@ -12,8 +12,8 @@
 		<div id="main-container" style="width: auto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					<li><i class="fa fa-home"></i><a href="index.jsp">
-							Principal</a></li>
+					<li><i class="fa fa-home"></i>		
+					<a href="<c:url value='/'/>">Principal</a></li>
 					<li>Tecnologias</li>
 					<li class="active">Alterar Tecnologia</li>
 				</ul>
@@ -39,7 +39,8 @@
 													<div class="col-lg-2">
 														<div class="form-group">
 															<label class="control-label">Nome da Tecnologia
-																<input type="hidden" name="id" value="${tecnologia.id}" readonly>
+																<input type="hidden" name="id" value="${tecnologia.id}">
+																<input type="hidden" name="ativo" value="S">
 																<input type="text" class="form-control" maxlength="50" name="nome" value="${tecnologia.nome}">
 															</label>
 														</div>

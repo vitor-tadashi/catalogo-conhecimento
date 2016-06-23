@@ -14,8 +14,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Negócios</li>
 				<li class="active">Lista de Negócios</li>
 			</ul>
@@ -32,7 +33,7 @@
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp" />
 
-								<span class="label label-info pull-right">${fn:length(Negocio)}
+								<span class="label label-info pull-right">${fn:length(negocio)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -59,7 +60,8 @@
 												<td style="text-align: center;"><a
 													href="
 													<c:url value='removerNegocio'>
-													<c:param name='idNegocio' value='${negocio.id}'/>
+													<c:param name='idNegocio' value='${negocio.id}'/> 
+													<c:param name='ativo' value='n'/>
 													</c:url>
 													">
 														<i class="fa fa-times fa-lg">

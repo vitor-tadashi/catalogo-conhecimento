@@ -14,7 +14,7 @@
 		
 		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
 			
-			$.post("<c:url value = 'buscarTecnologiaPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
+			$.post("<c:url value = '/busca/buscarTecnologiaPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
@@ -24,7 +24,7 @@
 		
 $(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
 			
-			$.post("<c:url value = 'buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
+			$.post("<c:url value = '/busca/buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
@@ -43,7 +43,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		    
 		$(document).on("click", "#btnEquipePorProjeto", function() { 
 			
-			$.post("<c:url value = 'buscarEquipePorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
+			$.post("<c:url value = '/busca/buscarEquipePorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
 				$("#dataTableEquipe tbody tr").detach();	
 				$.each(listaEquipeProjeto, function(index, item) { // Iterate over the JSON array.
 					drawRowEquipe(item);
@@ -53,7 +53,7 @@ $(document).on("click", "#btnTecnologiaPorFuncionario", function() {
 		
 		$(document).on("click", "#btnFuncionarioPorEquipe", function() { 
 			
-			$.post("<c:url value = 'buscarFuncionariosPorEquipe'/>", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
+			$.post("<c:url value = '/busca/buscarFuncionariosPorEquipe'/>", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
 				$("#dataTableFuncionario tbody tr").detach();	
 				$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
 					drawRowFuncionario(item);

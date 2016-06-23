@@ -13,8 +13,9 @@
 			<div id="main-container" style="width: auto">
 				<div id="breadcrumb">
 					<ul class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.jsp">
-								Principal</a></li>
+						<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 						<li>Equipes</li>
 						<li class="active">Adicionar Equipe</li>
 					</ul>
@@ -27,7 +28,7 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAdd"  method="POST" action="adicionarEquipe">
+										<form class="no-margin" id="formAdd"  method="POST" action="/catalogoconhecimento/equipe/adicionarEquipe">
 											<div class="panel-heading">
 											<h3>Adicionar Equipe</h3>
 											</div>
@@ -40,6 +41,7 @@
 														<div class="form-group">
 															<label class="control-label">Nome da Equipe
 																<input type="text" class="form-control" maxlength="50" name="nome" >
+																<input type ="hidden" name="ativo" value = "S"/>
 															</label>
 														</div>  
 														<div class="form-group">

@@ -105,12 +105,8 @@ public class ConcorrenteController {
 	}
 
 	@RequestMapping(value = "removerConcorrente", method = RequestMethod.GET)
-	public String removerConcorrente(@RequestParam("idConcorrente") String idConcorrenteParam)
-			throws BusinessException {
-
-		int idConcorrente = Integer.parseInt(idConcorrenteParam);
-		concorrenteBusiness.remover(idConcorrente);
-
+	public String removerConcorrente(ConcorrenteBean concorrenteBean) throws BusinessException {
+		concorrenteBusiness.remover(concorrenteBean);
 		return "redirect:listarConcorrente";
 	}
 

@@ -12,8 +12,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Negócios</li>
 				<li class="active">Alterar Negócio</li>
 			</ul>
@@ -39,11 +40,13 @@
 
 											<div class="col-sm-2">
 												<div class="form-group">
-													<label class="control-label">Área de Atuação <input
-														type="hidden" class="form-control" name="id"
-														value="${negocio.id}" readonly> <input type="text"
-														class="form-control" maxlength="100" name="areaAtuacao"
+													<label class="control-label">Área de Atuação 
+													 <input type="text" class="form-control" maxlength="100" name="areaAtuacao"
 														value="${negocio.areaAtuacao}">
+														<input
+														type="hidden" class="form-control" name="id"
+														value="${negocio.id}" readonly>
+														<input type ="hidden" name="ativo" value = "S"/>
 													</label>
 												</div>
 											</div>

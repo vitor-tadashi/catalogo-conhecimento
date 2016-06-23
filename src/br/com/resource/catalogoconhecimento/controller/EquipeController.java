@@ -8,18 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
+import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("equipe")
 public class EquipeController {
 
 	@Autowired
@@ -27,14 +30,18 @@ public class EquipeController {
 
 	@Autowired
 	private FuncionarioBusiness funcionarioBusiness;
+	
+	@Autowired
+	private TecnologiaBusiness tecnologiaBusiness;
 
 	@RequestMapping(value = "formularioAdicionarEquipe", method = RequestMethod.GET)
 	public String formularioAdicionar() {
 		return "equipe/adicionarEquipe";
 	}
-
+	
 	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
-	public String adicionar(EquipeBean equipe) throws BusinessException {
+	public String adicionar(EquipeBean equipe, @RequestParam("ativo")String ativo) throws BusinessException {
+		equipe.setAtivo(ativo.charAt(0));
 		equipeBusiness.inserir(equipe);
 		return "redirect:listarEquipe";
 
@@ -62,9 +69,11 @@ public class EquipeController {
 	}
 
 	@RequestMapping(value = "excluirEquipe", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idEquipe") String id) throws BusinessException {
+	public String excluir( @RequestParam("idEquipe") String id,@RequestParam("ativo") String ativo, HttpServletRequest request) throws BusinessException{
 		int idEquipe = Integer.parseInt(id);
-		equipeBusiness.deletar(idEquipe);
+		EquipeBean equipe = equipeBusiness.obterPorId(idEquipe);
+		equipe.setAtivo(ativo.charAt(0));
+		equipeBusiness.deletar(equipe);
 		return "redirect:listarEquipe";
 
 	}
@@ -80,9 +89,8 @@ public class EquipeController {
 		request.setAttribute("idEquipe", idEq);
 
 		return "forward:listarFuncionarioPorEquipe";
-
 	}
-
+	
 	@RequestMapping(value = "listarFuncionarioPorEquipe", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarFuncionarioPorEquipe(Model model, @RequestParam("idEquipe") String idEquipe) throws BusinessException {
 
@@ -97,24 +105,31 @@ public class EquipeController {
 		return "equipe/listarFuncionariosPorEquipe";
 	}
 
-	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
-	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
-			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
-
-		int idEquipe = Integer.parseInt(idEq);
-		int idFuncionario = Integer.parseInt(idFunc);
-
-		equipeBusiness.inserirPorEquipe(idEquipe, idFuncionario);
-		request.setAttribute("idEquipe", idEq);
-
-		return "forward:listarFuncionarioPorEquipe";
-
-	}
+//	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
+//	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
+//			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
+//
+//		int idEquipe = Integer.parseInt(idEq);
+//		int idFuncionario = Integer.parseInt(idFunc);
+//
+//		equipeBusiness.inserirPorEquipe(idEquipe, idFuncionario);
+//		request.setAttribute("idEquipe", idEq);
+//
+//		return "forward:listarFuncionarioPorEquipe";
+//
+//	}
 	
 	@ExceptionHandler(BusinessException.class)
 	public String exceptionHandler(BusinessException exception, Model model){
 		model.addAttribute("msgErro", exception.getMessage());
 		return "forward:listarEquipe";
+	}
+	
+	@RequestMapping(value = "buscarTecnologiaPorFuncionario", method = RequestMethod.POST)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario( @RequestParam("idFuncionario") String id)
+			throws BusinessException {
+		int idFuncionario = Integer.parseInt(id);
+		return tecnologiaBusiness.obterPorFuncionario(idFuncionario);
 	}
 
 }

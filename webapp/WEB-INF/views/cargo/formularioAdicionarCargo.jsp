@@ -12,8 +12,8 @@
 		<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
 				<li>Cargos</li>
 				<li class="active">Adicionar Cargo</li>
 			</ul>
@@ -26,8 +26,8 @@
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAdd"  method="POST" 
-									action="<c:url value='adicionarCargo'>
-									<c:param name='paginaAtual' value='formularioAdicionarCargo'/>
+									action="<c:url value='/cargo/adicionarCargo'>
+									<c:param name='paginaAtual' value='/cargo/formularioAdicionarCargo'/>
 											</c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Cargo</h3>
@@ -41,6 +41,7 @@
 															<div class="form-group">
 															<label class="control-label">Cargo
 															<input type="text" class="form-control"  maxlength="80"  name="nome"/>
+															<input type ="hidden" name="ativo" value = "S"/>
 														</label>
 													</div>
 												</div><!-- /.col -->

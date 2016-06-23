@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
+import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
@@ -26,8 +30,10 @@ public class NegocioController {
 	}
 
 	@RequestMapping(value = "adicionarNegocio", method = RequestMethod.POST)
-	public String adiciona(NegocioBean negocioBean) throws BusinessException {
-		negocioBusiness.adicionar(negocioBean);
+	public String adiciona(NegocioBean negocioBean, @RequestParam("ativo")String ativo) throws BusinessException {
+			negocioBean.setAreaAtuacao(negocioBean.getAreaAtuacao().trim());
+			negocioBean.setAtivo(ativo.charAt(0)); 
+			negocioBusiness.adicionar(negocioBean); 
 		return "redirect:listarNegocio";
 	}
 
@@ -46,15 +52,19 @@ public class NegocioController {
 	}
 
 	@RequestMapping(value = "alterarNegocio", method = RequestMethod.POST)
-	public String alterar(NegocioBean negocioBean) throws BusinessException {
+	public String alterar(NegocioBean negocioBean, @RequestParam("id") String id, @RequestParam("ativo")String ativo) throws BusinessException {
+		negocioBean.setAreaAtuacao(negocioBean.getAreaAtuacao().trim());
+		negocioBean.setAtivo(ativo.charAt(0)); 
 		negocioBusiness.alterar(negocioBean);
 		return "redirect:listarNegocio";
 	}
 
 	@RequestMapping(value = "removerNegocio", method = RequestMethod.GET)
-	public String remover(@RequestParam("idNegocio") String id) throws BusinessException {
+	public String remover( @RequestParam("idNegocio") String id, @RequestParam("ativo") String ativo, HttpServletRequest request) throws BusinessException {
 		int idNegocio = Integer.parseInt(id);
-		negocioBusiness.remover(idNegocio);
+		NegocioBean negocio = negocioBusiness.obterPorId(idNegocio);
+		negocio.setAtivo(ativo.charAt(0));
+		negocioBusiness.remover(negocio);		
 		return "redirect:listarNegocio";
 	}
 
@@ -62,6 +72,6 @@ public class NegocioController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "index";
+		return "forward:listarNegocio";
 	}
 }

@@ -27,21 +27,21 @@ public class ClienteBusiness {
 			ClienteBean ClienteClone = this.obterPorNome(clienteBean.getNome());
 
 			if (!validarNome(clienteBean.getNome())) {
-				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
+				throw new TamanhoCampoException("Por Favor, digite um nome vÃ¡lido!");
 			} else if (clienteDesativado != null) {
 				this.reativar(clienteBean);
 			} else if (ClienteClone != null) {
-				throw new NomeRepetidoException("Este nome já exite na base de dados.");
+				throw new NomeRepetidoException("Este nome jÃ¡ exite na base de dados.");
 			} else if (!validarEmail(clienteBean.getEmail())) {
-				throw new Exception("Email inválido");
+				throw new Exception("Email invÃ¡lido");
 			} else if (!validarLogradouro(clienteBean.getLogradouro())) {
-				throw new Exception("Logradouro inválido");
+				throw new Exception("Logradouro invÃ¡lido");
 			} else if (!validarNumero(clienteBean.getNumero())) {
-				throw new Exception("Número inválido");
+				throw new Exception("NÃºmero invÃ¡lido");
 			} else if (!validarCep(clienteBean.getCep())) {
-				throw new Exception("CEP inválido");
+				throw new Exception("CEP invÃ¡lido");
 			} else if (!validarCnpj(clienteBean.getCnpj())) {
-				throw new Exception("CNPJ inválido");
+				throw new Exception("CNPJ invÃ¡lido");
 			} else {
 				if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj()))
 					clienteDao.adicionar(clienteBean);
@@ -55,7 +55,7 @@ public class ClienteBusiness {
 		try {
 			List<ClienteBean> listaCliente = clienteDao.listar();
 			if (listaCliente.isEmpty()) {
-				throw new ConsultaNulaException("Não há clientes cadastrados");
+				throw new ConsultaNulaException("NÃ£o hÃ¡ clientes cadastrados");
 			} else {
 				return listaCliente;
 			}
@@ -70,21 +70,21 @@ public class ClienteBusiness {
 			ClienteBean clienteClone = this.obterPorNome(clienteBean.getNome());
 
 			if (cliente == null) {
-				throw new Exception("Cliente não consta na base de dados");
+				throw new Exception("Cliente nï¿½o consta na base de dados");
 			} else if (!validarNome(clienteBean.getNome())) {
-				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
+				throw new TamanhoCampoException("Por Favor, digite um nome vï¿½lido!");
 			} else if (clienteClone != null && clienteClone.getId() != clienteBean.getId()) {
-				throw new NomeRepetidoException("Este nome já exite na base de dados.");
+				throw new NomeRepetidoException("Este nome jï¿½ exite na base de dados.");
 			} else if (!validarEmail(clienteBean.getEmail())) {
-				throw new Exception("Email inválido");
+				throw new Exception("Email invï¿½lido");
 			} else if (!validarLogradouro(clienteBean.getLogradouro())) {
-				throw new Exception("Logradouro inválido");
+				throw new Exception("Logradouro invï¿½lido");
 			} else if (!validarNumero(clienteBean.getNumero())) {
-				throw new Exception("Número inválido");
+				throw new Exception("Nï¿½mero invï¿½lido");
 			} else if (!validarCep(clienteBean.getCep())) {
-				throw new Exception("CEP inválido");
+				throw new Exception("CEP invï¿½lido");
 			} else if (!validarCnpj(clienteBean.getCnpj())) {
-				throw new Exception("CNPJ inválido");
+				throw new Exception("CNPJ invï¿½lido");
 			} else {
 				clienteDao.alterar(clienteBean);
 			}
@@ -138,7 +138,7 @@ public class ClienteBusiness {
 	}
 
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{2,150}"));
+		return (nome.matches("[A-Za-zï¿½-ï¿½0-9+'\\-\\s]{2,150}"));
 	}
 
 	public boolean validarEmail(String email) {
@@ -146,7 +146,7 @@ public class ClienteBusiness {
 	}
 
 	public boolean validarLogradouro(String logradouro) {
-		return (logradouro.matches("[A-Za-zÀ-ú0-9+'?\\-?\\,\\.\\/\\s]+") && logradouro.length() <= 100);
+		return (logradouro.matches("[A-Za-zï¿½-ï¿½0-9+'?\\-?\\,\\.\\/\\s]+") && logradouro.length() <= 100);
 	}
 
 	public boolean validarNumero(String numero) {

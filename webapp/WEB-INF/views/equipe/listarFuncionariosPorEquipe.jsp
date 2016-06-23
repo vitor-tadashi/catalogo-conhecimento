@@ -33,8 +33,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Equipes</li>
 				<li>Listar Equipes</li>
 				<li class="active">Listar Funcionarios Por Equipe</li>
@@ -75,7 +76,7 @@
 												</td>
 												<td>
 													<a href="
-													<c:url value='deletarFuncionarioPorEquipe'>
+													<c:url value='/equipe/deletarFuncionarioPorEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													<c:param name='idFuncionario' value='${funcionarioEquipe.id}'/>
 													</c:url>
@@ -86,7 +87,7 @@
 			 							</c:forEach>
 			 						</tbody>	
 								</table>
-								<form name="formAdicionaFuncionarioEquipe" method="POST" action="adicionarFuncionarioNaEquipe">
+								<form name="formAdicionaFuncionarioEquipe" method="POST" action="/catalogoconhecimento/equipe/adicionarFuncionarioNaEquipe">
 									<div class="panel-heading">
 										<h4>Inserir Funcionário na Equipe</h4>
 									</div>

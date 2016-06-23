@@ -39,9 +39,9 @@ public class AtualizarProjetoLogica implements Logica{
 		String [] equipes = request.getParameterValues("equipesArray[]");
 
 		if(nomeProjeto.trim().equals("")){
-			throw new AtributoNuloException("Por favor, digite um nome válido!");
+			throw new AtributoNuloException("Por favor, digite um nome vï¿½lido!");
 		} else if( observacao.trim().equals("")){
-			throw new AtributoNuloException("Por favor, digite uma observação válida!");
+			throw new AtributoNuloException("Por favor, digite uma observaï¿½ï¿½o vï¿½lida!");
 		}
 
 		//transferir da String para a lista

@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head> 
-	<title>Atualizar Projeto</title>
+	<title>Alterar Projeto</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body class="overflow-hidden">
@@ -13,7 +13,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Projetos</li>
 				<li class="active">Alterar Projeto</li>
 			</ul>
@@ -25,8 +27,11 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt" method="POST" action="mvc">
-										<div class="panel-heading">
+									<form class="no-margin" id="formAlt" method="POST"
+									action="<c:url value='alterarProjeto'>
+										<c:param name='paginaAtual' value='formularioAlterarProjeto'/>
+											</c:url>">
+									<div class="panel-heading">
 											<h3>Alterar Projeto</h3>
 										</div>
 										<div class="panel-body">
@@ -54,23 +59,22 @@
 											<div class="row"> 
 												<div class="col-sm-2">
 													<div class="form-group">
-														<label class="control-label">Cliente
-															<select class="form-control input-sm" name="cliente">
+														<label class="control-label">Cliente:
+															<select class="form-control" name="cliente.id">
 																<c:forEach items="${clientes}" var="cliente">
-																	<option value="${cliente.id}">${cliente.nome}</option>
+																	<option value="${clientes.id}">${clientes.nome}</option>
 																</c:forEach>
 															</select>
 														</label>
 													</div>
 												</div><!-- /.col --> 	
- 												<div class="col-sm-3">
+ 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Equipe:</label>
 														<div class="checkbox">
-															<c:forEach items="${equipes}" var="equipe">
+															<c:forEach items="${equipes}" var="equipe" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="equipesArray[]" value="${equipe.nome}" data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Equipe"/>
+																	<input type="checkbox" name="listaEquipe[${count.index}].id" value="${equipe.nome}" />
 																	<span class="custom-checkbox"></span>
 																	${equipe.nome}
 																</label>
@@ -80,15 +84,14 @@
 													</div>
 												</div><!-- /.col --> 											
 											</div>
-											<div class="row">  
-												<div class="col-sm-2">
+											<!-- <div class="row">   -->
+												<div class="col-sm-3">
 													<div class="form-group">
-														<label class="control-label">Negócio:</label>
+														<label class="control-label">Negócios:</label>
 														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocio">
+															<c:forEach items="${negocios}" var="negocio" varStatus="count"> 
 																<label class="control-label">		
-																	<input type="checkbox" name="negociosArray[]" value="${negocio.areaAtuacao}" data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Negócio"/>
+																	<input type="checkbox" name="negociosArray[${count.index}].id" value="${negocio.id}"/>  
 																		<span class="custom-checkbox"></span>
 																		${negocio.areaAtuacao}
 																</label>
@@ -97,15 +100,14 @@
 														</div>	
 													</div>
 												</div><!-- /.col --> 
-															<div class="col-sm-2">
+												<div class="col-sm-2">
 													<div class="form-group">
-														<label class="control-label">Tecnologia:
+														<label class="control-label">Tecnologias:
 														</label>
 														<div class="checkbox">
-															<c:forEach items="${tecnologias}" var="tecnologia">
+															<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="tecnologiasArray[]" value="${tecnologia.nome}"data-fv-choice="true" data-fv-choice-min="1"  
-																	data-fv-choice-message="Escolha no mínimo 1 Tecnologia"/>
+																	<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}"/>
 																	<span class="custom-checkbox"></span>
 																	${tecnologia.nome}
 																</label>
@@ -116,8 +118,7 @@
 												</div><!-- /.col --> 
 												
 											</div>	
-											<input type="hidden" name="logica" value="projeto.AtualizarProjetoLogica">		
-											<input type="hidden" name = "logicaAtual" value = "projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
+										
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>

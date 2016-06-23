@@ -1,4 +1,4 @@
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 		<footer>
 			<div class="container">
 				<div class="col-md-12 col-sm-12">
@@ -6,13 +6,13 @@
 						<div class="col-sm-4 padding-md">
 							<div class="col-sm-12 padding-md "> 
 								<label  class="pull-left">Certificações</label>
-								<img class="img-responsive"  src="resources/img/Certificações.png">
+								<img class="img-responsive"  src="<c:url value='/resources/img/Certificações.png'/>">
 							</div>
 						</div><!-- /.col -->
 						<div class="col-sm-4 padding-md">
 							<div class="col-sm-12 padding-md ">
 								<label  class="pull-left">Principais Clientes</label>
-								<img class="img-responsive"  src="resources/img/Clientes.png"> 
+								<img class="img-responsive"  src="<c:url value='/resources/img/Clientes.png'/>"> 
 							</div>
 						</div><!-- /.col -->
 						
@@ -46,7 +46,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<h4 class="text-info">#TeamTadashi</h4>
+							<h4 class="text-info">#FábricaDeSoftware</h4>
 						</div>
 					</div><!-- /.row -->
 				</div>

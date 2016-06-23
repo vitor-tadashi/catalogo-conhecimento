@@ -1,9 +1,10 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.dao.CargoDAO;
@@ -12,40 +13,41 @@ import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
-import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class CargoBusiness {
 
+	@Autowired
+	private CargoDAO cargoDao;
+
+	@Transactional
 	public void adicionar(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-			CargoBean cargoDesativada = this.obterNomeDesativado(cargoBean);
-			CargoBean cargoClone = this.obterPorNome(cargoBean.getNome());
+			CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
 
-			if (!validarNome(cargoBean.getNome())) {
-				throw new CaracteresEspeciaisException("Por favor, digite um nome válido!");
+			if (cargoBean.getNome().equals("")) {
+				throw new AtributoNuloException("Por favor, digite um nome válido!");
 			} else if (cargoBean.getNome().length() > 80) {
-				throw new TamanhoCampoException("Número de caracteres excedido(máx. 80)");
-			} else if (cargoDesativada != null) {
-				this.reativar(cargoBean);
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.80)");
 			} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
-				throw new NomeRepetidoException("Este nome já consta na base de dados");
+				throw new NomeRepetidoException("Este nome já exite na base de dados");
+			} else if (!validarNome(cargoBean.getNome())) {
+				throw new CaracteresEspeciaisException("Por favor, digite um nome sem caracteres especiais");
 			} else {
 				cargoDao.adicionar(cargoBean);
 			}
-
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
+			
 		}
 	}
-
+	
+	@Transactional
 	public List<CargoBean> listar() throws BusinessException {
 		try {
-
-			CargoDAO cargoDao = new CargoDAO();
 			List<CargoBean> listaCargo = cargoDao.listar();
 
 			if (listaCargo.isEmpty()) {
@@ -57,77 +59,76 @@ public class CargoBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
+	
+	@Transactional
 	public CargoBean obterPorId(int id) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-
 			return cargoDao.obterPorId(id);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
+	
+	@Transactional
 	public CargoBean obterPorNome(String nome) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-
 			return cargoDao.obterPorNome(nome);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
-	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
-		CargoDAO cargoDao = new CargoDAO();
-
-		return cargoDao.obterNomeDesativado(cargoBean);
-	}
-
+	
+//	@Transactional
+//	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws ClassNotFoundException, SQLException {
+//		return cargoDao.obterNomeDesativado(cargoBean);
+//	}
+	
+	@Transactional
 	public void alterar(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
 			CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
 
 			if (cargoBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome v�lido!");
+				throw new AtributoNuloException("Por favor, digite um nome válido!");
 			} else if (cargoBean.getNome().length() > 80) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.80)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.80)");
 			} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
-				throw new NomeRepetidoException("Este nome j� exite na base de dados");
+				throw new NomeRepetidoException("Este nome já exite na base de dados");
 			} else if (!validarNome(cargoBean.getNome())) {
 				throw new CaracteresEspeciaisException("Por favor, digite um nome sem caracteres especiais");
 			} else {
 				cargoDao.alterar(cargoBean);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
+			
 		}
 	}
-
-	public void remover(int id) throws BusinessException {
+	
+	@Transactional
+	public void remover(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoDAO cargoDao = new CargoDAO();
-
-			if (cargoDao.verificarPorFuncionario(id)) {
-				cargoDao.remover(id);
-			} else {
-				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
-			}
+//			if (cargoDao.verificarPorFuncionario(cargoBean.getId())) {
+				cargoDao.remover(cargoBean);
+//			} else {
+//				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
+//			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
-	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
-		CargoDAO cargoDao = new CargoDAO();
-
-		cargoDao.reativar(cargoBean);
-	}
-
+	
+//	@Transactional
+//	public void reativar(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
+//		CargoDAO cargoDao = new CargoDAO();
+//
+//		cargoDao.reativar(cargoBean);
+//	}
+	
+	@Transactional
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-z�-�0-9\\s]{2,80}"));
-
+		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{2,80}"));
 	}
 
 }

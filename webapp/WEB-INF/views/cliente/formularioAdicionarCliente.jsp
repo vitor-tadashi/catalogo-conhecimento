@@ -44,7 +44,6 @@
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a href="<c:url value='/'/>">Principal</a></li>
-
 				<li>Clientes</li>
 				<li class="active">Adicionar Cliente</li>
 			</ul>
@@ -176,124 +175,124 @@
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 
 	<script type="text/javascript">
-$(document).ready(function() {
-    $('#formAdd').formValidation({
-        err: {
-            container: 'tooltip'
-        },
-//        trigger: 'blur',
-        icon: {
-            valid: 'fa fa-check',
-            invalid: 'fa fa-times',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-        	nome: {
-                validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:2,
-                        max:150,
-                        message: 'Mínimo de 2 e máximo de 150 caracteres.'
-                    },
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
-                        message:'Nome inválido.'
-                    }
-                }
-            },
-            cnpj: {
-	            validators: {
-	                stringLength: {
-	                    enabled: true,
-	                    min:14,
-	                    max:14,
-	                    message: 'Requerido mínimo e máximo de 14 caracteres.'
-	                },
-	                notEmpty: {
-	                    message: '* Campo Obrigatório.'
-	                },
-	                regexp: {
-	                    enabled: true,
-	                    regexp: '^[0-9]+$',
-	                    message: 'Informe somente números sem espaços e caracteres especiais.'
-	                }
-	            }
-	        },
-	        email: {
-                validators: {
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,9}$',
-                        message: 'E-mail inválido, requerido um @ e um domínico completo'
-                    }
-                }
-            },
-            logradouro: {
-            	validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:4,
-                        max:100,
-                        message: 'Logadouro inválido.'
-                    },
-                     notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '[A-Za-zÁ-ú\s]+$',
-                        message:'Informe apenas letras.'
-                    }
-                }
-            }, 
-            numero: {
-	            validators: {
-	                stringLength: {
-	                    enabled: true,
-	                    min:1,
-	                    max:10,
-	                    message: 'Número inválido.'
-	                },
-	                notEmpty: {
-	                    message: '* Campo Obrigatório.'
-	                },
-	                regexp: {
-	                    enabled: true,
-	                    regexp: '^[0-9]+$',
-	                    message: 'Informe apenas números.'
-	                }
-	            }
-	        },
-            cep: {
-                validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:8,
-                        max:8,
-                        message: 'CEP inválido.'
-                    },
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '^[0-9]{8}$',
-                        message: 'Informe somente números sem espaços e caracteres especiais'
-                    }
-                }
-            }
-        }
-    });
-});
-</script>
+		$(document).ready(function() {
+		    $('#formAdd').formValidation({
+		        err: {
+		            container: 'tooltip'
+		        },
+		//        trigger: 'blur',
+		        icon: {
+		            valid: 'fa fa-check',
+		            invalid: 'fa fa-times',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	nome: {
+		                validators: {
+		                    stringLength: {
+		                        enabled: true,
+		                        min:2,
+		                        max:150,
+		                        message: 'Mínimo de 2 e máximo de 150 caracteres.'
+		                    },
+		                    notEmpty: {
+		                        message: '* Campo Obrigatório.'
+		                    },
+		                    regexp: {
+		                        enabled: true,
+		                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
+		                        message:'Nome inválido.'
+		                    }
+		                }
+		            },
+		            cnpj: {
+			            validators: {
+			                stringLength: {
+			                    enabled: true,
+			                    min:14,
+			                    max:14,
+			                    message: 'Requerido mínimo e máximo de 14 caracteres.'
+			                },
+			                notEmpty: {
+			                    message: '* Campo Obrigatório.'
+			                },
+			                regexp: {
+			                    enabled: true,
+			                    regexp: '^[0-9]+$',
+			                    message: 'Informe somente números sem espaços e caracteres especiais.'
+			                }
+			            }
+			        },
+			        email: {
+		                validators: {
+		                    notEmpty: {
+		                        message: '* Campo Obrigatório.'
+		                    },
+		                    regexp: {
+		                        enabled: true,
+		                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,9}$',
+		                        message: 'E-mail inválido, requerido um @ e um domínico completo'
+		                    }
+		                }
+		            },
+		            logradouro: {
+		            	validators: {
+		                    stringLength: {
+		                        enabled: true,
+		                        min:4,
+		                        max:100,
+		                        message: 'Logadouro inválido.'
+		                    },
+		                     notEmpty: {
+		                        message: '* Campo Obrigatório.'
+		                    },
+		                    regexp: {
+		                        enabled: true,
+		                        regexp: '[A-Za-zÁ-ú\s]+$',
+		                        message:'Informe apenas letras.'
+		                    }
+		                }
+		            }, 
+		            numero: {
+			            validators: {
+			                stringLength: {
+			                    enabled: true,
+			                    min:1,
+			                    max:10,
+			                    message: 'Número inválido.'
+			                },
+			                notEmpty: {
+			                    message: '* Campo Obrigatório.'
+			                },
+			                regexp: {
+			                    enabled: true,
+			                    regexp: '^[0-9]+$',
+			                    message: 'Informe apenas números.'
+			                }
+			            }
+			        },
+		            cep: {
+		                validators: {
+		                    stringLength: {
+		                        enabled: true,
+		                        min:8,
+		                        max:8,
+		                        message: 'CEP inválido.'
+		                    },
+		                    notEmpty: {
+		                        message: '* Campo Obrigatório.'
+		                    },
+		                    regexp: {
+		                        enabled: true,
+		                        regexp: '^[0-9]{8}$',
+		                        message: 'Informe somente números sem espaços e caracteres especiais'
+		                    }
+		                }
+		            }
+		        }
+		    });
+		});
+	</script>
 
 </body>
 

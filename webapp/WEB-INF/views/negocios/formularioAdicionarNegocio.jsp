@@ -12,8 +12,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Negócios</li>
 				<li class="active">Adicionar Negócio</li>
 			</ul>
@@ -40,6 +41,7 @@
 															<div class="form-group">
 									   						<label class="control-label">Area de Atuação
 															<input type="text" class="form-control" maxlength="100" name="areaAtuacao"/>
+															<input type ="hidden" name="ativo" value = "S"/>
 														</label>
 													</div>
 												</div><!-- /.col -->

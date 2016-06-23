@@ -15,8 +15,8 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
 				<li>Cargos</li>
 				<li class="active">Lista de Cargos</li>
 			</ul>
@@ -51,7 +51,7 @@
 												<td>${cargo.nome}</td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='formularioAlterarCargo'>
+													<c:url value='/cargo/formularioAlterarCargo'>
 													<c:param name='idCargo' value='${cargo.id}'/>
 													</c:url>
 													">													
@@ -60,6 +60,7 @@
 												<a href="
 													<c:url value='excluirCargo'>
 													<c:param name='idCargo' value='${cargo.id}'/>
+													<c:param name='ativo' value='N'/>
 													</c:url>
 													">	
 													<i class="fa fa-times fa-lg"></a></td>
@@ -68,7 +69,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='formularioAdicionarCargo'/>">
+									<a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Novo Cargo</button>
 									</a>
 								</div>

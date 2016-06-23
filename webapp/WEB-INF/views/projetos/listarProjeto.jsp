@@ -7,13 +7,14 @@
 <head>
 <title>Lista de Projetos</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
+
 <script type="text/javascript">
 	
 		
 		
 		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarTecnologiaPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
+			$.post("<c:url value = '/busca/buscarTecnologiaPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
 				$("#dataTableTecnologias tbody tr").detach();	
 				$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
 						drawRowTecnologias(item);
@@ -21,9 +22,19 @@
 	            });
 	        });	
 		
+		$(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
+			
+			$.post("<c:url value = '/busca/buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
+				$("#dataTableTecnologias tbody tr").detach();	
+				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
+						drawRowTecnologias(item);
+			        });
+	            });
+	        });
+		
 		$(document).on("click", "#btnNegocioPorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
+			$.post("<c:url value = '/busca/buscarNegocioPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
 				$("#dataTableNegocio tbody tr").detach();	
 				$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
 					drawRowNegocios(item);
@@ -33,7 +44,7 @@
 		    
 		$(document).on("click", "#btnEquipePorProjeto", function() { 
 			
-			$.post("ajax?logica=busca.BuscarEquipeNoProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
+			$.post("<c:url value = '/busca/buscarEquipePorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
 				$("#dataTableEquipe tbody tr").detach();	
 				$.each(listaEquipeProjeto, function(index, item) { // Iterate over the JSON array.
 					drawRowEquipe(item);
@@ -43,7 +54,7 @@
 		
 		$(document).on("click", "#btnFuncionarioPorEquipe", function() { 
 			
-			$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
+			$.post("<c:url value = '/busca/buscarFuncionariosPorEquipe'/>", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
 				$("#dataTableFuncionario tbody tr").detach();	
 				$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
 					drawRowFuncionario(item);
@@ -69,7 +80,7 @@
 				    var row = $("<tr />")
 				    
 				    $("#dataTableEquipe tbody").append(row);
-		            row.append($("<td><a id='btnFuncionarioPorEquipe' id-equipe="+rowData.id+ " href='#simpleModalFuncionario' role='button' data-toggle='modal' class='btn btn-primary btn-small'>"+rowData.nome+"</a></td>"));
+		            row.append($("<td><a id='btnFuncionarioPorEquipe' id-equipe="+rowData.id+" href='#simpleModalFuncionario' role='button' data-toggle='modal' class='btn btn-primary btn-small'>"+rowData.nome+"</a></td>"));
 				}
 				
 				function drawRowFuncionario(rowData) {
@@ -87,8 +98,8 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
 				<li>Projetos</li>
 				<li class="active">Listar Projetos</li>
 			</ul>
@@ -105,7 +116,7 @@
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp" />
 
-								<span class="label label-info pull-right">${fn:length(projetos)}
+								<span class="label label-info pull-right">${fn:length(projeto)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -123,7 +134,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projeto" items="${listaProjeto}">
+										<c:forEach var="projeto" items="${projeto}">
 											<tr>
 												<td>${projeto.nome}</td>
 												<td>
@@ -140,11 +151,19 @@
 												</td>
 												<td>${projeto.observacao}</td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=projeto.FormularioAtualizarProjetoLogica&idProjeto=${projeto.id}">
-														<i class="fa fa-edit fa-lg">
+													href="
+													<c:url value='formularioAlterarProjeto'>
+													<c:param name='idProjeto' value='${projeto.id}'/>
+													</c:url>
+													">
+													<i class="fa fa-edit fa-lg">
 												</a></td>
 												<td style="text-align: center;"><a
-													href="mvc?logica=projeto.DeletarProjetoLogica&idProjeto=${projeto.id}&logicaAtual=projeto.ListarProjetoLogica">
+												href="
+													<c:url value='removerProjeto'>
+													<c:param name='idProjeto' value='${projeto.id}'/>
+													</c:url>
+													">
 														<i class="fa fa-times fa-lg">
 												</a></td>
 											</tr>
@@ -152,7 +171,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="mvc?logica=projeto.FormularioInserirProjetoLogica">
+									<a href="<c:url value='formularioAdicionarProjeto'/>">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Projeto</button>
 									</a>
@@ -273,11 +292,10 @@
 		  	</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	</div>
-	<!-- /main-container -->
-	</div>
+</div>
+<!-- /main-container -->
 
-	<c:import url="/resources/jspImport/logout.jsp"></c:import>
-	<c:import url="/resources/jspImport/footer.jsp"></c:import>
+<c:import url="/resources/jspImport/logout.jsp"></c:import>
+<c:import url="/resources/jspImport/footer.jsp"></c:import>
 </body>
 </html>

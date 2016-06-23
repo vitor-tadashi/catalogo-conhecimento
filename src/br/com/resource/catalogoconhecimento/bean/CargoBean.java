@@ -19,7 +19,16 @@ public class CargoBean {
 	@Column(name = "nomeCargo")
 	private String nome;
 
+	private char ativo;
 	
+	public char getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(char ativo) {
+		this.ativo = ativo;
+	}
+
 	public Integer getId() {
 		return id;
 	}

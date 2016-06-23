@@ -6,7 +6,7 @@
 	<div id="top-nav" class="skin-1 fixed">
 		<div class="brand">
 			<a href="<c:url value='/'/>"><img
-				src="resources/img/logowhite-resource.png" class="pull-center"
+				src="<c:url value='/resources/img/logowhite-resource.png'/>" class="pull-center"
 				style="height: 45px; width: 135px; padding-left: 10px; padding-right: 10px;"></a>
 		</div>
 		<!-- /brand -->
@@ -96,8 +96,7 @@
 									</span> Lista de Projetos
 								</span>
 							</a></li>
-							<li>
-								<a href="<c:url value='formularioAdicionarProjeto'/>"> <span
+							<li><a href="<c:url value='formularioAdicionarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Projetos
@@ -109,20 +108,20 @@
 						</span> <span class="text"> Equipes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarEquipe'/>"> <span
+							<li><a href="<c:url value='/equipe/listarEquipe'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Equipes
 								</span>
 							</a></li>
 							<li><a
-								href="<c:url value='formularioAdicionarEquipe'/>"> <span
+								href="<c:url value='/equipe/formularioAdicionarEquipe'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Equipe
 								</span>
 							</a></li>
-							<li><a href="<c:url value='listarFuncionario'/>">
+							<li><a href="<c:url value='listarFuncionarios'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Funcionários
@@ -134,13 +133,13 @@
 									</span> Cadastrar Funcionário
 								</span>
 							</a></li>
-							<li><a href="<c:url value='listarCargo'/>"> <span
+							<li><a href="<c:url value='/cargo/listarCargo'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Cargos
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarCargo'/>">
+							<li><a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cargo

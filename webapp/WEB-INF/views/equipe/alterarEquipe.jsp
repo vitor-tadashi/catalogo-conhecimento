@@ -13,8 +13,9 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="index.jsp">
-						Principal</a></li>
+				<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
+
 				<li>Equipes</li>
 				<li class="active">Alterar Equipe</li>
 			</ul>
@@ -41,6 +42,7 @@
 														<label class="control-label">Nome da Equipe
 															<input type="hidden" class="form-control input-sm" name="idEquipe" value="${equipe.id}">
 															<input type="text" class="form-control" maxlength="50" name="nome" value="${equipe.nome}">
+															<input type ="hidden" name="ativo" value = "S"/>
 														</label>
 													</div>
 													<div class="form-group">

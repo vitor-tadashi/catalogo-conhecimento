@@ -15,6 +15,7 @@ import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("/cargo")
 public class CargoController {
 
 	@Autowired
@@ -26,7 +27,8 @@ public class CargoController {
 	}
 
 	@RequestMapping(value = "adicionarCargo", method = RequestMethod.POST)
-	public String adiciona(CargoBean cargoBean) throws BusinessException {
+	public String adiciona(CargoBean cargoBean, @RequestParam("ativo") String ativo) throws BusinessException {
+		cargoBean.setAtivo(ativo.charAt(0));
 		cargoBusiness.adicionar(cargoBean);
 		return "redirect:listarCargo";
 	}
@@ -51,9 +53,12 @@ public class CargoController {
 	}
 
 	@RequestMapping(value = "excluirCargo", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idCargo") String id) throws BusinessException {
+	public String excluir(@RequestParam("idCargo") String id, @RequestParam("ativo") String ativo)
+			throws BusinessException {
 		int idCargo = Integer.parseInt(id);
-		cargoBusiness.remover(idCargo);
+		CargoBean cargo = cargoBusiness.obterPorId(idCargo);
+		cargo.setAtivo(ativo.charAt(0));
+		cargoBusiness.remover(cargo);
 		return "redirect:listarCargo";
 	}
 

@@ -15,8 +15,8 @@
 		<div id="main-container" style="width: auto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					<li><i class="fa fa-home"></i><a href="index.jsp">
-							Principal</a></li>
+					<li><i class="fa fa-home"></i>
+					<a href="<c:url value='/'/>">Principal</a></li>
 					<li>Tecnologias</li>
 					<li class="active">Lista de Tecnologias</li>
 				</ul>
@@ -54,8 +54,9 @@
 													">													
 													<i class="fa fa-edit fa-lg"></a></td>
 													<td style="text-align: center;"><a href="
-													<c:url value='excluirTecnologia'>
+													<c:url value='removerTecnologia'>
 													<c:param name='idTecnologia' value='${tecnologia.id}'/>
+													<c:param name='ativo' value='N'/>
 													</c:url>
 													">	
 													<i class="fa fa-times fa-lg"></a></td>

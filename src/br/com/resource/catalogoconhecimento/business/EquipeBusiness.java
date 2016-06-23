@@ -3,41 +3,41 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.EquipeFuncionarioBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
-import br.com.resource.catalogoconhecimento.exceptions.RegistroVinculadoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
+import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class EquipeBusiness {
 
+	@Autowired
 	private EquipeDAO equipeDAO;
 
-	public EquipeBusiness() {
-		equipeDAO = new EquipeDAO();
-	}
 
 	// INSERIR NA BASE
+	@Transactional
 	public void inserir(EquipeBean equipeBean) throws BusinessException {
+		
 		try {
 
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
 
 			if (!validarNome(equipeBean.getNome())) {
-				throw new TamanhoCampoException("Por Favor, digite um nome v�lido");
+				throw new TamanhoCampoException("Por Favor, digite um nome válido");
 			} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
-				throw new NomeRepetidoException("Esta equipe j� consta na base de dados");
+				throw new NomeRepetidoException("Esta equipe já consta na base de dados");
 			} else if (equipeBean.getObservacao().length() > 500) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.500)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máxs.500)");
 			} else {
-				equipeDAO.inserir(equipeBean);
+				equipeDAO.adicionar(equipeBean);
 			}
 
 		} catch (Exception e) {
@@ -48,49 +48,51 @@ public class EquipeBusiness {
 
 	// INSERIR O FUNCION�RIO NA BASE
 
-	public void inserirPorEquipe(int equipe, int funcionario) throws BusinessException {
-		try {
-			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
-
-			if (equipeFuncionario != null) {
-				throw new NomeRepetidoException("Este nome j� consta nessa Equipe");
-			} else {
-				equipeDAO.inserirPorEquipe(equipe, funcionario);
-			}
-
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-		}
-	}
+//	public void inserirPorEquipe(int equipe, int funcionario) throws BusinessException {
+//		try {
+//			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
+//
+//			if (equipeFuncionario != null) {
+//				throw new NomeRepetidoException("Este nome já consta nessa Equipe");
+//			} else {
+//				equipeDAO.inserirPorEquipe(equipe, funcionario);
+//			}
+//
+//		} catch (Exception e) {
+//			throw ExceptionUtil.handleException(e);
+//		}
+//	}
 
 	// DELETAR NA BASE
-	public void deletar(int id) throws BusinessException {
+	@Transactional
+	public void deletar(EquipeBean equipe) throws BusinessException {
 		try{
-		if (equipeDAO.verificarPorFuncionarios(id)) {
-			equipeDAO.deletar(id);
-		} else {
-			throw new RegistroVinculadoException(
-					"Essa Equipe n�o pode ser removida, pois possui v�nculos com Funcion�rios");
-		}
+//		if (equipeDAO.verificarPorFuncionarios(equipe)) {
+			equipeDAO.remover(equipe);
+//		} else {
+//			throw new RegistroVinculadoException(
+//					"Essa Equipe n�o pode ser removida, pois possui vínculos com Funcion�rios");
+//		}
 		}catch(Exception e){
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	// ATUALIZAR NA BASE
+	@Transactional
 	public void atualizar(EquipeBean equipe) throws BusinessException {
 		try {
 
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipe.getNome());
 
 			if (!validarNome(equipe.getNome()) || equipe.getNome().equals("")) {
-				throw new TamanhoCampoException("Por Favor, digite um nome v�lido");
+				throw new TamanhoCampoException("Por Favor, digite um nome válido");
 			} else if (equipeigual != null && equipeigual.getId() != equipe.getId()) {
-				throw new NomeRepetidoException("Este nome j� consta na base de dados");
+				throw new NomeRepetidoException("Este nome já consta na base de dados");
 			} else if (equipe.getObservacao().length() > 500) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.500)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
 			} else {
-				equipeDAO.atualizar(equipe);
+				equipeDAO.alterar(equipe);
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -98,14 +100,15 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR NA BASE
-
+	
+	@Transactional
 	public List<EquipeBean> listar() throws BusinessException {
 
 		try {
 			List<EquipeBean> listaEquipe = equipeDAO.listar();
 
 			if (listaEquipe.isEmpty()) {
-				throw new ConsultaNulaException("N�o h� equipes cadastradas");
+				throw new ConsultaNulaException("Não há equipes cadastradas");
 			} else {
 				return listaEquipe;
 			}
@@ -115,7 +118,7 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR POR ID NA BASE
-
+	@Transactional
 	public EquipeBean obterPorId(int id) throws BusinessException {
 		try {
 			return equipeDAO.obterPorId(id);
@@ -125,7 +128,7 @@ public class EquipeBusiness {
 	}
 
 	// LISTAR POR NOME NA BASE
-
+	@Transactional
 	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
 
 		return equipeDAO.obterPorNome(nome);
@@ -141,10 +144,12 @@ public class EquipeBusiness {
 		}
 	}
 
-	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
-
-		return equipeDAO.obterPorFuncionario(idFuncionario);
-
+	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws BusinessException {
+		try {
+			return equipeDAO.obterPorFuncionario(idFuncionario);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public List<EquipeBean> obterPorProjeto(int idProjeto) throws BusinessException {
@@ -157,7 +162,7 @@ public class EquipeBusiness {
 	}
 
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-z�-�0-9'\\s]{1,50}"));
+		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{1,50}"));
 	}
 
 }

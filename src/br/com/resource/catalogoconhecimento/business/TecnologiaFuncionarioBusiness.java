@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
@@ -13,13 +14,12 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 @Component
 public class TecnologiaFuncionarioBusiness {
 
+	@Autowired
 	TecnologiaFuncionarioDAO tecnologiaFuncionarioDAO;
 
-	public TecnologiaFuncionarioBusiness() throws ClassNotFoundException, SQLException {
-		this.tecnologiaFuncionarioDAO = new TecnologiaFuncionarioDAO();
-	}
+	
 
-	public int inserir(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws BusinessException {
+	public int adicionar(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws BusinessException {
 		try{
 			int linhasAfetadas = 0;
 			linhasAfetadas = tecnologiaFuncionarioDAO.adicionar(funcionario, tecnologias);
@@ -44,8 +44,13 @@ public class TecnologiaFuncionarioBusiness {
 		return tecnologia.joinTecnologiaFuncionario(idFuncionario);
 	}
 
-	public void atualizar(FuncionarioBean funcionarioBean, List<TecnologiaBean> listaTecnologia) throws SQLException {
-		tecnologiaFuncionarioDAO.atualizar(funcionarioBean, listaTecnologia);
+	public void atualizar(FuncionarioBean funcionarioBean, List<TecnologiaBean> listaTecnologia) throws BusinessException {
+		try{
+			tecnologiaFuncionarioDAO.atualizar(funcionarioBean, listaTecnologia);
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);	
+		}
+		
 
 	}
 

@@ -27,14 +27,17 @@ public class TecnologiaFuncionarioDAO {
 		conexao = ConnectionFactory.createConnection();
 	}
 
-	public int adicionar(FuncionarioBean funcionario, List<TecnologiaBean> tecnologias) throws SQLException {
+	public int adicionar(FuncionarioBean funcionarioBean, List<TecnologiaBean> listaTecnologias) throws SQLException {
 		PreparedStatement ps = conexao.prepareStatement(sqlInserir);
 		int linhasAfetadas = 0;
 
-		for (TecnologiaBean tecnologia : tecnologias) {
-			ps.setInt(1, funcionario.getId());
-			ps.setInt(2, tecnologia.getId());
-			linhasAfetadas = ps.executeUpdate();
+		for (TecnologiaBean tecnologiaBean : listaTecnologias) {
+			if(tecnologiaBean.getId() != 0){
+				ps.setInt(1, funcionarioBean.getId());
+				ps.setInt(2, tecnologiaBean.getId());
+				linhasAfetadas = ps.executeUpdate();
+			}
+			
 		}
 
 		ps.close();
