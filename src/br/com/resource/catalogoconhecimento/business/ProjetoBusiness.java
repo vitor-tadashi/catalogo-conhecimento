@@ -2,6 +2,8 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
@@ -14,17 +16,19 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ProjetoBusiness {
-
+	
+	@Autowired
 	private ProjetoDAO projetoDao;
+
 
 	public ProjetoBusiness() {
 		projetoDao = new ProjetoDAO();
 	}
 
 	// INSERE NA TABELA PROJETO
-	public void inserir(ProjetoBean projetoBean) throws BusinessException {
+	public void adicionar(ProjetoBean projetoBean) throws BusinessException {
 		try {
-			ProjetoDAO projetoDao = new ProjetoDAO();
+			
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 			if (!validarNome(projetoBean.getNome())) {

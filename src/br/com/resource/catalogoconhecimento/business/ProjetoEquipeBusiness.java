@@ -1,10 +1,10 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
+
+
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoEquipeDAO;
@@ -13,14 +13,12 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ProjetoEquipeBusiness {
+	
+	
+	@Autowired
+	private ProjetoEquipeDAO projetoEquipeDAO;
 
-	ProjetoEquipeDAO projetoEquipeDAO;
-
-	public ProjetoEquipeBusiness() throws ClassNotFoundException, SQLException {
-		this.projetoEquipeDAO = new ProjetoEquipeDAO();
-	}
-
-	public int inserir(ProjetoBean projeto, List<EquipeBean> equipes) throws BusinessException {
+	public int adicionar(ProjetoBean projeto, List<EquipeBean> equipes) throws BusinessException {
 		try {
 			int linhasAfetadas = 0;
 

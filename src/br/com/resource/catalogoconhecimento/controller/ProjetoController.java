@@ -72,10 +72,10 @@ public class ProjetoController {
 	public String adicionarProjeto(ProjetoBean projetoBean)
 			throws BusinessException {
 
-		projetoBusiness.inserir(projetoBean);
-		projetoEquipe.inserir(projetoBean, projetoBean.getListaEquipe());
-		projetoNegocio.inserir(projetoBean, projetoBean.getListaNegocio());
-		projetoTecnologia.inserir(projetoBean, projetoBean.getListaTecnologia());
+		projetoBusiness.adicionar(projetoBean);
+		projetoEquipe.adicionar(projetoBean, projetoBean.getListaEquipe());
+		projetoNegocio.adicionar(projetoBean, projetoBean.getListaNegocio());
+		projetoTecnologia.adicionar(projetoBean, projetoBean.getListaTecnologia());
 
 		return "redirect:listarProjetos";
 	}
