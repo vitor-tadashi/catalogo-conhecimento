@@ -2,7 +2,10 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.dao.FuncionarioNegocioDAO;
@@ -11,11 +14,11 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class FuncionarioNegocioBusiness {
-	
+	@Autowired
 	FuncionarioNegocioDAO funcionarioNegocioDao;
 	
 	public FuncionarioNegocioBusiness() throws ClassNotFoundException, SQLException{
-		this.funcionarioNegocioDao = new FuncionarioNegocioDAO();
+
 	}
 	
 	public int inserir(FuncionarioBean funcionario, List<NegocioBean> negocios) throws BusinessException{
