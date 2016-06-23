@@ -69,10 +69,7 @@ public class ProjetoController {
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto(ProjetoBean projetoBean,
-			@RequestParam("equipesArray") String[] equipesArray,
-			@RequestParam("tecnologiasArray") String[] tecnologiasArray,
-			@RequestParam("negociosArray") String[] negociosArray)
+	public String adicionarProjeto(ProjetoBean projetoBean)
 			throws BusinessException {
 
 		projetoBusiness.inserir(projetoBean);
