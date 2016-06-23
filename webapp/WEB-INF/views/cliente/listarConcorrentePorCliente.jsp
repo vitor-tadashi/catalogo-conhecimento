@@ -95,8 +95,7 @@
 									</tbody>
 								</table>
 							</div>
-							<form class="no-margin" id="formAdd"  method="POST" action="<c:url value='adicionarConcorrenteNoCliente'>
-									<c:param name='countConcorrente' value='0'/> <c:param name='idCliente' value="${clienteBean.id}"/> <c:param name='txtNome' value='0'/> <c:param name='valorHora' value='0'/> </c:url>">
+							<form class="no-margin" id="formAdd"  method="POST" action="adicionarConcorrenteNoCliente">
 								<div class="panel-heading">
 									<h3>Adicionar Concorrente</h3>
 								</div>

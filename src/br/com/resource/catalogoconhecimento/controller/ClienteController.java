@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
-import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.ConcorrenteBusiness;
@@ -44,28 +43,13 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "adicionarConcorrenteNoCliente", method = RequestMethod.POST)
-	public String adicionarConcorrenteNoCliente(Model model,
-			@RequestParam("countConcorrente") String countConcorrenteParam,
-			@RequestParam("idCliente") String idClienteParam, @RequestParam("txtNome") String txtNome,
-			@RequestParam("valorHora") String valorHoraParam) throws BusinessException {
-
-		int idCliente = Integer.parseInt(idClienteParam);
-		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
-		ConcorrenteBean concorrenteBean;
-		Integer countConcorrente = Integer.parseInt(countConcorrenteParam);
-
-		for (int i = 0; i <= countConcorrente; i++) {
-			String nomeConcorrente = txtNome + i;
-			if (nomeConcorrente != null) {
-				concorrenteBean = concorrenteBusiness.obterPorNome(nomeConcorrente);
-				ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
-				concorrenteClienteBean.setCliente(clienteBean);
-				concorrenteClienteBean.setConcorrente(concorrenteBean);
-				concorrenteClienteBean.setValorHora(Integer.parseInt(valorHoraParam + i));
-				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteClienteBean);
+	public String adicionarConcorrenteNoCliente(Model model, ClienteBean clienteBean) throws BusinessException {
+		if (clienteBean.getListaConcorrentes() != null) {
+			for (ConcorrenteClienteBean concorrente : clienteBean.getListaConcorrentes()) {
+				concorrenteBusiness.adicionarConcorrenteCliente(concorrente);
 			}
 		}
-		model.addAttribute("listaConcorrenteCliente", concorrenteBusiness.listarPorCliente(idCliente));
+		model.addAttribute("listaConcorrenteCliente", concorrenteBusiness.listarPorCliente(clienteBean.getId()));
 		model.addAttribute("clienteBean", clienteBean);
 		model.addAttribute("listaConcorrente", concorrenteBusiness.listar());
 
