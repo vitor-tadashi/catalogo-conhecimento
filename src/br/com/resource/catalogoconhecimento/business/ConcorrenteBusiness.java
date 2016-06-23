@@ -30,15 +30,15 @@ public class ConcorrenteBusiness {
 				concorrenteBean.setDescricao("-");
 			}
 			if (concorrenteBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome v√°lido!");
+				throw new AtributoNuloException("Por favor, digite um nome v·lido");
 			} else if (!validarNome(concorrenteBean.getNome())) {
 				throw new AtributoNuloException("Por favor, digite um nome sem caracteres especiais");
 			} else if (concorrenteBean.getNome().length() > 100) {
-				throw new TamanhoCampoException("N√∫mero limite de caracteres excedido(m√°x.50)");
+				throw new TamanhoCampoException("N˙mero limite de caracteres excedido (m·x.50)");
 			} else if (concorrenteBean.getDescricao().length() > 255) {
-				throw new TamanhoCampoException("Descri√ß√£o: N√∫mero limite de caracteres excedido(m√°x.255)");
+				throw new TamanhoCampoException("DescriÁ„o: N˙mero limite de caracteres excedido (m·x.255)");
 			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-				throw new NomeRepetidoException("Este nome j√° est√° cadastrado!");
+				throw new NomeRepetidoException("Este nome j· est· cadastrado");
 			} else {
 				concorrenteDao.adicionar(concorrenteBean);
 			}
@@ -51,9 +51,9 @@ public class ConcorrenteBusiness {
 	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean) throws BusinessException {
 		try {
 			if (concorrenteClienteBean.getCliente() == null) {
-				throw new AtributoNuloException("Cliente Inv√°lido!");
+				throw new AtributoNuloException("Cliente inv·lido");
 			} else if (concorrenteClienteBean.getConcorrente() == null) {
-				throw new AtributoNuloException("Concorrente Inv√°lido!");
+				throw new AtributoNuloException("Concorrente inv·lido");
 			} else {
 				concorrenteDao.adicionarConcorrenteCliente(concorrenteClienteBean);
 			}
@@ -68,7 +68,7 @@ public class ConcorrenteBusiness {
 			List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
 
 			if (listaConcorrente.isEmpty()) {
-				throw new ConsultaNulaException("N√£o h√° concorrentes cadastrados.");
+				throw new ConsultaNulaException("N„o h· concorrentes cadastrados");
 			} else {
 				return listaConcorrente;
 			}
@@ -129,17 +129,16 @@ public class ConcorrenteBusiness {
 		try {
 			ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 			if (concorrenteBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome v√°lido!");
+				throw new AtributoNuloException("Por favor, digite um nome v·lido");
 			} else if (!validarNome(concorrenteBean.getNome())) {
-				throw new AtributoNuloException("Por favor, digite um nome v√°lido!");
+				throw new AtributoNuloException("Por favor, digite um nome v·lido");
 			} else if (concorrenteBean.getNome().length() > 50) {
-				throw new TamanhoCampoException("N√∫mero limite de caracteres excedido(m√°x.50)");
+				throw new TamanhoCampoException("N˙mero limite de caracteres excedido (m·x.50)");
 			} else if (concorrenteBean.getDescricao().length() > 255) {
-				throw new TamanhoCampoException("Descri√ß√£o: N√∫mero limite de caracteres excedido(m√°x.255)");
+				throw new TamanhoCampoException("DescriÁ„o: N˙mero limite de caracteres excedido (m·x.255)");
 			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-				throw new NomeRepetidoException("Este nome j√° est√° cadastrado!");
+				throw new NomeRepetidoException("Este nome j· est· cadastrado");
 			} else {
-				ConcorrenteDAO concorrenteDao = new ConcorrenteDAO();
 				concorrenteDao.alterar(concorrenteBean);
 			}
 		} catch (Exception e) {
@@ -154,8 +153,8 @@ public class ConcorrenteBusiness {
 			// if (!concorrenteDao.verificarPorCliente(idConcorrente)) {
 			concorrenteDao.remover(concorrenteBean);
 			// } else {
-			// throw new RegistroVinculadoException("Registro n√£o pode ser
-			// removido pois possui v√≠nculos.");
+			// throw new RegistroVinculadoException("Registro n„o pode ser
+			// removido pois possui vÌnculos");
 			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);

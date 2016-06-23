@@ -136,10 +136,14 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	}
 
 	public ConcorrenteBean obterPorNome(String nomeConcorrente) {
-		TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
-				"SELECT c FROM ConcorrenteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ConcorrenteBean.class);
-		ConcorrenteBean concorrenteBean = query.setParameter("nome", nomeConcorrente).getSingleResult();
-		return concorrenteBean;
+		try {
+			TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
+					"SELECT c FROM ConcorrenteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ConcorrenteBean.class);
+			ConcorrenteBean concorrenteBean = query.setParameter("nome", nomeConcorrente).getSingleResult();
+			return concorrenteBean;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public void removerConcorrenteCliente(int idCliente, int idConcorrente)
