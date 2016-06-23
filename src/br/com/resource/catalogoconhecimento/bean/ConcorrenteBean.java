@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Concorrente")
@@ -23,6 +24,7 @@ public class ConcorrenteBean {
 	@Column(name = "descricao")
 	private String descricao;
 
+	@Transient
 	private List<ConcorrenteClienteBean> listaClientes;
 
 	private char ativo;
