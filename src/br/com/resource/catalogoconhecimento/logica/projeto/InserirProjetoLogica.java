@@ -81,16 +81,16 @@ public class InserirProjetoLogica implements Logica{
 		projeto.setObservacao(observacao.trim());
 
 
-		projetoBusiness.inserir(projeto);
+		projetoBusiness.adicionar(projeto);
 
 		ProjetoNegocioBusiness projetoNegocio = new ProjetoNegocioBusiness();
-		projetoNegocio.inserir(projeto, listaNegocio);
+		projetoNegocio.adicionar(projeto, listaNegocio);
 
 		ProjetoTecnologiaBusiness projetoTecnologia = new ProjetoTecnologiaBusiness();
-		projetoTecnologia.inserir(projeto, listaTecnologia);
+		projetoTecnologia.adicionar(projeto, listaTecnologia);
 		
 		ProjetoEquipeBusiness projetoEquipe = new ProjetoEquipeBusiness();
-		projetoEquipe.inserir(projeto, listaEquipe);
+		projetoEquipe.adicionar(projeto, listaEquipe);
 
 
 		return "mvc?logica=projeto.ListarProjetoLogica";

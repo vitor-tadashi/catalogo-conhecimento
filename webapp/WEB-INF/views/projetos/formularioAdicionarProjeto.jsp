@@ -39,11 +39,11 @@
 											
 												<!-- Message Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
-	
+										
 												<div class="col-sm-2">
 													<div class="form-group">
 									   					<label class="control-label">Nome do Projeto
-															<input type="text" class="form-control" maxlength="80" name="nomeProjeto">
+															<input type="text" class="form-control" maxlength="80" name="nome">
 														</label>
 													</div>
 												</div><!-- /.col --> 
