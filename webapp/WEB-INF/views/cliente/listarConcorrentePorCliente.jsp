@@ -9,9 +9,12 @@
 <head>
 <title>Lista de Concorrentes do Cliente</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
-<script type="text/javascript">
+
+	<script type="text/javascript">
+	
 		function add() {
-			var concorrente = $("#concorrente").val();
+			var concorrente = $("#concorrente option:selected").text();
+			var idConcorrente = $("#concorrente option:selected").val();
 			var valorConcorrente = $("#valorConcorrente").val();
 			var count = $('#tbConcorrente tbody tr').length;
 			if (valorConcorrente != "" && valorConcorrente != "0") {
@@ -25,8 +28,8 @@
 			row.append("<td>" + nome + "</td>");
 			row.append("<td>" + valor + "</td>");
 			row.append("<td><button class='delete' type='button'>-</button></td>");
-			row.append("<input type='hidden' name='txtNome" + count + "' id='txtNome" + count + "' value='" + nome + "'  />");
-			row.append("<input type='hidden' name='valorHora" + count + "' id='valorHora" + count + "' value='" + valor + "' />");
+			row.append("<input type='hidden' name='listaConcorrentes[" + count + "].concorrente.id' id='listaConcorrentes[" + count + "].concorrente.id' value='" + idConcorrente + "'  />");
+			row.append("<input type='hidden' name='listaConcorrentes[" + count + "].valorHora' id='listaConcorrentes[" + count + "].valorHora' value='" + valor + "' /></td>");
 			$("#countConcorrente").val(count);
 		}
 
@@ -35,6 +38,7 @@
 				$(this).closest('tr').remove();
 			});
 		});
+
 	</script>
 </head>
 
@@ -83,15 +87,15 @@
 												<td>${concorrenteCliente.concorrente.nome}</td>
 												<td>${concorrenteCliente.concorrente.descricao}</td>
 												<td>${concorrenteCliente.valorHora}</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=cliente.RemoverConcorrenteDoClienteLogica&idCliente=${clienteBean.id}&idConcorrente=${concorrenteCliente.concorrente.id}"><i class="fa fa-times fa-lg"></i></a>
+												<td style="text-align: center;">
+												<a href="<c:url value='removerConcorrenteDoCliente'> <c:param name='idCliente' value='${cliente.id}'/> <c:param name='idConcorrente' value='${concorrenteCliente.concorrente.id}'/></c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-							<form class="no-margin" id="formAdd"  method="POST" action="mvc">
+							<form class="no-margin" id="formAdd"  method="POST" action="adicionarConcorrenteNoCliente">
 								<div class="panel-heading">
 									<h3>Adicionar Concorrente</h3>
 								</div>
@@ -124,10 +128,6 @@
 											</table>
 										</div><!-- /.col -->
 									</div><!-- /.row -->
-									<input type="hidden" name="logicaAtual" value="cliente.ListarClienteLogica">
-									<input type="hidden" name="logica" value="cliente.AdicionarConcorrenteNoClienteLogica">
-									<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
-									<input type="hidden" id="idCliente" name="idCliente" value="${clienteBean.id}">
 								</div>
 								<div class="panel-footer text-left">
 									<button class="btn btn-success" type="submit">Adicionar</button>

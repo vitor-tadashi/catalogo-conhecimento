@@ -8,75 +8,88 @@
 <title>Lista de Projetos</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
 
-<script>
-$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
+<script type="text/javascript">
 	
-	$.post("ajax?logica=busca.BuscarTecnologiaPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
-		$("#dataTableTecnologias tbody tr").detach();	
-		$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
-				drawRowTecnologias(item);
-	        });
-        });
-    });	
-
-$(document).on("click", "#btnNegocioPorProjeto", function() { 
-	
-	$.post("ajax?logica=busca.BuscarNegocioPorProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
-		$("#dataTableNegocio tbody tr").detach();	
-		$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
-			drawRowNegocios(item);
-	        });
-        });
-    });	
-    
-$(document).on("click", "#btnEquipePorProjeto", function() { 
-	
-	$.post("ajax?logica=busca.BuscarEquipeNoProjetoAjaxLogica", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
-		$("#dataTableEquipe tbody tr").detach();	
-		$.each(listaEquipeProjeto, function(index, item) { // Iterate over the JSON array.
-			drawRowEquipe(item);
-	        });
-        });
-    });	
-
-$(document).on("click", "#btnFuncionarioPorEquipe", function() { 
-	
-	$.post("ajax?logica=busca.BuscarFuncionarioPorEquipeNoProjetoAjaxLogica", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
-		$("#dataTableFuncionario tbody tr").detach();	
-		$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
-			drawRowFuncionario(item);
-	        });
-        });
-    });	
 		
-		function drawRowTecnologias(rowData) {
-		    var row = $("<tr />")
-		    
-		    $("#dataTableTecnologias tbody").append(row);
-            row.append($("<td>"+ rowData.nome+"</td>"));
-		}
 		
-		function drawRowNegocios(rowData) {
-		    var row = $("<tr />")
-		    
-		    $("#dataTableNegocio tbody").append(row);
-            row.append($("<td>" + rowData.areaAtuacao + "</td>"));
-		}
+		$(document).on("click", "#btnTecnologiaPorProjeto", function() { 
+			
+			$.post("<c:url value = '/busca/buscarTecnologiaPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaTecnologiaProjeto){
+				$("#dataTableTecnologias tbody tr").detach();	
+				$.each(listaTecnologiaProjeto, function(index, item) { // Iterate over the JSON array.
+						drawRowTecnologias(item);
+			        });
+	            });
+	        });	
 		
-		function drawRowEquipe(rowData) {
-		    var row = $("<tr />")
-		    
-		    $("#dataTableEquipe tbody").append(row);
-            row.append($("<td><a id='btnFuncionarioPorEquipe' id-equipe="+rowData.id+ " href='#simpleModalFuncionario' role='button' data-toggle='modal' class='btn btn-primary btn-small'>"+rowData.nome+"</a></td>"));
-		}
+		$(document).on("click", "#btnTecnologiaPorFuncionario", function() { 
+			
+			$.post("<c:url value = '/busca/buscarTecnologiaPorFuncionario'/>", { idFuncionario: $(this).attr('id-funcionario') }, function(listaTecnologiaFuncionario){
+				$("#dataTableTecnologias tbody tr").detach();	
+				$.each(listaTecnologiaFuncionario, function(index, item) { // Iterate over the JSON array.
+						drawRowTecnologias(item);
+			        });
+	            });
+	        });
 		
-		function drawRowFuncionario(rowData) {
-		    var row = $("<tr />")
+		$(document).on("click", "#btnNegocioPorProjeto", function() { 
+			
+			$.post("<c:url value = '/busca/buscarNegocioPorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaNegocioProjeto) {
+				$("#dataTableNegocio tbody tr").detach();	
+				$.each(listaNegocioProjeto, function(index, item) { // Iterate over the JSON array.
+					drawRowNegocios(item);
+			        });
+		        });
+		    });	
 		    
-		    $("#dataTableFuncionario tbody").append(row);
-            row.append($("<td>" + rowData.nome + "</td>"));
-		}
-</script>
+		$(document).on("click", "#btnEquipePorProjeto", function() { 
+			
+			$.post("<c:url value = '/busca/buscarEquipePorProjeto'/>", { idProjeto: $(this).attr('id-projeto') }, function(listaEquipeProjeto) {
+				$("#dataTableEquipe tbody tr").detach();	
+				$.each(listaEquipeProjeto, function(index, item) { // Iterate over the JSON array.
+					drawRowEquipe(item);
+			        });
+		        });
+		    });	
+		
+		$(document).on("click", "#btnFuncionarioPorEquipe", function() { 
+			
+			$.post("<c:url value = '/busca/buscarFuncionariosPorEquipe'/>", { idEquipe: $(this).attr('id-equipe') }, function(listaFuncionarioEquipe) {
+				$("#dataTableFuncionario tbody tr").detach();	
+				$.each(listaFuncionarioEquipe, function(index, item) { // Iterate over the JSON array.
+					drawRowFuncionario(item);
+			        });
+		        });
+		    });	
+				
+				function drawRowTecnologias(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableTecnologias tbody").append(row);
+		            row.append($("<td>"+ rowData.nome+"</td>"));
+				}
+				
+				function drawRowNegocios(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableNegocio tbody").append(row);
+		            row.append($("<td>" + rowData.areaAtuacao + "</td>"));
+				}
+				
+				function drawRowEquipe(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableEquipe tbody").append(row);
+		            row.append($("<td><a id='btnFuncionarioPorEquipe' id-equipe="+rowData.id+" href='#simpleModalFuncionario' role='button' data-toggle='modal' class='btn btn-primary btn-small'>"+rowData.nome+"</a></td>"));
+				}
+				
+				function drawRowFuncionario(rowData) {
+				    var row = $("<tr />")
+				    
+				    $("#dataTableFuncionario tbody").append(row);
+		            row.append($("<td>" + rowData.nome + "</td>"));
+				}
+			</script>
 
 </head>
 <body>
@@ -87,7 +100,6 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i>
 					<a href="<c:url value='/'/>">Principal</a></li>
-
 				<li>Projetos</li>
 				<li class="active">Listar Projetos</li>
 			</ul>
@@ -122,7 +134,7 @@ $(document).on("click", "#btnFuncionarioPorEquipe", function() {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projetos" items="${projeto}">
+										<c:forEach var="projeto" items="${projeto}">
 											<tr>
 												<td>${projeto.nome}</td>
 												<td>

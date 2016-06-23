@@ -80,7 +80,7 @@ public class AdicionarFuncionarioLogica implements Logica{
 		funcionariotecnologia.adicionar(funcionarioBean, listaTecnologia);
 		
 		FuncionarioNegocioBusiness funcionarioNegocio = new FuncionarioNegocioBusiness();
-		funcionarioNegocio.adicionar(funcionarioBean, listaNegocios);
+		funcionarioNegocio.inserir(funcionarioBean, listaNegocios);
 		
 		
 			

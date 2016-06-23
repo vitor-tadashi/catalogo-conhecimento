@@ -3,8 +3,8 @@ package br.com.resource.catalogoconhecimento.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.dao.ProjetoDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -16,8 +16,10 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ProjetoBusiness {
-
+	
+	@Autowired
 	private ProjetoDAO projetoDao;
+
 
 	public ProjetoBusiness() {
 		projetoDao = new ProjetoDAO();
@@ -26,17 +28,17 @@ public class ProjetoBusiness {
 	// INSERE NA TABELA PROJETO
 	public void adicionar(ProjetoBean projetoBean) throws BusinessException {
 		try {
-			ProjetoDAO projetoDao = new ProjetoDAO();
+			
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 			if (!validarNome(projetoBean.getNome())) {
-				throw new BusinessException("Por favor, digite um nome válido!");
+				throw new BusinessException("Por favor, digite um nome vï¿½lido!");
 			} else if (projetoClone != null
 					&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
-				throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
+				throw new NomeRepetidoException("Jï¿½ existe um projeto chamado " + projetoClone.getNome() + " no "
 						+ projetoClone.getCliente().getNome());
 			} else if (projetoBean.getObservacao().length() > 255) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.255)");
+				throw new TamanhoCampoException("Nï¿½mero limite de caracteres excedido(mï¿½x.255)");
 			} else {
 				projetoDao.adicionar(projetoBean);
 			}
@@ -50,38 +52,34 @@ public class ProjetoBusiness {
 	public List<ProjetoBean> listar() throws BusinessException {
 		try {
 			List<ProjetoBean> listaProjeto = projetoDao.listar();
-
 			if (listaProjeto.isEmpty()) {
-				throw new ConsultaNulaException("Não há projetos cadastrados!");
+				throw new ConsultaNulaException("Nï¿½o hï¿½ projetos cadastrados!");
 			} else {
 				return listaProjeto;
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	// ATUALIZAR NA TABELA PROJETO
-	public void alterar(ProjetoBean projetoBean) throws BusinessException {
+	public void atualizar(ProjetoBean projetoBean) throws BusinessException {
 		try {
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 			if (projetoBean.getNome().length() > 150) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.150)");
+				throw new TamanhoCampoException("Nï¿½mero limite de caracteres excedido(mï¿½x.150)");
 			} else if ((projetoClone != null
 					&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome()))
 					&& projetoBean.getId() != projetoClone.getId()) {
-				throw new NomeRepetidoException("Já existe um projeto chamado " + projetoClone.getNome() + " no "
+				throw new NomeRepetidoException("Jï¿½ existe um projeto chamado " + projetoClone.getNome() + " no "
 						+ projetoClone.getCliente().getNome());
 			} else {
 				projetoDao.alterar(projetoBean);
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	// LISTA POR ID
@@ -102,7 +100,7 @@ public class ProjetoBusiness {
 					&& projetoDao.verificarPorTecnologia(id)) {
 				projetoDao.remover(id);
 			} else {
-				throw new RegistroVinculadoException("Registro não pode ser removido pois possui vínculos");
+				throw new RegistroVinculadoException("Registro nï¿½o pode ser removido pois possui vï¿½nculos");
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -114,7 +112,7 @@ public class ProjetoBusiness {
 			List<ProjetoBean> listaProjeto = projetoDao.obterPorTecnologias(nomeTecnologias);
 
 			if (listaProjeto == null) {
-				throw new ConsultaNulaException("Não há projetos cadastrados!");
+				throw new ConsultaNulaException("Nï¿½o hï¿½ projetos cadastrados!");
 			} else {
 				return listaProjeto;
 			}
@@ -129,7 +127,7 @@ public class ProjetoBusiness {
 			List<ProjetoBean> listaProjeto = projetoDao.obterPorNegocio(nomeNegocio);
 
 			if (listaProjeto == null) {
-				throw new ConsultaNulaException("Não há projetos cadastrados!");
+				throw new ConsultaNulaException("Nï¿½o hï¿½ projetos cadastrados!");
 			} else {
 				return listaProjeto;
 			}
@@ -143,10 +141,10 @@ public class ProjetoBusiness {
 	}
 
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-zÀ-ú0-9'\\s]{2,150}"));
+		return (nome.matches("[A-Za-zï¿½-ï¿½0-9'\\s]{2,150}"));
 	}
 
 	public boolean validarObservacao(String observacao) {
-		return (observacao.matches("[A-Za-zÀ-ú0-9'@&!*\\s]{2,80}"));
+		return (observacao.matches("[A-Za-zï¿½-ï¿½0-9'@&!*\\s]{2,80}"));
 	}
 }

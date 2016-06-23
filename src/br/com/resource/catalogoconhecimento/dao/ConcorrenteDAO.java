@@ -24,16 +24,12 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean)
 			throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
-
 		String sql = "INSERT INTO ConcorrenteCliente (idCliente, idConcorrente, valorHora) VALUES (?, ?, ?)";
-
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setInt(1, concorrenteClienteBean.getCliente().getId());
 		ps.setInt(2, concorrenteClienteBean.getConcorrente().getId());
 		ps.setDouble(3, concorrenteClienteBean.getValorHora());
-
 		ps.executeUpdate();
-
 		ps.close();
 		conexao.close();
 	}
@@ -73,7 +69,7 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 		conn.close();
 		return listaConcorrentesClientes;
 	}
-	
+
 	public List<ConcorrenteClienteBean> listarPorConcorrente(int id) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente FROM Concorrente AS CO"
@@ -106,7 +102,6 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente)
 			throws ClassNotFoundException, SQLException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
-
 		String sql = "SELECT co.idConcorrente, cl.idCliente, cc.valorHora " + "FROM Concorrente AS CO "
 				+ "INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente "
 				+ "INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente "
@@ -114,21 +109,16 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.setString(1, nomeCliente);
-
 		ResultSet rs = ps.executeQuery();
-
 		ArrayList<ConcorrenteClienteBean> listaConcorrenteCliente = new ArrayList<ConcorrenteClienteBean>();
 		while (rs.next()) {
 			ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
 			concorrenteClienteBean.setValorHora(rs.getDouble("valorHora"));
-
 			ConcorrenteBean concorrenteBean = new ConcorrenteBusiness().obterPorId(rs.getInt("idConcorrente"));
 			concorrenteClienteBean.setConcorrente(concorrenteBean);
-
 			// ClienteBean clienteBean = new
 			// ClienteBusiness().obterPorId(rs.getInt("idCliente"));
 			// concorrenteClienteBean.setCliente(clienteBean);
-
 			listaConcorrenteCliente.add(concorrenteClienteBean);
 		}
 
@@ -146,23 +136,24 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	}
 
 	public ConcorrenteBean obterPorNome(String nomeConcorrente) {
-		TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
-				"SELECT c FROM ConcorrenteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ConcorrenteBean.class);
-		ConcorrenteBean concorrenteBean = query.setParameter("nome", nomeConcorrente).getSingleResult();
-		return concorrenteBean;
+		try {
+			TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
+					"SELECT c FROM ConcorrenteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ConcorrenteBean.class);
+			ConcorrenteBean concorrenteBean = query.setParameter("nome", nomeConcorrente).getSingleResult();
+			return concorrenteBean;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public void removerConcorrenteCliente(int idCliente, int idConcorrente)
 			throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
-
 		String sql = "DELETE FROM ConcorrenteCliente WHERE idCliente = ? AND idConcorrente = ?";
-
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, idCliente);
 		ps.setInt(2, idConcorrente);
 		ps.executeUpdate();
-
 		ps.close();
 		conn.close();
 	}

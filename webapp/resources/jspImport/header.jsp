@@ -78,7 +78,7 @@
 									</span> Lista de Negócios
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarNegocio'/>">
+							<li><a href="<c:url value='formularioAdicionarProjeto'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Negócio
@@ -96,8 +96,7 @@
 									</span> Lista de Projetos
 								</span>
 							</a></li>
-							<li>
-								<a href="<c:url value='formularioAdicionarProjeto'/>"> <span
+							<li><a href="<c:url value='formularioAdicionarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Projetos
@@ -152,9 +151,8 @@
 						</span> <span class="text"> Clientes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li> <a href="<c:url value='listarClientes'/>"><span
-									class="submenu-label"> <span class="menu-icon"> <i
-											class="fa fa-angle-right fa-lg"></i>
+							<li><a href="<c:url value='listarCliente'/>"> 
+							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Clientes
 								</span>
 							</a></li>
@@ -170,7 +168,7 @@
 						</span> <span class="text"> Concorrentes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li> <a href="<c:url value='listarConcorrentes'/>">
+							<li> <a href="<c:url value='listarConcorrente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Concorrentes

@@ -234,7 +234,7 @@ $(document).ready(function() {
                     },
                     regexp: {
                         enabled: true,
-                        regexp: '[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,8}$',
+                        regexp: '^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$',
                         message: 'E-mail inválido, requerido um @ e um domínio completo.'
                     }
                 }
