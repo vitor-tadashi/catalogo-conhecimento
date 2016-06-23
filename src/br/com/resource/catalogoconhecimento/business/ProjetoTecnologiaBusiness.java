@@ -2,6 +2,8 @@ package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
@@ -12,13 +14,10 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 @Component
 public class ProjetoTecnologiaBusiness {
 
-	ProjetoTecnologiaDAO projetoTecnologiaDAO;
+	@Autowired
+	private ProjetoTecnologiaDAO projetoTecnologiaDAO;
 
-	public ProjetoTecnologiaBusiness() throws ClassNotFoundException, SQLException {
-		this.projetoTecnologiaDAO = new ProjetoTecnologiaDAO();
-	}
-
-	public int inserir(ProjetoBean projeto, List<TecnologiaBean> listaTecnologias) throws BusinessException {
+	public int adicionar(ProjetoBean projeto, List<TecnologiaBean> listaTecnologias) throws BusinessException {
 		try {
 			int linhasAfetadas = 0;
 			linhasAfetadas = projetoTecnologiaDAO.inserir(projeto, listaTecnologias);

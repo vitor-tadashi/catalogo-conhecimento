@@ -28,9 +28,7 @@
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAlt" method="POST"
-									action="<c:url value='alterarProjeto'>
-										<c:param name='paginaAtual' value='formularioAlterarProjeto'/>
-											</c:url>">
+									action="<c:url value='alterarProjeto'/>">
 									<div class="panel-heading">
 											<h3>Alterar Projeto</h3>
 										</div>
@@ -42,9 +40,10 @@
 	
 												<div class="col-sm-2">
 													<div class="form-group"> 
-														<label class="control-label">Nome do Projeto
 															<input type="hidden" value="${projeto.id}" name="id">
-															<input type="text" class="form-control"  maxlength="80" name="nomeProjeto" value="${projeto.nome}">
+														<label class="control-label">Nome do Projeto
+															<input type="text" class="form-control"  maxlength="80" name="nome" value="${projeto.nome}">${projeto.nome}
+															
 														</label>
 													</div>
 												</div><!-- /.col --> 	
@@ -62,7 +61,7 @@
 														<label class="control-label">Cliente:
 															<select class="form-control" name="cliente.id">
 																<c:forEach items="${clientes}" var="cliente">
-																	<option value="${clientes.id}">${clientes.nome}</option>
+																	<option value="${cliente.id}">${cliente.nome}</option>
 																</c:forEach>
 															</select>
 														</label>
@@ -119,11 +118,11 @@
 												
 											</div>	
 										
-										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>
 										</div>
 									</form> 
+										</div>
 								</div><!-- /panel -->
 							</div>
 						</div><!-- /tab-content -->

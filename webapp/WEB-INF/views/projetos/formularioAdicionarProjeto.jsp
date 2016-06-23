@@ -91,9 +91,9 @@
 														<div class="checkbox">
 															<c:forEach items="${negocios}" var="negocio" varStatus="count">
 																<label class="control-label">		
-																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocios.id}" />  
+																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />  
 																	<span class="custom-checkbox"></span>
-																	${negocios.areaAtuacao}
+																	${negocio.areaAtuacao}
 																</label>
 																<br>
 															</c:forEach>
