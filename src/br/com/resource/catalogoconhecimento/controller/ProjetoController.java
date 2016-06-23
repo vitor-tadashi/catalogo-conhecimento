@@ -77,7 +77,7 @@ public class ProjetoController {
 		projetoNegocio.adicionar(projetoBean, projetoBean.getListaNegocio());
 		projetoTecnologia.adicionar(projetoBean, projetoBean.getListaTecnologia());
 
-		return "redirect:listarProjetos";
+		return "redirect:listarProjeto";
 	}
 
 	@RequestMapping(value = "listarProjeto", method = RequestMethod.GET)
