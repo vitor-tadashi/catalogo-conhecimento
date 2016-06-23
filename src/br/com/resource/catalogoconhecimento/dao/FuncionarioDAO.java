@@ -34,106 +34,6 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 		return listaFuncionario;
 	}
 
-	// /**
-	// * M�todo para adicionar um novo funcion�rio
-	// *
-	// * @param funcionarioBean
-	// * @return id, criado no bd, do novo funcion�rio adicionado
-	// * @throws ClassNotFoundException
-	// * @throws SQLException
-	// */
-	// public int adicionar(FuncionarioBean funcionarioBean) throws
-	// ClassNotFoundException, SQLException {
-	// Connection conexao = ConnectionFactory.createConnection();
-	// String sql = "INSERT INTO
-	// Funcionario(idCargo,nomeFuncionario,telefone,nomeUser,email, ativo, CPF,
-	// RG, dataNascimento) VALUES(?,?,?,?,?,?,?,?,?)";
-	// PreparedStatement st = conexao.prepareStatement(sql,
-	// Statement.RETURN_GENERATED_KEYS);
-	//
-	// st.setInt(1, funcionarioBean.getCargo().getId());
-	// st.setString(2, funcionarioBean.getNome());
-	// st.setString(3, funcionarioBean.getTelefone());
-	// st.setString(4, funcionarioBean.getNomeUser());
-	// st.setString(5, funcionarioBean.getEmail());
-	// st.setString(6, "s");
-	// st.setString(7, funcionarioBean.getCpf());
-	// st.setString(8, funcionarioBean.getRg());
-	// st.setDate(9, new Date(funcionarioBean.getDataNascimento().getTime()));
-	//
-	// st.executeUpdate();
-	// ResultSet rs = st.getGeneratedKeys();
-	// int id = 0;
-	// if (rs.next()) {
-	// id = rs.getInt(1);
-	// }
-	//
-	// funcionarioBean.setId(id);
-	// st.close();
-	// conexao.close();
-	// return id;
-	// }
-
-	// /**
-	// * m�todo para alterar informa��es de um funcion�rio
-	// *
-	// * @param funcionarioBean
-	// * @throws ClassNotFoundException
-	// * @throws SQLException
-	// */
-	// public void alterar(FuncionarioBean funcionarioBean) throws
-	// ClassNotFoundException, SQLException,BusinessException {
-	// Connection conexao = ConnectionFactory.createConnection();
-	// String sql = "UPDATE Funcionario SET nomeFuncionario =?, telefone =?
-	// WHERE idFuncionario = ?";
-	// PreparedStatement ps = conexao.prepareStatement(sql);
-	// ps.setString(1, funcionarioBean.getNome());
-	// ps.setString(2, funcionarioBean.getTelefone());
-	// ps.setInt(3, funcionarioBean.getId());
-	//
-	// ps.executeUpdate();
-	// conexao.close();
-	// }
-
-	// /**
-	// * M�todo para remover logicamente um funcion�rio
-	// *
-	// * @param id
-	// * @throws SQLException
-	// * @throws ClassNotFoundException
-	// */
-	// public void remover(int id) throws SQLException, ClassNotFoundException,
-	// BusinessException {
-	//
-	// Connection conexao = ConnectionFactory.createConnection();
-	//
-	// String sql1 = "DELETE FROM TecnologiaFuncionario WHERE idFuncionario= ?
-	// ";
-	// PreparedStatement stmt2 = conexao.prepareStatement(sql1);
-	// stmt2.setInt(1, id);
-	// stmt2.executeUpdate();
-	//
-	// String sql2 = "DELETE FROM FuncionarioNegocio WHERE idFuncionario= ? ";
-	// PreparedStatement stmt4 = conexao.prepareStatement(sql2);
-	// stmt4.setInt(1, id);
-	// stmt4.executeUpdate();
-	//
-	// String sql3 = "DELETE FROM EquipeFuncionario WHERE idFuncionario= ? ";
-	// PreparedStatement stmt3 = conexao.prepareStatement(sql3);
-	// stmt3.setInt(1, id);
-	// stmt3.executeUpdate();
-	//
-	// String sql4 = "update Funcionario set ativo = ? WHERE idFuncionario= ? ";
-	// PreparedStatement stmt1 = conexao.prepareStatement(sql4 );
-	//
-	// stmt1.setString(1, "n");
-	// stmt1.setInt(2, id);
-	// stmt1.executeUpdate();
-	//
-	// conexao.commit();
-	//
-	// }
-
 	/**
 	 * M�todo para obter informa��es de um funcion�rio por Id
 	 * 
@@ -143,29 +43,38 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	 * @throws ClassNotFoundException
 	 */
 	public FuncionarioBean obterPorId(int id) throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
 
-		String sql = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, id);
-		ResultSet rs = ps.executeQuery();
-
-		FuncionarioBean funcionarioBean = null;
-		while (rs.next()) {
-
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+		try {
+			TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+					"SELECT f FROM FuncionarioBean as f WHERE f.id = :id AND f.ativo = 'S'", FuncionarioBean.class);
+			FuncionarioBean funcionarioBean = query.setParameter("id", id).getSingleResult();
+			return funcionarioBean;
+		} catch (Exception e) {
+			return null;
 		}
 
-		conexao.close();
-		return funcionarioBean;
+		// Connection conexao = ConnectionFactory.createConnection();
+		// String sql = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
+		// PreparedStatement ps = conexao.prepareStatement(sql);
+		// ps.setInt(1, id);
+		// ResultSet rs = ps.executeQuery();
+		//
+		// FuncionarioBean funcionarioBean = null;
+		// while (rs.next()) {
+		//
+		// funcionarioBean = new FuncionarioBean();
+		// funcionarioBean.setId(rs.getInt("idFuncionario"));
+		// funcionarioBean.setNome(rs.getString("nomeFuncionario"));
+		// funcionarioBean.setTelefone(rs.getString("telefone"));
+		// funcionarioBean.setNomeUser(rs.getString("nomeUser"));
+		// funcionarioBean.setEmail(rs.getString("email"));
+		// funcionarioBean.setCpf(rs.getString("CPF"));
+		// funcionarioBean.setRg(rs.getString("RG"));
+		// funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
+		// }
+		//
+		// conexao.close();
+		// return funcionarioBean;
 	}
 
 	/**
@@ -207,60 +116,42 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	 * @param idEquipe
 	 * @return Lista de funcion�rios com informa��es espec�ficas
 	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLExceptionk
 	 */
 
-	public List<FuncionarioBean> listarPorEquipe(int idEquipe)
-			throws BusinessException {
-		
-		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean AS f JOIN f.equipes e WHERE f.ativo = 'S' and e.id = :id",
-				FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("id", idEquipe).getResultList();
-		return listaFuncionario ;
+	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws BusinessException {
 
+		try {
+			TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+					"SELECT f FROM FuncionarioBean AS f JOIN f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.nome ASC",
+					FuncionarioBean.class);
+			List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("id", idEquipe)
+					.getResultList();
+			return listaFuncionario;
+			
+		} catch (Exception e) {
+			return null;
+		}
 
 	}
 
-	// /**
-	// * M�todo para obter informa��es de um funcion�rio caso ele j� tenha sido
-	// * removido
-	// *
-	// * @param nome
-	// * @return informa��es do funcion�rio removido
-	// * @throws SQLException
-	// * @throws ClassNotFoundException
-	// */
-	// public FuncionarioBean obterDesativado(String nome) throws SQLException,
-	// ClassNotFoundException, BusinessException {
-	// Connection conexao = ConnectionFactory.createConnection();
-	// String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ? AND
-	// ativo =?";
-	// PreparedStatement ps = conexao.prepareStatement(sql);
-	// ps.setString(1, nome);
-	// ps.setString(2, "n");
-	// ResultSet rs = ps.executeQuery();
-	//
-	// FuncionarioBean funcionarioBean = null;
-	// CargoBusiness cargoBusiness = new CargoBusiness();
-	// while (rs.next()) {
-	// CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-	//
-	// funcionarioBean = new FuncionarioBean();
-	// funcionarioBean.setId(rs.getInt("idFuncionario"));
-	// funcionarioBean.setCargo(cargoBean);
-	// funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-	// funcionarioBean.setTelefone(rs.getString("telefone"));
-	// funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-	// funcionarioBean.setEmail(rs.getString("email"));
-	// funcionarioBean.setCpf(rs.getString("CPF"));
-	// funcionarioBean.setRg(rs.getString("RG"));
-	// funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-	// }
-	//
-	// conexao.close();
-	// return funcionarioBean;
-	// }
+	public FuncionarioBean obterPorEquipe(int idFuncionario, int idEquipe) throws BusinessException {
+
+		try {
+			TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+					"SELECT f FROM FuncionarioBean AS f JOIN f.equipes AS e WHERE f.ativo = 'S' and e.id = :idEquipe and f.id = :idFuncionario ORDER BY f.nome ASC",
+					FuncionarioBean.class);
+			query.setParameter("idEquipe", idEquipe);
+			query.setParameter("idFuncionario", idFuncionario);
+
+			FuncionarioBean funcionario = (FuncionarioBean) query.getSingleResult();
+			return funcionario;
+
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
 
 	/**
 	 * Lista todos os funcion�rios de uma tecnologia espec�fica
@@ -309,19 +200,6 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 
 		return listaFuncionario;
 	}
-
-	// public void reativar(FuncionarioBean funcionarioBean) throws
-	// ClassNotFoundException, SQLException,BusinessException {
-	// Connection conexao = ConnectionFactory.createConnection();
-	//
-	// String sql = "UPDATE Funcionario SET ativo = ? WHERE CPF = ?";
-	// PreparedStatement ps = conexao.prepareStatement(sql);
-	// ps.setString(1, "s");
-	// ps.setString(2, funcionarioBean.getCpf());
-	//
-	// ps.executeUpdate();
-	// conexao.close();
-	// }
 
 	public FuncionarioBean obterPorCpf(String cpf) throws SQLException, ClassNotFoundException, BusinessException {
 		Connection conexao = ConnectionFactory.createConnection();
@@ -514,5 +392,14 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 		conexao.close();
 		return listaFuncionario;
 	}
+
+	// public void inserirPorEquipe(int equipe, int funcionario) {
+	//
+	//
+	//
+	//
+	//
+	//
+	// }
 
 }

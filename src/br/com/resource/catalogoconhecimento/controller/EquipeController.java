@@ -17,6 +17,7 @@ import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
+import br.com.resource.catalogoconhecimento.business.EquipeFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -24,6 +25,9 @@ import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 @Controller
 @RequestMapping("equipe")
 public class EquipeController {
+	
+	@Autowired
+	private EquipeFuncionarioBusiness equipeFuncionarioBusiness;
 
 	@Autowired
 	private EquipeBusiness equipeBusiness;
@@ -104,20 +108,21 @@ public class EquipeController {
 
 		return "equipe/listarFuncionariosPorEquipe";
 	}
+	
+	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
+	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
+			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
 
-//	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
-//	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
-//			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
-//
-//		int idEquipe = Integer.parseInt(idEq);
-//		int idFuncionario = Integer.parseInt(idFunc);
-//
-//		equipeBusiness.inserirPorEquipe(idEquipe, idFuncionario);
-//		request.setAttribute("idEquipe", idEq);
-//
-//		return "forward:listarFuncionarioPorEquipe";
-//
-//	}
+		int idEquipe = Integer.parseInt(idEq);
+		int idFuncionario = Integer.parseInt(idFunc);
+		FuncionarioBean funcionario = funcionarioBusiness.obterPorId(idFuncionario);
+		equipeFuncionarioBusiness.inserirPorEquipe(idEquipe, funcionario);
+
+		request.setAttribute("idEquipe", idEq);
+
+		return "forward:listarFuncionarioPorEquipe";
+
+	}
 	
 	@ExceptionHandler(BusinessException.class)
 	public String exceptionHandler(BusinessException exception, Model model){

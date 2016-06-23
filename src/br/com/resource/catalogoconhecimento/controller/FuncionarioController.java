@@ -2,6 +2,7 @@ package br.com.resource.catalogoconhecimento.controller;
 
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
+import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
@@ -25,6 +27,7 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusine
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping(value = "funcionario")
 public class FuncionarioController {
 
 	@Autowired
@@ -44,6 +47,9 @@ public class FuncionarioController {
 	
 	@Autowired
 	FuncionarioNegocioBusiness funcionarioNegocio;
+	
+	@Autowired
+	EquipeBusiness equipeBusiness;
 
 	@RequestMapping(value = "formularioAdicionarFuncionario", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {
@@ -90,6 +96,8 @@ public class FuncionarioController {
 		
 		return "funcionarios/formularioAlterar";
 	}
+	
+
 	
 	@RequestMapping(value = "alterarFuncionario", method = RequestMethod.POST)
 	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException{
