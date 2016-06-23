@@ -64,7 +64,8 @@ public class ProjetoController {
 		model.addAttribute("clientes", listaCliente);
 		model.addAttribute("tecnologias", listaTecnologia);
 		model.addAttribute("equipes", listaEquipe);
-		return "projetos/formularioAdicionar";
+		
+		return "projetos/formularioAdicionarProjeto";
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
@@ -95,18 +96,22 @@ public class ProjetoController {
 		List<NegocioBean> listaNegocio = negocioBusiness.listar();
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<EquipeBean> listaEquipe = equipeBusiness.listar();
+		List<ClienteBean>listaCliente = clienteBusiness.listar();
 		int idProjeto = Integer.parseInt(id);
 		
 		model.addAttribute("projeto", projetoBusiness.obterPorId(idProjeto));
 		model.addAttribute("negocios", listaNegocio);
 		model.addAttribute("tecnologias", listaTecnologia);
 		model.addAttribute("equipes", listaEquipe);
+		model.addAttribute("clientes", listaCliente);
 		
-		return "projetos/formularioAlterar";
+		
+		return "projetos/formularioAlterarProjeto";
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
-	public String alterar(ProjetoBean projetoBean) throws BusinessException {
+	public String alterar(ProjetoBean projetoBean, @RequestParam("nome")String nome) throws BusinessException {
+		projetoBean.setNome(nome);
 		projetoBusiness.atualizar(projetoBean);
 		projetoNegocio.atualizar(projetoBean, projetoBean.getListaNegocio());
 		projetoTecnologia.atualizar(projetoBean, projetoBean.getListaTecnologia());
