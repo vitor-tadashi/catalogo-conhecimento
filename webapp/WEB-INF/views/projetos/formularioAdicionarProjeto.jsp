@@ -39,11 +39,11 @@
 											
 												<!-- Message Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
-	
+										
 												<div class="col-sm-2">
 													<div class="form-group">
 									   					<label class="control-label">Nome do Projeto
-															<input type="text" class="form-control" maxlength="80" name="nomeProjeto">
+															<input type="text" class="form-control" maxlength="80" name="nome">
 														</label>
 													</div>
 												</div><!-- /.col --> 
@@ -72,7 +72,7 @@
 														<label class="control-label">Equipe:</label>														
 														<div class="checkbox">
 															<c:forEach items="${equipes}" var="equipe" varStatus="count">
-																<label class="control-label">		
+																<label class="control-label" name="equipeArray">		
 																	<input type="checkbox" name="listaEquipe[${count.index}].id" value="${equipe.id}"/>  
 																	<span class="custom-checkbox"></span>
 																	${equipe.nome}
@@ -84,13 +84,13 @@
 												</div><!-- /.col -->  
 											</div>	
 											<div class="row">
-												<div class="col-sm-2">
+												<div class="col-sm-3">
 													<div class="form-group">
 														<label class="control-label">Negócio:
 														</label>
 														<div class="checkbox">
 															<c:forEach items="${negocios}" var="negocio" varStatus="count">
-																<label class="control-label">		
+																<label class="control-label" name="negocioArray">		
 																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />  
 																	<span class="custom-checkbox"></span>
 																	${negocio.areaAtuacao}
@@ -106,7 +106,7 @@
 														</label>
 														<div class="checkbox">
 															<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
-																<label class="control-label">		
+																<label class="control-label" name="tecnologiaArray">		
 																	<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" />
 																	<span class="custom-checkbox"></span>
 																	${tecnologia.nome}
@@ -148,7 +148,7 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	nomeProjeto: {
+        	nome: {
                 validators: {
                     stringLength: {
                         enabled: true,
@@ -184,7 +184,7 @@ $(document).ready(function() {
 	                }
 	            }
 	        },
-            'equipesArray[]': {
+            'equipeArray': {
 	            validators: {
 	            	choice: {
                         min: 1,
@@ -192,7 +192,7 @@ $(document).ready(function() {
 	                }
 	            }
 	        }, 
-	        'negociosArray[]': {
+	        'negocioArray': {
 	            validators: {
 	            	choice: {
                         min: 1,
@@ -200,7 +200,7 @@ $(document).ready(function() {
 	                }
 	            }
 	        },
-	        'tecnologiasArray[]': {
+	        'tecnologiaArray': {
 	            validators: {
 	            	choice: {
                         min: 1,
