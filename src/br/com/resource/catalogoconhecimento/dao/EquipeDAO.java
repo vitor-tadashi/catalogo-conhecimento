@@ -7,11 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.TypedQuery;
-
 import org.springframework.stereotype.Repository;
-
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
@@ -57,23 +54,6 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 			return null;
 		}
 	}
-
-	//INSERIR DADOS NA TABELA POR EQUIPE
-	
-	public void inserirPorEquipe(int equipe, int funcionario) throws ClassNotFoundException, SQLException {
-
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO EquipeFuncionario (idEquipe, idFuncionario) VALUES (?,?)";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ps.setInt(1, equipe);
-		ps.setInt(2, funcionario);
-
-		ps.executeUpdate();
-		ps.close();
-		conexao.close();
-	}
-
 	//DELETAR DADOS NA TABELA POR EQUIPE
 	
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
@@ -226,4 +206,9 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 		return check;
 	}
 
-}
+	
+		
+		
+	}
+
+

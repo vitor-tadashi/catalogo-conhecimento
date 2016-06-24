@@ -34,6 +34,7 @@ public class EquipeBean {
 	@Column(name = "nome")
 	private String nome;
 
+	@Column(name = "ativo")
 	private char ativo;
 
 	public char getAtivo() {

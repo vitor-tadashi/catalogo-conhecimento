@@ -27,7 +27,6 @@ public class EquipeBusiness {
 	public void inserir(EquipeBean equipeBean) throws BusinessException {
 		
 		try {
-
 			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
 
 			if (!validarNome(equipeBean.getNome())) {
@@ -45,24 +44,7 @@ public class EquipeBusiness {
 		}
 
 	}
-
-	// INSERIR O FUNCION�RIO NA BASE
-
-//	public void inserirPorEquipe(int equipe, int funcionario) throws BusinessException {
-//		try {
-//			EquipeFuncionarioBean equipeFuncionario = equipeDAO.listarPorEquipe(equipe, funcionario);
-//
-//			if (equipeFuncionario != null) {
-//				throw new NomeRepetidoException("Este nome já consta nessa Equipe");
-//			} else {
-//				equipeDAO.inserirPorEquipe(equipe, funcionario);
-//			}
-//
-//		} catch (Exception e) {
-//			throw ExceptionUtil.handleException(e);
-//		}
-//	}
-
+	
 	// DELETAR NA BASE
 	@Transactional
 	public void deletar(EquipeBean equipe) throws BusinessException {
@@ -116,6 +98,9 @@ public class EquipeBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
+	
+	
+
 
 	// LISTAR POR ID NA BASE
 	@Transactional

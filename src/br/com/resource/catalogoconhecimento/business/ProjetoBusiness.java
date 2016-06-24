@@ -52,13 +52,11 @@ public class ProjetoBusiness {
 	public List<ProjetoBean> listar() throws BusinessException {
 		try {
 			List<ProjetoBean> listaProjeto = projetoDao.listar();
-
 			if (listaProjeto.isEmpty()) {
 				throw new ConsultaNulaException("N�o h� projetos cadastrados!");
 			} else {
 				return listaProjeto;
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
@@ -79,11 +77,9 @@ public class ProjetoBusiness {
 			} else {
 				projetoDao.alterar(projetoBean);
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
-
 	}
 
 	// LISTA POR ID

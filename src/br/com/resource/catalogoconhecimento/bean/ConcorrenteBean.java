@@ -1,10 +1,13 @@
 package br.com.resource.catalogoconhecimento.bean;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Concorrente")
@@ -12,15 +15,18 @@ public class ConcorrenteBean {
 
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-	@Column(name="idConcorrente", unique = true, nullable = false)
+	@Column(name = "idConcorrente", unique = true, nullable = false)
 	private int id;
-	
+
 	@Column(name = "nomeConcorrente")
 	private String nome;
-	
+
 	@Column(name = "descricao")
 	private String descricao;
-	
+
+	@Transient
+	private List<ConcorrenteClienteBean> listaClientes;
+
 	private char ativo;
 
 	public int getId() {
@@ -47,6 +53,14 @@ public class ConcorrenteBean {
 		this.descricao = descricao;
 	}
 
+	public List<ConcorrenteClienteBean> getListaClientes() {
+		return listaClientes;
+	}
+
+	public void setListaClientes(List<ConcorrenteClienteBean> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
 	public char getAtivo() {
 		return ativo;
 	}
@@ -54,5 +68,5 @@ public class ConcorrenteBean {
 	public void setAtivo(char ativo) {
 		this.ativo = ativo;
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -28,42 +27,40 @@ public class ClienteBusiness {
 			ClienteBean ClienteClone = this.obterPorNome(clienteBean.getNome());
 
 			if (!validarNome(clienteBean.getNome())) {
-				throw new TamanhoCampoException("Por Favor, digite um nome v�lido!");
+				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
 			} else if (clienteDesativado != null) {
 				this.reativar(clienteBean);
 			} else if (ClienteClone != null) {
-				throw new NomeRepetidoException("Este nome j� exite na base de dados.");
+				throw new NomeRepetidoException("Este nome já exite na base de dados.");
 			} else if (!validarEmail(clienteBean.getEmail())) {
-				throw new Exception("Email inv�lido");
+				throw new Exception("Email inválido");
 			} else if (!validarLogradouro(clienteBean.getLogradouro())) {
-				throw new Exception("Logradouro inv�lido");
+				throw new Exception("Logradouro inválido");
 			} else if (!validarNumero(clienteBean.getNumero())) {
-				throw new Exception("N�mero inv�lido");
+				throw new Exception("Número inválido");
 			} else if (!validarCep(clienteBean.getCep())) {
-				throw new Exception("CEP inv�lido");
+				throw new Exception("CEP inválido");
 			} else if (!validarCnpj(clienteBean.getCnpj())) {
-				throw new Exception("CNPJ inv�lido");
+				throw new Exception("CNPJ inválido");
 			} else {
 				if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj()))
 					clienteDao.adicionar(clienteBean);
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	public List<ClienteBean> listar() throws BusinessException {
-		try{
+		try {
 			List<ClienteBean> listaCliente = clienteDao.listar();
-			
 			if (listaCliente.isEmpty()) {
 				throw new ConsultaNulaException("Não há clientes cadastrados");
 			} else {
 				return listaCliente;
-			}	
-		}catch(Exception e){
-			throw ExceptionUtil.handleException(e);			
+			}
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
 		}
 	}
 
@@ -91,40 +88,53 @@ public class ClienteBusiness {
 			} else {
 				clienteDao.alterar(clienteBean);
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
-	public void remover(ClienteBean clienteBean) throws BusinessException {
+	public void remover(int idCliente) throws BusinessException {
 		try {
-			ClienteBean cliente = clienteDao.obterPorId(clienteBean.getId());
-
+			ClienteBean cliente = clienteDao.obterPorId(idCliente);
 			if (cliente != null) {
-				clienteDao.remover(clienteBean);
+				clienteDao.remover(idCliente);
 			}
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
-	public ClienteBean obterPorId(int idCliente) throws ClassNotFoundException, SQLException {
-		return clienteDao.obterPorId(idCliente);
+	public ClienteBean obterPorId(int idCliente) throws BusinessException {
+		try {
+			return clienteDao.obterPorId(idCliente);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public ClienteBean obterPorNome(String nome) throws BusinessException {
 		try {
 			return clienteDao.obterPorNome(nome);
-
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
-	public ClienteBean obterNomeDesativado(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		return clienteDao.obterNomeDesativado(clienteBean);
+	public ClienteBean obterNomeDesativado(ClienteBean clienteBean) throws BusinessException {
+		try {
+			return clienteDao.obterNomeDesativado(clienteBean);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
+	}
+
+	public void reativar(ClienteBean clienteBean) throws BusinessException {
+		try {
+			ClienteDAO clienteDao = new ClienteDAO();
+			clienteDao.reativar(clienteBean);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public boolean validarNome(String nome) {
@@ -151,9 +161,4 @@ public class ClienteBusiness {
 		return cnpj.matches("\\d{2}.?\\d{3}.?\\d{3}/?\\d{4}-?\\d{2}");
 	}
 
-	public void reativar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		ClienteDAO clienteDao = new ClienteDAO();
-
-		clienteDao.reativar(clienteBean);
-	}
 }

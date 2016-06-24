@@ -56,22 +56,21 @@
 											<tr>
 												<td>${concorrente.nome}</td>
 												<td>${concorrente.descricao}</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.FormularioAlterarConcorrenteLogica&id=${concorrente.id}"><i class="fa fa-edit fa-lg"></i></a>
+												<td style="text-align: center;">
+													<a href="<c:url value='formularioAlterarConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
-												<td style="text-align: center;"><a
-													href="mvc?logica=concorrente.RemoverConcorrenteLogica&id=${concorrente.id}&logicaAtual=concorrente.ListarConcorrenteLogica"><i class="fa fa-times fa-lg"></i></a>
+												<td style="text-align: center;">
+													<a href="<c:url value='removerConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td>
-												<td style="text-align: center;">	
-													<a href="mvc?logica=concorrente.ListarClientePorConcorrenteLogica&id=${concorrente.id}&logicaAtual=concorrente.ListarConcorrenteLogica">
-														<i class="fa fa-users fa-lg" ></i></a>
+												<td style="text-align: center;">
+													<a href="<c:url value='listarClientePorConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
 												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="mvc?logica=concorrente.FormularioAdicionarConcorrenteLogica">
+									<a href="formularioAdicionarConcorrente">
 										<button class="btn btn-success" type="submit">Adicionar Novo Concorrente</button>
 									</a>
 								</div>
