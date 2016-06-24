@@ -28,7 +28,7 @@
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAdd"  method="POST" 
 									action="<c:url value='adicionarNegocio'>
-									<c:param name='paginaAtual' value='formularioAdicionarNegocio'/>
+									<c:param name='paginaAtual' value='catalogoconhecimento/negocio/formularioAdicionarNegocio'/>
 											</c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Negócio</h3>

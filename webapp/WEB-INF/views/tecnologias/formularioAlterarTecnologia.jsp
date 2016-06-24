@@ -27,7 +27,7 @@
 									<div class="panel panel-default">
 										<form class="no-margin" id="formAlt"  method="POST"
 											action="<c:url value='alterarTecnologia'>
-										<c:param name='paginaAtual' value='formularioAlterarTecnologia'/>
+										<c:param name='paginaAtual' value='catalogoconhecimento/tecnologia/formularioAlterarTecnologia'/>
 												</c:url>">
 											<div class="panel-heading">
 												<h3>Alterar Tecnologia</h3>

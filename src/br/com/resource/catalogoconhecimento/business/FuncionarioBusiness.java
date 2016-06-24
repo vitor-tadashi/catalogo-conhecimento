@@ -184,7 +184,7 @@ public class FuncionarioBusiness {
 				throw new NullPointerException("Preencha o campo de telefone corretamante");
 			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
 				throw new TamanhoCampoException(
-						"Número limite de caracteres excedido(m�x.11) e/ou caracteres inv�lidos inseridos");
+						"Nmero limite de caracteres excedido(m�x.11) e/ou caracteres inv�lidos inseridos");
 			} else {
 				funcionarioDAO.alterar(funcionarioBean);
 			}
