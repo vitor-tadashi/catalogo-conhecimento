@@ -43,13 +43,13 @@ public class ProjetoController {
 
 	@Autowired
 	EquipeBusiness equipeBusiness;
-	
+
 	@Autowired
 	ProjetoEquipeBusiness projetoEquipe;
-	
+
 	@Autowired
 	ProjetoNegocioBusiness projetoNegocio;
-	
+
 	@Autowired
 	ProjetoTecnologiaBusiness projetoTecnologia;
 
@@ -64,13 +64,16 @@ public class ProjetoController {
 		model.addAttribute("clientes", listaCliente);
 		model.addAttribute("tecnologias", listaTecnologia);
 		model.addAttribute("equipes", listaEquipe);
-		
+
 		return "projetos/formularioAdicionarProjeto";
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto(ProjetoBean projetoBean)
+	public String adicionarProjeto(ProjetoBean projetoBean, @RequestParam("cargos") String id)
 			throws BusinessException {
+		int idCliente = Integer.parseInt(id);
+
+		projetoBean.setCliente(clienteBusiness.obterPorId(idCliente));
 
 		projetoBusiness.adicionar(projetoBean);
 		projetoEquipe.adicionar(projetoBean, projetoBean.getListaEquipe());
@@ -93,27 +96,26 @@ public class ProjetoController {
 		List<NegocioBean> listaNegocio = negocioBusiness.listar();
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<EquipeBean> listaEquipe = equipeBusiness.listar();
-		List<ClienteBean>listaCliente = clienteBusiness.listar();
+		List<ClienteBean> listaCliente = clienteBusiness.listar();
 		int idProjeto = Integer.parseInt(id);
-		
+
 		model.addAttribute("projeto", projetoBusiness.obterPorId(idProjeto));
 		model.addAttribute("negocios", listaNegocio);
 		model.addAttribute("tecnologias", listaTecnologia);
 		model.addAttribute("equipes", listaEquipe);
 		model.addAttribute("clientes", listaCliente);
-		
-		
+
 		return "projetos/formularioAlterarProjeto";
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
-	public String alterar(ProjetoBean projetoBean, @RequestParam("nome")String nome) throws BusinessException {
+	public String alterar(ProjetoBean projetoBean, @RequestParam("nome") String nome) throws BusinessException {
 		projetoBean.setNome(nome);
 		projetoBusiness.atualizar(projetoBean);
 		projetoNegocio.atualizar(projetoBean, projetoBean.getListaNegocio());
 		projetoTecnologia.atualizar(projetoBean, projetoBean.getListaTecnologia());
 		projetoEquipe.atualizar(projetoBean, projetoBean.getListaEquipe());
-		
+
 		return "redirect:listarProjeto";
 	}
 
@@ -121,7 +123,7 @@ public class ProjetoController {
 	public String remover(@RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
 		projetoBusiness.remover(idProjeto);
-		
+
 		return "redirect:listarProjeto";
 	}
 

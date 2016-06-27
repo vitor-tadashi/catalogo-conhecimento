@@ -16,8 +16,6 @@
 
 	<c:import url="/resources/jspImport/header.jsp"/>
 	
-	
-	
 		<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
