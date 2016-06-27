@@ -169,46 +169,19 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 
 	}
 
-	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio)
-			throws ClassNotFoundException, SQLException, BusinessException {
+	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
 
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
-				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone" + " FROM Funcionario f "
-				+ "INNER JOIN FuncionarioNegocio fn ON fn.idFuncionario = f.idFuncionario "
-				+ "INNER JOIN Negocio as n ON fn.idNegocio = n.idNegocio " + "WHERE n.areaAtuacao IN (" + nomeNegocio
-				+ ") " + "GROUP BY	f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
-				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone " + "HAVING COUNT(f.idFuncionario) > 0";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			FuncionarioBean funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-
-			listaFuncionario.add(funcionarioBean);
-		}
-
-		ps.close();
-		conexao.close();
-
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaNegocio as n WHERE n.areaAtuacao = :areaAtuacao and f.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
+				FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("areaAtuacao", nomeNegocio)
+				.getResultList();
 		return listaFuncionario;
+
 	}
+
+	
 
 	public List<FuncionarioBean> obterPorEmail(String email)
 			throws SQLException, ClassNotFoundException, BusinessException {
