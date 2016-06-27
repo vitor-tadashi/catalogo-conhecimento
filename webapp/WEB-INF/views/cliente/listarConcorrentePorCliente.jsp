@@ -88,7 +88,7 @@
 												<td>${concorrenteCliente.concorrente.descricao}</td>
 												<td>${concorrenteCliente.valorHora}</td>
 												<td style="text-align: center;">
-												<a href="<c:url value='removerConcorrenteDoCliente'> <c:param name='idCliente' value='${cliente.id}'/> <c:param name='idConcorrente' value='${concorrenteCliente.concorrente.id}'/></c:url>"><i class="fa fa-times fa-lg"></i></a>
+												<a href="<c:url value='removerConcorrenteDoCliente'> <c:param name='idCliente' value='${concorrenteCliente.cliente.id}'/> <c:param name='idConcorrente' value='${concorrenteCliente.concorrente.id}'/></c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 											</tr>
 										</c:forEach>

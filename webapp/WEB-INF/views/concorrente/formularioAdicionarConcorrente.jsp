@@ -68,6 +68,8 @@
 												<!-- Messagem Erro-->
 												<c:import url="/resources/jspImport/msgErro.jsp"/>
 												
+												<input type ="hidden" name="ativo" value = "S"/>
+												
 												<div class="col-sm-2">
 													<div class="form-group">
 														<label class="control-label">Nome
