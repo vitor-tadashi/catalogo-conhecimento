@@ -48,10 +48,10 @@ public class FuncionarioBusiness {
 	 */
 	public void adicionar(FuncionarioBean funcionarioBean) throws BusinessException {
 		try {
-			FuncionarioBean funcionarioCloneCpf = funcionarioDAO.obterPorCpf(funcionarioBean.getCpf());
-			FuncionarioBean funcionarioCloneMail = funcionarioDAO.obterPorEmail(funcionarioBean.getEmail());
-			FuncionarioBean funcionarioCloneUser = funcionarioDAO.obterPorUser(funcionarioBean.getNomeUser());
-			FuncionarioBean funcionarioCloneRg = funcionarioDAO.obterPorRg(funcionarioBean.getRg());
+			List<FuncionarioBean> funcionarioCloneCpf = funcionarioDAO.obterPorCpf(funcionarioBean.getCpf());
+			List<FuncionarioBean> funcionarioCloneMail = funcionarioDAO.obterPorEmail(funcionarioBean.getEmail());
+			List<FuncionarioBean> funcionarioCloneUser = funcionarioDAO.obterPorUser(funcionarioBean.getNomeUser());
+			List<FuncionarioBean> funcionarioCloneRg = funcionarioDAO.obterPorRg(funcionarioBean.getRg());
 
 			if (funcionarioBean.getNome().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de nome corretamante");
@@ -111,7 +111,7 @@ public class FuncionarioBusiness {
 			List<FuncionarioBean> listaFuncionario = funcionarioDAO.listar();
 
 			if (listaFuncionario.isEmpty()) {
-				throw new ConsultaNulaException("Não existem funcionário cadastrados");
+				throw new ConsultaNulaException("Não existem funcionários cadastrados");
 			} else {
 				return listaFuncionario;
 			}
@@ -144,10 +144,10 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Obtem todas informa��es de um funcin�rio por id
+	 * Obtem todas informações de um funcinário por id
 	 * 
 	 * @param idFuncionario
-	 * @return informa��es de um funcin�rio
+	 * @return informações de um funcinário
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -164,7 +164,7 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Atualiza informa��es de um funcion�rio
+	 * Atualiza informações de um funcionário
 	 * 
 	 * @param funcionario
 	 * @return boolean
@@ -184,7 +184,7 @@ public class FuncionarioBusiness {
 				throw new NullPointerException("Preencha o campo de telefone corretamante");
 			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
 				throw new TamanhoCampoException(
-						"N�mero limite de caracteres excedido(m�x.11) e/ou caracteres inv�lidos inseridos");
+						"Nmero limite de caracteres excedido(m�x.11) e/ou caracteres inv�lidos inseridos");
 			} else {
 				funcionarioDAO.alterar(funcionarioBean);
 			}
@@ -215,16 +215,17 @@ public class FuncionarioBusiness {
 	}
 
 	/**
-	 * Obtem todas informa��es de um funcion�rio pelo nome
+	 * Obtem todas informações de um funcionário pelo nome
 	 * 
 	 * @param nome
-	 * @return todas informa��es de um funcion�rio
+	 * @return todas informações de um funcionário
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
+	
 	public FuncionarioBean obterPorNome(String nome) throws BusinessException {
 		try {
-			FuncionarioBean funcionarioBean = funcionarioDAO.obterPorNome(nome);
+			FuncionarioBean funcionarioBean = funcionarioDAO.obterPorNome(nome).get(0);
 			funcionarioBean.setCargo(cargoBusiness.obterPorId(funcionarioBean.getId()));
 
 			return funcionarioBean;

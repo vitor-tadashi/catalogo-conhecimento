@@ -53,28 +53,6 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 			return null;
 		}
 
-		// Connection conexao = ConnectionFactory.createConnection();
-		// String sql = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
-		// PreparedStatement ps = conexao.prepareStatement(sql);
-		// ps.setInt(1, id);
-		// ResultSet rs = ps.executeQuery();
-		//
-		// FuncionarioBean funcionarioBean = null;
-		// while (rs.next()) {
-		//
-		// funcionarioBean = new FuncionarioBean();
-		// funcionarioBean.setId(rs.getInt("idFuncionario"));
-		// funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-		// funcionarioBean.setTelefone(rs.getString("telefone"));
-		// funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-		// funcionarioBean.setEmail(rs.getString("email"));
-		// funcionarioBean.setCpf(rs.getString("CPF"));
-		// funcionarioBean.setRg(rs.getString("RG"));
-		// funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-		// }
-		//
-		// conexao.close();
-		// return funcionarioBean;
 	}
 
 	/**
@@ -85,29 +63,14 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public FuncionarioBean obterPorNome(String nome) throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, nome);
-		ResultSet rs = ps.executeQuery();
+	public List<FuncionarioBean> obterPorNome(String nome)
+			throws SQLException, ClassNotFoundException, BusinessException {
 
-		FuncionarioBean funcionarioBean = null;
-		while (rs.next()) {
-
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-		}
-
-		conexao.close();
-		return funcionarioBean;
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f WHERE f.nome = :nome and f.ativo = 'S'", FuncionarioBean.class);
+		query.setParameter("nome", nome);
+		List<FuncionarioBean> funcionario = query.getResultList();
+		return funcionario;
 	}
 
 	/**
@@ -121,17 +84,12 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 
 	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws BusinessException {
 
-		try {
-			TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-					"SELECT f FROM FuncionarioBean AS f JOIN f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.nome ASC",
-					FuncionarioBean.class);
-			List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("id", idEquipe)
-					.getResultList();
-			return listaFuncionario;
-			
-		} catch (Exception e) {
-			return null;
-		}
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean AS f JOIN f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.nome ASC",
+				FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("id", idEquipe)
+				.getResultList();
+		return listaFuncionario;
 
 	}
 
@@ -161,205 +119,70 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias)
-			throws ClassNotFoundException, SQLException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
+	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws BusinessException {
 
-		String sql = "SELECT f.* FROM Funcionario f "
-				+ "INNER JOIN TecnologiaFuncionario tf ON tf.idFuncionario = f.idFuncionario "
-				+ "INNER JOIN Tecnologia t ON tf.idTecnologia = t.idTecnologia " + "WHERE t.nomeTecnologia IN ("
-				+ nomeTecnologias + ") AND f.ativo = 's' AND t.ativo = 's' "
-				+ "GROUP BY	f.CPF, f.RG, f.ativo, f.dataNascimento, f.email, f.idCargo, "
-				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone " + "HAVING COUNT(f.idFuncionario) > 0";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			FuncionarioBean funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-
-			listaFuncionario.add(funcionarioBean);
-		}
-
-		ps.close();
-		conexao.close();
-
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaTecnologia AS t WHERE t.nome = :nome and f.ativo = 'S' AND t.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
+				FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("nome", nomeTecnologias)
+				.getResultList();
 		return listaFuncionario;
-	}
-
-	public FuncionarioBean obterPorCpf(String cpf) throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE CPF = ? AND ativo = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, cpf);
-		ps.setString(2, "s");
-		ResultSet rs = ps.executeQuery();
-
-		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-		}
-
-		conexao.close();
-		return funcionarioBean;
 
 	}
+	
+	
 
-	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio)
-			throws ClassNotFoundException, SQLException, BusinessException {
+	public List<FuncionarioBean> obterPorCpf(String cpf)
+			throws SQLException, ClassNotFoundException, BusinessException {
 
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
-				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone" + " FROM Funcionario f "
-				+ "INNER JOIN FuncionarioNegocio fn ON fn.idFuncionario = f.idFuncionario "
-				+ "INNER JOIN Negocio as n ON fn.idNegocio = n.idNegocio " + "WHERE n.areaAtuacao IN (" + nomeNegocio
-				+ ") " + "GROUP BY	f.CPF, f.RG,f.dataNascimento, f.email, f.idCargo, "
-				+ "f.idFuncionario, f.nomeFuncionario, f.nomeUser, f.telefone " + "HAVING COUNT(f.idFuncionario) > 0";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean> listaFuncionario = new ArrayList<FuncionarioBean>();
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			FuncionarioBean funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-
-			listaFuncionario.add(funcionarioBean);
-		}
-
-		ps.close();
-		conexao.close();
-
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f WHERE f.cpf = :cpf and f.ativo = 'S'", FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("cpf", cpf).getResultList();
 		return listaFuncionario;
-	}
-
-	public FuncionarioBean obterPorEmail(String email) throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE email = ? AND ativo = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, email);
-		ps.setString(2, "s");
-		ResultSet rs = ps.executeQuery();
-		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-
-		}
-
-		conexao.close();
-		return funcionarioBean;
 
 	}
 
-	public FuncionarioBean obterPorUser(String user) throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE nomeUser = ? AND ativo = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, user);
-		ps.setString(2, "s");
-		ResultSet rs = ps.executeQuery();
+	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
 
-		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-		}
-
-		conexao.close();
-		return funcionarioBean;
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaNegocio as n WHERE n.areaAtuacao = :areaAtuacao and f.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
+				FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("areaAtuacao", nomeNegocio)
+				.getResultList();
+		return listaFuncionario;
 
 	}
 
-	public FuncionarioBean obterPorRg(String rg) throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE RG = ? AND ativo = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, rg);
-		ps.setString(2, "s");
-		ResultSet rs = ps.executeQuery();
+	
 
-		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
+	public List<FuncionarioBean> obterPorEmail(String email)
+			throws SQLException, ClassNotFoundException, BusinessException {
 
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-		}
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f WHERE f.email = :email and f.ativo = 'S'", FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionario = query.setParameter("", email).getResultList();
+		return listaFuncionario;
 
-		conexao.close();
-		return funcionarioBean;
+	}
 
+	public List<FuncionarioBean> obterPorUser(String nomeUser)
+			throws SQLException, ClassNotFoundException, BusinessException {
+
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean as f WHERE f.nomeUser and f.ativo = 'S'", FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionarios = query.setParameter("nomeUser", nomeUser).getResultList();
+		return listaFuncionarios;
+
+	}
+
+	public List<FuncionarioBean> obterPorRg(String rg) throws SQLException, ClassNotFoundException, BusinessException {
+
+		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
+				"SELECT f FROM FuncionarioBean AS f WHERE f.rg = :rg AND f.ativo = 'S'", FuncionarioBean.class);
+		List<FuncionarioBean> listaFuncionarios = query.setParameter("rg", rg).getResultList();
+		return listaFuncionarios;
 	}
 
 	public List<FuncionarioBean> listarPorNome(String nome)
@@ -392,14 +215,4 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 		conexao.close();
 		return listaFuncionario;
 	}
-
-	// public void inserirPorEquipe(int equipe, int funcionario) {
-	//
-	//
-	//
-	//
-	//
-	//
-	// }
-
 }

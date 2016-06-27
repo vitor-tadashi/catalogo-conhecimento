@@ -74,8 +74,4 @@ public class ProjetoBean {
 	public void setListaEquipe(List<EquipeBean> listaEquipe) {
 		this.listaEquipe = listaEquipe;
 	}
-	
-	
- 
-
 }

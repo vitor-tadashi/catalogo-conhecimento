@@ -53,14 +53,14 @@
 						</span> <span class="text"> Tecnologias </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarTecnologia'/>">
+							<li><a href="<c:url value='/tecnologia/listarTecnologia'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Tecnologias
 								</span>
 							</a></li>
 							<li><a
-								href="<c:url value='formularioAdicionarTecnologia'/>">
+								href="<c:url value='/tecnologia/formularioAdicionarTecnologia'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Tecnologia
@@ -72,13 +72,13 @@
 						</span> <span class="text"> Negócios </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarNegocio'/>"> <span
+							<li><a href="<c:url value='/negocio/listarNegocio'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Negócios
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarProjeto'/>">
+							<li><a href="<c:url value='/negocio/formularioAdicionarNegocio'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Negócio
@@ -121,13 +121,13 @@
 									</span> Cadastrar Equipe
 								</span>
 							</a></li>
-							<li><a href="<c:url value='listarFuncionarios'/>">
+							<li><a href="<c:url value='/funcionario/listarFuncionarios'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Funcionários
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarFuncionario'/>">
+							<li><a href="<c:url value='/funcionario/formularioAdicionarFuncionario'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Funcionário

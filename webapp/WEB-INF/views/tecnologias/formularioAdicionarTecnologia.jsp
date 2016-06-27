@@ -27,7 +27,7 @@
 							<div class="panel panel-default">
 								<form class="no-margin" id="formAdd" method="POST"
 								 action="<c:url value='adicionarTecnologia'>
-									<c:param name='paginaAtual' value='formularioAdicionarTecnologia'/>
+									<c:param name='paginaAtual' value='catalogoconhecimento/tecnologia/formularioAdicionarTecnologia'/>
 											</c:url>">
 										<div class="panel-heading">
 										<h3>Adicionar Tecnologia</h3>
