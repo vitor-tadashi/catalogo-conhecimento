@@ -1,5 +1,6 @@
 package br.com.resource.catalogoconhecimento.business;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
+import br.com.resource.catalogoconhecimento.dao.ConcorrenteClienteDAO;
 import br.com.resource.catalogoconhecimento.dao.ConcorrenteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
@@ -21,24 +23,31 @@ public class ConcorrenteBusiness {
 
 	@Autowired
 	private ConcorrenteDAO concorrenteDao;
+	
+	@Autowired
+	private ConcorrenteClienteDAO concorrenteClienteDAO;
 
+	/**
+	 * -ABS- Adiciona um novo Concorrente na tabela 'Concorrente' atrav√©s da
+	 * ConcorrenteDAO
+	 * 
+	 * @return void
+	 * @param concorrenteBean
+	 * @throws BusinessException
+	 */
 	@Transactional
 	public void adicionar(ConcorrenteBean concorrenteBean) throws BusinessException {
-		ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 		try {
+			List<ConcorrenteBean> concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 			if (concorrenteBean.getDescricao().equals("")) {
 				concorrenteBean.setDescricao("-");
 			}
-			if (concorrenteBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome v·lido");
-			} else if (!validarNome(concorrenteBean.getNome())) {
-				throw new AtributoNuloException("Por favor, digite um nome sem caracteres especiais");
-			} else if (concorrenteBean.getNome().length() > 100) {
-				throw new TamanhoCampoException("N˙mero limite de caracteres excedido (m·x.50)");
+			if (!validarNome(concorrenteBean.getNome())) {
+				throw new AtributoNuloException("Por favor, digite um nome v√°lido!");
 			} else if (concorrenteBean.getDescricao().length() > 255) {
-				throw new TamanhoCampoException("DescriÁ„o: N˙mero limite de caracteres excedido (m·x.255)");
-			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-				throw new NomeRepetidoException("Este nome j· est· cadastrado");
+				throw new TamanhoCampoException("Descri√ß√£o: N√∫mero limite de caracteres excedido(m√°x.255)");
+			} else if (!concorrenteClone.isEmpty() && concorrenteClone.get(0).getId() != concorrenteBean.getId()) {
+				throw new NomeRepetidoException("Este nome j√° est√° cadastrado!");
 			} else {
 				concorrenteDao.adicionar(concorrenteBean);
 			}
@@ -47,28 +56,46 @@ public class ConcorrenteBusiness {
 		}
 	}
 
+	/**
+	 * -SQL- Adiciona um objeto ConcorrenteClienteBean na tabela
+	 * 'ConcorrenteCliente' atrav√©s da ConcorrenteDAO
+	 * 
+	 * @param concorrenteClienteBean
+	 * @return void
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws AtributoNuloException
+	 */
 	@Transactional
 	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean) throws BusinessException {
 		try {
-			if (concorrenteClienteBean.getCliente() == null) {
-				throw new AtributoNuloException("Cliente inv·lido");
-			} else if (concorrenteClienteBean.getConcorrente() == null) {
-				throw new AtributoNuloException("Concorrente inv·lido");
-			} else {
-				concorrenteDao.adicionarConcorrenteCliente(concorrenteClienteBean);
-			}
+			// if (concorrenteClienteBean.getIdCliente() == null) {
+			//throw new AtributoNuloException("Cliente inv√°lido");
+			// } else if (concorrenteClienteBean.getIdConcorrente() == null) {
+			// throw new AtributoNuloException("Concorrente invÔøΩlido");
+			// } else {
+			 concorrenteClienteDAO.adicionar(concorrenteClienteBean);
+			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
+	/**
+	 * -JPQL- Retorna uma lista com todos os Concorrentes ATIVOS da tabela de
+	 * Concorrentes atrav√©s da ConcorrenteDAO
+	 * 
+	 * @param no
+	 *            parameters
+	 * @return listaConcorrente (retorna a lista de concorrentes)
+	 * @throws BusinessException
+	 */
 	@Transactional
 	public List<ConcorrenteBean> listar() throws BusinessException {
 		try {
 			List<ConcorrenteBean> listaConcorrente = concorrenteDao.listar();
-
 			if (listaConcorrente.isEmpty()) {
-				throw new ConsultaNulaException("N„o h· concorrentes cadastrados");
+				throw new ConsultaNulaException("N√£o h√° concorrentes cadastrados.");
 			} else {
 				return listaConcorrente;
 			}
@@ -77,46 +104,71 @@ public class ConcorrenteBusiness {
 		}
 	}
 
-	@Transactional
-	public List<ConcorrenteClienteBean> listarPorConcorrente(int idConcorrente) throws BusinessException {
-		try {
-			List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarPorConcorrente(idConcorrente);
-			return listaConcorrenteCliente;
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-		}
-	}
-
-	@Transactional
-	public List<ConcorrenteClienteBean> listarPorNomeCliente(String nomeCliente) throws BusinessException {
-		try {
-			return concorrenteDao.listarPorNomeCliente(nomeCliente);
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-		}
-	}
-
+	/**
+	 * -SQL- Retorna uma lista com todos os Concorrentes relacionados ao Cliente
+	 * (se estiver ativo) e o respectivo valor/hora
+	 * 
+	 * @param idCliente
+	 * @return Retorna uma lista contendo objetos ConcorrenteCliente
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConsultaNulaException
+	 */
 	@Transactional
 	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws BusinessException {
 		try {
-			List<ConcorrenteClienteBean> listaConcorrenteCliente = concorrenteDao.listarPorCliente(idCliente);
-			return listaConcorrenteCliente;
+			return concorrenteDao.listarPorCliente(idCliente);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
+	/**
+	 * -SQL- Retorna uma lista com todos os Clientes relacionados ao Concorrente
+	 * (se estiver ativo) e o respectivo valor/hora
+	 * 
+	 * @param idConcorrente
+	 * @return Retorna uma lista contendo objetos ConcorrenteCliente
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConsultaNulaException
+	 */
+	@Transactional
+	public List<ConcorrenteClienteBean> listarPorConcorrente(int idConcorrente) throws BusinessException {
+		try {
+			return concorrenteDao.listarPorConcorrente(idConcorrente);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
+	}
+
+	/**
+	 * -JPQL- Retorna um objeto Concorrente ATIVO (buscado atrav√©s do ID passado
+	 * como par√¢metro)
+	 * 
+	 * @param idConcorrente
+	 * @return ConcorrenteBean
+	 * @throws BusinessException
+	 */
 	@Transactional
 	public ConcorrenteBean obterPorId(int idConcorrente) throws BusinessException {
 		try {
-			return concorrenteDao.obterPorId(idConcorrente);
+			return concorrenteDao.obterPorId(idConcorrente).get(0);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
+	/**
+	 * -JPQL- Retorna uma lista de Concorrentes ATIVOS (buscados atrav√©s do NOME
+	 * passado como par√¢metro)
+	 * 
+	 * @param nomeConcorrente
+	 * @return List<ConcorrenteBean>
+	 * @throws BusinessException
+	 */
 	@Transactional
-	public ConcorrenteBean obterPorNome(String nomeConcorrente) throws BusinessException {
+	public List<ConcorrenteBean> obterPorNome(String nomeConcorrente) throws BusinessException {
 		try {
 			return concorrenteDao.obterPorNome(nomeConcorrente);
 		} catch (Exception e) {
@@ -124,20 +176,24 @@ public class ConcorrenteBusiness {
 		}
 	}
 
+	/**
+	 * -ABS- Altera informa√ß√µes de um Concorrente existente atrav√©s da
+	 * ConcorrenteDAO
+	 * 
+	 * @param concorrenteBean
+	 * @return void
+	 * @throws BusinessException
+	 */
 	@Transactional
 	public void alterar(ConcorrenteBean concorrenteBean) throws BusinessException {
 		try {
-			ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
-			if (concorrenteBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome v·lido");
-			} else if (!validarNome(concorrenteBean.getNome())) {
-				throw new AtributoNuloException("Por favor, digite um nome v·lido");
-			} else if (concorrenteBean.getNome().length() > 50) {
-				throw new TamanhoCampoException("N˙mero limite de caracteres excedido (m·x.50)");
+			List<ConcorrenteBean> concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
+			if (!validarNome(concorrenteBean.getNome())) {
+				throw new AtributoNuloException("Por favor, digite um nome sem caracteres especiais.");
 			} else if (concorrenteBean.getDescricao().length() > 255) {
-				throw new TamanhoCampoException("DescriÁ„o: N˙mero limite de caracteres excedido (m·x.255)");
-			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
-				throw new NomeRepetidoException("Este nome j· est· cadastrado");
+				throw new TamanhoCampoException("Descri√ß√£o: N√∫mero limite de caracteres excedido(m√°x.255)");
+			} else if (!concorrenteClone.isEmpty() && concorrenteClone.get(0).getId() != concorrenteBean.getId()) {
+				throw new NomeRepetidoException("Este nome j√° est√° cadastrado!");
 			} else {
 				concorrenteDao.alterar(concorrenteBean);
 			}
@@ -147,20 +203,39 @@ public class ConcorrenteBusiness {
 		}
 	}
 
+	/**
+	 * -ABS- Faz a remo√ß√£o L√ìGICA de Concorrente (altera status ativo para 'n')
+	 * atrav√©s da ConcorrenteDAO
+	 * 
+	 * @param concorrenteBean
+	 * @return void
+	 * @throws BusinessException
+	 */
 	@Transactional
 	public void remover(ConcorrenteBean concorrenteBean) throws BusinessException {
 		try {
 			// if (!concorrenteDao.verificarPorCliente(idConcorrente)) {
+			concorrenteBean.setAtivo('n');
 			concorrenteDao.remover(concorrenteBean);
 			// } else {
-			// throw new RegistroVinculadoException("Registro n„o pode ser
-			// removido pois possui vÌnculos");
+			// throw new RegistroVinculadoException("Registro n√£o pode ser
+			// removido pois possui v√≠nculos.");
 			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
+	/**
+	 * -SQL- Faz a remo√ß√£o F√çSICA de ConcorrenteCliente na tabela
+	 * ConcorrenteCliente atrav√©s da ConcorrenteDAO
+	 * 
+	 * @param idCliente
+	 * @param idConcorrente
+	 * @return void
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Transactional
 	public void removerConcorrenteCliente(int idCliente, int idConcorrente) throws BusinessException {
 		try {
@@ -170,6 +245,13 @@ public class ConcorrenteBusiness {
 		}
 	}
 
+	/**
+	 * Faz a valida√ß√£o do nome com Express√£o Regular (RegEx) para n√£o permitir
+	 * caracteres especiais e mais de 100 caracteres.
+	 * 
+	 * @param nome
+	 * @return TRUE = nome √© v√°lido / FALSE = nome inv√°lido
+	 */
 	@Transactional
 	public boolean validarNome(String nome) {
 		return (nome.matches("[A-Za-z√Ä-√∫0-9+'\\-\\s]{2,100}"));

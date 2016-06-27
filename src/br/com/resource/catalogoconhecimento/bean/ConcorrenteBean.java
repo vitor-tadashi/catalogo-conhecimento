@@ -2,12 +2,16 @@ package br.com.resource.catalogoconhecimento.bean;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Concorrente")
@@ -17,18 +21,17 @@ public class ConcorrenteBean {
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "idConcorrente", unique = true, nullable = false)
 	private int id;
-
 	@Column(name = "nomeConcorrente")
 	private String nome;
-
 	@Column(name = "descricao")
 	private String descricao;
-
-	@Transient
-	private List<ConcorrenteClienteBean> listaClientes;
-
 	private char ativo;
-
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "ConcorrenteCliente", joinColumns = {
+			@JoinColumn(name = "idCliente", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "idConcorrente", nullable = false, updatable = false) })
+	private List<ClienteBean> listaCliente;
 	public int getId() {
 		return id;
 	}
@@ -51,14 +54,6 @@ public class ConcorrenteBean {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public List<ConcorrenteClienteBean> getListaClientes() {
-		return listaClientes;
-	}
-
-	public void setListaClientes(List<ConcorrenteClienteBean> listaClientes) {
-		this.listaClientes = listaClientes;
 	}
 
 	public char getAtivo() {

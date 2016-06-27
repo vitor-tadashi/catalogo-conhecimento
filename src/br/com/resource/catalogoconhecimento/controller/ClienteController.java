@@ -32,11 +32,14 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "adicionarCliente", method = RequestMethod.POST)
-	public String adicionarCliente(ClienteBean clienteBean) throws BusinessException {
+	public String adicionarCliente(ClienteBean clienteBean, @RequestParam("ativo")String ativo) throws BusinessException {
+		clienteBean.setAtivo(ativo.charAt(0));
 		clienteBusiness.adicionar(clienteBean);
 		if (clienteBean.getListaConcorrentes() != null) {
-			for (ConcorrenteClienteBean concorrente : clienteBean.getListaConcorrentes()) {
-				concorrenteBusiness.adicionarConcorrenteCliente(concorrente);
+			for (ConcorrenteClienteBean concorrenteCliente : clienteBean.getListaConcorrentes()) {
+				concorrenteCliente.setIdCliente(clienteBean.getId());
+				concorrenteCliente.setIdConcorrente(concorrenteCliente.getConcorrente().getId());
+				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
 			}
 		}
 		return "redirect:listarCliente";
@@ -45,14 +48,15 @@ public class ClienteController {
 	@RequestMapping(value = "adicionarConcorrenteNoCliente", method = RequestMethod.POST)
 	public String adicionarConcorrenteNoCliente(Model model, ClienteBean clienteBean) throws BusinessException {
 		if (clienteBean.getListaConcorrentes() != null) {
-			for (ConcorrenteClienteBean concorrente : clienteBean.getListaConcorrentes()) {
-				concorrenteBusiness.adicionarConcorrenteCliente(concorrente);
+			for (ConcorrenteClienteBean concorrenteCliente : clienteBean.getListaConcorrentes()) {
+				concorrenteCliente.setIdCliente(clienteBean.getId());
+				concorrenteCliente.setIdConcorrente(concorrenteCliente.getConcorrente().getId());
+				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
 			}
 		}
 		model.addAttribute("listaConcorrenteCliente", concorrenteBusiness.listarPorCliente(clienteBean.getId()));
 		model.addAttribute("clienteBean", clienteBean);
 		model.addAttribute("listaConcorrente", concorrenteBusiness.listar());
-
 		return "redirect:listarConcorrentePorCliente";
 	}
 
@@ -90,7 +94,7 @@ public class ClienteController {
 	@RequestMapping(value = "removerCliente", method = RequestMethod.GET)
 	public String removerCliente(@RequestParam("idCliente") String idClienteParam) throws BusinessException {
 		int idCliente = Integer.parseInt(idClienteParam);
-		clienteBusiness.remover(idCliente);
+		clienteBusiness.remover(clienteBusiness.obterPorId(idCliente));
 		return "redirect:listarCliente";
 	}
 
