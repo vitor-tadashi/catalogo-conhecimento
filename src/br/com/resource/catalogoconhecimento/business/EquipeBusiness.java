@@ -98,9 +98,6 @@ public class EquipeBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-	
-	
-
 
 	// LISTAR POR ID NA BASE
 	@Transactional
