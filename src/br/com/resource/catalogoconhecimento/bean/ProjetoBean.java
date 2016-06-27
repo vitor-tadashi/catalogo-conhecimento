@@ -50,12 +50,6 @@ public class ProjetoBean {
 					@JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
 	private List<EquipeBean> listaEquipe;
 
-	// public ProjetoBean() {
-	// listaNegocio = new ArrayList<>();
-	// listaTecnologia = new ArrayList<>();
-	// listaEquipe = new ArrayList<>();
-	// }
-
 	public int getId() {
 		return id;
 	}
