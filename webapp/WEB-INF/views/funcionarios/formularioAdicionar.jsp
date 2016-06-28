@@ -167,7 +167,6 @@
 	
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
-	
 <script type="text/javascript">
 $(document).ready(function() {
     $('#formAdd').formValidation({
