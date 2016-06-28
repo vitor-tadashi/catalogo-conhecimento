@@ -19,7 +19,7 @@ public class PerfilBusiness {
 	private PerfilDAO perfilDAO;
 
 	@Transactional
-	public void inserir(PerfilBean perfilBean) throws BusinessException {
+	public void adicionar(PerfilBean perfilBean) throws BusinessException {
 
 		try {
 			PerfilBean perfilIgual = (PerfilBean) perfilDAO.obterPorTipo(perfilBean.getTipo().trim());
@@ -51,7 +51,7 @@ public class PerfilBusiness {
 	}
 
 	@Transactional
-	public void atualizar(PerfilBean perfil) throws BusinessException {
+	public void alterar(PerfilBean perfil) throws BusinessException {
 		try {
 
 			PerfilBean perfilIgual = (PerfilBean) perfilDAO.obterPorTipo(perfil.getTipo().trim());
