@@ -22,8 +22,8 @@ public class PerfilBusiness {
 	public void adicionar(PerfilBean perfilBean) throws BusinessException {
 
 		try {
-			PerfilBean perfilIgual = (PerfilBean) perfilDAO.obterPorTipo(perfilBean.getTipo().trim());
-			if (perfilIgual != null && perfilIgual.getId() != perfilBean.getId()) {
+			PerfilBean perfiClone = (PerfilBean) perfilDAO.obterPorTipo(perfilBean.getTipo().trim());
+			if (perfiClone != null && perfiClone.getId() != perfilBean.getId()) {
 				throw new NomeRepetidoException("Este tipo já consta na base de dados");
 			} else if (perfilBean.getTipo().length() > 30) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido (max 30)");
@@ -54,9 +54,9 @@ public class PerfilBusiness {
 	public void alterar(PerfilBean perfil) throws BusinessException {
 		try {
 
-			PerfilBean perfilIgual = (PerfilBean) perfilDAO.obterPorTipo(perfil.getTipo().trim());
+			PerfilBean perfiClone = (PerfilBean) perfilDAO.obterPorTipo(perfil.getTipo().trim());
 
-			if (perfilIgual != null && perfilIgual.getId() != perfil.getId()) {
+			if (perfiClone != null && perfiClone.getId() != perfil.getId()) {
 				throw new NomeRepetidoException("Este tipo já consta na base de dados");
 			} else if (perfil.getTipo().length() > 30) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido (max 30)");
