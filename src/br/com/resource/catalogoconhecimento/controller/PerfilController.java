@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.resource.catalogoconhecimento.bean.PerfilBean;
@@ -34,9 +33,8 @@ public class PerfilController {
 	}
 
 	@RequestMapping(value = "formularioAlterarPerfil", method = RequestMethod.GET)
-	public String formularioAlterarCliente(Model model, @RequestParam("idPerfil") String id) throws BusinessException {
-		int idPerfil = Integer.parseInt(id);
-		model.addAttribute("perfil", perfilBusiness.obterPorId(idPerfil));
+	public String formularioAlterarCliente(Model model, PerfilBean perfilBean) throws BusinessException {
+		model.addAttribute("perfil", perfilBusiness.obterPorId(perfilBean.getId()));
 		return "perfil/formularioAlterarPerfil";
 	}
 
