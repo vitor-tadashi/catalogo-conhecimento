@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.resource.catalogoconhecimento.bean.PerfilBean;
 
+@Repository
 public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 	
 	public List<PerfilBean> obterPorTipo(String tipo) throws SQLException, ClassNotFoundException {

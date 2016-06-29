@@ -3,6 +3,7 @@ package br.com.resource.catalogoconhecimento.business;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.PerfilBean;
@@ -13,6 +14,7 @@ import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
+@Component
 public class PerfilBusiness {
 
 	@Autowired
