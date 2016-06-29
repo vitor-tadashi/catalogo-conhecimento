@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>Alterar Cliente</title>
+	<title>Alterar Perfil</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 
@@ -19,8 +19,8 @@
 				<li><i class="fa fa-home"></i>
 					<a href="<c:url value='/'/>">Principal</a></li>
 
-				<li>Clientes</li>
-				<li class="active">Alterar Cliente</li>
+				<li>Perfis</li>
+				<li class="active">Alterar Perfil</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -30,9 +30,9 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="alterarCliente">
+									<form class="no-margin" id="formAlt"  method="POST" action="alterarPerfil">
 										<div class="panel-heading">
-											<h3>Alterar Cliente</h3>
+											<h3>Alterar Perfil</h3>
 										</div>
 										<div class="panel-body">
 											<div class="row">
@@ -42,46 +42,12 @@
 												
 												<div class="col-sm-2">
 													<div class="form-group">
-														<input type="hidden" class="form-control input-sm" name="id" value="${cliente.id}" readonly>
-														<label class="control-label">Nome
-															<input type="text" class="form-control"  name="nome" value="${cliente.nome}">
+														<input type="hidden" class="form-control input-sm" name="id" value="${perfil.id}" readonly>
+														<label class="control-label">Tipo
+															<input type="text" class="form-control"  name="tipo" value="${perfil.tipo}">
 														</label>
 													</div>	
 												</div>
-												<div class="col-sm-2">
-													<div class="form-group">		
-														<label class="control-label">CNPJ
-															<input type="text" class="form-control"  name="cnpj" value="${cliente.cnpj}">
-														</label>
-													</div>	
-												</div>
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">E-mail
-															<input type="text" class="form-control"  name="email" value="${cliente.email}">
-														</label>
-													</div>	
-												</div>
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">Logradouro
-															<input type="text" class="form-control"  name="logradouro" value="${cliente.logradouro}">
-														</label>
-													</div>	
-												</div>
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">Número
-															<input type="text" class="form-control"  name="numero" value="${cliente.numero}">
-														</label>
-													</div>	
-												</div>
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">CEP
-															<input type="text" class="form-control"  name="cep" value="${cliente.cep}">
-														</label>
-													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
 										</div>
@@ -103,124 +69,39 @@
 	<c:import url="/resources/jspImport/footer.jsp"></c:import>
 	
 	<script type="text/javascript">
-$(document).ready(function() {
-    $('#formAlt').formValidation({
-        err: {
-            container: 'tooltip'
-        },
-//        trigger: 'blur',
-        icon: {
-            valid: 'fa fa-check',
-            invalid: 'fa fa-times',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-        	nome: {
-                validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:4,
-                        max:80,
-                        message: 'Mínimo de 4 e máximo de 80 caracteres.'
-                    },
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '[A-Za-zÁ-ú\s]+$',
-                        message:'Informe apenas letras.'
-                    }
-                }
-            },
-            cnpj: {
-	            validators: {
-	                stringLength: {
-	                    enabled: true,
-	                    min:14,
-	                    max:14,
-	                    message: 'CNPJ inválido.'
-	                },
-	                notEmpty: {
-	                    message: '* Campo Obrigatório.'
-	                },
-	                regexp: {
-	                    enabled: true,
-	                    regexp: '^[0-9]+$',
-	                    message: 'Informe somente números sem espaços e caracteres especiais.'
-	                }
-	            }
-	        },
-	        email: {
-                validators: {
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$',
-                        message: 'E-mail inválido, requerido um @ e um domínio completo'
-                    }
-                }
-            },
-            logradouro: {
-            	validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:4,
-                        max:100,
-                        message: 'Logadouro inválido.'
-                    },
-                     notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '[A-Za-zÁ-ú\s]+$',
-                        message:'Informe apenas letras.'
-                    }
-                }
-            }, 
-            numero: {
-	            validators: {
-	                stringLength: {
-	                    enabled: true,
-	                    min:1,
-	                    max:10,
-	                    message: 'Número inválido.'
-	                },
-	                notEmpty: {
-	                    message: '* Campo Obrigatório.'
-	                },
-	                regexp: {
-	                    enabled: true,
-	                    regexp: '^[0-9]+$',
-	                    message: 'Informe apenas números.'
-	                }
-	            }
-	        },
-            cep: {
-                validators: {
-                    stringLength: {
-                        enabled: true,
-                        min:8,
-                        max:8,
-                        message: 'CEP inválido.'
-                    },
-                    notEmpty: {
-                        message: '* Campo Obrigatório.'
-                    },
-                    regexp: {
-                        enabled: true,
-                        regexp: '^[0-9]{8}$',
-                        message: 'Informe somente números sem espaços e caracteres especiais'
-                    }
-                }
-            }
-        }
-    });
-});
-</script>
+		$(document).ready(function() {
+		    $('#formAdd').formValidation({
+		        err: {
+		            container: 'tooltip'
+		        },
+		        icon: {
+		            valid: 'fa fa-check',
+		            invalid: 'fa fa-times',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	tipo: {
+		                validators: {
+		                    stringLength: {
+		                        enabled: true,
+		                        min:4,
+		                        max:30,
+		                        message: 'Mínimo de 4 e máximo de 30 caracteres.'
+		                    },
+		                    notEmpty: {
+		                        message: '* Campo Obrigatório.'
+		                    },
+		                    regexp: {
+		                        enabled: true,
+		                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
+		                        message:'Tipo inválido.'
+		                    }
+		                }
+		            },
+		        }
+		    });
+		});
+	</script>
 	
 </body>
 

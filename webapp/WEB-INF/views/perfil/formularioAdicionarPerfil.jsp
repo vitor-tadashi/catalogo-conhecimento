@@ -85,13 +85,13 @@
 		            validating: 'glyphicon glyphicon-refresh'
 		        },
 		        fields: {
-		        	nome: {
+		        	tipo: {
 		                validators: {
 		                    stringLength: {
 		                        enabled: true,
-		                        min:2,
+		                        min:4,
 		                        max:30,
-		                        message: 'Mínimo de 2 e máximo de 30 caracteres.'
+		                        message: 'Mínimo de 4 e máximo de 30 caracteres.'
 		                    },
 		                    notEmpty: {
 		                        message: '* Campo Obrigatório.'
@@ -99,7 +99,7 @@
 		                    regexp: {
 		                        enabled: true,
 		                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
-		                        message:'Nome inválido.'
+		                        message:'Tipo inválido.'
 		                    }
 		                }
 		            },
