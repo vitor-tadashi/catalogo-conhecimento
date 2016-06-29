@@ -45,10 +45,8 @@
 														maxlength="30">
 													</label>
 												</div>
-											</div>
-											<!-- /.col -->
-										</div>
-										<!-- /.row -->
+											</div><!-- /.col -->
+										</div><!-- /.row -->
 									</div>
 									<div class="panel-footer text-left">
 										<button class="btn btn-success" type="submit">Adicionar</button>
@@ -98,7 +96,7 @@
 		                    },
 		                    regexp: {
 		                        enabled: true,
-		                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
+		                        regexp: '[A-Za-zÁ-ú0-9\s]{4,30}',
 		                        message:'Tipo inválido.'
 		                    }
 		                }

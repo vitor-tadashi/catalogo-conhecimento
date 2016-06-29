@@ -30,7 +30,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="alterarPerfil">
+									<form class="no-margin" id="formAlt" method="POST" action="alterarPerfil">
 										<div class="panel-heading">
 											<h3>Alterar Perfil</h3>
 										</div>
@@ -47,7 +47,6 @@
 															<input type="text" class="form-control"  name="tipo" value="${perfil.tipo}">
 														</label>
 													</div>	
-												</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
 										</div>
@@ -70,7 +69,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-		    $('#formAdd').formValidation({
+		    $('#formAlt').formValidation({
 		        err: {
 		            container: 'tooltip'
 		        },
@@ -93,7 +92,7 @@
 		                    },
 		                    regexp: {
 		                        enabled: true,
-		                        regexp: '[A-Za-zÁ-ú0-9\s]+$',
+		                        regexp: '[A-Za-zÁ-ú0-9\s]{4,30}',
 		                        message:'Tipo inválido.'
 		                    }
 		                }

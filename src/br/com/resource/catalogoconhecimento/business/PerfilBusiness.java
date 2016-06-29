@@ -20,13 +20,12 @@ public class PerfilBusiness {
 
 	@Transactional
 	public void adicionar(PerfilBean perfilBean) throws BusinessException {
-
 		try {
 			PerfilBean perfiClone = (PerfilBean) perfilDAO.obterPorTipo(perfilBean.getTipo().trim());
 			if (perfiClone != null && perfiClone.getId() != perfilBean.getId()) {
 				throw new NomeRepetidoException("Este tipo já consta na base de dados");
-			} else if (perfilBean.getTipo().length() > 30) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (max 30)");
+			} else if (!validarTipo(perfiClone.getTipo())) {
+				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max 30)");
 			} else {
 				perfilDAO.adicionar(perfilBean);
 			}
@@ -53,13 +52,11 @@ public class PerfilBusiness {
 	@Transactional
 	public void alterar(PerfilBean perfil) throws BusinessException {
 		try {
-
 			PerfilBean perfiClone = (PerfilBean) perfilDAO.obterPorTipo(perfil.getTipo().trim());
-
 			if (perfiClone != null && perfiClone.getId() != perfil.getId()) {
 				throw new NomeRepetidoException("Este tipo já consta na base de dados");
-			} else if (perfil.getTipo().length() > 30) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (max 30)");
+			} else if (!validarTipo(perfiClone.getTipo())) {
+				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max 30)");
 			} else {
 				perfilDAO.alterar(perfil);
 			}
@@ -90,6 +87,10 @@ public class PerfilBusiness {
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
+	}
+
+	public boolean validarTipo(String tipo) {
+		return (tipo.matches("[A-Za-zÁ-ú0-9\\s]{4,30}"));
 	}
 
 }
