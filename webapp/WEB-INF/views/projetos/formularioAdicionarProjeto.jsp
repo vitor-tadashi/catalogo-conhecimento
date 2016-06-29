@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,10 +27,8 @@
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default">
-								<form class="no-margin" id="formAdd" method="POST"
-									action="<c:url value='adicionarProjeto'>
-									<c:param name='paginaAtual' value='formularioAdicionarProjeto'/>
-											</c:url>">
+								<form:form class="no-margin" id="formAdd" path = "projeto" method="POST"
+									action="adicionarProjeto">
 									<div class="panel-heading">
 										<h3>Cadastrar Projeto</h3>
 									</div>
@@ -38,7 +37,8 @@
 
 											<!-- Message Erro-->
 											<c:import url="/resources/jspImport/msgErro.jsp" />
-
+											<input type ="hidden" name="ativo" value = "S"/>
+											
 											<div class="col-sm-2">
 												<div class="form-group">
 													<label class="control-label">Nome do Projeto <input
@@ -77,7 +77,7 @@
 													<div class="checkbox">
 														<c:forEach items="${equipes}" var="equipe"
 															varStatus="count">
-															<label class="control-label" name="equipeArray">
+															<label class="control-label">
 																<input type="checkbox"
 																name="listaEquipe[${count.index}].id"
 																value="${equipe.id}" /> <span class="custom-checkbox"></span>
@@ -97,7 +97,7 @@
 													<div class="checkbox">
 														<c:forEach items="${negocios}" var="negocio"
 															varStatus="count">
-															<label class="control-label" name="negocioArray">
+															<label class="control-label">
 																<input type="checkbox"
 																name="listaNegocio[${count.index}].id"
 																value="${negocio.id}" /> <span class="custom-checkbox"></span>
@@ -115,7 +115,7 @@
 													<div class="checkbox">
 														<c:forEach items="${tecnologias}" var="tecnologia"
 															varStatus="count">
-															<label class="control-label" name="tecnologiaArray">
+															<label class="control-label">
 																<input type="checkbox"
 																name="listaTecnologia[${count.index}].id"
 																value="${tecnologia.id}" /> <span
@@ -132,7 +132,7 @@
 									<div class="panel-footer text-left">
 										<button class="btn btn-success" type="submit">Cadastrar</button>
 									</div>
-								</form>
+								</form:form>
 							</div>
 							<!-- /panel -->
 						</div>
