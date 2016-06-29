@@ -25,7 +25,7 @@ public class PerfilBusiness {
 			if (perfiClone != null && perfiClone.getId() != perfilBean.getId()) {
 				throw new NomeRepetidoException("Este tipo já consta na base de dados");
 			} else if (!validarTipo(perfiClone.getTipo())) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max 30)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max de 30)");
 			} else {
 				perfilDAO.adicionar(perfilBean);
 			}
@@ -56,7 +56,7 @@ public class PerfilBusiness {
 			if (perfiClone != null && perfiClone.getId() != perfil.getId()) {
 				throw new NomeRepetidoException("Este tipo já consta na base de dados");
 			} else if (!validarTipo(perfiClone.getTipo())) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max 30)");
+				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max de 30)");
 			} else {
 				perfilDAO.alterar(perfil);
 			}
