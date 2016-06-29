@@ -39,12 +39,12 @@ public class PerfilBusiness {
 	@Transactional
 	public List<PerfilBean> listar() throws BusinessException {
 		try {
-			List<PerfilBean> listaPerfil = perfilDAO.listar();
+			List<PerfilBean> listaPerfis = perfilDAO.listar();
 
-			if (listaPerfil.isEmpty()) {
+			if (listaPerfis.isEmpty()) {
 				throw new ConsultaNulaException("Não há perfis cadastrados");
 			} else {
-				return listaPerfil;
+				return listaPerfis;
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
