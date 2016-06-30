@@ -25,6 +25,7 @@ public class ProjetoNegocioBusiness {
 			return linhasAfetadas;
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}

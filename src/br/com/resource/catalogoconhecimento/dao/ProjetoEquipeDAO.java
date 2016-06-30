@@ -31,9 +31,12 @@ public class ProjetoEquipeDAO {
 		int linhasAfetadas = 0;
 		
 		for(EquipeBean equipe : equipes){
-			ps.setInt(1, projeto.getId());
-			ps.setInt(2, equipe.getId());
-			linhasAfetadas = ps.executeUpdate();
+			if(equipe != null){
+				ps.setInt(1, projeto.getId());
+				ps.setInt(2, equipe.getId());
+				linhasAfetadas = ps.executeUpdate();
+			}
+			
 		}
 		
 		ps.close();

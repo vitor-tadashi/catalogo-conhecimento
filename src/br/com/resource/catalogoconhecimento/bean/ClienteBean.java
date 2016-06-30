@@ -41,7 +41,7 @@ public class ClienteBean {
 	
 	private char ativo;
 	
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", targetEntity = ProjetoBean.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ProjetoBean> listaProjetos;
 	
 	public char getAtivo() {

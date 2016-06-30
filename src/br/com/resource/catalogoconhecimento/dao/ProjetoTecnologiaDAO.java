@@ -32,9 +32,12 @@ public class ProjetoTecnologiaDAO {
 		int linhasAfetadas = 0;
 		
 		for(TecnologiaBean tecnologia : listaTecnologia){
-			ps.setInt(1, projeto.getId());
-			ps.setInt(2, tecnologia.getId());
-			linhasAfetadas = ps.executeUpdate();
+			if(tecnologia != null){
+				ps.setInt(1, projeto.getId());
+				ps.setInt(2, tecnologia.getId());
+				linhasAfetadas = ps.executeUpdate();
+			}
+			
 		}
 		
 		ps.close();

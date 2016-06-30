@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,8 +70,12 @@ public class ProjetoController {
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto( ProjetoBean projetoBean) throws BusinessException {
-		
+	public String adicionarProjeto(ProjetoBean projetoBean, @RequestParam("idCliente") String id)
+			throws BusinessException {
+		int idCliente = Integer.parseInt(id);
+
+		projetoBean.setCliente(clienteBusiness.obterPorId(idCliente));
+
 		projetoBusiness.adicionar(projetoBean);
 		projetoEquipe.adicionar(projetoBean, projetoBean.getListaEquipe());
 		projetoNegocio.adicionar(projetoBean, projetoBean.getListaNegocio());
@@ -81,7 +84,7 @@ public class ProjetoController {
 		return "redirect:listarProjeto";
 	}
 
-	@RequestMapping(value = "listarProjeto", method = RequestMethod.GET)
+	@RequestMapping(value = "listarProjeto", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listar(Model model) throws BusinessException {
 
 		model.addAttribute("projeto", projetoBusiness.listar());
@@ -107,8 +110,8 @@ public class ProjetoController {
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
-	public String alterar(ProjetoBean projetoBean, @RequestParam("nome") String nome) throws BusinessException {
-		projetoBean.setNome(nome);
+	public String alterar(ProjetoBean projetoBean,
+			@RequestParam("id") String id) throws BusinessException {
 		projetoBusiness.atualizar(projetoBean);
 		projetoNegocio.atualizar(projetoBean, projetoBean.getListaNegocio());
 		projetoTecnologia.atualizar(projetoBean, projetoBean.getListaTecnologia());
@@ -129,6 +132,6 @@ public class ProjetoController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "redirect:listarProjeto";
+		return "forward:listarProjeto";
 	}
 }

@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,11 +30,13 @@ public class ProjetoBean {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idCiente")
+	@Fetch(FetchMode.JOIN)
 	private ClienteBean cliente;
 
 	@Column(name = "nomeProjeto", nullable = false)
 	private String nome;
-
+	
+	@Column(name = "ativo", nullable = false)
 	private char ativo;
 
 	@Column(name = "observacao", nullable = false)

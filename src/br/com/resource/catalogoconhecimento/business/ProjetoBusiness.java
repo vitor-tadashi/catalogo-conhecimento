@@ -16,10 +16,9 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
 public class ProjetoBusiness {
-	
+
 	@Autowired
 	private ProjetoDAO projetoDao;
-
 
 	public ProjetoBusiness() {
 		projetoDao = new ProjetoDAO();
@@ -28,17 +27,17 @@ public class ProjetoBusiness {
 	// INSERE NA TABELA PROJETO
 	public void adicionar(ProjetoBean projetoBean) throws BusinessException {
 		try {
-			
+
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 			if (!validarNome(projetoBean.getNome())) {
-				throw new BusinessException("Por favor, digite um nome v�lido!");
+				throw new BusinessException("Por favor, digite um nome valido!");
 			} else if (projetoClone != null
 					&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome())) {
-				throw new NomeRepetidoException("J� existe um projeto chamado " + projetoClone.getNome() + " no "
+				throw new NomeRepetidoException("Ja existe um projeto chamado " + projetoClone.getNome() + " no "
 						+ projetoClone.getCliente().getNome());
 			} else if (projetoBean.getObservacao().length() > 255) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.255)");
+				throw new TamanhoCampoException("Numero limite de caracteres excedido(max.255)");
 			} else {
 				projetoDao.adicionar(projetoBean);
 			}
@@ -68,11 +67,11 @@ public class ProjetoBusiness {
 			ProjetoBean projetoClone = projetoDao.obterPorNome(projetoBean);
 
 			if (projetoBean.getNome().length() > 150) {
-				throw new TamanhoCampoException("N�mero limite de caracteres excedido(m�x.150)");
+				throw new TamanhoCampoException("Numero limite de caracteres excedido(max.150)");
 			} else if ((projetoClone != null
 					&& projetoBean.getCliente().getNome().equals(projetoClone.getCliente().getNome()))
 					&& projetoBean.getId() != projetoClone.getId()) {
-				throw new NomeRepetidoException("J� existe um projeto chamado " + projetoClone.getNome() + " no "
+				throw new NomeRepetidoException("Ja existe um projeto chamado " + projetoClone.getNome() + " no "
 						+ projetoClone.getCliente().getNome());
 			} else {
 				projetoDao.alterar(projetoBean);
@@ -100,7 +99,7 @@ public class ProjetoBusiness {
 					&& projetoDao.verificarPorTecnologia(id)) {
 				projetoDao.remover(id);
 			} else {
-				throw new RegistroVinculadoException("Registro n�o pode ser removido pois possui v�nculos");
+				throw new RegistroVinculadoException("Registro nao pode ser removido pois possui vinculos");
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -112,7 +111,7 @@ public class ProjetoBusiness {
 			List<ProjetoBean> listaProjeto = projetoDao.obterPorTecnologias(nomeTecnologias);
 
 			if (listaProjeto == null) {
-				throw new ConsultaNulaException("N�o h� projetos cadastrados!");
+				throw new ConsultaNulaException("Nao ha projetos cadastrados!");
 			} else {
 				return listaProjeto;
 			}
@@ -127,7 +126,7 @@ public class ProjetoBusiness {
 			List<ProjetoBean> listaProjeto = projetoDao.obterPorNegocio(nomeNegocio);
 
 			if (listaProjeto == null) {
-				throw new ConsultaNulaException("N�o h� projetos cadastrados!");
+				throw new ConsultaNulaException("Nao ha projetos cadastrados!");
 			} else {
 				return listaProjeto;
 			}

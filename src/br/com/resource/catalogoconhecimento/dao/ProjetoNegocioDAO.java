@@ -32,9 +32,12 @@ public class ProjetoNegocioDAO {
 		int linhasAfetadas = 0;
 		
 		for(NegocioBean negocio : negocios){
-			ps.setInt(1, projeto.getId());
-			ps.setInt(2, negocio.getId());
-			linhasAfetadas = ps.executeUpdate();
+			if(negocio != null){
+				ps.setInt(1, projeto.getId());
+				ps.setInt(2, negocio.getId());
+				linhasAfetadas = ps.executeUpdate();
+			}
+			
 		}
 		
 		ps.close();

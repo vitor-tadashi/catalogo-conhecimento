@@ -62,7 +62,7 @@
 											<div class="col-sm-2">
 												<div class="form-group">
 													<label class="control-label">Cliente <select
-														class="form-control input-sm" name="cliente">
+														class="form-control input-sm" name="idCliente">
 															<c:forEach items="${clientes}" var="cliente">
 																<option value="${cliente.id}">${cliente.nome}</option>
 															</c:forEach>
