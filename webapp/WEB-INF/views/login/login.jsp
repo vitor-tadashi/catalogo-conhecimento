@@ -4,9 +4,16 @@
 <head lang="pt-br">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  
+
+  
   <title>Catalogo De Conhecimentos</title>
 </head>
 
@@ -103,8 +110,12 @@
                                     <span></span>
                                 </div>
                                 
+                                <input type ="hidden" name="ativo" value = "S"/>
+                                
+                                
+                                
                                 <div class="form-group">
-                                    <label for="email" class="col-md-3 control-label">Nome do Usuario</label>
+                                    <label for="email" class="col-md-3 control-label">Usuario</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="nome">
                                     </div>
@@ -130,6 +141,20 @@
                                         <input type="password" class="form-control" name="senha2" placeholder="">
                                     </div>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="text" class="col-md-3 control-label">Perfil</label>
+                                    <div class="col-md-9">
+  											<div class="dropdown">
+    								<select class="form-control input-sm" name="perfil">
+														<c:forEach var="perfil" items="${perfis}">	
+															<option value="${perfil.id}">${perfil.tipo}</option>
+														</c:forEach>
+													</select>
+													
+  											</div>
+												</div>
+                                					</div>
                                 
                                 <div class="form-group">
                                     <!-- Button -->                                        

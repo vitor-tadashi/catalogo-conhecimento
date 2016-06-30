@@ -73,4 +73,9 @@ public class UsuarioDAO extends GenericDAOImpl<UsuarioBean, Integer> {
 		
 	}
 
+	public UsuarioBean obterPorPerfil(int id, UsuarioBean usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

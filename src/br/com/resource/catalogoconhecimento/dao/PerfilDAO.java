@@ -35,9 +35,9 @@ public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 
 	public PerfilBean obterPorId(int id) throws SQLException, ClassNotFoundException {
 		try {
-			TypedQuery<PerfilBean> query = entityManager.createQuery("SELECT u FROM PerfilBean AS u WHERE u.id = :id",
+			TypedQuery<PerfilBean> query = entityManager.createQuery("SELECT p FROM PerfilBean AS p WHERE p.id = :id",
 					PerfilBean.class);
-			PerfilBean PerfilBean = query.setParameter("idPerfil", id).getSingleResult();
+			PerfilBean PerfilBean = query.setParameter("id", id).getSingleResult();
 			return PerfilBean;
 		} catch (Exception e) {
 			return null;

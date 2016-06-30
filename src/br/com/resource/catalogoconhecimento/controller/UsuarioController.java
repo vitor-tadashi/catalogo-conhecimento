@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.resource.catalogoconhecimento.bean.PerfilBean;
 import br.com.resource.catalogoconhecimento.bean.UsuarioBean;
+import br.com.resource.catalogoconhecimento.business.PerfilBusiness;
 import br.com.resource.catalogoconhecimento.business.UsuarioBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.utils.SessionUtil;
@@ -23,9 +25,13 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioBusiness usuarioBusiness;
+	
+	@Autowired
+	private PerfilBusiness perfilBusiness;
 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
-	public String indexLogin() {
+	public String indexLogin(Model model) throws BusinessException {
+		model.addAttribute("perfis", perfilBusiness.listar());
 		return "login/login";
 	}
 
@@ -41,8 +47,11 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "adicionarUsuario", method = RequestMethod.POST)
-	public String adiciona(UsuarioBean usuarioBean, @RequestParam("ativo") String ativo) throws BusinessException {
-		usuarioBean.setAtivo(ativo.charAt(0));
+	public String adiciona(UsuarioBean usuarioBean, @RequestParam("perfil") String id) throws BusinessException {
+		int idPerfil = Integer.parseInt(id);
+		usuarioBean.setAtivo('S');
+		PerfilBean perfilBean = perfilBusiness.obterPorId(idPerfil);
+		usuarioBean.setPerfilBean(perfilBean);
 		usuarioBusiness.inserir(usuarioBean);
 		return "login/login";
 	}
@@ -83,6 +92,9 @@ public class UsuarioController {
 		session.setAttribute("usuario", usuario);
 		return new ModelAndView("redirect:/home/index");
 	}
+	
+	
+
 
 	@ExceptionHandler(BusinessException.class)
 	public String exceptionHandler(Model model, BusinessException exception) {

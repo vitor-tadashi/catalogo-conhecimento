@@ -14,6 +14,7 @@ import br.com.resource.catalogoconhecimento.business.PerfilBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("perfil")
 public class PerfilController {
 
 	@Autowired
@@ -59,7 +60,7 @@ public class PerfilController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "index";
+		return "forward:/usuario";
 	}
 
 }

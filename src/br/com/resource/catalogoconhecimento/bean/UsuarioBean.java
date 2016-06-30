@@ -2,9 +2,15 @@ package br.com.resource.catalogoconhecimento.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "Usuario")
@@ -15,8 +21,20 @@ public class UsuarioBean {
 	@Column(name = "idUsuario", unique = true, nullable = false)
 	public int idUsuario;
 	
-	@Column(name ="idPerfil")
-	public int id;
+
+	@Cascade(CascadeType.ALL) 
+    @OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idPerfil" ,insertable=true, updatable=true)
+	private PerfilBean perfilBean;
+	
+	public PerfilBean getPerfilBean() {
+		return perfilBean;
+	}
+
+	public void setPerfilBean(PerfilBean perfilBean) {
+		this.perfilBean = perfilBean;
+	}
+
 	
 	@Column(name ="nomeUsuario")
 	public String nome;
@@ -47,13 +65,7 @@ public class UsuarioBean {
 		this.idUsuario = idUsuario;
 	}
 
-	public int getIdPerfil() {
-		return id;
-	}
 
-	public void setIdPerfil(int idPerfil) {
-		this.id = idPerfil;
-	}
 
 	public String getNome() {
 		return nome;
