@@ -14,6 +14,7 @@ import br.com.resource.catalogoconhecimento.business.PerfilBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("/perfil")
 public class PerfilController {
 
 	@Autowired

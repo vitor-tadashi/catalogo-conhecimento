@@ -83,8 +83,8 @@ public class PerfilBusiness {
 			perfilDAO.remover(perfil);
 			// } else {
 			// throw new RegistroVinculadoException(
-			// "Essa Equipe n�o pode ser removida, pois possui vínculos com
-			// Funcion�rios");
+			// "Essa Equipe nï¿½o pode ser removida, pois possui vÃ­nculos com
+			// Funcionï¿½rios");
 			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
