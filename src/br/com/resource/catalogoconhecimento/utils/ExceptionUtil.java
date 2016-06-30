@@ -1,5 +1,7 @@
 package br.com.resource.catalogoconhecimento.utils;
 
+import javax.security.auth.login.LoginException;
+
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
@@ -44,6 +46,8 @@ public abstract class ExceptionUtil {
 			error = "Nome de usuário inválido";
 		}else if(e instanceof CaracteresEspeciaisException){
 			error = "Por favor,não digite caracteres especiais";
+		}else if(e instanceof LoginException){
+			error = "Usuário e/ou senha incorreto(s)";
 		}
 		
 		return new BusinessException(error);

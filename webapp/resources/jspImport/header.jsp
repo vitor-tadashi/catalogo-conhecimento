@@ -5,7 +5,7 @@
 <div id="wrapper" class="preload">
 	<div id="top-nav" class="skin-1 fixed">
 		<div class="brand">
-			<a href="<c:url value='/'/>"><img
+			<a href="<c:url value='/home/index'/>"><img
 				src="<c:url value='/resources/img/logowhite-resource.png'/>" class="pull-center"
 				style="height: 45px; width: 135px; padding-left: 10px; padding-right: 10px;"></a>
 		</div>
@@ -38,7 +38,7 @@
 							</div>
 					</a></li>
 					<li><a tabindex="-1" class="main-link logoutConfirm_open"
-						href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Sair</a></li>
+						href="<c:url value ='/usuario/fazerLogoff'/>"><i class="fa fa-lock fa-lg"></i> Sair</a></li>
 				</ul></li>
 		</ul>
 	</div>

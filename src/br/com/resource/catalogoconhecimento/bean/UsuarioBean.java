@@ -31,7 +31,6 @@ public class UsuarioBean {
 	public char ativo;
 
 	
-	
 	public char getAtivo() {
 		return ativo;
 	}
@@ -69,7 +68,7 @@ public class UsuarioBean {
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		this.login = login.trim().toLowerCase();
 	}
 
 	public String getSenha() {
