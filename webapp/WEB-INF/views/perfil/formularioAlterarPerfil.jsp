@@ -44,7 +44,7 @@
 													<div class="form-group">
 														<input type="hidden" class="form-control input-sm" name="id" value="${perfil.id}" readonly>
 														<label class="control-label">Tipo
-															<input type="text" class="form-control"  name="tipo" value="${perfil.tipo}">
+															<input type="text" class="form-control" name="tipo" value="${perfil.tipo}">
 														</label>
 													</div>	
 												</div><!-- /.col -->

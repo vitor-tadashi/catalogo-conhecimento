@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.resource.catalogoconhecimento.bean.PerfilBean;
@@ -21,37 +22,38 @@ public class PerfilController {
 	private PerfilBusiness perfilBusiness;
 
 	@RequestMapping(value = "formularioAdicionarPerfil", method = RequestMethod.GET)
-	public String formularioAdicionarCliente(Model model) throws BusinessException {
+	public String formularioAdicionarPerfil(Model model) throws BusinessException {
 		model.addAttribute("listaPerfis", perfilBusiness.listar());
 		return "perfil/formularioAdicionarPerfil";
 	}
 
 	@RequestMapping(value = "adicionarPerfil", method = RequestMethod.POST)
-	public String adicionarCliente(PerfilBean perfilBean) throws BusinessException {
+	public String adicionarPerfil(PerfilBean perfilBean) throws BusinessException {
 		perfilBusiness.adicionar(perfilBean);
 		return "redirect:listarPerfis";
 	}
 
 	@RequestMapping(value = "formularioAlterarPerfil", method = RequestMethod.GET)
-	public String formularioAlterarCliente(Model model, PerfilBean perfilBean) throws BusinessException {
-		model.addAttribute("perfil", perfilBusiness.obterPorId(perfilBean.getId()));
+	public String formularioAlterarCliente(Model model, @RequestParam("idPerfil") String id) throws BusinessException {
+		int idPerfil = Integer.parseInt(id);
+		model.addAttribute("perfil", perfilBusiness.obterPorId(idPerfil));
 		return "perfil/formularioAlterarPerfil";
 	}
 
 	@RequestMapping(value = "alterarPerfil", method = RequestMethod.POST)
-	public String alterarCliente(PerfilBean perfilBean) throws BusinessException {
+	public String alterarPerfil(PerfilBean perfilBean) throws BusinessException {
 		perfilBusiness.alterar(perfilBean);
 		return "redirect:listarPerfis";
 	}
 
 	@RequestMapping(value = "listarPerfis", method = RequestMethod.GET)
-	public String listarCliente(Model model) throws BusinessException {
+	public String listarPerfis(Model model) throws BusinessException {
 		model.addAttribute("listaPerfis", perfilBusiness.listar());
 		return "perfil/listarPerfis";
 	}
 
 	@RequestMapping(value = "removerPerfil", method = RequestMethod.GET)
-	public String removerCliente(PerfilBean perfilBean) throws BusinessException {
+	public String removerPerfil(PerfilBean perfilBean) throws BusinessException {
 		perfilBusiness.remover(perfilBean);
 		return "redirect:listarPerfis";
 	}

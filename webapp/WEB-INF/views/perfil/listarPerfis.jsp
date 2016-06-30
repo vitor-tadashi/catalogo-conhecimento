@@ -54,17 +54,17 @@
 											<tr>
 												<td>${perfil.tipo}</td>
 												<td style="text-align: center;">
-													<a href="formularioAlterarPerfil"><i class="fa fa-edit fa-lg"></i></a>
+													<a href="<c:url value='formularioAlterarPerfil'> <c:param name='idPerfil' value='${perfil.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;">
-													<a href="removerPerfil"><i class="fa fa-times fa-lg"></i></a>
-												</td> 
+													<a href='removerPerfil'><i class="fa fa-times fa-lg"></i></a>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='formularioAdicionarPerfil'> </c:url>">
+									<a href='formularioAdicionarPerfil'>
 										<button class="btn btn-success" type="submit">Adicionar Novo Perfil</button>
 									</a>
 								</div>

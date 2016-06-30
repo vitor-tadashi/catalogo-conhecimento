@@ -22,11 +22,11 @@ public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 		}
 	}
 
-	public List<PerfilBean> obterPorTipo(String tipo) throws SQLException, ClassNotFoundException {
+	public PerfilBean obterPorTipo(String tipo) throws SQLException, ClassNotFoundException {
 		try {
 			TypedQuery<PerfilBean> query = entityManager
 					.createQuery("SELECT u FROM PerfilBean AS u WHERE u.tipo = :tipo", PerfilBean.class);
-			List<PerfilBean> PerfilBean = query.setParameter("tipo", tipo).getResultList();
+			PerfilBean PerfilBean = query.setParameter("tipo", tipo).getSingleResult();
 			return PerfilBean;
 		} catch (Exception e) {
 			return null;
@@ -37,7 +37,7 @@ public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 		try {
 			TypedQuery<PerfilBean> query = entityManager.createQuery("SELECT u FROM PerfilBean AS u WHERE u.id = :id",
 					PerfilBean.class);
-			PerfilBean PerfilBean = query.setParameter("idPerfil", id).getSingleResult();
+			PerfilBean PerfilBean = query.setParameter("id", id).getSingleResult();
 			return PerfilBean;
 		} catch (Exception e) {
 			return null;
