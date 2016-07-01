@@ -18,6 +18,9 @@ public class PerfilBean {
 	@Column(name = "tipo")
 	public String tipo;
 
+	@Column(name = "ativo")
+	public char ativo;
+
 	public int getId() {
 		return id;
 	}
@@ -32,6 +35,14 @@ public class PerfilBean {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public char getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(char ativo) {
+		this.ativo = ativo;
 	}
 
 }

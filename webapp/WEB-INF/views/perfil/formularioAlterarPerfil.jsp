@@ -43,6 +43,7 @@
 												<div class="col-sm-2">
 													<div class="form-group">
 														<input type="hidden" class="form-control input-sm" name="id" value="${perfil.id}" readonly>
+														<input type ="hidden" name="ativo" value = "S"/>
 														<label class="control-label">Tipo
 															<input type="text" class="form-control" name="tipo" value="${perfil.tipo}">
 														</label>

@@ -75,14 +75,15 @@ public class PerfilBusiness {
 	}
 
 	@Transactional
-	public void remover(PerfilBean perfil) throws BusinessException {
+	public void remover(PerfilBean perfilBean) throws BusinessException {
 		try {
 			// if (equipeDAO.verificarPorFuncionarios(equipe)) {
-			perfilDAO.remover(perfil);
+			perfilDAO.remover(perfilBean);
 			// } else {
 			// throw new RegistroVinculadoException(
-			// "Essa Equipe nï¿½o pode ser removida, pois possui vÃ­nculos com
-			// Funcionï¿½rios");
+			// "Essa Equipe nÃ¯Â¿Â½o pode ser removida, pois possui vÃƒÂ­nculos
+			// com
+			// FuncionÃ¯Â¿Â½rios");
 			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);

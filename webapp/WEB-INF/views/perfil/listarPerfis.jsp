@@ -57,7 +57,7 @@
 													<a href="<c:url value='formularioAlterarPerfil'> <c:param name='idPerfil' value='${perfil.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;">
-													<a href='removerPerfil'><i class="fa fa-times fa-lg"></i></a>
+													<a href="<c:url value='removerPerfil'> <c:param name='idPerfil' value='${perfil.id}'/> <c:param name='ativo' value='N'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td>
 											</tr>
 										</c:forEach>

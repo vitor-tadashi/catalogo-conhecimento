@@ -28,7 +28,8 @@ public class PerfilController {
 	}
 
 	@RequestMapping(value = "adicionarPerfil", method = RequestMethod.POST)
-	public String adicionarPerfil(PerfilBean perfilBean) throws BusinessException {
+	public String adicionarPerfil(PerfilBean perfilBean, @RequestParam("ativo") String ativo) throws BusinessException {
+		perfilBean.setAtivo(ativo.charAt(0));
 		perfilBusiness.adicionar(perfilBean);
 		return "redirect:listarPerfis";
 	}
@@ -53,7 +54,11 @@ public class PerfilController {
 	}
 
 	@RequestMapping(value = "removerPerfil", method = RequestMethod.GET)
-	public String removerPerfil(PerfilBean perfilBean) throws BusinessException {
+	public String removerPerfil(@RequestParam("idPerfil") String id, @RequestParam("ativo") String ativo)
+			throws BusinessException {
+		int idPerfil = Integer.parseInt(id);
+		PerfilBean perfilBean = perfilBusiness.obterPorId(idPerfil);
+		perfilBean.setAtivo(ativo.charAt(0));
 		perfilBusiness.remover(perfilBean);
 		return "redirect:listarPerfis";
 	}

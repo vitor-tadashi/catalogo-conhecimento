@@ -14,7 +14,8 @@ public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 
 	public List<PerfilBean> listar() {
 		try {
-			TypedQuery<PerfilBean> query = entityManager.createQuery("SELECT e FROM PerfilBean AS e", PerfilBean.class);
+			TypedQuery<PerfilBean> query = entityManager
+					.createQuery("SELECT u FROM PerfilBean AS u WHERE u.ativo = 'S'", PerfilBean.class);
 			List<PerfilBean> listaPerfis = query.getResultList();
 			return listaPerfis;
 		} catch (Exception e) {
@@ -24,8 +25,8 @@ public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 
 	public PerfilBean obterPorTipo(String tipo) throws SQLException, ClassNotFoundException {
 		try {
-			TypedQuery<PerfilBean> query = entityManager
-					.createQuery("SELECT u FROM PerfilBean AS u WHERE u.tipo = :tipo", PerfilBean.class);
+			TypedQuery<PerfilBean> query = entityManager.createQuery(
+					"SELECT u FROM PerfilBean AS u WHERE u.tipo = :tipo AND u.ativo = 'S'", PerfilBean.class);
 			PerfilBean PerfilBean = query.setParameter("tipo", tipo).getSingleResult();
 			return PerfilBean;
 		} catch (Exception e) {
@@ -35,8 +36,8 @@ public class PerfilDAO extends GenericDAOImpl<PerfilBean, Integer> {
 
 	public PerfilBean obterPorId(int id) throws SQLException, ClassNotFoundException {
 		try {
-			TypedQuery<PerfilBean> query = entityManager.createQuery("SELECT u FROM PerfilBean AS u WHERE u.id = :id",
-					PerfilBean.class);
+			TypedQuery<PerfilBean> query = entityManager
+					.createQuery("SELECT u FROM PerfilBean AS u WHERE u.id = :id AND u.ativo = 'S'", PerfilBean.class);
 			PerfilBean PerfilBean = query.setParameter("id", id).getSingleResult();
 			return PerfilBean;
 		} catch (Exception e) {

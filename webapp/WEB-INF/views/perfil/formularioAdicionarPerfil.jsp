@@ -28,7 +28,7 @@
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default">
-								<form class="no-margin" id="formAdd" method="POST" action="adicionarPerfil">
+								<form class="no-margin" id="formAdd" method="POST" action="<c:url value='adicionarPerfil'> <c:param name='ativo' value='S'/> </c:url>">
 									<div class="panel-heading">
 										<h3>Adicionar Perfil</h3>
 									</div>
@@ -40,6 +40,7 @@
 
 											<div class="col-sm-2">
 												<div class="form-group">
+												<input type ="hidden" name="ativo" value = "S"/>
 													<label class="control-label">Tipo <input
 														type="text" class="form-control" name="tipo"
 														maxlength="30">
