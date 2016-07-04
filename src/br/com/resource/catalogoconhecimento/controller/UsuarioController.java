@@ -30,8 +30,9 @@ public class UsuarioController {
 	private PerfilBusiness perfilBusiness;
 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
-	public String indexLogin(Model model) throws BusinessException {
+	public String indexLogin(Model model, HttpServletRequest request) throws BusinessException {
 		model.addAttribute("perfis", perfilBusiness.listar());
+		model.addAttribute("usuario",request.getSession().getAttribute("usuario"));
 		return "login/login";
 	}
 
