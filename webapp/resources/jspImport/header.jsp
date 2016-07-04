@@ -151,12 +151,12 @@
 						</span> <span class="text"> Clientes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarCliente'/>"> 
+							<li><a href="<c:url value='/cliente/listarCliente'/>"> 
 							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Clientes
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarCliente'/>">
+							<li><a href="<c:url value='/cliente/formularioAdicionarCliente'/>"> 
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cliente
@@ -168,13 +168,13 @@
 						</span> <span class="text"> Concorrentes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li> <a href="<c:url value='listarConcorrente'/>">
+							<li> <a href="<c:url value='/concorrente/listarConcorrente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Concorrentes
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarConcorrente'/>">
+							<li><a href="<c:url value='/concorrente/formularioAdicionarConcorrente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Concorrente

@@ -32,11 +32,11 @@ public class ConcorrenteClienteBean {
 	
 	private double valorHora;
 
-	public int getIdConcorrenteCliente() {
+	public int getId() {
 		return id;
 	}
 
-	public void setIdConcorrenteCliente(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -46,6 +46,23 @@ public class ConcorrenteClienteBean {
 
 	public void setValorHora(double valorhora) {
 		this.valorHora = valorhora;
+	}
+
+
+	public ConcorrenteBean getConcorrente() {
+		return concorrente;
+	}
+
+	public void setConcorrente(ConcorrenteBean concorrente) {
+		this.concorrente = concorrente;
+	}
+	
+	public ClienteBean getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteBean cliente) {
+		this.cliente = cliente;
 	}
 
 	public int getIdCliente() {
@@ -63,20 +80,6 @@ public class ConcorrenteClienteBean {
 	public void setIdConcorrente(int idConcorrente) {
 		this.idConcorrente = idConcorrente;
 	}
-
-	public ConcorrenteBean getConcorrente() {
-		return concorrente;
-	}
-
-	public void setConcorrente(ConcorrenteBean concorrente) {
-		this.concorrente = concorrente;
-	}
 	
-	public ClienteBean getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteBean cliente) {
-		this.cliente = cliente;
-	}
+	
 }

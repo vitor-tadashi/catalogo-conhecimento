@@ -55,7 +55,7 @@
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default">
-								<form class="no-margin" id="formAdd" method="POST" action="adicionarCliente">
+								<form class="no-margin" id="formAdd" method="POST" action="/catalogoconhecimento/cliente/adicionarCliente">
 									<div class="panel-heading">
 										<h3>Adicionar Cliente</h3>
 									</div>
@@ -152,7 +152,7 @@
 										</div>
 										<!-- /.row -->
 										<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
-										<input type ="hidden" name="ativo" value = "S"/>
+										
 									</div>
 									<div class="panel-footer text-left">
 										<button class="btn btn-success" type="submit">Adicionar</button>

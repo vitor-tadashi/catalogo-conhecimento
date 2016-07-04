@@ -30,7 +30,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="alterarCliente">
+									<form class="no-margin" id="formAlt"  method="POST" action="/catalogoconhecimento/cliente/alterarCliente">
 										<div class="panel-heading">
 											<h3>Alterar Cliente</h3>
 										</div>

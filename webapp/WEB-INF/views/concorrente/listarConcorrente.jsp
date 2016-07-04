@@ -57,13 +57,13 @@
 												<td>${concorrente.nome}</td>
 												<td>${concorrente.descricao}</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='formularioAlterarConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
+													<a href="<c:url value='/concorrente/formularioAlterarConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='removerConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
+													<a href="<c:url value='/concorrente/removerConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='listarClientePorConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
+													<a href="<c:url value='/concorrente/listarClientePorConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
 												</td>
 											</tr>
 										</c:forEach>

@@ -48,11 +48,17 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	 * @param nomeCliente
 	 * @return List<ClienteBean>
 	 */
-	public List<ClienteBean> obterPorNome(String nomeCliente) throws ClassNotFoundException, SQLException {
+	public ClienteBean obterPorNome(String nomeCliente) throws ClassNotFoundException, SQLException {
 		TypedQuery<ClienteBean> query = entityManager.createQuery(
 				"SELECT c FROM ClienteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ClienteBean.class);
 		query.setParameter("nome", nomeCliente);
-		return query.getResultList();
+		List<ClienteBean> clientes = query.getResultList();
+		
+		if(clientes.isEmpty()){
+			return null;
+		}else{
+			return clientes.get(0);
+		}
 	}
 
 	/**
@@ -77,4 +83,17 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 		} else
 			return false;
 	}
-}
+	
+	@Override
+	public ClienteBean adicionar(ClienteBean entity) {
+			try {
+				entityManager.persist(entity);
+				entityManager.flush();
+				entityManager.refresh(entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return entity;
+		}
+	}
+

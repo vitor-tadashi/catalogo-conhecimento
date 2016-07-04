@@ -38,6 +38,23 @@ public class ClienteBean {
 	
 	private char ativo;
 	
+	@Transient
+	private List<ConcorrenteClienteBean> listaConcorrentes;
+	
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "ConcorrenteCliente", joinColumns = {
+//			@JoinColumn(name = "idConcorrente", nullable = false, updatable = false) }, inverseJoinColumns = {
+//					@JoinColumn(name = "idCliente", nullable = false, updatable = false) })
+//	private List<ConcorrenteBean> listaConcorrentes;
+//	
+//	public List<ConcorrenteBean> getListaConcorrentes() {
+//		return listaConcorrentes;
+//	}
+//
+//	public void setListaConcorrentes(List<ConcorrenteBean> listaConcorrentes) {
+//		this.listaConcorrentes = listaConcorrentes;
+//	}
+
 	public char getAtivo() {
 		return ativo;
 	}
@@ -45,9 +62,6 @@ public class ClienteBean {
 	public void setAtivo(char ativo) {
 		this.ativo = ativo;
 	}
-
-	@Transient
-	private List<ConcorrenteClienteBean> listaConcorrentes;
 
 	public List<ConcorrenteClienteBean> getListaConcorrentes() {
 		return listaConcorrentes;

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ClienteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.exceptions.CnpjRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -30,10 +31,10 @@ public class ClienteBusiness {
 	@Transactional
 	public void adicionar(ClienteBean clienteBean) throws BusinessException {
 		try {
-			List<ClienteBean> clienteClone = this.obterPorNome(clienteBean.getNome());
+			ClienteBean clienteClone = this.obterPorNome(clienteBean.getNome());
 			if (!validarNome(clienteBean.getNome())) {
 				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
-			} else if (!clienteClone.isEmpty()) {
+			} else if (clienteClone != null) {
 				throw new NomeRepetidoException("Este nome já está cadastrado");
 			} else if (!validarEmail(clienteBean.getEmail())) {
 				throw new Exception("Email inválido");
@@ -45,9 +46,10 @@ public class ClienteBusiness {
 				throw new Exception("CEP inválido");
 			} else if (!validarCnpj(clienteBean.getCnpj())) {
 				throw new Exception("CNPJ inválido");
-			} else {
-				if (!clienteDao.verificarPorCnpj(clienteBean.getCnpj()))
-					clienteDao.adicionar(clienteBean);
+			} else if (clienteDao.verificarPorCnpj(clienteBean.getCnpj())) {
+				throw new CnpjRepetidoException();
+			}else{
+				clienteDao.adicionar(clienteBean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,6 +88,7 @@ public class ClienteBusiness {
 	 * @return ClienteBean
 	 * @throws BusinessException
 	 */
+	@Transactional
 	public ClienteBean obterPorId(int idCliente) throws BusinessException {
 		try {
 			return clienteDao.obterPorId(idCliente).get(0);
@@ -102,7 +105,8 @@ public class ClienteBusiness {
 	 * @return ClienteBean
 	 * @throws BusinessException
 	 */
-	public List<ClienteBean> obterPorNome(String nomeCliente) throws BusinessException {
+	@Transactional
+	public ClienteBean obterPorNome(String nomeCliente) throws BusinessException {
 		try {
 			return clienteDao.obterPorNome(nomeCliente);
 		} catch (Exception e) {
@@ -121,10 +125,10 @@ public class ClienteBusiness {
 	@Transactional
 	public void alterar(ClienteBean clienteBean) throws BusinessException {
 		try {
-			List<ClienteBean> clienteClone = this.obterPorNome(clienteBean.getNome());
+			ClienteBean clienteClone = (ClienteBean) this.obterPorNome(clienteBean.getNome());
 			if (!validarNome(clienteBean.getNome())) {
 				throw new TamanhoCampoException("Por Favor, digite um nome válido!");
-			} else if (clienteClone != null && clienteClone.get(0).getId() != clienteBean.getId()) {
+			} else if (clienteClone != null && clienteClone.getId() != clienteBean.getId()) {
 				throw new NomeRepetidoException("Este nome já está cadastrado.");
 			} else if (!validarEmail(clienteBean.getEmail())) {
 				throw new Exception("Email inválido");
@@ -140,6 +144,7 @@ public class ClienteBusiness {
 				clienteDao.alterar(clienteBean);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -152,6 +157,7 @@ public class ClienteBusiness {
 	 * @return void
 	 * @throws BusinessException
 	 */
+	@Transactional
 	public void remover(ClienteBean clienteBean) throws BusinessException {
 		try {
 			clienteDao.remover(clienteBean);

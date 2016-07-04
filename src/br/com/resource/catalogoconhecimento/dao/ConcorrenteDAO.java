@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -45,11 +46,19 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @throws SQLException
 	 */
 	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente FROM Concorrente AS CO"
+		/*
+		 * TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
+		 * "SELECT cc FROM ConcorrenteClienteBean AS cc WHERE cc.idCliente = :id"
+		 * , ConcorrenteClienteBean.class); query.setParameter("id", idCliente);
+		 * 
+		 * return query.getResultList();
+		 */
+		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente, CC.idConcorrenteCliente FROM Concorrente AS CO"
 				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
 				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
 				+ " WHERE CL.idCliente = ? AND CL.ativo = ?";
+
+		Connection conn = ConnectionFactory.createConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, idCliente);
 		ps.setString(2, "s");
@@ -57,6 +66,7 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
 		while (rs.next()) {
 			ConcorrenteClienteBean concorrenteCliente = new ConcorrenteClienteBean();
+			concorrenteCliente.setId(rs.getInt("idConcorrenteCliente"));
 			concorrenteCliente.setValorHora(rs.getDouble("valorHora"));
 			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
 			concorrenteBean.setId(rs.getInt("idConcorrente"));
@@ -86,31 +96,34 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	public List<ConcorrenteClienteBean> listarPorConcorrente(int id) throws SQLException, ClassNotFoundException {
 
 		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente FROM Concorrente AS CO"
+		String sql = "SELECT CO.*, CC.*, CL.idCliente, CL.nomeCliente FROM Concorrente AS CO"
 				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
 				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
-				+ " WHERE CC.idConcorrente = ? AND CO.ativo = ?";
+				+ " WHERE CC.idConcorrente = ? AND CO.ativo = ? and CL.ativo = 'S'";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.setString(2, "s");
+		
 		ResultSet rs = ps.executeQuery();
 		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
 		while (rs.next()) {
 			ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
+			concorrenteClienteBean.setId(rs.getInt("idConcorrenteCliente"));
 			concorrenteClienteBean.setValorHora(rs.getDouble("valorHora"));
 			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
 			concorrenteBean.setId(rs.getInt("idConcorrente"));
 			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
 			concorrenteBean.setDescricao(rs.getString("descricao"));
-			// concorrenteClienteBean.setConcorrente(concorrenteBean);
+			concorrenteClienteBean.setConcorrente(concorrenteBean);
 			ClienteBean clienteBean = new ClienteBean();
 			clienteBean.setId(rs.getInt("idCliente"));
 			clienteBean.setNome(rs.getString("nomeCliente"));
-			// concorrenteClienteBean.setCliente(clienteBean);
+			concorrenteClienteBean.setCliente(clienteBean);
 			listaConcorrentesClientes.add(concorrenteClienteBean);
 		}
 		conn.close();
 		return listaConcorrentesClientes;
+
 	}
 
 	/**
@@ -120,10 +133,15 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param idConcorrente
 	 * @return List<ConcorrenteBean>
 	 */
-	public List<ConcorrenteBean> obterPorId(int idConcorrente) {
+	public ConcorrenteBean obterPorId(int idConcorrente) {
 		TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
 				"SELECT c FROM ConcorrenteBean AS c WHERE c.id = :id AND c.ativo = 'S'", ConcorrenteBean.class);
-		return query.setParameter("id", idConcorrente).getResultList();
+		List<ConcorrenteBean> concorrentes = query.setParameter("id", idConcorrente).getResultList();
+		if (concorrentes.isEmpty()) {
+			return null;
+		} else {
+			return concorrentes.get(0);
+		}
 	}
 
 	/**
@@ -133,19 +151,20 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param nomeConcorrente
 	 * @return List<ConcorrenteBean>
 	 */
-	public List<ConcorrenteBean> obterPorNome(String nomeConcorrente) {
-		try {
-			TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
-					"SELECT c FROM ConcorrenteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ConcorrenteBean.class);
-			return query.setParameter("nome", nomeConcorrente).getResultList();
-		} catch (Exception e) {
+	public ConcorrenteBean obterPorNome(String nomeConcorrente) {
+		TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
+				"SELECT c FROM ConcorrenteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ConcorrenteBean.class);
+		List<ConcorrenteBean> concorrentes = query.setParameter("nome", nomeConcorrente).getResultList();
+		if (concorrentes.isEmpty()) {
 			return null;
+		} else {
+			return concorrentes.get(0);
 		}
 	}
 
 	/**
-	 * -SQL- Faz a remoção FÍSICA de ConcorrenteCliente na tabela
-	 * ConcorrenteCliente
+	 * -JPQL- Faz a remoção FÍSICA de um Concorrente relacionado ao Cliente
+	 * atual (Remoção de ConcorrenteCliente na tabela ConcorrenteCliente)
 	 * 
 	 * @param idCliente
 	 * @param idConcorrente
@@ -153,49 +172,62 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void removerConcorrenteCliente(int idCliente, int idConcorrente)
-			throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "DELETE FROM ConcorrenteCliente WHERE idCliente = ? AND idConcorrente = ?";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, idCliente);
-		ps.setInt(2, idConcorrente);
-		ps.executeUpdate();
-		ps.close();
-		conn.close();
+	public void removerEntidadeDaLista(int idConcorrenteCliente) {
+		Query query = entityManager
+				.createQuery("DELETE FROM ConcorrenteClienteBean AS c WHERE c.id = :idConcorrenteCliente");
+		query.setParameter("idConcorrenteCliente", idConcorrenteCliente);
+
+		query.executeUpdate();
 	}
 
 	/**
-	 * -SQL- Verifica se o Concorrente está vinculado à algum cliente na tabela
-	 * ConcorrenteCliente
+	 * -JPQL- Faz a remoção FÍSICA de todos os Concorrentes relacionados ao
+	 * Cliente atual na tabela ConcorrenteCliente
 	 * 
+	 * @param idCliente
 	 * @param idConcorrente
-	 * @return TRUE = Concorrente está vinculado à algum cliente; / FALSE =
-	 *         Concorrente não tem vínculos
+	 * @return void
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean verificarPorCliente(int idConcorrente) throws ClassNotFoundException, SQLException {
-		Connection conec = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM ConcorrenteCliente WHERE idConcorrente=?";
-		PreparedStatement ps = conec.prepareStatement(sql);
-		ps.setInt(1, idConcorrente);
-		ResultSet rs = ps.executeQuery();
-		boolean check = false;
-		while (rs.next()) {
-			check = true;
-		}
-		conec.close();
-		ps.close();
-		return check;
-		// Onde está @@@ é o atributo da idConcorrente que está no "Concorrente"
-		// dentro de ConcorrenteCliente. Vou ver com o Rodrigo
-		/*
-		 * TypedQuery<ConcorrenteBean> query = entityManager.createQuery(
-		 * "SELECT cc FROM ConcorrenteCliente AS cc WHERE cc.idConcorrente = :@@@@@@@@ AND c.ativo = 'S'"
-		 * , ConcorrenteBean.class); ConcorrenteBean concorrenteBean =
-		 * query.setParameter("nome", idConcorrente).getSingleResult(); return
-		 * concorrenteBean;
-		 */
+	public void removerConcorrenteCliente(int idCliente) {
+		Query query = entityManager
+				.createQuery("DELETE FROM ConcorrenteClienteBean AS c WHERE c.idCliente = :idCliente");
+		query.setParameter("idCliente", idCliente);
+
+		query.executeUpdate();
 	}
+
+	/**
+	 * -JPQL- Faz a remoção FÍSICA de todos os Clientes relacionados ao
+	 * Concorrente atual na tabela ConcorrenteCliente
+	 * 
+	 * @param idCliente
+	 * @param idConcorrente
+	 * @return void
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void removerClienteConcorrente(int idConcorrente) {
+		Query query = entityManager
+				.createQuery("DELETE FROM ConcorrenteClienteBean AS c WHERE c.idConcorrente = :idConcorrente");
+		query.setParameter("idConcorrente", idConcorrente);
+
+		query.executeUpdate();
+	}
+	
+	public ConcorrenteClienteBean obterPorConcorrente(int id) {
+		TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
+				"SELECT c FROM ConcorrenteClienteBean AS c WHERE c.idConcorrente = :id", ConcorrenteClienteBean.class);
+		List<ConcorrenteClienteBean> concorrentes = query.setParameter("id", id).getResultList();
+		if (concorrentes.isEmpty()) {
+			return null;
+		} else {
+			return concorrentes.get(0);
+		}
+		
+	}
+
+
+
 }

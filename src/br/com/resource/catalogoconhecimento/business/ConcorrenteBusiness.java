@@ -23,7 +23,7 @@ public class ConcorrenteBusiness {
 
 	@Autowired
 	private ConcorrenteDAO concorrenteDao;
-	
+
 	@Autowired
 	private ConcorrenteClienteDAO concorrenteClienteDAO;
 
@@ -38,7 +38,7 @@ public class ConcorrenteBusiness {
 	@Transactional
 	public void adicionar(ConcorrenteBean concorrenteBean) throws BusinessException {
 		try {
-			List<ConcorrenteBean> concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
+			ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 			if (concorrenteBean.getDescricao().equals("")) {
 				concorrenteBean.setDescricao("-");
 			}
@@ -46,7 +46,7 @@ public class ConcorrenteBusiness {
 				throw new AtributoNuloException("Por favor, digite um nome válido!");
 			} else if (concorrenteBean.getDescricao().length() > 255) {
 				throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
-			} else if (!concorrenteClone.isEmpty() && concorrenteClone.get(0).getId() != concorrenteBean.getId()) {
+			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
 				throw new NomeRepetidoException("Este nome já está cadastrado!");
 			} else {
 				concorrenteDao.adicionar(concorrenteBean);
@@ -70,13 +70,14 @@ public class ConcorrenteBusiness {
 	public void adicionarConcorrenteCliente(ConcorrenteClienteBean concorrenteClienteBean) throws BusinessException {
 		try {
 			// if (concorrenteClienteBean.getIdCliente() == null) {
-			//throw new AtributoNuloException("Cliente inválido");
+			// throw new AtributoNuloException("Cliente inválido");
 			// } else if (concorrenteClienteBean.getIdConcorrente() == null) {
 			// throw new AtributoNuloException("Concorrente inv�lido");
 			// } else {
-			 concorrenteClienteDAO.adicionar(concorrenteClienteBean);
+			concorrenteClienteDAO.adicionar(concorrenteClienteBean);
 			// }
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -119,6 +120,7 @@ public class ConcorrenteBusiness {
 		try {
 			return concorrenteDao.listarPorCliente(idCliente);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -153,7 +155,7 @@ public class ConcorrenteBusiness {
 	@Transactional
 	public ConcorrenteBean obterPorId(int idConcorrente) throws BusinessException {
 		try {
-			return concorrenteDao.obterPorId(idConcorrente).get(0);
+			return concorrenteDao.obterPorId(idConcorrente);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
@@ -168,7 +170,7 @@ public class ConcorrenteBusiness {
 	 * @throws BusinessException
 	 */
 	@Transactional
-	public List<ConcorrenteBean> obterPorNome(String nomeConcorrente) throws BusinessException {
+	public ConcorrenteBean obterPorNome(String nomeConcorrente) throws BusinessException {
 		try {
 			return concorrenteDao.obterPorNome(nomeConcorrente);
 		} catch (Exception e) {
@@ -187,12 +189,12 @@ public class ConcorrenteBusiness {
 	@Transactional
 	public void alterar(ConcorrenteBean concorrenteBean) throws BusinessException {
 		try {
-			List<ConcorrenteBean> concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
+			ConcorrenteBean concorrenteClone = this.obterPorNome(concorrenteBean.getNome());
 			if (!validarNome(concorrenteBean.getNome())) {
 				throw new AtributoNuloException("Por favor, digite um nome sem caracteres especiais.");
 			} else if (concorrenteBean.getDescricao().length() > 255) {
 				throw new TamanhoCampoException("Descrição: Número limite de caracteres excedido(máx.255)");
-			} else if (!concorrenteClone.isEmpty() && concorrenteClone.get(0).getId() != concorrenteBean.getId()) {
+			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
 				throw new NomeRepetidoException("Este nome já está cadastrado!");
 			} else {
 				concorrenteDao.alterar(concorrenteBean);
@@ -215,20 +217,21 @@ public class ConcorrenteBusiness {
 	public void remover(ConcorrenteBean concorrenteBean) throws BusinessException {
 		try {
 			// if (!concorrenteDao.verificarPorCliente(idConcorrente)) {
-			concorrenteBean.setAtivo('n');
+			concorrenteBean.setAtivo('N');
 			concorrenteDao.remover(concorrenteBean);
 			// } else {
 			// throw new RegistroVinculadoException("Registro não pode ser
 			// removido pois possui vínculos.");
 			// }
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
 
 	/**
-	 * -SQL- Faz a remoção FÍSICA de ConcorrenteCliente na tabela
-	 * ConcorrenteCliente através da ConcorrenteDAO
+	 * -JPQL- Faz a remoção FÍSICA de um Concorrente relacionado ao Cliente
+	 * atual (Remoção de ConcorrenteCliente na tabela ConcorrenteCliente)
 	 * 
 	 * @param idCliente
 	 * @param idConcorrente
@@ -237,12 +240,63 @@ public class ConcorrenteBusiness {
 	 * @throws SQLException
 	 */
 	@Transactional
-	public void removerConcorrenteCliente(int idCliente, int idConcorrente) throws BusinessException {
+	public void removerEntidadeDaLista(int idConcorrenteCliente) throws BusinessException {
 		try {
-			concorrenteDao.removerConcorrenteCliente(idCliente, idConcorrente);
+			concorrenteDao.removerEntidadeDaLista(idConcorrenteCliente);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
+	}
+	
+	/**
+	 * -JPQL- Faz a remoção FÍSICA de todos os Concorrentes relacionados ao
+	 * Cliente atual na tabela ConcorrenteCliente
+	 * 
+	 * @param idCliente
+	 * @param idConcorrente
+	 * @return void
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Transactional
+	public void removerConcorrenteCliente(int idCliente) throws BusinessException {
+		try {
+			concorrenteDao.removerConcorrenteCliente(idCliente);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw ExceptionUtil.handleException(e);
+		}
+	}
+	
+	/**
+	 * -JPQL- Faz a remoção FÍSICA de todos os Concorrentes relacionados ao
+	 * Cliente atual na tabela ConcorrenteCliente
+	 * 
+	 * @param idCliente
+	 * @param idConcorrente
+	 * @return void
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Transactional
+	public void removerClienteConcorrente(int idConcorrente) throws BusinessException {
+		try {
+			concorrenteDao.removerClienteConcorrente(idConcorrente);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw ExceptionUtil.handleException(e);
+		}
+	}
+	
+	public ConcorrenteClienteBean obterPorConcorrente(int id) throws BusinessException{
+		try {
+			return concorrenteDao.obterPorConcorrente(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw ExceptionUtil.handleException(e);
+		}
+		
 	}
 
 	/**
