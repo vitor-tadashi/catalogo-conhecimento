@@ -3,13 +3,12 @@ package br.com.resource.catalogoconhecimento.bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 
 
@@ -18,12 +17,11 @@ import org.hibernate.annotations.CascadeType;
 public class UsuarioBean {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO) 
 	@Column(name = "idUsuario", unique = true, nullable = false)
 	public int idUsuario;
 	
 	 @ManyToOne
-	 @Cascade(CascadeType.ALL) 
      @JoinTable(name="usuarioPerfil",
                joinColumns={@JoinColumn(name="idUsuario",  
                 referencedColumnName="idUsuario")},  
@@ -71,7 +69,6 @@ public class UsuarioBean {
 	}
 
 
-
 	public String getNome() {
 		return nome;
 	}
@@ -85,7 +82,7 @@ public class UsuarioBean {
 	}
 
 	public void setLogin(String login) {
-		this.login = login.trim().toLowerCase();
+		this.login = login;
 	}
 
 	public String getSenha() {

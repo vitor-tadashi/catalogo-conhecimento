@@ -5,15 +5,12 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
- 
         
 
 @Entity
@@ -21,13 +18,12 @@ import org.hibernate.annotations.CascadeType;
 public class PerfilBean {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO) 
 	@Column(name = "idPerfil", unique = true, nullable = false)
 	public int id;
 	
 
 	 @OneToMany 
-	 @Cascade(CascadeType.ALL) 
      @JoinTable(name="usuarioPerfil",  
                joinColumns={@JoinColumn(name="idPerfil", 
                 referencedColumnName="idPerfil")},  
