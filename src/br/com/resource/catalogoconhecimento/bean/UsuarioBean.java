@@ -2,30 +2,35 @@ package br.com.resource.catalogoconhecimento.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+
 
 @Entity
 @Table(name = "Usuario")
 public class UsuarioBean {
 
 	@Id
-	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name = "idUsuario", unique = true, nullable = false)
 	public int idUsuario;
 	
-
-	@Cascade(CascadeType.ALL) 
-    @OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="idPerfil" ,insertable=true, updatable=true)
-	private PerfilBean perfilBean;
+	 @ManyToOne
+	 @Cascade(CascadeType.ALL) 
+     @JoinTable(name="usuarioPerfil",
+               joinColumns={@JoinColumn(name="idUsuario",  
+                referencedColumnName="idUsuario")},  
+               inverseJoinColumns={@JoinColumn(name="idPerfil",   
+                referencedColumnName="idPerfil")})  
+	 private PerfilBean perfilBean;
+	 
 	
 	public PerfilBean getPerfilBean() {
 		return perfilBean;

@@ -47,7 +47,7 @@ public abstract class ExceptionUtil {
 		}else if(e instanceof CaracteresEspeciaisException){
 			error = "Por favor,não digite caracteres especiais";
 		}else if(e instanceof LoginException){
-			error = "Usuário e/ou senha incorreto(s)";
+			error = "Usu�rio e/ou senha incorreto(s)";
 		}
 		
 		return new BusinessException(error);

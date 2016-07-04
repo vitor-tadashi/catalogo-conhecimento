@@ -24,9 +24,9 @@ public class PerfilBusiness {
 	public void adicionar(PerfilBean perfilBean) throws BusinessException {
 		try {
 			if (perfilDAO.obterPorTipo(perfilBean.getTipo().trim()) != null) {
-				throw new NomeRepetidoException("Este tipo já consta na base de dados");
+				throw new NomeRepetidoException("Este tipo jÃ¡ consta na base de dados");
 			} else if (!validarTipo(perfilBean.getTipo())) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max de 30)");
+				throw new TamanhoCampoException("NÃºmero limite de caracteres excedido (min de 4 e max de 30)");
 			} else {
 				perfilDAO.adicionar(perfilBean);
 			}
@@ -54,9 +54,9 @@ public class PerfilBusiness {
 	public void alterar(PerfilBean perfilBean) throws BusinessException {
 		try {
 			if (perfilDAO.obterPorTipo(perfilBean.getTipo().trim()) != null) {
-				throw new NomeRepetidoException("Este tipo já consta na base de dados");
+				throw new NomeRepetidoException("Este tipo jÃ¡ consta na base de dados");
 			} else if (!validarTipo(perfilBean.getTipo())) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (min de 4 e max de 30)");
+				throw new TamanhoCampoException("NÃºmero limite de caracteres excedido (min de 4 e max de 30)");
 			} else {
 				perfilDAO.alterar(perfilBean);
 			}
@@ -65,7 +65,7 @@ public class PerfilBusiness {
 		}
 	}
 
-	@Transactional
+	@Transactional(readOnly = false)
 	public PerfilBean obterPorId(int id) throws BusinessException {
 		try {
 			return perfilDAO.obterPorId(id);
@@ -81,9 +81,9 @@ public class PerfilBusiness {
 			perfilDAO.remover(perfilBean);
 			// } else {
 			// throw new RegistroVinculadoException(
-			// "Essa Equipe nÃ¯Â¿Â½o pode ser removida, pois possui vÃƒÂ­nculos
+			// "Essa Equipe nÃƒÂ¯Ã‚Â¿Ã‚Â½o pode ser removida, pois possui vÃƒÆ’Ã‚Â­nculos
 			// com
-			// FuncionÃ¯Â¿Â½rios");
+			// FuncionÃƒÂ¯Ã‚Â¿Ã‚Â½rios");
 			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -91,7 +91,7 @@ public class PerfilBusiness {
 	}
 
 	public boolean validarTipo(String tipo) {
-		return (tipo.matches("[A-Za-zÁ-ú0-9\\s]{4,30}"));
+		return (tipo.matches("[A-Za-zÃ�-Ãº0-9\\s]{4,30}"));
 	}
 
 }

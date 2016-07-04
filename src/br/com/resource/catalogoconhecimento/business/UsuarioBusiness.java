@@ -23,7 +23,7 @@ public class UsuarioBusiness {
 	private UsuarioDAO usuarioDAO;
 	
 
-	@Transactional
+	@Transactional(readOnly = false)
 	public void inserir(UsuarioBean usuarioBean) throws BusinessException {
 
 //		try {
@@ -100,7 +100,7 @@ public class UsuarioBusiness {
 			if (usuarioIgual != null) {
 				return usuarioIgual;
 			} else {
-				throw new LoginException("Login ou senha de Usu√°rio incorretos");
+				throw new LoginException("Login ou senha de Usu·rio incorretos");
 			}
 
 		} catch (Exception e) {

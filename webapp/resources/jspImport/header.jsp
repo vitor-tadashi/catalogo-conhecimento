@@ -27,14 +27,14 @@
 
 		<ul class="nav-notification clearfix">
 			<li class="profile dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#"> <strong>Usuário</strong> <span><i
+				data-toggle="dropdown" href="#"> <strong>${usuario.nome}</strong> <span><i
 						class="fa fa-chevron-down"></i></span>
 			</a>
 				<ul class="dropdown-menu">
 					<li><a class="clearfix" href="#">
 							<div class="detail">
-								<strong>Usuário</strong>
-								<p class="grey">usuário@resource.com</p>
+								<strong>${usuario.nome}</strong>
+								<p class="grey">${usuario.login}</p>
 							</div>
 					</a></li>
 					<li><a tabindex="-1" class="main-link logoutConfirm_open"
