@@ -54,7 +54,7 @@
 											<tr>
 												<td>${perfil.tipo}</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='formularioAlterarPerfil'> <c:param name='idPerfil' value='${perfil.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
+													<a href="<c:url value='alterar'> <c:param name='idPerfil' value='${perfil.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;">
 													<a href="<c:url value='removerPerfil'> <c:param name='idPerfil' value='${perfil.id}'/> <c:param name='ativo' value='N'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
@@ -64,7 +64,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href='formularioAdicionarPerfil'>
+									<a href='adicionar'>
 										<button class="btn btn-success" type="submit">Adicionar Novo Perfil</button>
 									</a>
 								</div>

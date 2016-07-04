@@ -186,12 +186,12 @@
 						</span> <span class="text"> Perfis </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/perfil/listarPerfis'/>"> 
+							<li><a href="<c:url value='/perfil/listar'/>"> 
 							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Perfis
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/perfil/formularioAdicionarPerfil'/>">
+							<li><a href="<c:url value='/perfil/adicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Perfil

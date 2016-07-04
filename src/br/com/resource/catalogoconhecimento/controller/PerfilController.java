@@ -21,7 +21,7 @@ public class PerfilController {
 	@Autowired
 	private PerfilBusiness perfilBusiness;
 
-	@RequestMapping(value = "formularioAdicionarPerfil", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionarPerfil(Model model) throws BusinessException {
 		model.addAttribute("listaPerfis", perfilBusiness.listar());
 		return "perfil/formularioAdicionarPerfil";
@@ -34,7 +34,7 @@ public class PerfilController {
 		return "redirect:listarPerfis";
 	}
 
-	@RequestMapping(value = "formularioAlterarPerfil", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String formularioAlterarCliente(Model model, @RequestParam("idPerfil") String id) throws BusinessException {
 		int idPerfil = Integer.parseInt(id);
 		model.addAttribute("perfil", perfilBusiness.obterPorId(idPerfil));
@@ -47,7 +47,7 @@ public class PerfilController {
 		return "redirect:listarPerfis";
 	}
 
-	@RequestMapping(value = "listarPerfis", method = RequestMethod.GET)
+	@RequestMapping(value = "listar", method = RequestMethod.GET)
 	public String listarPerfis(Model model) throws BusinessException {
 		model.addAttribute("listaPerfis", perfilBusiness.listar());
 		return "perfil/listarPerfis";
