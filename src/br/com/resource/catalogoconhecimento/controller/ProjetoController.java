@@ -110,8 +110,7 @@ public class ProjetoController {
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
-	public String alterar(ProjetoBean projetoBean,
-			@RequestParam("id") String id) throws BusinessException {
+	public String alterar(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.atualizar(projetoBean);
 		projetoNegocio.atualizar(projetoBean, projetoBean.getListaNegocio());
 		projetoTecnologia.atualizar(projetoBean, projetoBean.getListaTecnologia());
@@ -123,6 +122,7 @@ public class ProjetoController {
 	@RequestMapping(value = "removerProjeto", method = RequestMethod.GET)
 	public String remover(@RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
+
 		projetoBusiness.remover(idProjeto);
 
 		return "redirect:listarProjeto";

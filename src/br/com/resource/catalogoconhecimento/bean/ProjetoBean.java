@@ -29,7 +29,7 @@ public class ProjetoBean {
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idCiente")
+	@JoinColumn(name = "idCliente")
 	@Fetch(FetchMode.JOIN)
 	private ClienteBean cliente;
 
@@ -39,7 +39,7 @@ public class ProjetoBean {
 	@Column(name = "ativo", nullable = false)
 	private char ativo;
 
-	@Column(name = "observacao", nullable = false)
+	@Column(name = "observacao")
 	private String observacao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -43,6 +43,7 @@ public class ProjetoBusiness {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -77,6 +78,7 @@ public class ProjetoBusiness {
 				projetoDao.alterar(projetoBean);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}

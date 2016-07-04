@@ -25,6 +25,7 @@ public class ProjetoTecnologiaBusiness {
 		} catch (
 
 		Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
