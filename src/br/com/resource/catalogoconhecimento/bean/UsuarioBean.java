@@ -3,20 +3,41 @@ package br.com.resource.catalogoconhecimento.bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name = "Usuario")
 public class UsuarioBean {
 
 	@Id
-	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO) 
 	@Column(name = "idUsuario", unique = true, nullable = false)
 	public int idUsuario;
 	
-	@Column(name ="idPerfil")
-	public int id;
+	 @ManyToOne
+     @JoinTable(name="usuarioPerfil",
+               joinColumns={@JoinColumn(name="idUsuario",  
+                referencedColumnName="idUsuario")},  
+               inverseJoinColumns={@JoinColumn(name="idPerfil",   
+                referencedColumnName="idPerfil")})  
+	 private PerfilBean perfilBean;
+	 
+	
+	public PerfilBean getPerfilBean() {
+		return perfilBean;
+	}
+
+	public void setPerfilBean(PerfilBean perfilBean) {
+		this.perfilBean = perfilBean;
+	}
+
 	
 	@Column(name ="nomeUsuario")
 	public String nome;
@@ -30,7 +51,6 @@ public class UsuarioBean {
 	@Column(name = "ativo")
 	public char ativo;
 
-	
 	
 	public char getAtivo() {
 		return ativo;
@@ -48,13 +68,6 @@ public class UsuarioBean {
 		this.idUsuario = idUsuario;
 	}
 
-	public int getIdPerfil() {
-		return id;
-	}
-
-	public void setIdPerfil(int idPerfil) {
-		this.id = idPerfil;
-	}
 
 	public String getNome() {
 		return nome;

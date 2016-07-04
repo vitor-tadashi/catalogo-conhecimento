@@ -1,9 +1,10 @@
 package br.com.resource.catalogoconhecimento.utils;
 
+import javax.security.auth.login.LoginException;
+
 import br.com.resource.catalogoconhecimento.exceptions.AtributoNuloException;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
-import br.com.resource.catalogoconhecimento.exceptions.CnpjRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.CpfInvalidoException;
 import br.com.resource.catalogoconhecimento.exceptions.DataInvalidaException;
@@ -22,31 +23,31 @@ public abstract class ExceptionUtil {
 		String error = "Sistema indisponivel no momento!";
 		
 		if(e instanceof NomeRepetidoException){
-			error = "Este nome já está cadastrado";
+			error = "Este nome já existe na base de dados";
 		}else if(e instanceof AtributoNuloException){
 			error = "Por favor, digite todos os campos";
 		}else if(e instanceof TamanhoCampoException){
-			error = "Você excedeu o número de caracteres";
+			error = "Você excedeu o numero de caracteres";
 		}else if(e instanceof ConsultaNulaException){
 			error = "Sua busca não retornou nenhum resultado";
 		}else if(e instanceof CpfInvalidoException){
-			error = "Por favor, digite um CPF válido";
+			error = "Por favor, digite um cpf válido";
 		}else if(e instanceof DataInvalidaException){
 			error = "Por favor, digite uma data válido";
 		}else if(e instanceof EmailInvalidoException){
-			error = "Por favor, digite um e-mail válido";
+			error = "Por favor, digite um email válido";
 		}else if(e instanceof QuantidadeTagException){
 			error = "Por favor, preencha os campos de busca";
 		}else if(e instanceof RegistroVinculadoException){
 			error = "Não é possível excluir este registro";
 		}else if(e instanceof RgInvalidoException){
-			error = "Por favor, digite um RG válido";
+			error = "Por favor, digite um rg válido";
 		}else if(e instanceof UserInvalidoException){
 			error = "Nome de usuário inválido";
 		}else if(e instanceof CaracteresEspeciaisException){
-			error = "Por favor, não digite caracteres especiais";
-		}else if(e instanceof CnpjRepetidoException){
-			error = "Este CNPJ já existe na base de dados";
+			error = "Por favor,não digite caracteres especiais";
+		}else if(e instanceof LoginException){
+			error = "Usu�rio e/ou senha incorreto(s)";
 		}
 		
 		return new BusinessException(error);
