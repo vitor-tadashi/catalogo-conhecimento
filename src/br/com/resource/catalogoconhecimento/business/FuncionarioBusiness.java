@@ -179,12 +179,12 @@ public class FuncionarioBusiness {
 				throw new NullPointerException("Preencha o campo de nome corretamante");
 			} else if (!validarNome(funcionarioBean.getNome().trim())) {
 				throw new TamanhoCampoException(
-						"N�mero limite de caracteres excedido(m�x.150) e/ou caracteres inv�lidos inseridos");
+						"Número limite de caracteres excedido(m�x.150) e/ou caracteres inválidos inseridos");
 			} else if (funcionarioBean.getTelefone().trim().equals("")) {
 				throw new NullPointerException("Preencha o campo de telefone corretamante");
 			} else if (!validarNumero(funcionarioBean.getTelefone().trim())) {
 				throw new TamanhoCampoException(
-						"Nmero limite de caracteres excedido(m�x.11) e/ou caracteres inv�lidos inseridos");
+						"Nmero limite de caracteres excedido(máx.11) e/ou caracteres inválidos inseridos");
 			} else {
 				funcionarioDAO.alterar(funcionarioBean);
 			}
