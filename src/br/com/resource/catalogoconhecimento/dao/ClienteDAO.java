@@ -4,172 +4,72 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
+import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
-
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
-public class ClienteDAO {
+public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 
-	Connection conn = null;
+	/**
+	 * -JPQL- Retorna uma lista com todos os Clientes ATIVOS da tabela de
+	 * Clientes
+	 * 
+	 * @param no
+	 *            parameters
+	 * @return listaCliente (retorna a lista de clientes)
+	 */
+	public List<ClienteBean> listar() {
+		TypedQuery<ClienteBean> query = entityManager.createQuery("SELECT c FROM ClienteBean AS c WHERE c.ativo = 'S'",
+				ClienteBean.class);
+		List<ClienteBean> listaCliente = query.getResultList();
+		return listaCliente;
+	}
 
-	public void adicionar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "INSERT INTO Cliente(nomeCliente, logradouro, CEP, numero, CNPJ, email, ativo) VALUES(?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, clienteBean.getNome());
-		ps.setString(2, clienteBean.getLogradouro());
-		ps.setString(3, clienteBean.getCep());
-		ps.setString(4, clienteBean.getNumero());
-		ps.setString(5, clienteBean.getCnpj());
-		ps.setString(6, clienteBean.getEmail());
-		ps.setString(7, "S");
-		ps.executeUpdate();
-		ResultSet rs = ps.getGeneratedKeys();
-		int newId = 0;
+	/**
+	 * -JPQL- Retorna uma lista de Clientes ATIVOS (buscado através do ID
+	 * passado como parâmetro)
+	 * 
+	 * @param idCliente
+	 * @return List<ClienteBean>
+	 */
+	public List<ClienteBean> obterPorId(int idCliente) {
+		TypedQuery<ClienteBean> query = entityManager
+				.createQuery("SELECT c FROM ClienteBean AS c WHERE c.id = :id AND c.ativo = 'S'", ClienteBean.class);
+		return query.setParameter("id", idCliente).getResultList();
+	}
 
-		if (rs.next()) {
-			newId = rs.getInt(1);
-			clienteBean.setId(newId);
+	/**
+	 * -JPQL- Retorna uma lista de Clientes ATIVOS (buscado através do NOME
+	 * passado como parâmetro)
+	 * 
+	 * @param nomeCliente
+	 * @return List<ClienteBean>
+	 */
+	public ClienteBean obterPorNome(String nomeCliente) throws ClassNotFoundException, SQLException {
+		TypedQuery<ClienteBean> query = entityManager.createQuery(
+				"SELECT c FROM ClienteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ClienteBean.class);
+		query.setParameter("nome", nomeCliente);
+		List<ClienteBean> clientes = query.getResultList();
+		
+		if(clientes.isEmpty()){
+			return null;
+		}else{
+			return clientes.get(0);
 		}
-
-		ps.close();
-		conn.close();
 	}
 
-	public List<ClienteBean> listar() throws SQLException, ClassNotFoundException {
-		Connection conn = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Cliente WHERE ativo = 'S'";
-
-		PreparedStatement ps = conn.prepareStatement(sql);
-
-		ResultSet rs = ps.executeQuery();
-
-		ArrayList<ClienteBean> listaClientes = new ArrayList<ClienteBean>();
-		ClienteBean clienteBean = null;
-
-		while (rs.next()) {
-			clienteBean = new ClienteBean();
-			clienteBean.setId(rs.getInt("idCliente"));
-			clienteBean.setNome(rs.getString("nomeCliente"));
-			clienteBean.setLogradouro(rs.getString("logradouro"));
-			clienteBean.setCep(rs.getString("cep"));
-			clienteBean.setNumero(rs.getString("numero"));
-			clienteBean.setCnpj(rs.getString("cnpj"));
-			clienteBean.setEmail(rs.getString("email"));
-			listaClientes.add(clienteBean);
-		}
-		conn.close();
-		return listaClientes;
-	}
-
-	public void alterar(ClienteBean clienteBean) throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
-
-		String sql = "UPDATE Cliente SET nomeCliente = ?, logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE idCliente = ?";
-
-		PreparedStatement ps = conn.prepareStatement(sql);
-
-		ps.setString(1, clienteBean.getNome());
-		ps.setString(2, clienteBean.getLogradouro());
-		ps.setString(3, clienteBean.getCep());
-		ps.setString(4, clienteBean.getNumero());
-		ps.setString(5, clienteBean.getCnpj());
-		ps.setString(6, clienteBean.getEmail());
-		ps.setString(7, String.valueOf('S'));
-		ps.setInt(8, clienteBean.getId());
-
-		ps.executeUpdate();
-		conn.close();
-	}
-
-	public void remover(int idCliente) throws SQLException, ClassNotFoundException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "UPDATE Cliente SET ativo = 'N' WHERE idCliente = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, idCliente);
-		stmt.executeUpdate();
-		conn.close();
-	}
-
-	public ClienteBean obterPorId(int idCliente) throws SQLException, ClassNotFoundException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Cliente WHERE idCliente = ? AND ativo = 'S'";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, idCliente);
-
-		ResultSet rs = ps.executeQuery();
-		ClienteBean clienteBean = new ClienteBean();
-
-		if (rs.next()) {
-			clienteBean.setId(rs.getInt("idCliente"));
-			clienteBean.setNome(rs.getString("nomeCliente"));
-			clienteBean.setLogradouro(rs.getString("logradouro"));
-			clienteBean.setCep(rs.getString("cep"));
-			clienteBean.setNumero(rs.getString("numero"));
-			clienteBean.setCnpj(rs.getString("cnpj"));
-			clienteBean.setEmail(rs.getString("email"));
-			conn.close();
-		}
-		return clienteBean;
-	}
-
-	public ClienteBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "SELECT * FROM Cliente WHERE nomeCliente = ? AND ativo = 'S'";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, nome);
-
-		ResultSet rs = ps.executeQuery();
-
-		ClienteBean clienteBean = null;
-		if (rs.next()) {
-			clienteBean = new ClienteBean();
-			clienteBean.setId(rs.getInt("idCliente"));
-			clienteBean.setNome(rs.getString("nomeCliente"));
-			clienteBean.setLogradouro(rs.getString("logradouro"));
-			clienteBean.setCep(rs.getString("cep"));
-			clienteBean.setNumero(rs.getString("numero"));
-			clienteBean.setCnpj(rs.getString("cnpj"));
-			clienteBean.setEmail(rs.getString("email"));
-		}
-
-		ps.close();
-		conexao.close();
-
-		return clienteBean;
-	}
-
-	public ClienteBean obterNomeDesativado(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Cliente WHERE nomeCliente = ? AND ativo = ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setString(1, clienteBean.getNome());
-		ps.setString(2, "n");
-		ResultSet rs = ps.executeQuery();
-
-		ClienteBean cliente = null;
-
-		while (rs.next()) {
-			int id = rs.getInt("idCliente");
-			String nomeCliente = rs.getString("nomeCliente");
-			cliente = new ClienteBean();
-			cliente.setId(id);
-			cliente.setNome(nomeCliente);
-		}
-		conexao.close();
-		return cliente;
-	}
-
+	/**
+	 * Verifica se já existe um cliente com o CNPJ informado cadastrado no banco
+	 * de dados
+	 * 
+	 * @param cnpj
+	 * @return TRUE = CPNJ já está cadastrado / FALSE = CNPJ não está cadastrado
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public boolean verificarPorCnpj(String cnpj) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.createConnection();
 		String sql = "SELECT * FROM Cliente WHERE cnpj = ? AND ativo = 'S'";
@@ -183,22 +83,17 @@ public class ClienteDAO {
 		} else
 			return false;
 	}
-
-	public void reativar(ClienteBean clienteBean) throws SQLException, ClassNotFoundException {
-		Connection conexao = ConnectionFactory.createConnection();
-
-		String sql = "UPDATE Cliente SET logradouro = ?, CEP = ?, numero = ?, CNPJ = ?, email = ?, ativo = ? WHERE nomeCliente = ?";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-
-		ps.setString(1, clienteBean.getLogradouro());
-		ps.setString(2, clienteBean.getCep());
-		ps.setString(3, clienteBean.getNumero());
-		ps.setString(4, clienteBean.getCnpj());
-		ps.setString(5, clienteBean.getEmail());
-		ps.setString(6, "S");
-		ps.setString(7, clienteBean.getNome());
-		ps.executeUpdate();
-		conexao.close();
+	
+	@Override
+	public ClienteBean adicionar(ClienteBean entity) {
+			try {
+				entityManager.persist(entity);
+				entityManager.flush();
+				entityManager.refresh(entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return entity;
+		}
 	}
 
-}

@@ -2,13 +2,10 @@ package br.com.resource.catalogoconhecimento.bean;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -41,9 +38,23 @@ public class ClienteBean {
 	
 	private char ativo;
 	
-	@OneToMany(mappedBy = "cliente", targetEntity = ProjetoBean.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ProjetoBean> listaProjetos;
+	@Transient
+	private List<ConcorrenteClienteBean> listaConcorrentes;
 	
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "ConcorrenteCliente", joinColumns = {
+//			@JoinColumn(name = "idConcorrente", nullable = false, updatable = false) }, inverseJoinColumns = {
+//					@JoinColumn(name = "idCliente", nullable = false, updatable = false) })
+//	private List<ConcorrenteBean> listaConcorrentes;
+//	
+//	public List<ConcorrenteBean> getListaConcorrentes() {
+//		return listaConcorrentes;
+//	}
+//
+//	public void setListaConcorrentes(List<ConcorrenteBean> listaConcorrentes) {
+//		this.listaConcorrentes = listaConcorrentes;
+//	}
+
 	public char getAtivo() {
 		return ativo;
 	}
@@ -51,9 +62,6 @@ public class ClienteBean {
 	public void setAtivo(char ativo) {
 		this.ativo = ativo;
 	}
-
-	@Transient
-	private List<ConcorrenteClienteBean> listaConcorrentes;
 
 	public List<ConcorrenteClienteBean> getListaConcorrentes() {
 		return listaConcorrentes;
@@ -118,14 +126,4 @@ public class ClienteBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<ProjetoBean> getListaProjetos() {
-		return listaProjetos;
-	}
-
-	public void setListaProjetos(List<ProjetoBean> listaProjetos) {
-		this.listaProjetos = listaProjetos;
-	}
-	
-	
 }
