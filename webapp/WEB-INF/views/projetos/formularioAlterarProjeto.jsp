@@ -62,7 +62,7 @@
 											<div class="col-sm-2">
 												<div class="form-group">
 													<label class="control-label">Cliente: <select
-														class="form-control" name="idCliente">
+														class="form-control" name="cliente.IdCliente">
 															<c:forEach items="${clientes}" var="cliente">
 																<option value="${cliente.nome}">${cliente.nome}</option>
 															</c:forEach>
@@ -107,16 +107,17 @@
 											</div>
 										</div>
 										<!-- /.col -->
+										
 										<div class="col-sm-2">
 											<div class="form-group">
-												<label class="control-label">Tecnologia: </label>
+												<label class="control-label">Tecnologia: 
+												</label>
 												<div class="checkbox">
-													<c:forEach items="${tecnologias}" var="tecnologia"
-														varStatus="count">
-														<label class="control-label"> <input
-															type="checkbox" name="listaTecnologia[${count.index}].id"
-															value="${tecnologia.nome}" /> <span
-															class="custom-checkbox"></span> ${tecnologia.nome}
+													<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">         
+														<label class="control-label"> 
+														<input type="checkbox" name="listaTecnologia[${count.index}].id"
+															value="${tecnologia.nome}" /> <span class="custom-checkbox"></span> 
+															${tecnologia.nome}
 														</label>
 														<br>
 													</c:forEach>
@@ -124,7 +125,7 @@
 											</div>
 										</div>
 										<!-- /.col -->
-
+ 
 									</div>
 
 									<div class="panel-footer text-left">
@@ -146,7 +147,6 @@
 	</div>
 	<!-- /main-container -->
 	</div>
-	<!-- /wrapper -->
 
 	<!-- Import Logout Action -->
 	<c:import url="/resources/jspImport/logout.jsp" />
