@@ -12,8 +12,6 @@ import br.com.resource.catalogoconhecimento.bean.UsuarioBean;
 import br.com.resource.catalogoconhecimento.dao.UsuarioDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
-import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
-import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
 import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 
 @Component
@@ -46,7 +44,7 @@ public class UsuarioBusiness {
 			List<UsuarioBean> listaUsuario = usuarioDAO.listar();
 
 			if (listaUsuario.isEmpty()) {
-				throw new ConsultaNulaException("Não há usuários cadastrados");
+				throw new ConsultaNulaException("N�o h� usu�rios cadastrados");
 			} else {
 				return listaUsuario;
 			}
@@ -57,20 +55,20 @@ public class UsuarioBusiness {
 
 	@Transactional
 	public void atualizar(UsuarioBean usuario) throws BusinessException {
-		try {
-
-			UsuarioBean usuarioIgual = (UsuarioBean) usuarioDAO.obterPorNome(usuario.getNome().trim());
-
-			if (usuarioIgual != null && usuarioIgual.getId() != usuario.getId()) {
-				throw new NomeRepetidoException("Este nome já consta na base de dados");
-			} else if (usuario.getNome().length() > 50) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
-			} else {
+//		try {
+//
+//			UsuarioBean usuarioIgual = (UsuarioBean) usuarioDAO.obterPorNome(usuario.getNome().trim());
+//
+//			if (usuarioIgual != null && usuarioIgual.getId() != usuario.getId()) {
+//				throw new NomeRepetidoException("Este nome já consta na base de dados");
+//			} else if (usuario.getNome().length() > 50) {
+//				throw new TamanhoCampoException("Número limite de caracteres excedido(máx.500)");
+//			} else {
 				usuarioDAO.alterar(usuario);
-			}
-		} catch (Exception e) {
-			throw ExceptionUtil.handleException(e);
-		}
+//			}
+//		} catch (Exception e) {
+//			throw ExceptionUtil.handleException(e);
+//		}
 	}
 
 	@Transactional

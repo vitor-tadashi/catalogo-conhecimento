@@ -57,25 +57,32 @@ public class UsuarioController {
 		return "login/login";
 	}
 
-	@RequestMapping(value = "listarUsuario", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "listarUsuarios", method = { RequestMethod.GET,RequestMethod.POST })
 	public String listarUsuario(Model model) throws BusinessException {
 		model.addAttribute("usuarios", usuarioBusiness.listar());
-		return "cargo/listarUsuarios";
+		return "usuarios/listarUsuario";
 	}
-
+	
 	@RequestMapping(value = "formularioAlterarUsuario", method = RequestMethod.GET)
-	public String alterar(Model model, @RequestParam("idUsuario") String id) throws BusinessException {
+	public String alterar(Model model,UsuarioBean usuarioBean, @RequestParam("idUsuario") String id) throws BusinessException {
 		int idUsuario = Integer.parseInt(id);
-		model.addAttribute("usuario", usuarioBusiness.obterPorId(idUsuario));
-		return "cargo/formularioAlterarUsuario";
+		
+		model.addAttribute("usuarios", usuarioBusiness.obterPorId(idUsuario));
+		model.addAttribute("perfis", perfilBusiness.listar());
+		
+		return "usuarios/alterarUsuario";
 	}
 
-	@RequestMapping(value = "alterarUsuario", method = RequestMethod.POST)
-	public String alterar(UsuarioBean usuarioBean) throws BusinessException {
+	@RequestMapping(value = "alterarUsuario", method ={RequestMethod.GET, RequestMethod.POST})
+	public String alterar(UsuarioBean usuarioBean,@RequestParam("perfil")String idP) throws BusinessException {
+		
+		int idPerfil = Integer.parseInt(idP);
+		PerfilBean perfilBean = perfilBusiness.obterPorId(idPerfil);
+		usuarioBean.setPerfilBean(perfilBean);
 		usuarioBusiness.atualizar(usuarioBean);
-		return "redirect:listarUsuario";
+		return "redirect:listarUsuarios";
 	}
-
+	
 	@RequestMapping(value = "excluirUsuario", method = RequestMethod.GET)
 	public String excluir(@RequestParam("idUsuario") String id, @RequestParam("ativo") String ativo)
 			throws BusinessException {
@@ -83,7 +90,7 @@ public class UsuarioController {
 		UsuarioBean usuario = usuarioBusiness.obterPorId(idUsuario);
 		usuario.setAtivo(ativo.charAt(0));
 		usuarioBusiness.deletar(usuario);
-		return "redirect:listarUsuario";
+		return "redirect:listarUsuarios";
 	}
 
 	@RequestMapping(value = "logarUsuario", method = RequestMethod.POST)
