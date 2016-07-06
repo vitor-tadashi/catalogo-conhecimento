@@ -84,14 +84,14 @@
 												<td>${concorrenteCliente.cliente.nome}</td>
 												<td>${concorrenteCliente.valorHora}</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='removerClientedoConcorrente'> <c:param name='idConcorrente' value='${concorrente.id}'/> <c:param name='idCliente' value='${concorrenteCliente.cliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
+													<a href="<c:url value='removerClientedoConcorrente'> <c:param name='idConcorrente' value='${concorrenteCliente.concorrente.id}'/> <c:param name='idConcorrenteCliente' value='${concorrenteCliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-							<form class="no-margin" id="formAdd"  method="POST" action="adicionarClienteNoConcorrente">
+							<form class="no-margin" id="formAdd"  method="POST" action="/catalogoconhecimento/concorrente/adicionarClienteNoConcorrente">
 								<div class="panel-heading">
 									<h3>Adicionar Cliente</h3>
 								</div>
@@ -100,30 +100,46 @@
 										
 										<!-- Messagem Erro-->
 										<c:import url="/resources/jspImport/msgErro.jsp"/>
-										<div class="col-md-8">
-											<h4>Adicionar Clientes</h4>
-											<select id="cliente">
-												<c:forEach var="cliente" items="${listaCliente}">
-													<option>${cliente.nome}</option>
-												</c:forEach>
-											</select> 
-											<input id="valorConcorrente" type="text">
-											<button type="button" onclick="add()">+</button>
-											<br> <br>
-											<table class="table table-striped" id="tbCliente">
-												<thead>
-													<tr>
-														<th>Cliente</th>
-														<th>Valor</th>
-														<th>Remover</th>
-													</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
-										</div><!-- /.col -->
+										<div class="row">
+											<div class="col-md-4">
+												<h4>Adicionar Clientes</h4>
+											<div class="col-sm-6">	 
+												<div class="form-group">
+													<select id="cliente" name = "cliente" class="form-control" >
+														<c:forEach var="cliente" items="${listaCliente}">
+															<option value="${cliente.nome}">${cliente.nome}</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-4">	 
+												<div class="form-group"> 
+													<input id="valorConcorrente" name = "valorConcorrente" class="form-control" placeholder="Valor/Hora" type="text">
+												</div>
+											</div>
+											<div class="col-sm-2">	 
+												<div class="form-group">		
+													<button type="button" class="form-control"  onclick="add()">+</button>
+												</div>
+											</div>
+											<br><br>
+												<table class="table table-striped" id="tbCliente">
+													<thead>
+														<tr>
+															<th>Cliente</th>
+															<th>Valor</th>
+															<th>Remover</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div><!-- /.col -->
+										</div><!-- /.row --> 
+										
 									</div><!-- /.row -->
 									<input type="hidden" id="idConcorrente" name="idConcorrente" value="${concorrenteBean.id}">
+									<input type="hidden" id="countConcorrente" name="countCliente" value="0">
 								</div>
 								<div class="panel-footer text-left">
 									<button class="btn btn-success" type="submit">Adicionar</button>

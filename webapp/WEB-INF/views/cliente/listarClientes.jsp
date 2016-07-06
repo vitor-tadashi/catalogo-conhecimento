@@ -21,7 +21,7 @@
 				<li><i class="fa fa-home"></i>
 					<a href="<c:url value='/'/>">Principal</a></li>
 
-				<li>Clientes</li>
+				<li><a href="<c:url value='/'/>">Clientes</a></li>
 				<li class="active">Lista de Clientes</li>
 			</ul>
 		</div>
@@ -65,13 +65,13 @@
 												<td>${cliente.numero}</td>
 												<td>${cliente.cep}</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='formularioAlterarCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
+													<a href="<c:url value='/cliente/formularioAlterarCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
 												</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='removerCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
+													<a href="<c:url value='/cliente/removerCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
 												</td> 
 												<td style="text-align: center;">	
-													<a href="<c:url value='listarConcorrentePorCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
+													<a href="<c:url value='/cliente/listarConcorrentePorCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
 												</td>													
 											</tr>
 										</c:forEach>

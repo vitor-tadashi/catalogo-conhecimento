@@ -31,7 +31,7 @@ public class PerfilController {
 	public String adicionarPerfil(PerfilBean perfilBean, @RequestParam("ativo") String ativo) throws BusinessException {
 		perfilBean.setAtivo(ativo.charAt(0));
 		perfilBusiness.adicionar(perfilBean);
-		return "redirect:listarPerfis";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "alterar", method = RequestMethod.GET)
@@ -44,7 +44,7 @@ public class PerfilController {
 	@RequestMapping(value = "alterarPerfil", method = RequestMethod.POST)
 	public String alterarPerfil(PerfilBean perfilBean) throws BusinessException {
 		perfilBusiness.alterar(perfilBean);
-		return "redirect:listarPerfis";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "listar", method = RequestMethod.GET)
@@ -60,14 +60,14 @@ public class PerfilController {
 		PerfilBean perfilBean = perfilBusiness.obterPorId(idPerfil);
 		perfilBean.setAtivo(ativo.charAt(0));
 		perfilBusiness.remover(perfilBean);
-		return "redirect:listarPerfis";
+		return "redirect:listar";
 	}
 
 	@ExceptionHandler(BusinessException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "forward:/usuario";
+		return "forward:/listar";
 	}
 
 }
