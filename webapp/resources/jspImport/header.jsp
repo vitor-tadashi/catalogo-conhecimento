@@ -90,13 +90,13 @@
 						</span> <span class="text"> Projetos </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li> <a href="<c:url value='listarProjeto'/>"> <span
+							<li> <a href="<c:url value='/projeto/listarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Projetos
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarProjeto'/>"> <span
+							<li><a href="<c:url value='/projeto/formularioAdicionarProjeto'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Projetos

@@ -28,6 +28,7 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("/projeto")
 public class ProjetoController {
 
 	@Autowired

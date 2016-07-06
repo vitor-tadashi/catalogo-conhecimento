@@ -1,9 +1,6 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import br.com.resource.catalogoconhecimento.bean.NegocioBean;
@@ -30,9 +27,14 @@ public class ProjetoNegocioBusiness {
 		}
 	}
 
-	public List<NegocioBean> listar(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
+	public List<NegocioBean> listar(ProjetoBean projeto) throws BusinessException {
+		try {
 
-		return projetoNegocioDAO.listar(projeto);
+			return projetoNegocioDAO.listar(projeto);
+
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	public void atualizar(ProjetoBean projeto, List<NegocioBean> negocios) throws BusinessException {

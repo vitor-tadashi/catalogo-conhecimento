@@ -27,8 +27,10 @@
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default">
-								<form:form class="no-margin" id="formAdd" path = "projeto" method="POST"
-									action="adicionarProjeto">
+								<form class="no-margin" id="formAdd" method="POST"
+									action= "<c:url value = '/projeto/adicionarProjeto'>
+									<c:param name = 'paginaAtual' value='/projeto/formularioAdicionarProjeto'/>
+										</c:url>">
 									<div class="panel-heading">
 										<h3>Cadastrar Projeto</h3>
 									</div>
@@ -37,13 +39,11 @@
 
 											<!-- Message Erro-->
 											<c:import url="/resources/jspImport/msgErro.jsp" />
-											<input type ="hidden" name="ativo" value = "S"/>
-											
 											<div class="col-sm-2">
-												<div class="form-group">
-													<label class="control-label">Nome do Projeto <input
-														type="text" class="form-control" maxlength="80"
-														name="nome">
+													<div class="form-group">
+													<label class="control-label">Nome do Projeto 
+													<input type="text" class="form-control" maxlength="80" name="nome"/>
+													<input type ="hidden" name="ativo" value = "S"/>
 													</label>
 												</div>
 											</div>
@@ -78,9 +78,8 @@
 														<c:forEach items="${equipes}" var="equipe"
 															varStatus="count">
 															<label class="control-label">
-																<input type="checkbox"
-																name="listaEquipe[${count.index}].id"
-																value="${equipe.id}" /> <span class="custom-checkbox"></span>
+																<input type="checkbox" name="listaEquipe[${count.index}].id" value="${equipe.id}" />
+																<span class="custom-checkbox"></span>
 																${equipe.nome}
 															</label>
 															<br>
@@ -98,9 +97,8 @@
 														<c:forEach items="${negocios}" var="negocio"
 															varStatus="count">
 															<label class="control-label">
-																<input type="checkbox"
-																name="listaNegocio[${count.index}].id"
-																value="${negocio.id}" /> <span class="custom-checkbox"></span>
+																<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />
+																<span class="custom-checkbox"></span>
 																${negocio.areaAtuacao}
 															</label>
 															<br>
@@ -113,13 +111,11 @@
 												<div class="form-group">
 													<label class="control-label">Tecnologia: </label>
 													<div class="checkbox">
-														<c:forEach items="${tecnologias}" var="tecnologia"
-															varStatus="count">
+														<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
 															<label class="control-label">
-																<input type="checkbox"
-																name="listaTecnologia[${count.index}].id"
-																value="${tecnologia.id}" /> <span
-																class="custom-checkbox"></span> ${tecnologia.nome}
+																<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" /> 
+																<span class="custom-checkbox"></span>
+																 ${tecnologia.nome}
 															</label>
 															<br>
 														</c:forEach>
@@ -132,7 +128,7 @@
 									<div class="panel-footer text-left">
 										<button class="btn btn-success" type="submit">Cadastrar</button>
 									</div>
-								</form:form>
+								</form>
 							</div>
 							<!-- /panel -->
 						</div>
