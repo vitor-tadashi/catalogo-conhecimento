@@ -132,7 +132,8 @@ public class FuncionarioBusiness {
 		for (NegocioBean negocio : funcionarioBean.getListaNegocio()) {
 			negocios.add(negocioDAO.obterPorId(negocio.getId()));
 		}
-
+		
+		funcionarioBean.setAtivo('S');
 		funcionarioBean.setListaTecnologia(tecnologias);
 		funcionarioBean.setListaNegocio(negocios);
 		

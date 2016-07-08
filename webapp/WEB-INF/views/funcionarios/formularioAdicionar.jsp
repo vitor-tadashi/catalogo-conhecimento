@@ -29,7 +29,6 @@
 			</ul>
 		</div>
 		
-		<input type ="hidden" name="ativo" value = "S"/>
 		<!--breadcrumb-->
 		<div class="padding-md">
 			<div class="row">
@@ -52,7 +51,7 @@
 												<div class="form-group">
 													<label class="control-label">Nome: <input
 														type="text" class="form-control" maxlength="80"
-														name="nome" value="fazendo teste">
+														name="nome">
 													</label>
 												</div>
 											</div>
@@ -62,8 +61,7 @@
 												<div class="form-group">
 													<label class="control-label">Telefone: <input
 														type="text" class="form-control" maxlength="11"
-														placeholder="(99)9999-9999" name="telefone"
-														value="11963852741">
+														placeholder="(99)9999-9999" name="telefone">
 													</label>
 												</div>
 											</div>
@@ -86,8 +84,7 @@
 											<div class="col-sm-2">
 												<div class="form-group">
 													<label class="control-label">Email: <input
-														type="text" class="form-control" name="email"
-														value="fazendo.teste@teste.com">
+														type="text" class="form-control" name="email">
 													</label>
 												</div>
 											</div>
@@ -97,7 +94,7 @@
 												<div class="form-group">
 													<label class="control-label">Nome de usuario: <input
 														type="text" class="form-control" maxlength="50"
-														name="nomeUser" value="fazendoTesteUser">
+														name="nomeUser">
 													</label>
 												</div>
 											</div>
@@ -110,8 +107,7 @@
 												<div class="form-group">
 													<label class="control-label">CPF: <input
 														type="text" class="form-control" maxlength="11"
-														placeholder="999.999.999-99" name="cpf"
-														value="15527133854">
+														placeholder="999.999.999-99" name="cpf">
 													</label>
 												</div>
 											</div>
@@ -121,7 +117,7 @@
 												<div class="form-group">
 													<label class="control-label">RG: <input type="text"
 														class="form-control" maxlength="9"
-														placeholder="99.999.999-9" name="rg" value="155271338">
+														placeholder="99.999.999-9" name="rg">
 													</label>
 												</div>
 											</div>
@@ -131,7 +127,7 @@
 												<div class="form-group">
 													<label class="control-label">Data de nascimento: <input
 														type="text" id="dataNascimento" class="form-control"
-					 									name="dataNascimento" value="02/06/1998">
+					 									name="dataNascimento">
 													</label>
 												</div>
 											</div>
