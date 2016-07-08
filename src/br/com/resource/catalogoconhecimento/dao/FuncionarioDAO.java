@@ -21,9 +21,9 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 
 	/**
-	 * M�todo para listar todos os funcion�rios ativos
+	 * Método para listar todos os funcionarios ativos
 	 * 
-	 * @return Lista de funcion�rios
+	 * @return Lista de funcionarios
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -35,10 +35,10 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * M�todo para obter informa��es de um funcion�rio por Id
+	 * Método para obter informações de um funcionario por Id
 	 * 
 	 * @param id
-	 * @return Todas informa��es do funcion�rio
+	 * @return Todas informações dos funcionarios
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -56,10 +56,10 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * M�todo para obter informa��es de um funcion�rio por nome
+	 * Metodo para obter informações de um funcionario por nome
 	 * 
 	 * @param nome
-	 * @return Todas informa��es do funcion�rio
+	 * @return Todas informações do funcionarios
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -74,23 +74,23 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * M�todo para obter informa��es espec�ficas funcion�rios por idEquipe
+	 * Método para obter informações específicas funcionários por idEquipe
 	 * 
 	 * @param idEquipe
-	 * @return Lista de funcion�rios com informa��es espec�ficas
+	 * @return Lista de funcionários com informações específicas
 	 * @throws ClassNotFoundException
 	 * @throws SQLExceptionk
 	 */
-
 	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean AS f JOIN f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.nome ASC",
+				"SELECT f FROM FuncionarioBean AS f JOIN FETCH f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.id ASC",
 				FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("id", idEquipe)
-				.getResultList();
+		query.setParameter("id", idEquipe);
+		
+		List<FuncionarioBean> listaFuncionario = query.getResultList();
+		
 		return listaFuncionario;
-
 	}
 
 	public FuncionarioBean obterPorEquipe(int idFuncionario, int idEquipe) throws BusinessException {
@@ -102,7 +102,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 			query.setParameter("idEquipe", idEquipe);
 			query.setParameter("idFuncionario", idFuncionario);
 
-			FuncionarioBean funcionario = (FuncionarioBean) query.getSingleResult();
+			FuncionarioBean funcionario = query.getSingleResult();
 			return funcionario;
 
 		} catch (Exception e) {
@@ -112,7 +112,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * Lista todos os funcion�rios de uma tecnologia espec�fica
+	 * Lista todos os funcionarios de uma tecnologia especifica
 	 * 
 	 * @param nomeTecnologias
 	 * @return List<FuncionarioBean>

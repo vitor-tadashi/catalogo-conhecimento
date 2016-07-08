@@ -43,7 +43,7 @@
 													<label class="control-label">Nome do Projeto <input
 														type="text" class="form-control" maxlength="80"
 														name="nome" value="${projeto.nome}">
-
+														<input type ="hidden" name="ativo" value = "S"/>
 													</label>
 												</div>
 											</div>
@@ -61,10 +61,10 @@
 										<div class="row">
 											<div class="col-sm-2">
 												<div class="form-group">
-													<label class="control-label">Cliente: <select
-														class="form-control" name="cliente.IdCliente">
+													<label class="control-label">Cliente <select
+														class="form-control input-sm" name="cliente.id">
 															<c:forEach items="${clientes}" var="cliente">
-																<option value="${cliente.nome}">${cliente.nome}</option>
+																<option value="${cliente.id}">${cliente.nome}</option>
 															</c:forEach>
 													</select>
 													</label>
@@ -77,9 +77,9 @@
 													<div class="checkbox">
 														<c:forEach items="${equipes}" var="equipe"
 															varStatus="count">
-															<label class="control-label"> <input
-																type="checkbox" name="listaEquipe[${count.index}].id"
-																value="${equipe.nome}" /> <span class="custom-checkbox"></span>
+															<label class="control-label">
+																<input type="checkbox" name="listaEquipe[${count.index}].id" value="${equipe.id}" />
+																<span class="custom-checkbox"></span>
 																${equipe.nome}
 															</label>
 															<br>
@@ -89,40 +89,40 @@
 											</div>
 											<!-- /.col -->
 										</div>
-										<!-- <div class="row">   -->
-										<div class="col-sm-3">
-											<div class="form-group">
-												<label class="control-label">Negócios:</label>
-												<div class="checkbox">
-													<c:forEach items="${negocios}" var="negocio"
-														varStatus="count">
-														<label class="control-label"> <input
-															type="checkbox" name="listaNegocio[${count.index}].id"
-															value="${negocio.areaAtuacao}" /> <span class="custom-checkbox"></span>
-															${negocio.areaAtuacao}
-														</label>
-														<br>
-													</c:forEach>
+										<div class="row">
+											<div class="col-sm-3">
+												<div class="form-group">
+													<label class="control-label">Negócio: </label>
+													<div class="checkbox">
+														<c:forEach items="${negocios}" var="negocio"
+															varStatus="count">
+															<label class="control-label">
+																<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />
+																<span class="custom-checkbox"></span>
+																${negocio.areaAtuacao}
+															</label>
+															<br>
+														</c:forEach>
+													</div>
 												</div>
 											</div>
-										</div>
-										<!-- /.col -->
-										
-										<div class="col-sm-2">
-											<div class="form-group">
-												<label class="control-label">Tecnologia: 
-												</label>
-												<div class="checkbox">
-													<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">         
-														<label class="control-label"> 
-														<input type="checkbox" name="listaTecnologia[${count.index}].id"
-															value="${tecnologia.nome}" /> <span class="custom-checkbox"></span> 
-															${tecnologia.nome}
-														</label>
-														<br>
-													</c:forEach>
+											<!-- /.col -->
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Tecnologia: </label>
+													<div class="checkbox">
+														<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
+															<label class="control-label">
+																<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" /> 
+																<span class="custom-checkbox"></span>
+																 ${tecnologia.nome}
+															</label>
+															<br>
+														</c:forEach>
+													</div>
 												</div>
 											</div>
+											<!-- /.col -->
 										</div>
 										<!-- /.col -->
  

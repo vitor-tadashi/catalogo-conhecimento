@@ -134,7 +134,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projeto" items="${projeto}">
+										<c:forEach var="projeto" items="${projetos}">
 											<tr>
 												<td>${projeto.nome}</td>
 												<td>

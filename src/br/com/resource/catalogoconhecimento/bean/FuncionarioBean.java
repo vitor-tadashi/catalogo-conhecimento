@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "Funcionario")
@@ -47,22 +49,25 @@ public class FuncionarioBean {
 	@Temporal(value = TemporalType.DATE)
 	private Date dataNascimento;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "TecnologiaFuncionario", joinColumns = { 
-			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "idTecnologia", nullable = false, updatable = false) })
+			@JoinColumn(name = "idFuncionario") }, 
+			inverseJoinColumns = { @JoinColumn(name = "idTecnologia") })
 	private List<TecnologiaBean> listaTecnologia;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "FuncionarioNegocio", joinColumns = { 
-			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "idNegocio", nullable = false, updatable = false) })
+			@JoinColumn(name = "idFuncionario") }, 
+			inverseJoinColumns = { @JoinColumn(name = "idNegocio") })
 	private List<NegocioBean> listaNegocio;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "EquipeFuncionario", joinColumns = { 
-			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+			@JoinColumn(name = "idFuncionario") }, 
+			inverseJoinColumns = { @JoinColumn(name = "idEquipe") })
 	private List<EquipeBean> equipes;
 	
 //	public FuncionarioBean() {

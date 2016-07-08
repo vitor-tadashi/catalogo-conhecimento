@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,7 +30,7 @@ public class ProjetoBean {
 	@Column(name = "idProjeto", unique = true, nullable = false)
 	private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCliente")
 	@Fetch(FetchMode.JOIN)
 	private ClienteBean cliente;
@@ -42,22 +44,25 @@ public class ProjetoBean {
 	@Column(name = "observacao")
 	private String observacao;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ProjetoNegocio", joinColumns = {
-			@JoinColumn(name = "idProjeto", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "idNegocio", nullable = false, updatable = false) })
+			@JoinColumn(name = "idProjeto") }, inverseJoinColumns = {
+					@JoinColumn(name = "idNegocio") })
 	private List<NegocioBean> listaNegocio;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ProjetoTecnologia", joinColumns = {
-			@JoinColumn(name = "idProjeto", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "idTecnologia", nullable = false, updatable = false) })
+			@JoinColumn(name = "idProjeto") }, inverseJoinColumns = {
+					@JoinColumn(name = "idTecnologia") })
 	private List<TecnologiaBean> listaTecnologia;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ProjetoEquipe", joinColumns = {
-			@JoinColumn(name = "idProjeto", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+			@JoinColumn(name = "idProjeto") }, inverseJoinColumns = {
+					@JoinColumn(name = "idEquipe") })
 	private List<EquipeBean> listaEquipe;
 
 	public int getId() {
