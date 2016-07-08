@@ -116,7 +116,7 @@
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp" />
 
-								<span class="label label-info pull-right">${fn:length(projeto)}
+								<span class="label label-info pull-right">${fn:length(projetos)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
