@@ -198,6 +198,17 @@
 								</span>
 							</a></li>
 						</ul></li>
+						<li class="openable open"><a href="#"> <span
+							class="menu-icon"> <i class="fa fa-check fa-lg"></i>
+						</span> <span class="text"> Usuários </span> <span class="menu-hover"></span>
+					</a>
+						<ul class="submenu">
+							<li><a href="<c:url value='/usuario/listarUsuarios'/>"> 
+							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
+									</span> Lista de Usuários
+								</span>
+							</a></li>
+						</ul></li>
 				</ul>
 			</div>
 			<!-- /main-menu -->

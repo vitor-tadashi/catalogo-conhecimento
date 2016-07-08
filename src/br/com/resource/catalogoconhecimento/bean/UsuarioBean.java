@@ -10,6 +10,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 
 @Entity
@@ -22,6 +25,7 @@ public class UsuarioBean {
 	public int idUsuario;
 	
 	 @ManyToOne
+	 @Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE})
      @JoinTable(name="usuarioPerfil",
                joinColumns={@JoinColumn(name="idUsuario",  
                 referencedColumnName="idUsuario")},  

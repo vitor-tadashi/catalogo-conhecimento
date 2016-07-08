@@ -27,7 +27,7 @@ public class UsuarioDAO extends GenericDAOImpl<UsuarioBean, Integer> {
 	public List<UsuarioBean> listar() {
 		try {
 			TypedQuery<UsuarioBean> query = entityManager
-					.createQuery("SELECT e FROM EquipeBean AS e WHERE e.ativo = 'S'", UsuarioBean.class);
+					.createQuery("SELECT u FROM UsuarioBean AS u WHERE u.ativo = 'S'", UsuarioBean.class);
 			List<UsuarioBean> listaUsuario = query.getResultList();
 			return listaUsuario;
 		} catch (Exception e) {
@@ -59,23 +59,33 @@ public class UsuarioDAO extends GenericDAOImpl<UsuarioBean, Integer> {
 	}
 
 	public UsuarioBean obterPorLogin(String login, String senha) {
-		
-		TypedQuery<UsuarioBean> query = entityManager.createQuery("SELECT u FROM UsuarioBean AS u WHERE u.login = :login AND u.senha = :senha AND u.ativo ='S'",UsuarioBean.class);
+
+		TypedQuery<UsuarioBean> query = entityManager.createQuery(
+				"SELECT u FROM UsuarioBean AS u WHERE u.login = :login AND u.senha = :senha AND u.ativo ='S'",
+				UsuarioBean.class);
 		query.setParameter("login", login);
 		query.setParameter("senha", senha);
-		
+
 		List<UsuarioBean> listaUsuario = query.getResultList();
-		if(listaUsuario.isEmpty()){
+		if (listaUsuario.isEmpty()) {
 			return null;
-		}else{
+		} else {
 			return listaUsuario.get(0);
 		}
-		
+
 	}
 
-	public UsuarioBean obterPorPerfil(int id, UsuarioBean usuario) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public UsuarioBean alterar(UsuarioBean usuario) {
+//
+//		Query query = entityManager.createQuery(
+//				"UPDATE UsuarioBean as u SET u.nome = :nome, u.login = :login, u.senha = :senha WHERE  u.id = :id AND ativo = 'S' ");
+//		query.setParameter("id", usuario.getId());
+//		query.setParameter("nome", usuario.getNome());
+//		query.setParameter("login", usuario.getLogin());
+//		query.setParameter("senha", usuario.getSenha());
+//		query.executeUpdate();
+//		return null;
+//	}
 
 }
