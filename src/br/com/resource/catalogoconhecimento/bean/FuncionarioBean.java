@@ -26,7 +26,7 @@ public class FuncionarioBean {
 	@Column(name = "idFuncionario", unique = true, nullable = false)
 	private int id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "idCargo")
 	private CargoBean cargoBean;
 
@@ -47,28 +47,23 @@ public class FuncionarioBean {
 	@Temporal(value = TemporalType.DATE)
 	private Date dataNascimento;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "TecnologiaFuncionario", joinColumns = { 
-			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "idTecnologia", nullable = false, updatable = false) })
+			@JoinColumn(name = "idFuncionario") }, 
+			inverseJoinColumns = { @JoinColumn(name = "idTecnologia") })
 	private List<TecnologiaBean> listaTecnologia;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "FuncionarioNegocio", joinColumns = { 
-			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "idNegocio", nullable = false, updatable = false) })
+			@JoinColumn(name = "idFuncionario") }, 
+			inverseJoinColumns = { @JoinColumn(name = "idNegocio") })
 	private List<NegocioBean> listaNegocio;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "EquipeFuncionario", joinColumns = { 
-			@JoinColumn(name = "idFuncionario", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "idEquipe", nullable = false, updatable = false) })
+			@JoinColumn(name = "idFuncionario") }, 
+			inverseJoinColumns = { @JoinColumn(name = "idEquipe") })
 	private List<EquipeBean> equipes;
-	
-//	public FuncionarioBean() {
-//		listaTecnologia = new ArrayList<>();
-//		listaNegocio = new ArrayList<>();
-//	}
 
 	public int getId() {
 		return id;

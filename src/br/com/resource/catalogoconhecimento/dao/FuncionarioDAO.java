@@ -162,7 +162,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
 				"SELECT f FROM FuncionarioBean as f WHERE f.email = :email and f.ativo = 'S'", FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = query.setParameter("", email).getResultList();
+		List<FuncionarioBean> listaFuncionario = query.setParameter("email", email).getResultList();
 		return listaFuncionario;
 
 	}
@@ -171,7 +171,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 			throws SQLException, ClassNotFoundException, BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean as f WHERE f.nomeUser and f.ativo = 'S'", FuncionarioBean.class);
+				"SELECT f FROM FuncionarioBean as f WHERE f.nomeUser = :nomeUser and f.ativo = 'S'", FuncionarioBean.class);
 		List<FuncionarioBean> listaFuncionarios = query.setParameter("nomeUser", nomeUser).getResultList();
 		return listaFuncionarios;
 
