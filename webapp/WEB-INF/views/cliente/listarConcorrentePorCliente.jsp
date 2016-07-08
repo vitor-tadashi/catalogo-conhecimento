@@ -52,7 +52,7 @@
 				<li><i class="fa fa-home"></i>
 					<a href="<c:url value='/'/>">Principal</a></li>
 
-				<li>Concorrentes</li>
+				<li><a href="<c:url value='/cliente/listarCliente'/>">Cliente</a></li>
 				<li class="active">Lista de Concorrentes do Cliente</li>
 			</ul>
 		</div>
@@ -88,14 +88,16 @@
 												<td>${concorrenteCliente.concorrente.descricao}</td>
 												<td>${concorrenteCliente.valorHora}</td>
 												<td style="text-align: center;">
-												<a href="<c:url value='removerConcorrenteDoCliente'> <c:param name='idCliente' value='${concorrenteCliente.cliente.id}'/> <c:param name='idConcorrente' value='${concorrenteCliente.concorrente.id}'/></c:url>"><i class="fa fa-times fa-lg"></i></a>
+												
+												<a href="<c:url value='removerConcorrenteDoCliente'> <c:param name='idCliente' value='${concorrenteCliente.cliente.id}'/> <c:param name='idConcorrenteCliente' value='${concorrenteCliente.id}'/></c:url>"><i class="fa fa-times fa-lg"></i></a>
+												
 												</td> 
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-							<form class="no-margin" id="formAdd"  method="POST" action="adicionarConcorrenteNoCliente">
+							<form class="no-margin" id="formAdd"  method="POST" action="/catalogoconhecimento/cliente/adicionarConcorrenteNoCliente">
 								<div class="panel-heading">
 									<h3>Adicionar Concorrente</h3>
 								</div>
@@ -106,13 +108,12 @@
 										<c:import url="/resources/jspImport/msgErro.jsp"/>
 										<div class="col-md-8">
 											<h4>Adicionar Concorrentes</h4>
-											<select id="concorrente">
+											<select name = "concorrente" id="concorrente">
 												<c:forEach var="concorrente" items="${listaConcorrente}">
 													<option>${concorrente.nome}</option>
-													<!--<input type="hidden" id="idConcorrente" value="${concorrente.id}">-->
 												</c:forEach>
 											</select> 
-											<input id="valorConcorrente" type="text">
+											<input name = "valorConcorrente" id="valorConcorrente" type="text">
 											<button type="button" onclick="add()">+</button>
 											<br> <br>
 											<table class="table table-striped" id="tbConcorrente">
@@ -126,6 +127,9 @@
 												<tbody>
 												</tbody>
 											</table>
+											<input type="hidden" name = "idCliente" value = "${clienteBean.id }"/>
+											<input type="hidden" id="countConcorrente" name="countConcorrente" value="0">
+											
 										</div><!-- /.col -->
 									</div><!-- /.row -->
 								</div>
@@ -134,6 +138,7 @@
 								</div>
 							</form>
 							<!-- /.padding-md -->
+						</div>
 						</div>
 						<!-- /panel -->
 					</div>

@@ -5,7 +5,7 @@
 <div id="wrapper" class="preload">
 	<div id="top-nav" class="skin-1 fixed">
 		<div class="brand">
-			<a href="<c:url value='/'/>"><img
+			<a href="<c:url value='/home/index'/>"><img
 				src="<c:url value='/resources/img/logowhite-resource.png'/>" class="pull-center"
 				style="height: 45px; width: 135px; padding-left: 10px; padding-right: 10px;"></a>
 		</div>
@@ -27,18 +27,18 @@
 
 		<ul class="nav-notification clearfix">
 			<li class="profile dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#"> <strong>Usuário</strong> <span><i
+				data-toggle="dropdown" href="#"> <strong>${usuario.nome}</strong> <span><i
 						class="fa fa-chevron-down"></i></span>
 			</a>
 				<ul class="dropdown-menu">
 					<li><a class="clearfix" href="#">
 							<div class="detail">
-								<strong>Usuário</strong>
-								<p class="grey">usuário@resource.com</p>
+								<strong>${usuario.nome}</strong>
+								<p class="grey">${usuario.login}</p>
 							</div>
 					</a></li>
 					<li><a tabindex="-1" class="main-link logoutConfirm_open"
-						href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Sair</a></li>
+						href="<c:url value ='/usuario/fazerLogoff'/>"><i class="fa fa-lock fa-lg"></i> Sair</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -151,12 +151,12 @@
 						</span> <span class="text"> Clientes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='listarCliente'/>"> 
+							<li><a href="<c:url value='/cliente/listarCliente'/>"> 
 							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Clientes
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarCliente'/>">
+							<li><a href="<c:url value='/cliente/formularioAdicionarCliente'/>"> 
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cliente
@@ -168,16 +168,44 @@
 						</span> <span class="text"> Concorrentes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li> <a href="<c:url value='listarConcorrente'/>">
+							<li> <a href="<c:url value='/concorrente/listarConcorrente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Concorrentes
 								</span>
 							</a></li>
-							<li><a href="<c:url value='formularioAdicionarConcorrente'/>">
+							<li><a href="<c:url value='/concorrente/formularioAdicionarConcorrente'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Concorrente
+								</span>
+							</a></li>
+						</ul></li>
+						<li class="openable open"><a href="#"> <span
+							class="menu-icon"> <i class="fa fa-filter fa-lg"></i>
+						</span> <span class="text"> Perfis </span> <span class="menu-hover"></span>
+					</a>
+						<ul class="submenu">
+							<li><a href="<c:url value='/perfil/listar'/>"> 
+							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
+									</span> Lista de Perfis
+								</span>
+							</a></li>
+							<li><a href="<c:url value='/perfil/adicionar'/>">
+									<span class="submenu-label"> <span class="menu-icon">
+											<i class="fa fa-angle-right fa-lg"></i>
+									</span> Cadastrar Perfil
+								</span>
+							</a></li>
+						</ul></li>
+						<li class="openable open"><a href="#"> <span
+							class="menu-icon"> <i class="fa fa-check fa-lg"></i>
+						</span> <span class="text"> Usuários </span> <span class="menu-hover"></span>
+					</a>
+						<ul class="submenu">
+							<li><a href="<c:url value='/usuario/listarUsuarios'/>"> 
+							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
+									</span> Lista de Usuários
 								</span>
 							</a></li>
 						</ul></li>

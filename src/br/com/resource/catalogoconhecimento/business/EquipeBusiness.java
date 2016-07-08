@@ -117,7 +117,7 @@ public class EquipeBusiness {
 	}
 
 	// DELETAR POR EQUIPE NA BASE
-
+	@Transactional
 	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws BusinessException {
 		try{
 		equipeDAO.deletarPorEquipe(idEquipe, idFuncionario);
@@ -125,7 +125,7 @@ public class EquipeBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
+	@Transactional
 	public List<EquipeBean> obterPorFuncionario(int idFuncionario) throws BusinessException {
 		try {
 			return equipeDAO.obterPorFuncionario(idFuncionario);
@@ -133,7 +133,7 @@ public class EquipeBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
+	@Transactional
 	public List<EquipeBean> obterPorProjeto(int idProjeto) throws BusinessException {
 
 		try {

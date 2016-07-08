@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>Lista de Clientes</title>
+<title>Lista de Usuários</title>
 <c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 
@@ -21,8 +21,8 @@
 				<li><i class="fa fa-home"></i>
 					<a href="<c:url value='/'/>">Principal</a></li>
 
-				<li><a href="<c:url value='/'/>">Clientes</a></li>
-				<li class="active">Lista de Clientes</li>
+				<li>Usuários</li>
+				<li class="active">Lista de Usuários</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -32,12 +32,12 @@
 					<div class="tab-pane fade in active" id="research">
 						<div class="panel panel-default table-responsive">
 							<div class="panel-heading">
-								<h3>Lista de Clientes</h3>
+								<h3>Lista de Usuários</h3>
 								
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp"/>
 								
-								<span class="label label-info pull-right">${fn:length(listaCliente)}
+								<span class="label label-info pull-right">${fn:length(usuarios)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -45,43 +45,34 @@
 									<thead>
 										<tr>
 											<th>Nome</th>
-											<th>CNPJ</th>
-											<th>E-mail</th>
-											<th>Logradouro</th>
-											<th>Número</th>
-											<th>CEP</th>
+											<th>Login</th>
+											<th>Perfil</th>
 											<th style="width: 20px;">Alterar</th>
 											<th style="width: 20px;">Excluir</th>
-											<th style="width: 20px;">Listar Concorrentes</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="cliente" items="${listaCliente}">
+										<c:forEach var="usuario" items="${usuarios}">
+
 											<tr>
-												<td>${cliente.nome}</td>
-												<td>${cliente.cnpj}</td>
-												<td>${cliente.email}</td>
-												<td>${cliente.logradouro}</td>
-												<td>${cliente.numero}</td>
-												<td>${cliente.cep}</td>
+												<td>${usuario.nome}</td>
+												<td>${usuario.login}</td>
+												<td>${usuario.perfilBean.tipo}</td>
+											
 												<td style="text-align: center;">
-													<a href="<c:url value='/cliente/formularioAlterarCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
+													<a href="<c:url value='/usuario/formularioAlterarUsuario'> <c:param name='idUsuario' value='${usuario.id}'/><c:param name='ativo' value='S'/> </c:url>"><i class="fa fa-edit fa-lg"></i></a>
+												
 												</td>
 												<td style="text-align: center;">
-													<a href="<c:url value='/cliente/removerCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
-												</td> 
-												<td style="text-align: center;">	
-													<a href="<c:url value='/cliente/listarConcorrentePorCliente'> <c:param name='idCliente' value='${cliente.id}'/> </c:url>"><i class="fa fa-users fa-lg" ></i></a>
-												</td>													
+													<a href="<c:url value='excluirUsuario'> <c:param name='idUsuario' value='${usuario.id}'/><c:param name='ativo' value='N'/> </c:url>"><i class="fa fa-times fa-lg"></i></a>
+													
+												</td>
 											</tr>
 										</c:forEach>
+								
 									</tbody>
 								</table>
-								<div class="panel-footer text-left">
-									<a href="<c:url value='formularioAdicionarCliente'> </c:url>">
-										<button class="btn btn-success" type="submit">Adicionar Novo Cliente</button>
-									</a>
-								</div>
+								
 							</div>
 							<!-- /.padding-md -->
 						</div>
