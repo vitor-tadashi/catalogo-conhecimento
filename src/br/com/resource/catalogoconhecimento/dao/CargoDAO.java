@@ -22,14 +22,24 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 	public CargoBean obterPorId(int id) throws BusinessException {
 		TypedQuery<CargoBean> query = entityManager
 				.createQuery("SELECT c FROM CargoBean AS c WHERE c.id = :id AND c.ativo = 'S'", CargoBean.class);
-		CargoBean cargobean = query.setParameter("id", id).getResultList().get(0);
-		return cargobean;
+		List<CargoBean> listaCargo = query.getResultList();
+		query.setParameter("id", id);
+		if (listaCargo.isEmpty()) {
+			return null;
+		} else {
+			return listaCargo.get(0);
+		}
 	}
 
 	public CargoBean obterPorNome(String nome) throws BusinessException {
 		TypedQuery<CargoBean> query = entityManager
 				.createQuery("SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", CargoBean.class);
-		CargoBean cargobean = query.setParameter("nome", nome).getResultList().get(0);
-		return cargobean;
+		query.setParameter("nome", nome);
+		List<CargoBean> listaCargo = query.getResultList();
+		if (listaCargo.isEmpty()) {
+			return null;
+		} else {
+			return listaCargo.get(0);
+		}
 	}
 }

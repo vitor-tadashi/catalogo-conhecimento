@@ -25,16 +25,10 @@ public class CargoBusiness {
 	@Transactional
 	public void adicionar(CargoBean cargoBean) throws BusinessException {
 		try {
-			CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
-
-			if (cargoBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome válido!");
-			} else if (cargoBean.getNome().length() > 80) {
-				throw new TamanhoCampoException("Número limite de caracteres excedido (máx.80)");
-			} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
+			if (cargoDao.obterPorNome(cargoBean.getNome().trim()) != null) {
 				throw new NomeRepetidoException("Este nome já exite na base de dados");
 			} else if (!validarNome(cargoBean.getNome())) {
-				throw new CaracteresEspeciaisException("Por favor, digite um nome sem caracteres especiais");
+				throw new CaracteresEspeciaisException("Por favor, digite um nome válido");
 			} else {
 				cargoDao.adicionar(cargoBean);
 			}
@@ -82,7 +76,7 @@ public class CargoBusiness {
 			CargoBean cargoClone = cargoDao.obterPorNome(cargoBean.getNome());
 
 			if (cargoBean.getNome().equals("")) {
-				throw new AtributoNuloException("Por favor, digite um nome válido!");
+				throw new AtributoNuloException("Por favor, digite um nome válido");
 			} else if (cargoBean.getNome().length() > 80) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido (máx.80)");
 			} else if (cargoClone != null && cargoClone.getId() != cargoBean.getId()) {
