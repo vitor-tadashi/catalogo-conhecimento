@@ -31,17 +31,11 @@ public class FuncionarioBusiness {
 	@Autowired
 	private CargoBusiness cargoBusiness;
 
-//	@Autowired
-//	private TecnologiaFuncionarioBusiness tecnologiaFuncionarioBusiness;
-//
-//	@Autowired
-//	private FuncionarioNegocioBusiness funcionarioNegocioBusiness;
-
 	/**
 	 * Adiciona um novo funcionário
 	 * 
 	 * @param funcionarioBean
-	 * @return id, criado no bd, do novo funcion�rio adicionado
+	 * @return id, criado no bd, do novo funcionário adicionado
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws BusinessException

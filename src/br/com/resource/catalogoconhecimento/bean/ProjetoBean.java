@@ -1,23 +1,69 @@
 package br.com.resource.catalogoconhecimento.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProjetoBean {
-	
-	private int id;
-	private ClienteBean cliente;
-	private String nome;
-	private String observacao;
-	private List<NegocioBean> listaNegocio;
-	private List<TecnologiaBean>listaTecnologia;
-	private List<EquipeBean> listaEquipe;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	public ProjetoBean() {
-		listaNegocio = new ArrayList<>();
-		listaTecnologia = new ArrayList<>();
-		listaEquipe = new ArrayList<>();
-	}
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.stereotype.Component;
+
+@Component
+@Entity
+@Table(name = "Projeto")
+public class ProjetoBean {
+
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name = "idProjeto", unique = true, nullable = false)
+	private int id;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idCliente")
+	@Fetch(FetchMode.JOIN)
+	private ClienteBean cliente;
+
+	@Column(name = "nomeProjeto", nullable = false)
+	private String nome;
+	
+	@Column(name = "ativo", nullable = false)
+	private char ativo;
+
+	@Column(name = "observacao")
+	private String observacao;
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "ProjetoNegocio", joinColumns = {
+			@JoinColumn(name = "idProjeto") }, inverseJoinColumns = {
+					@JoinColumn(name = "idNegocio") })
+	private List<NegocioBean> listaNegocio;
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "ProjetoTecnologia", joinColumns = {
+			@JoinColumn(name = "idProjeto") }, inverseJoinColumns = {
+					@JoinColumn(name = "idTecnologia") })
+	private List<TecnologiaBean> listaTecnologia;
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "ProjetoEquipe", joinColumns = {
+			@JoinColumn(name = "idProjeto") }, inverseJoinColumns = {
+					@JoinColumn(name = "idEquipe") })
+	private List<EquipeBean> listaEquipe;
 
 	public int getId() {
 		return id;
@@ -74,4 +120,13 @@ public class ProjetoBean {
 	public void setListaEquipe(List<EquipeBean> listaEquipe) {
 		this.listaEquipe = listaEquipe;
 	}
+
+	public char getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(char ativo) {
+		this.ativo = ativo;
+	}
+
 }

@@ -142,98 +142,6 @@ public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 		}
 	}
 
-//	/**
-//	 * Obtem uma tecnologia desativada
-//	 * 
-//	 * @param tecnologiaBean
-//	 * @return TecnologiaBean
-//	 * @throws SQLException
-//	 * @throws ClassNotFoundException
-//	 */
-//	public TecnologiaBean obterDesativado(TecnologiaBean tecnologiaBean)
-//			throws SQLException, ClassNotFoundException {
-//		Connection conexao = ConnectionFactory.createConnection();
-//
-//		String sql = "SELECT * FROM Tecnologia WHERE nomeTecnologia = ? and ativo  = ?";
-//
-//		PreparedStatement ps = conexao.prepareStatement(sql);
-//		ps.setString(1, tecnologiaBean.getNome());
-//		ps.setString(2, "n");
-//
-//		ResultSet rs = ps.executeQuery();
-//
-//		tecnologiaBean = null;
-//		while (rs.next()) {
-//			tecnologiaBean = new TecnologiaBean();
-//			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-//			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-//		}
-//
-//		ps.close();
-//		conexao.close();
-//
-//		return tecnologiaBean;
-//	}
-
-////	/**
-////	 * Altera um tecnologia
-////	 * 
-////	 * @param tecnologiaBean
-////	 * @throws ClassNotFoundException
-////	 * @throws SQLException
-////	 */
-////	public void alterar(TecnologiaBean tecnologiaBean) throws ClassNotFoundException, SQLException {
-////		Connection conexao = ConnectionFactory.createConnection();
-////
-////		String sql = "UPDATE Tecnologia SET nomeTecnologia = ? WHERE idTecnologia = ?";
-////
-////		PreparedStatement ps = conexao.prepareStatement(sql);
-////		ps.setString(1, tecnologiaBean.getNome());
-////		ps.setInt(2, tecnologiaBean.getId());
-////
-////		ps.executeUpdate();
-////
-////		ps.close();
-////		conexao.close();
-////	}
-//
-//	/**
-//	 * Remove uma tecnologia
-//	 * 
-//	 * @param id
-//	 * @throws SQLException
-//	 * @throws ClassNotFoundException
-//	 */
-//	public void remover(int id) throws SQLException, ClassNotFoundException {
-//		Connection conexao = ConnectionFactory.createConnection();
-//
-//		String sql = "update Tecnologia set ativo = ? WHERE idTecnologia = ?";
-//
-//		PreparedStatement ps = conexao.prepareStatement(sql);
-//		ps.setString(1, "n");
-//		ps.setInt(2, id);
-//
-//		ps.executeUpdate();
-//
-//		ps.close();
-//		conexao.close();
-//	}
-
-//	public void reativar(TecnologiaBean tecnologiaBean) throws SQLException, ClassNotFoundException {
-//		Connection conexao = ConnectionFactory.createConnection();
-//
-//		String sql = "UPDATE Tecnologia SET ativo = ? WHERE nomeTecnologia = ?";
-//
-//		PreparedStatement ps = conexao.prepareStatement(sql);
-//		ps.setString(1, "s");
-//		ps.setString(2, tecnologiaBean.getNome());
-//
-//		ps.executeUpdate();
-//
-//		ps.close();
-//		conexao.close();
-//	}
-
 	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException {
 		Connection conexao = ConnectionFactory.createConnection();
 
@@ -276,5 +184,6 @@ public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 
 		return check;
 	}
+
 
 }

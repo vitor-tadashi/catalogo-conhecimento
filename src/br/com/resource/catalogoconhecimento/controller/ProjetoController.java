@@ -1,6 +1,7 @@
 package br.com.resource.catalogoconhecimento.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
+@RequestMapping("/projeto")
 public class ProjetoController {
 
 	@Autowired
@@ -55,66 +57,46 @@ public class ProjetoController {
 
 	@RequestMapping(value = "formularioAdicionarProjeto", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {
-		List<NegocioBean> listaNegocio = negocioBusiness.listar();
-		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
-		List<EquipeBean> listaEquipe = equipeBusiness.listar();
-		List<ClienteBean> listaCliente = clienteBusiness.listar();
-
-		model.addAttribute("negocios", listaNegocio);
-		model.addAttribute("clientes", listaCliente);
-		model.addAttribute("tecnologias", listaTecnologia);
-		model.addAttribute("equipes", listaEquipe);
+		model.addAttribute("negocios", negocioBusiness.listar());
+		model.addAttribute("clientes", clienteBusiness.listar());
+		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
+		model.addAttribute("equipes", equipeBusiness.listar());
 
 		return "projetos/formularioAdicionarProjeto";
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto(ProjetoBean projetoBean, @RequestParam("cargos") String id)
+	public String adicionarProjeto(ProjetoBean projetoBean)
 			throws BusinessException {
-		int idCliente = Integer.parseInt(id);
-
-		projetoBean.setCliente(clienteBusiness.obterPorId(idCliente));
-
 		projetoBusiness.adicionar(projetoBean);
-		projetoEquipe.adicionar(projetoBean, projetoBean.getListaEquipe());
-		projetoNegocio.adicionar(projetoBean, projetoBean.getListaNegocio());
-		projetoTecnologia.adicionar(projetoBean, projetoBean.getListaTecnologia());
 
 		return "redirect:listarProjeto";
 	}
 
-	@RequestMapping(value = "listarProjeto", method = RequestMethod.GET)
+	@RequestMapping(value = "listarProjeto", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listar(Model model) throws BusinessException {
-
-		model.addAttribute("projeto", projetoBusiness.listar());
+		model.addAttribute("projetos", projetoBusiness.listar());
 
 		return "projetos/listarProjeto";
 	}
 
 	@RequestMapping(value = "formularioAlterarProjeto", method = RequestMethod.GET)
 	public String alterar(Model model, @RequestParam("idProjeto") String id) throws BusinessException {
-		List<NegocioBean> listaNegocio = negocioBusiness.listar();
-		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
-		List<EquipeBean> listaEquipe = equipeBusiness.listar();
-		List<ClienteBean> listaCliente = clienteBusiness.listar();
 		int idProjeto = Integer.parseInt(id);
 
 		model.addAttribute("projeto", projetoBusiness.obterPorId(idProjeto));
-		model.addAttribute("negocios", listaNegocio);
-		model.addAttribute("tecnologias", listaTecnologia);
-		model.addAttribute("equipes", listaEquipe);
-		model.addAttribute("clientes", listaCliente);
+		model.addAttribute("negocios", negocioBusiness.listar());
+		model.addAttribute("clientes", clienteBusiness.listar());
+		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
+		model.addAttribute("equipes", equipeBusiness.listar());
+
 
 		return "projetos/formularioAlterarProjeto";
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
-	public String alterar(ProjetoBean projetoBean, @RequestParam("nome") String nome) throws BusinessException {
-		projetoBean.setNome(nome);
+	public String alterar(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.atualizar(projetoBean);
-		projetoNegocio.atualizar(projetoBean, projetoBean.getListaNegocio());
-		projetoTecnologia.atualizar(projetoBean, projetoBean.getListaTecnologia());
-		projetoEquipe.atualizar(projetoBean, projetoBean.getListaEquipe());
 
 		return "redirect:listarProjeto";
 	}
@@ -122,6 +104,7 @@ public class ProjetoController {
 	@RequestMapping(value = "removerProjeto", method = RequestMethod.GET)
 	public String remover(@RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
+
 		projetoBusiness.remover(idProjeto);
 
 		return "redirect:listarProjeto";
@@ -131,6 +114,6 @@ public class ProjetoController {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "redirect:listarProjeto";
+		return "forward:listarProjeto";
 	}
 }

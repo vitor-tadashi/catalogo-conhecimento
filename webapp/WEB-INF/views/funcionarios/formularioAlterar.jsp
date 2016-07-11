@@ -90,7 +90,7 @@
 												</div><!-- /.col --> 
 												
 												
-												<div class="col-sm-2">
+												<div class="col-sm-3">
 													<div class="form-group">
 														<label class="control-label">Negócios:
 														</label>

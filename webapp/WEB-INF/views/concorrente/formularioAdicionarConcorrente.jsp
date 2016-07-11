@@ -12,13 +12,12 @@
 		function add() {
 			var cliente = $("#cliente option:selected").text();
 			var idCliente = $("#cliente option:selected").val();
-			var cliente = $("#cliente").val();
 			var valorConcorrente = $("#valorConcorrente").val();
 			var count = $('#tbCliente tbody tr').length;
 			addCliente(cliente, idCliente, valorConcorrente, count);
 		}
 	
-		function addCliente(nome, valor, count) {
+		function addCliente(nome, idCliente, valor, count) {
 			var row = $("<tr />")
 			$("#tbCliente tbody").append(row);
 			row.append("<td>" + nome + "</td>");
@@ -58,7 +57,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAdd" method="POST" action="adicionarConcorrente">
+									<form class="no-margin" id="formAdd" method="POST" action="/catalogoconhecimento/concorrente/adicionarConcorrente">
 										<div class="panel-heading">
 											<h3>Adicionar Concorrente</h3>
 										</div>
@@ -92,7 +91,7 @@
 													<div class="form-group">
 														<select id="cliente" class="form-control" >
 															<c:forEach var="cliente" items="${listaCliente}">
-																<option>${cliente.nome}</option>
+																<option value="${cliente.id}">${cliente.nome}</option>
 															</c:forEach>
 														</select>
 													</div>

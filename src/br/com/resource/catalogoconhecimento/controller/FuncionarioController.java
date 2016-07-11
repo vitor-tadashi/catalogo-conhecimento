@@ -1,13 +1,17 @@
 package br.com.resource.catalogoconhecimento.controller;
 
 
+import java.beans.PropertyEditorSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,9 +61,9 @@ public class FuncionarioController {
 		List<CargoBean> listaCargo = cargoBusiness.listar();
 		List<NegocioBean> listaNegocio = negocioBusiness.listar();
 
-		model.addAttribute("tecnologias", listaTecnologia);
+		model.addAttribute("listaTecnologia", listaTecnologia);
 		model.addAttribute("cargos", listaCargo);
-		model.addAttribute("negocios", listaNegocio);
+		model.addAttribute("listaNegocio", listaNegocio);
 		return "funcionarios/formularioAdicionar";
 	}
 
@@ -69,17 +73,11 @@ public class FuncionarioController {
 		return "funcionarios/listarFuncionarios";
 	}
 	
-	
-
 	@RequestMapping(value = "adicionarFuncionario", method = RequestMethod.POST)
 	public String adicionarFuncionario(FuncionarioBean funcionarioBean) throws BusinessException {
-		
 		funcionarioBusiness.adicionar(funcionarioBean);
-		funcionariotecnologia.adicionar(funcionarioBean, funcionarioBean.getListaTecnologia());
-		funcionarioNegocio.inserir(funcionarioBean, funcionarioBean.getListaNegocio());
-		
-		return "redirect:listarFuncionarios";
 
+		return "redirect:listarFuncionarios";
 	}
 	
 	@RequestMapping(value = "formularioAlterarFuncionario", method = RequestMethod.GET)
@@ -98,7 +96,6 @@ public class FuncionarioController {
 	}
 	
 
-	
 	@RequestMapping(value = "alterarFuncionario", method = RequestMethod.POST)
 	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException{
 		funcionarioBusiness.alterar(funcionarioBean);
@@ -123,4 +120,60 @@ public class FuncionarioController {
 		model.addAttribute("msgErro", exception.getMessage());
 		return "redirect:listarFuncionarios";
 	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.registerCustomEditor(FuncionarioBean.class, "listaNegocio", new PropertyEditorSupport() {
+	        @Override
+	        public void setAsText(String text) throws NumberFormatException {
+	            String [] ids = text.split(",");
+	            FuncionarioBean funcionario = null;
+	            for(String id:ids){
+	                if(funcionario == null)
+	                	funcionario = new FuncionarioBean();
+	                NegocioBean negocio = null;
+					
+	                try {
+						negocio = negocioBusiness.obterPorId(new Integer(id));
+					} catch (BusinessException e) {
+						e.printStackTrace();
+					}
+	                if(negocio != null)
+	                	funcionario.getListaNegocio().add(negocio);
+
+	            }
+	            
+	            if(funcionario != null){
+	                setValue(funcionario);
+	            }
+	        }
+	    });
+	    
+	    binder.registerCustomEditor(FuncionarioBean.class, "listaTecnologia", new PropertyEditorSupport() {
+	        @Override
+	        public void setAsText(String text) throws NumberFormatException {
+	            String [] ids = text.split(",");
+	            FuncionarioBean funcionario = null;
+	            for(String id:ids){
+	                if(funcionario == null)
+	                	funcionario = new FuncionarioBean();
+	                TecnologiaBean tecnologia = null;
+					
+	                try {
+	                	tecnologia = tecnologiaBusiness.obterPorId(new Integer(id));
+					} catch (BusinessException e) {
+						e.printStackTrace();
+					}
+	                
+	                if(tecnologia != null)
+	                	funcionario.getListaTecnologia().add(tecnologia);
+	            }
+	            
+	            if(funcionario != null){
+	                setValue(funcionario);
+	            }
+	        }
+	    });
+	}
+
 }

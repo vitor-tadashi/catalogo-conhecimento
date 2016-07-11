@@ -30,8 +30,9 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 		}
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
-
-	public EquipeBean obterPorId(int id) throws SQLException, ClassNotFoundException {
+		
+	@Override
+	public EquipeBean obterPorId(Integer id) {
 		
 		try {
 		TypedQuery<EquipeBean> query = entityManager.createQuery("SELECT e FROM EquipeBean as e WHERE e.id = :id AND e.ativo = 'S'", EquipeBean.class);
