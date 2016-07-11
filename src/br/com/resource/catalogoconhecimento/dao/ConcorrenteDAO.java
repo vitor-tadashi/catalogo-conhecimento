@@ -103,7 +103,7 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.setString(2, "s");
-		
+
 		ResultSet rs = ps.executeQuery();
 		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
 		while (rs.next()) {
@@ -215,7 +215,7 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 
 		query.executeUpdate();
 	}
-	
+
 	public ConcorrenteClienteBean obterPorConcorrente(int id) {
 		TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
 				"SELECT c FROM ConcorrenteClienteBean AS c WHERE c.idConcorrente = :id", ConcorrenteClienteBean.class);
@@ -225,9 +225,7 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 		} else {
 			return concorrentes.get(0);
 		}
-		
+
 	}
-
-
 
 }

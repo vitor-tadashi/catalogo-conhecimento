@@ -18,8 +18,8 @@ import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 
 	public List<CargoBean> listar() {
-		TypedQuery<CargoBean> query = entityManager.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S' order by c.nome asc",
-				CargoBean.class);
+		TypedQuery<CargoBean> query = entityManager
+				.createQuery("SELECT c FROM CargoBean AS c WHERE c.ativo = 'S' order by c.nome asc", CargoBean.class);
 		List<CargoBean> listaCargo = query.getResultList();
 		return listaCargo;
 	}
@@ -46,26 +46,6 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 			return null;
 		}
 	}
-
-//	public CargoBean obterNomeDesativado(CargoBean cargoBean) throws SQLException, ClassNotFoundException {
-//
-//		try {
-//			TypedQuery<CargoBean> query = entityManager.createQuery(
-//					"SELECT c FROM CargoBean AS c WHERE c.nome = :nome AND c.ativo = 'N'", CargoBean.class);
-//			CargoBean cargoBeanDesativado = query.setParameter("nome", cargoBean.getNome()).getSingleResult();
-//			return cargoBeanDesativado;
-//		} catch (Exception e) {
-//			return null;
-//		}
-//	}
-
-	// public List<FuncionarioBean> obterPorFuncionario(int id) throws
-	// ClassNotFoundException, SQLException {
-	// @SuppressWarnings("unchecked")
-	// List<FuncionarioBean> listaFuncionario = entityManager.createQuery("SELECT f FROM FuncionarioBean as f WHERE f.id =
-	// ?").getResultList();
-	// return listaFuncionario;
-	// }
 
 	public boolean verificarPorFuncionario(int id) throws ClassNotFoundException, SQLException {
 

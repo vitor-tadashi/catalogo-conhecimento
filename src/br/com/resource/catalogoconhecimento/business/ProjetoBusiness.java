@@ -29,16 +29,16 @@ public class ProjetoBusiness {
 
 	@Autowired
 	private ProjetoDAO projetoDAO;
-	
+
 	@Autowired
 	private TecnologiaDAO tecnologiaDAO;
-	
+
 	@Autowired
 	private EquipeDAO equipeDAO;
-	
+
 	@Autowired
 	private NegocioDAO negocioDAO;
-	
+
 	@Autowired
 	private ClienteDAO clienteDAO;
 
@@ -59,52 +59,50 @@ public class ProjetoBusiness {
 		tratarProjeto(projetoBean);
 		projetoDAO.adicionar(projetoBean);
 	}
-	
+
 	private void alterarProjeto(ProjetoBean projetoBean) throws ClassNotFoundException, SQLException {
 		tratarProjeto(projetoBean);
 		projetoDAO.alterar(projetoBean);
 	}
 
 	private void tratarProjeto(ProjetoBean projetoBean) throws SQLException, ClassNotFoundException {
-        List<TecnologiaBean> tecnologias = new ArrayList<TecnologiaBean>();
-        List<NegocioBean> negocios = new ArrayList<NegocioBean>();
-        List<EquipeBean> equipes = new ArrayList<EquipeBean>();
-        
-        
-        if (projetoBean.getListaTecnologia() != null) {
-        	projetoBean.getListaTecnologia().removeIf(p -> p == null || (p != null && p.getId() <= 0));
-        	for (TecnologiaBean tecnologia : projetoBean.getListaTecnologia()) {
-                tecnologias.add(tecnologiaDAO.obterPorId(tecnologia.getId()));
-            }
-        }
-        
-        if (projetoBean.getListaNegocio() != null) {
-        	projetoBean.getListaNegocio().removeIf(p -> p == null || (p != null && p.getId() == null));
-            for (NegocioBean negocio : projetoBean.getListaNegocio()) {
-                negocios.add(negocioDAO.obterPorId(negocio.getId()));
-            }
-        }
-        
-        if (projetoBean.getListaEquipe() != null) {
-        	for (EquipeBean equipe : projetoBean.getListaEquipe()) {
-            	equipes.add(equipeDAO.obterPorId(equipe.getId()));
-            }
-        }
+		List<TecnologiaBean> tecnologias = new ArrayList<TecnologiaBean>();
+		List<NegocioBean> negocios = new ArrayList<NegocioBean>();
+		List<EquipeBean> equipes = new ArrayList<EquipeBean>();
 
-        projetoBean.setListaTecnologia(tecnologias);
-        projetoBean.setListaNegocio(negocios);
-        projetoBean.setListaEquipe(equipes);
-        projetoBean.setCliente(clienteDAO.obterPorId(projetoBean.getCliente().getId()));
+		if (projetoBean.getListaTecnologia() != null) {
+			projetoBean.getListaTecnologia().removeIf(p -> p == null || (p != null && p.getId() <= 0));
+			for (TecnologiaBean tecnologia : projetoBean.getListaTecnologia()) {
+				tecnologias.add(tecnologiaDAO.obterPorId(tecnologia.getId()));
+			}
+		}
+
+		if (projetoBean.getListaNegocio() != null) {
+			projetoBean.getListaNegocio().removeIf(p -> p == null || (p != null && p.getId() == null));
+			for (NegocioBean negocio : projetoBean.getListaNegocio()) {
+				negocios.add(negocioDAO.obterPorId(negocio.getId()));
+			}
+		}
+
+		if (projetoBean.getListaEquipe() != null) {
+			for (EquipeBean equipe : projetoBean.getListaEquipe()) {
+				equipes.add(equipeDAO.obterPorId(equipe.getId()));
+			}
+		}
+
+		projetoBean.setListaTecnologia(tecnologias);
+		projetoBean.setListaNegocio(negocios);
+		projetoBean.setListaEquipe(equipes);
+		projetoBean.setCliente(clienteDAO.obterPorId(projetoBean.getCliente().getId()));
 	}
 
-	private void validarProjeto(ProjetoBean projetoBean, Boolean alteracao) throws SQLException, ClassNotFoundException, BusinessException,
-			NomeRepetidoException, TamanhoCampoException {
+	private void validarProjeto(ProjetoBean projetoBean, Boolean alteracao) throws SQLException, ClassNotFoundException,
+			BusinessException, NomeRepetidoException, TamanhoCampoException {
 		ProjetoBean projetoClone = projetoDAO.obterPorNome(projetoBean.getNome());
 
 		if (!validarNome(projetoBean.getNome())) {
 			throw new BusinessException("Por favor, digite um nome valido!");
-		} else if (projetoClone != null
-				&& (!alteracao || projetoBean.getId() != projetoClone.getId())) {
+		} else if (projetoClone != null && (!alteracao || projetoBean.getId() != projetoClone.getId())) {
 			throw new NomeRepetidoException("Ja existe um projeto chamado " + projetoClone.getNome() + " no "
 					+ projetoClone.getCliente().getNome());
 		} else if (projetoBean.getObservacao().length() > 255) {

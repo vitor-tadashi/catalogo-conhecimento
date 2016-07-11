@@ -50,8 +50,7 @@ public class ProjetoController {
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto(ProjetoBean projetoBean)
-			throws BusinessException {
+	public String adicionarProjeto(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.adicionar(projetoBean);
 
 		return "redirect:listarProjeto";
@@ -73,7 +72,6 @@ public class ProjetoController {
 		model.addAttribute("clientes", clienteBusiness.listar());
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
 		model.addAttribute("equipes", equipeBusiness.listar());
-
 
 		return "projetos/formularioAlterarProjeto";
 	}
