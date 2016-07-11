@@ -13,7 +13,7 @@ import br.com.resource.catalogoconhecimento.utils.SessionUtil;
 
 @Controller
 @RequestMapping("home")
-public class HelloController {
+public class HomeController {
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
