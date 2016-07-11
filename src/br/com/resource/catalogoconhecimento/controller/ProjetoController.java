@@ -15,9 +15,6 @@ import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
-import br.com.resource.catalogoconhecimento.business.ProjetoEquipeBusiness;
-import br.com.resource.catalogoconhecimento.business.ProjetoNegocioBusiness;
-import br.com.resource.catalogoconhecimento.business.ProjetoTecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
@@ -40,14 +37,7 @@ public class ProjetoController {
 	@Autowired
 	EquipeBusiness equipeBusiness;
 
-	@Autowired
-	ProjetoEquipeBusiness projetoEquipe;
 
-	@Autowired
-	ProjetoNegocioBusiness projetoNegocio;
-
-	@Autowired
-	ProjetoTecnologiaBusiness projetoTecnologia;
 
 	@RequestMapping(value = "formularioAdicionarProjeto", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {

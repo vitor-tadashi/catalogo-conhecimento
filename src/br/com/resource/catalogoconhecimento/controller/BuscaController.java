@@ -156,7 +156,8 @@ public class BuscaController {
 			throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
 
-		return negocioBusiness.obterPorProjeto(projetoBusiness.obterPorId(idProjeto));
+		List<NegocioBean> aux =  negocioBusiness.obterPorProjeto(idProjeto);
+		return aux;
 	}
 
 	@RequestMapping(value = "buscarEquipePorProjeto", method = RequestMethod.POST)
