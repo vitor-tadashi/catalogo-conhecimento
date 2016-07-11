@@ -101,7 +101,7 @@
 				<li><i class="fa fa-home"></i>
 					<a href="<c:url value='/'/>">Principal</a></li>
 				<li>Projetos</li>
-				<li class="active">Listar Projetos</li>
+				<li class="active">Lista de Projetos</li>
 			</ul>
 		</div>
 		<!--breadcrumb-->
@@ -116,7 +116,7 @@
 								<!-- Message Erro-->
 								<c:import url="/resources/jspImport/msgErro.jsp" />
 
-								<span class="label label-info pull-right">${fn:length(projeto)}
+								<span class="label label-info pull-right">${fn:length(projetos)}
 									registros</span>
 							</div>
 							<div class="padding-md clearfix">
@@ -134,7 +134,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="projeto" items="${projeto}">
+										<c:forEach var="projeto" items="${projetos}">
 											<tr>
 												<td>${projeto.nome}</td>
 												<td>
@@ -152,7 +152,7 @@
 												<td>${projeto.observacao}</td>
 												<td style="text-align: center;"><a
 													href="
-													<c:url value='formularioAlterarProjeto'>
+													<c:url value='/projeto/formularioAlterarProjeto'>
 													<c:param name='idProjeto' value='${projeto.id}'/>
 													</c:url>
 													">
@@ -171,7 +171,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='formularioAdicionarProjeto'/>">
+									<a href="<c:url value='/projeto/formularioAdicionarProjeto'/>">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Projeto</button>
 									</a>
@@ -294,7 +294,7 @@
 	</div><!-- /.modal -->
 </div>
 <!-- /main-container -->
-
+</div>
 <c:import url="/resources/jspImport/logout.jsp"></c:import>
 <c:import url="/resources/jspImport/footer.jsp"></c:import>
 </body>

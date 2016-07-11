@@ -91,7 +91,7 @@ public class ClienteBusiness {
 	@Transactional
 	public ClienteBean obterPorId(int idCliente) throws BusinessException {
 		try {
-			return clienteDao.obterPorId(idCliente).get(0);
+			return clienteDao.obterPorId(idCliente);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
