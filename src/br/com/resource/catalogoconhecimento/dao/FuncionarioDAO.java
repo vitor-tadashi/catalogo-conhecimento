@@ -79,7 +79,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	 * @param idEquipe
 	 * @return Lista de funcionários com informações específicas
 	 * @throws ClassNotFoundException
-	 * @throws SQLExceptionk
+	 * @throws SQLException
 	 */
 	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws BusinessException {
 

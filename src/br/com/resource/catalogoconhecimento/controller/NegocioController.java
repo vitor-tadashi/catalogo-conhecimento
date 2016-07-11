@@ -36,7 +36,7 @@ public class NegocioController {
 		return "redirect:listarNegocio";
 	}
 
-	@RequestMapping(value = "listarNegocio", method = RequestMethod.GET)
+	@RequestMapping(value = "listarNegocio", method = {RequestMethod.GET, RequestMethod.POST})
 	public String listarNegocio(Model model) throws BusinessException {
 
 		model.addAttribute("negocio", negocioBusiness.listar());

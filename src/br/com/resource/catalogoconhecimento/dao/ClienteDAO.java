@@ -39,7 +39,7 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	public ClienteBean obterPorId(Integer idCliente) {
 		TypedQuery<ClienteBean> query = entityManager
 				.createQuery("SELECT c FROM ClienteBean AS c WHERE c.id = :id AND c.ativo = 'S'", ClienteBean.class);
-		return query.setParameter("id", idCliente).getSingleResult();
+		return query.setParameter("id", idCliente).getResultList().get(0);
 	}
 
 	/**
