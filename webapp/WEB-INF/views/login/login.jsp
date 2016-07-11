@@ -122,7 +122,7 @@
                                     
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="col-md-3 control-label">Login</label>
+                                    <label for="email" class="col-md-3 control-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="login" placeholder="exemplo@resource.com.br">
                                     </div>
