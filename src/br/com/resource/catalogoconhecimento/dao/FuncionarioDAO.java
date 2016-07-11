@@ -122,11 +122,10 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean as f JOIN f.listaTecnologia AS t WHERE t.nome = :nome and f.ativo = 'S' AND t.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaTecnologia AS t WHERE t.nome in ("+ nomeTecnologias +") and f.ativo = 'S' AND t.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
 						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
 				FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("nome", nomeTecnologias)
-				.getResultList();
+		List<FuncionarioBean> listaFuncionario = query.getResultList();
 		return listaFuncionario;
 
 	}
@@ -146,11 +145,10 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean as f JOIN f.listaNegocio as n WHERE n.areaAtuacao = :areaAtuacao and f.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaNegocio as n WHERE n.areaAtuacao in ("+nomeNegocio+") and f.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
 						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
 				FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("areaAtuacao", nomeNegocio)
-				.getResultList();
+		List<FuncionarioBean> listaFuncionario = query.getResultList();
 		return listaFuncionario;
 
 	}
