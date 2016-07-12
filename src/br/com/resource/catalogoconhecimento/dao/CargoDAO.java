@@ -22,8 +22,8 @@ public class CargoDAO extends GenericDAOImpl<CargoBean, Integer> {
 	public CargoBean obterPorId(int id) throws BusinessException {
 		TypedQuery<CargoBean> query = entityManager
 				.createQuery("SELECT c FROM CargoBean AS c WHERE c.id = :id AND c.ativo = 'S'", CargoBean.class);
-		List<CargoBean> listaCargo = query.getResultList();
 		query.setParameter("id", id);
+		List<CargoBean> listaCargo = query.getResultList();
 		if (listaCargo.isEmpty()) {
 			return null;
 		} else {
