@@ -18,38 +18,38 @@ import br.com.resource.catalogoconhecimento.exceptions.UserInvalidoException;
 
 public abstract class ExceptionUtil {
 
-	public static BusinessException handleException(Exception e){
-		
+	public static BusinessException handleException(Exception e) {
+
 		String error = "Sistema indisponivel no momento!";
-		
-		if(e instanceof NomeRepetidoException){
+
+		if (e instanceof NomeRepetidoException) {
 			error = "Este nome já existe na base de dados";
-		}else if(e instanceof AtributoNuloException){
+		} else if (e instanceof AtributoNuloException) {
 			error = "Por favor, digite todos os campos";
-		}else if(e instanceof TamanhoCampoException){
+		} else if (e instanceof TamanhoCampoException) {
 			error = "Você excedeu o numero de caracteres";
-		}else if(e instanceof ConsultaNulaException){
+		} else if (e instanceof ConsultaNulaException) {
 			error = "Sua busca não retornou nenhum resultado";
-		}else if(e instanceof CpfInvalidoException){
+		} else if (e instanceof CpfInvalidoException) {
 			error = "Por favor, digite um cpf válido";
-		}else if(e instanceof DataInvalidaException){
+		} else if (e instanceof DataInvalidaException) {
 			error = "Por favor, digite uma data válido";
-		}else if(e instanceof EmailInvalidoException){
+		} else if (e instanceof EmailInvalidoException) {
 			error = "Por favor, digite um email válido";
-		}else if(e instanceof QuantidadeTagException){
+		} else if (e instanceof QuantidadeTagException) {
 			error = "Por favor, preencha os campos de busca";
-		}else if(e instanceof RegistroVinculadoException){
+		} else if (e instanceof RegistroVinculadoException) {
 			error = "Não é possível excluir este registro";
-		}else if(e instanceof RgInvalidoException){
+		} else if (e instanceof RgInvalidoException) {
 			error = "Por favor, digite um rg válido";
-		}else if(e instanceof UserInvalidoException){
+		} else if (e instanceof UserInvalidoException) {
 			error = "Nome de usuário inválido";
-		}else if(e instanceof CaracteresEspeciaisException){
+		} else if (e instanceof CaracteresEspeciaisException) {
 			error = "Por favor,não digite caracteres especiais";
-		}else if(e instanceof LoginException){
-			error = "Usu�rio e/ou senha incorreto(s)";
+		} else if (e instanceof LoginException) {
+			error = "Usuário e/ou senha incorreto(s)";
 		}
-		
+
 		return new BusinessException(error);
 	}
 }
