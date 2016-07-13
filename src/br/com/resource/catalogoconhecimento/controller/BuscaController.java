@@ -40,7 +40,7 @@ public class BuscaController {
 
 	@Autowired
 	private TecnologiaBusiness tecnologiaBusiness;
-	
+
 	@Autowired
 	private EquipeBusiness equipeBusiness;
 
@@ -121,57 +121,58 @@ public class BuscaController {
 	}
 
 	@RequestMapping(value = "buscarTecnologiaPorFuncionario", method = RequestMethod.POST)
-	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario( @RequestParam("idFuncionario") String id)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario(@RequestParam("idFuncionario") String id)
 			throws BusinessException {
 		int idFuncionario = Integer.parseInt(id);
 		return tecnologiaBusiness.obterPorFuncionario(idFuncionario);
 	}
-	
+
 	@RequestMapping(value = "buscarEquipePorFuncionario", method = RequestMethod.POST)
-	public @ResponseBody List<EquipeBean> EquipePorFuncionario( @RequestParam("idFuncionario") String id)
+	public @ResponseBody List<EquipeBean> EquipePorFuncionario(@RequestParam("idFuncionario") String id)
 			throws BusinessException {
 		int idFuncionario = Integer.parseInt(id);
-		
+
 		return equipeBusiness.obterPorFuncionario(idFuncionario);
 	}
 
 	@RequestMapping(value = "buscarNegocioPorFuncionario", method = RequestMethod.POST)
-	public @ResponseBody List<NegocioBean> NegocioPorFuncionario( @RequestParam("idFuncionario") String id)
+	public @ResponseBody List<NegocioBean> NegocioPorFuncionario(@RequestParam("idFuncionario") String id)
 			throws BusinessException {
 		int idFuncionario = Integer.parseInt(id);
-		
+
 		return negocioBusiness.listarPorFuncionario(idFuncionario);
 	}
-	
+
 	@RequestMapping(value = "buscarTecnologiaPorProjeto", method = RequestMethod.POST)
-	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorProjeto( @RequestParam("idProjeto") String id)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorProjeto(@RequestParam("idProjeto") String id)
 			throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
-		
+
 		return tecnologiaBusiness.listarPorProjeto(projetoBusiness.obterPorId(idProjeto));
 	}
-	
+
 	@RequestMapping(value = "buscarNegocioPorProjeto", method = RequestMethod.POST)
-	public @ResponseBody List<NegocioBean> buscarNegocioPorProjeto( @RequestParam("idProjeto") String id)
+	public @ResponseBody List<NegocioBean> buscarNegocioPorProjeto(@RequestParam("idProjeto") String id)
 			throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
-		
-		return negocioBusiness.obterPorProjeto(projetoBusiness.obterPorId(idProjeto));
+
+		List<NegocioBean> aux =  negocioBusiness.obterPorProjeto(idProjeto);
+		return aux;
 	}
-	
+
 	@RequestMapping(value = "buscarEquipePorProjeto", method = RequestMethod.POST)
-	public @ResponseBody List<EquipeBean> buscarEquipePorProjeto( @RequestParam("idProjeto") String id)
+	public @ResponseBody List<EquipeBean> buscarEquipePorProjeto(@RequestParam("idProjeto") String id)
 			throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
-		
+
 		return equipeBusiness.obterPorProjeto(idProjeto);
 	}
-	
+
 	@RequestMapping(value = "buscarFuncionariosPorEquipe", method = RequestMethod.POST)
-	public @ResponseBody List<FuncionarioBean> FuncionarioPorEquipe( @RequestParam("idEquipe") String id)
+	public @ResponseBody List<FuncionarioBean> FuncionarioPorEquipe(@RequestParam("idEquipe") String id)
 			throws BusinessException {
 		int idEquipe = Integer.parseInt(id);
-		
+
 		return funcionarioBusiness.listarPorEquipe(idEquipe);
 	}
 

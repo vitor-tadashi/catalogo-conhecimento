@@ -1,8 +1,6 @@
 package br.com.resource.catalogoconhecimento.controller;
 
-
 import java.beans.PropertyEditorSupport;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,7 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusine
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
-@RequestMapping(value = "funcionario")
+@RequestMapping("funcionario")
 public class FuncionarioController {
 
 	@Autowired
@@ -45,13 +43,13 @@ public class FuncionarioController {
 
 	@Autowired
 	NegocioBusiness negocioBusiness;
-	
+
 	@Autowired
 	TecnologiaFuncionarioBusiness funcionariotecnologia;
-	
+
 	@Autowired
 	FuncionarioNegocioBusiness funcionarioNegocio;
-	
+
 	@Autowired
 	EquipeBusiness equipeBusiness;
 
@@ -72,16 +70,16 @@ public class FuncionarioController {
 		model.addAttribute("listaFuncionario", funcionarioBusiness.listar());
 		return "funcionarios/listarFuncionarios";
 	}
-	
+
 	@RequestMapping(value = "adicionarFuncionario", method = RequestMethod.POST)
 	public String adicionarFuncionario(FuncionarioBean funcionarioBean) throws BusinessException {
 		funcionarioBusiness.adicionar(funcionarioBean);
 
 		return "redirect:listarFuncionarios";
 	}
-	
+
 	@RequestMapping(value = "formularioAlterarFuncionario", method = RequestMethod.GET)
-	public String formularioAlterar(Model model, @RequestParam("idFuncionario") String id) throws BusinessException{
+	public String formularioAlterar(Model model, @RequestParam("idFuncionario") String id) throws BusinessException {
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<CargoBean> listaCargo = cargoBusiness.listar();
 		List<NegocioBean> listaNegocio = negocioBusiness.listar();
@@ -91,89 +89,88 @@ public class FuncionarioController {
 		model.addAttribute("tecnologias", listaTecnologia);
 		model.addAttribute("cargos", listaCargo);
 		model.addAttribute("negocios", listaNegocio);
-		
+
 		return "funcionarios/formularioAlterar";
 	}
-	
 
 	@RequestMapping(value = "alterarFuncionario", method = RequestMethod.POST)
-	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException{
+	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException {
 		funcionarioBusiness.alterar(funcionarioBean);
 		funcionariotecnologia.atualizar(funcionarioBean, funcionarioBean.getListaTecnologia());
 		funcionarioNegocio.atualizar(funcionarioBean, funcionarioBean.getListaNegocio());
-		
+
 		return "redirect:listarFuncionarios";
 	}
-	
+
 	@RequestMapping(value = "removerFuncionario", method = RequestMethod.GET)
-	public String remover(@RequestParam("idFuncionario") String id) throws BusinessException{
+	public String remover(@RequestParam("idFuncionario") String id) throws BusinessException {
 		int idFuncionario = Integer.parseInt(id);
 		FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(idFuncionario);
 		funcionarioBusiness.remover(funcionarioBean);
-		
+
 		return "redirect:listarFuncionarios";
 	}
-	
+
 	@ExceptionHandler(BusinessException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
 		return "redirect:listarFuncionarios";
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    binder.registerCustomEditor(FuncionarioBean.class, "listaNegocio", new PropertyEditorSupport() {
-	        @Override
-	        public void setAsText(String text) throws NumberFormatException {
-	            String [] ids = text.split(",");
-	            FuncionarioBean funcionario = null;
-	            for(String id:ids){
-	                if(funcionario == null)
-	                	funcionario = new FuncionarioBean();
-	                NegocioBean negocio = null;
-					
-	                try {
+		binder.registerCustomEditor(FuncionarioBean.class, "listaNegocio", new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) throws NumberFormatException {
+				String[] ids = text.split(",");
+				FuncionarioBean funcionario = null;
+				for (String id : ids) {
+					if (funcionario == null)
+						funcionario = new FuncionarioBean();
+					NegocioBean negocio = null;
+
+					try {
 						negocio = negocioBusiness.obterPorId(new Integer(id));
 					} catch (BusinessException e) {
 						e.printStackTrace();
 					}
-	                if(negocio != null)
-	                	funcionario.getListaNegocio().add(negocio);
+					if (negocio != null)
+						funcionario.getListaNegocio().add(negocio);
 
-	            }
-	            
-	            if(funcionario != null){
-	                setValue(funcionario);
-	            }
-	        }
-	    });
-	    
-	    binder.registerCustomEditor(FuncionarioBean.class, "listaTecnologia", new PropertyEditorSupport() {
-	        @Override
-	        public void setAsText(String text) throws NumberFormatException {
-	            String [] ids = text.split(",");
-	            FuncionarioBean funcionario = null;
-	            for(String id:ids){
-	                if(funcionario == null)
-	                	funcionario = new FuncionarioBean();
-	                TecnologiaBean tecnologia = null;
-					
-	                try {
-	                	tecnologia = tecnologiaBusiness.obterPorId(new Integer(id));
+				}
+
+				if (funcionario != null) {
+					setValue(funcionario);
+				}
+			}
+		});
+
+		binder.registerCustomEditor(FuncionarioBean.class, "listaTecnologia", new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) throws NumberFormatException {
+				String[] ids = text.split(",");
+				FuncionarioBean funcionario = null;
+				for (String id : ids) {
+					if (funcionario == null)
+						funcionario = new FuncionarioBean();
+					TecnologiaBean tecnologia = null;
+
+					try {
+						tecnologia = tecnologiaBusiness.obterPorId(new Integer(id));
 					} catch (BusinessException e) {
 						e.printStackTrace();
 					}
-	                
-	                if(tecnologia != null)
-	                	funcionario.getListaTecnologia().add(tecnologia);
-	            }
-	            
-	            if(funcionario != null){
-	                setValue(funcionario);
-	            }
-	        }
-	    });
+
+					if (tecnologia != null)
+						funcionario.getListaTecnologia().add(tecnologia);
+				}
+
+				if (funcionario != null) {
+					setValue(funcionario);
+				}
+			}
+		});
 	}
 
 }

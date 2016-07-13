@@ -22,6 +22,9 @@ public class NegocioBusiness {
 	@Autowired
 	private NegocioDAO negocioDao;
 	
+	@Autowired
+	private ProjetoBusiness projetoBusiness;
+	
 	@Transactional
 	public void adicionar(NegocioBean negocioBean) throws BusinessException {
 		try { 
@@ -143,10 +146,12 @@ public class NegocioBusiness {
 	}
 
 	@Transactional
-	public List<NegocioBean> obterPorProjeto(ProjetoBean projetoBean) throws BusinessException {
+	public List<NegocioBean> obterPorProjeto(int idProjeto) throws BusinessException {
 		try {
-			return new NegocioDAO().obterPorProjeto(projetoBean);
+			ProjetoBean projetoBean = projetoBusiness.obterPorId(idProjeto);
+			return negocioDao.obterPorProjeto(projetoBean);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}

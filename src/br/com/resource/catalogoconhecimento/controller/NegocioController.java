@@ -29,14 +29,14 @@ public class NegocioController {
 	}
 
 	@RequestMapping(value = "adicionarNegocio", method = RequestMethod.POST)
-	public String adiciona(NegocioBean negocioBean, @RequestParam("ativo")String ativo) throws BusinessException {
-			negocioBean.setAreaAtuacao(negocioBean.getAreaAtuacao().trim());
-			negocioBean.setAtivo(ativo.charAt(0)); 
-			negocioBusiness.adicionar(negocioBean); 
+	public String adiciona(NegocioBean negocioBean, @RequestParam("ativo") String ativo) throws BusinessException {
+		negocioBean.setAreaAtuacao(negocioBean.getAreaAtuacao().trim());
+		negocioBean.setAtivo(ativo.charAt(0));
+		negocioBusiness.adicionar(negocioBean);
 		return "redirect:listarNegocio";
 	}
 
-	@RequestMapping(value = "listarNegocio", method = RequestMethod.GET)
+	@RequestMapping(value = "listarNegocio", method = {RequestMethod.GET, RequestMethod.POST})
 	public String listarNegocio(Model model) throws BusinessException {
 
 		model.addAttribute("negocio", negocioBusiness.listar());
@@ -51,19 +51,21 @@ public class NegocioController {
 	}
 
 	@RequestMapping(value = "alterarNegocio", method = RequestMethod.POST)
-	public String alterar(NegocioBean negocioBean, @RequestParam("id") String id, @RequestParam("ativo")String ativo) throws BusinessException {
+	public String alterar(NegocioBean negocioBean, @RequestParam("id") String id, @RequestParam("ativo") String ativo)
+			throws BusinessException {
 		negocioBean.setAreaAtuacao(negocioBean.getAreaAtuacao().trim());
-		negocioBean.setAtivo(ativo.charAt(0)); 
+		negocioBean.setAtivo(ativo.charAt(0));
 		negocioBusiness.alterar(negocioBean);
 		return "redirect:listarNegocio";
 	}
 
 	@RequestMapping(value = "removerNegocio", method = RequestMethod.GET)
-	public String remover( @RequestParam("idNegocio") String id, @RequestParam("ativo") String ativo, HttpServletRequest request) throws BusinessException {
+	public String remover(@RequestParam("idNegocio") String id, @RequestParam("ativo") String ativo,
+			HttpServletRequest request) throws BusinessException {
 		int idNegocio = Integer.parseInt(id);
 		NegocioBean negocio = negocioBusiness.obterPorId(idNegocio);
 		negocio.setAtivo(ativo.charAt(0));
-		negocioBusiness.remover(negocio);		
+		negocioBusiness.remover(negocio);
 		return "redirect:listarNegocio";
 	}
 

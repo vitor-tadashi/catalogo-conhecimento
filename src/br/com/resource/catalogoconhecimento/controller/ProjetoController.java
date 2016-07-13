@@ -1,7 +1,5 @@
 package br.com.resource.catalogoconhecimento.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,18 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.resource.catalogoconhecimento.bean.ClienteBean;
-import br.com.resource.catalogoconhecimento.bean.EquipeBean;
-import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
-import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.ClienteBusiness;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.ProjetoBusiness;
-import br.com.resource.catalogoconhecimento.business.ProjetoEquipeBusiness;
-import br.com.resource.catalogoconhecimento.business.ProjetoNegocioBusiness;
-import br.com.resource.catalogoconhecimento.business.ProjetoTecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
@@ -46,14 +37,7 @@ public class ProjetoController {
 	@Autowired
 	EquipeBusiness equipeBusiness;
 
-	@Autowired
-	ProjetoEquipeBusiness projetoEquipe;
 
-	@Autowired
-	ProjetoNegocioBusiness projetoNegocio;
-
-	@Autowired
-	ProjetoTecnologiaBusiness projetoTecnologia;
 
 	@RequestMapping(value = "formularioAdicionarProjeto", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {
@@ -66,8 +50,7 @@ public class ProjetoController {
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
-	public String adicionarProjeto(ProjetoBean projetoBean)
-			throws BusinessException {
+	public String adicionarProjeto(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.adicionar(projetoBean);
 
 		return "redirect:listarProjeto";
@@ -89,7 +72,6 @@ public class ProjetoController {
 		model.addAttribute("clientes", clienteBusiness.listar());
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
 		model.addAttribute("equipes", equipeBusiness.listar());
-
 
 		return "projetos/formularioAlterarProjeto";
 	}
