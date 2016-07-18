@@ -12,7 +12,6 @@
 hs_err_pid*
 /target/
 .settings/
-.classpath
 .idea/
 catalogoconhecimento.iml
 
