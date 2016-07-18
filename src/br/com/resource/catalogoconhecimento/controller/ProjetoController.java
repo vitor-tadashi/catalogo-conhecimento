@@ -88,7 +88,6 @@ public class ProjetoController {
 		int idProjeto = Integer.parseInt(id);
 
 		projetoBusiness.remover(idProjeto);
-
 		return "redirect:listarProjeto";
 	}
 

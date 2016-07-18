@@ -48,7 +48,7 @@
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
-		<property name="dataSource" ref="dataSourceSQLServer" />
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
 	<jee:jndi-lookup id="dataSourceSQLServer" jndi-name="jdbc/DSCatalogoConhecimento"
