@@ -45,8 +45,8 @@ public class ConcorrenteController {
 		concorrenteBusiness.adicionar(concorrenteBean);
 		if (concorrenteBean.getListaClientes() != null) {
 			for (ConcorrenteClienteBean concorrenteCliente : concorrenteBean.getListaClientes()) {
-				concorrenteCliente.setIdCliente(concorrenteCliente.getCliente().getId());
-				concorrenteCliente.setIdConcorrente(concorrenteBean.getId());
+				concorrenteCliente.setCliente(concorrenteCliente.getCliente());
+				concorrenteCliente.setConcorrente(concorrenteBean);
 				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
 			}
 		}
@@ -72,8 +72,8 @@ public class ConcorrenteController {
 		concorrenteBean.setListaClientes(listaConcorrenteCliente);
 		if (concorrenteBean.getListaClientes() != null) {
 			for (ConcorrenteClienteBean concorrenteCliente : concorrenteBean.getListaClientes()) {
-				concorrenteCliente.setIdCliente(concorrenteCliente.getCliente().getId());
-				concorrenteCliente.setIdConcorrente(concorrenteBean.getId());
+				concorrenteCliente.setCliente(concorrenteCliente.getCliente());
+				concorrenteCliente.setConcorrente(concorrenteBean);
 				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
 			}
 		}

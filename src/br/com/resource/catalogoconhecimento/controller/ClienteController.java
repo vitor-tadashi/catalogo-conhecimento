@@ -41,13 +41,7 @@ public class ClienteController {
 			throws BusinessException {
 		clienteBean.setAtivo(ativo.charAt(0));
 		clienteBusiness.adicionar(clienteBean);
-		if (clienteBean.getListaConcorrentes() != null) {
-			for (ConcorrenteClienteBean concorrenteCliente : clienteBean.getListaConcorrentes()) {
-				concorrenteCliente.setIdCliente(clienteBean.getId());
-				concorrenteCliente.setIdConcorrente(concorrenteCliente.getConcorrente().getId());
-				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
-			}
-		}
+
 		return "redirect:listarCliente";
 	}
 
@@ -70,8 +64,8 @@ public class ClienteController {
 		clienteBean.setListaConcorrentes(listaConcorrenteCliente);
 		if (clienteBean.getListaConcorrentes() != null) {
 			for (ConcorrenteClienteBean concorrenteCliente : clienteBean.getListaConcorrentes()) {
-				concorrenteCliente.setIdCliente(clienteBean.getId());
-				concorrenteCliente.setIdConcorrente(concorrenteCliente.getConcorrente().getId());
+				concorrenteCliente.setCliente(clienteBean);
+				concorrenteCliente.setConcorrente(concorrenteCliente.getConcorrente());
 				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
 			}
 		}
