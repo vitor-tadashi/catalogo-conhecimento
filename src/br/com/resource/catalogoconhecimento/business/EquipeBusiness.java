@@ -20,6 +20,9 @@ public class EquipeBusiness {
 
 	@Autowired
 	private EquipeDAO equipeDAO;
+	
+	@Autowired
+	private ProjetoBusiness projetoBusiness;
 
 
 	// INSERIR NA BASE
@@ -137,7 +140,8 @@ public class EquipeBusiness {
 	public List<EquipeBean> obterPorProjeto(int idProjeto) throws BusinessException {
 
 		try {
-			return equipeDAO.obterPorProjeto(idProjeto);
+			
+			return equipeDAO.obterPorProjeto(projetoBusiness.obterPorId(idProjeto));
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
