@@ -35,36 +35,18 @@ public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 	 * 
 	 * @param idFuncionario
 	 * @return List<TecnologiaBean>
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 */
-	public List<TecnologiaBean> listarPorFuncionario(int idFuncionario) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
+	public List<TecnologiaBean> listarPorFuncionario(int idFuncionario) {
+//		TypedQuery<TecnologiaBean> query = entityManager.createQuery("SELECT p FROM ProjetoBean p JOIN p.listaNegocio n "
+//				+ "WHERE n.areaAtuacao IN ("+nomeNegocio+") and p.ativo = 'S' and n.ativo = 'S'"
+//				+ "GROUP BY p.id,p.cliente, p.nome, p.observacao, p.ativo HAVING COUNT(p.id) > 0", ProjetoBean.class);
+//			return query.getResultList();
+			
 		String sql = "SELECT t.idTecnologia, t.nomeTecnologia FROM Tecnologia AS t "
 				+ "INNER JOIN TecnologiaFuncionario AS tf ON tf.idTecnologia = t.idTecnologia "
 				+ "INNER JOIN Funcionario AS f on tf.idFuncionario = f.idFuncionario "
 				+ "WHERE f.idFuncionario = ? and t.ativo=?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, idFuncionario);
-		ps.setString(2, "s");
-
-		ResultSet rs = ps.executeQuery();
-
-		List<TecnologiaBean> listaTecnologia = new ArrayList<TecnologiaBean>();
-		while (rs.next()) {
-			TecnologiaBean tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-
-			listaTecnologia.add(tecnologiaBean);
-		}
-
-		ps.close();
-		conexao.close();
-
-		return listaTecnologia;
+		return null;
 	}
 
 	/**
@@ -72,33 +54,18 @@ public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 	 * 
 	 * @param projeto
 	 * @return List<TecnologiaBean>
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 */
-	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projeto) throws ClassNotFoundException, SQLException {
-		Connection conexao = ConnectionFactory.createConnection();
-
+	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projeto) {
+//		TypedQuery<TecnologiaBean> query = entityManager.createQuery("SELECT p FROM ProjetoBean p JOIN p.listaNegocio n "
+//				+ "WHERE n.areaAtuacao IN ("+nomeNegocio+") and p.ativo = 'S' and n.ativo = 'S'"
+//				+ "GROUP BY p.id,p.cliente, p.nome, p.observacao, p.ativo HAVING COUNT(p.id) > 0", ProjetoBean.class);
+//			return query.getResultList();
+			
 		String sql = "SELECT t.idTecnologia, t.nomeTecnologia"
 				+ "  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" + "	ON p.idProjeto = pt.idProjeto"
 				+ "	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
 				+ "  WHERE p.idProjeto = ? and t.ativo= ?";
-
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.setInt(1, projeto.getId());
-		ps.setString(2, "s");
-
-		ResultSet rs = ps.executeQuery();
-
-		List<TecnologiaBean> listaTecnologia = new ArrayList<>();
-		TecnologiaBean tecnologiaBean = null;
-		while (rs.next()) {
-			tecnologiaBean = new TecnologiaBean();
-			tecnologiaBean.setId(rs.getInt("idTecnologia"));
-			tecnologiaBean.setNome(rs.getString("nomeTecnologia"));
-			listaTecnologia.add(tecnologiaBean);
-		}
-
-		return listaTecnologia;
+		return null;
 	}
 
 	/**
