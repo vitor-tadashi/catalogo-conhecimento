@@ -2,10 +2,13 @@ package br.com.resource.catalogoconhecimento.bean;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,7 +31,7 @@ public class ConcorrenteBean {
 	
 	private char ativo;
 	
-	@Transient
+	@OneToMany(mappedBy = "concorrente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ConcorrenteClienteBean> listaClientes;
 	
 	public int getId() {

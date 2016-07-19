@@ -1,5 +1,6 @@
 package br.com.resource.catalogoconhecimento.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
+import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
 import br.com.resource.catalogoconhecimento.dao.ClienteDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 import br.com.resource.catalogoconhecimento.exceptions.CnpjRepetidoException;
@@ -20,6 +22,9 @@ public class ClienteBusiness {
 
 	@Autowired
 	private ClienteDAO clienteDao;
+
+	@Autowired
+	private ConcorrenteBusiness concorrenteBusiness;
 
 	/**
 	 * -ABS- Adiciona um novo Cliente na tabela 'Cliente' através da ClienteDAO
@@ -49,7 +54,8 @@ public class ClienteBusiness {
 			} else if (clienteDao.verificarPorCnpj(clienteBean.getCnpj())) {
 				throw new CnpjRepetidoException();
 			}else{
-				clienteDao.adicionar(clienteBean);
+
+				this.salvarCliente(clienteBean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -231,6 +237,27 @@ public class ClienteBusiness {
 	 */
 	public boolean validarCnpj(String cnpj) {
 		return cnpj.matches("\\d{2}.?\\d{3}.?\\d{3}/?\\d{4}-?\\d{2}");
+	}
+
+	public void salvarCliente(ClienteBean clienteBean) throws BusinessException{
+		try{
+			List<ConcorrenteClienteBean> lista = new ArrayList<>();;
+			if (clienteBean.getListaConcorrentes() != null) {
+				for (ConcorrenteClienteBean concorrenteCliente : clienteBean.getListaConcorrentes()) {
+					concorrenteCliente.setCliente(clienteBean);
+					concorrenteCliente.setConcorrente(concorrenteCliente.getConcorrente());
+					lista.add(concorrenteCliente);
+				}
+			}
+			clienteBean.setListaConcorrentes(lista);
+			clienteDao.adicionar(clienteBean);
+			for(ConcorrenteClienteBean c : lista){
+				concorrenteBusiness.adicionarConcorrenteCliente(c);
+			}
+			
+		}catch(Exception e){
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 }

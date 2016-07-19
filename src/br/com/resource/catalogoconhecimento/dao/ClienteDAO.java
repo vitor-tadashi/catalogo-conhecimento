@@ -72,14 +72,10 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	 * @throws SQLException
 	 */
 	public boolean verificarPorCnpj(String cnpj) throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Cliente WHERE cnpj = ? AND ativo = 'S'";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, cnpj);
-
-		ResultSet rs = ps.executeQuery();
-
-		if (rs.next()) {
+		TypedQuery<ClienteBean> query = entityManager.createQuery("SELECT c FROM ClienteBean AS c WHERE c.cnpj = :cnpj AND c.ativo = 'S'", ClienteBean.class);
+		query.setParameter("cnpj", cnpj);
+		List<ClienteBean>lista = query.getResultList();
+		if (!lista.isEmpty()) {
 			return true;
 		} else
 			return false;
@@ -89,8 +85,6 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	public ClienteBean adicionar(ClienteBean entity) {
 		try {
 			entityManager.persist(entity);
-			entityManager.flush();
-			entityManager.refresh(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

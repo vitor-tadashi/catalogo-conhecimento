@@ -142,9 +142,8 @@
 												<td>${funcionario.nomeUser}</td>
 												<td>${funcionario.cargo.nome}</td>
 												<td>${funcionario.cpf}</td>
-												<fmt:parseDate value="${funcionario.dataNascimento}"
-													pattern="yyyy-MM-dd" var="parsedDate" type="date" />
-												<td><fmt:formatDate value="${parsedDate}" type="date"
+
+												<td><fmt:formatDate value="${funcionario.dataNascimento}" type="date"
 														pattern="dd/MM/yyyy" /></td>
 
 
