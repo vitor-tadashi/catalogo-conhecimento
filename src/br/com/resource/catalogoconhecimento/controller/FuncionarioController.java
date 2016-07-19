@@ -22,14 +22,12 @@ import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
 import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.business.EquipeBusiness;
 import br.com.resource.catalogoconhecimento.business.FuncionarioBusiness;
-import br.com.resource.catalogoconhecimento.business.FuncionarioNegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.NegocioBusiness;
 import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
-import br.com.resource.catalogoconhecimento.business.TecnologiaFuncionarioBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
-@RequestMapping("funcionario")
+@RequestMapping(value = "funcionario")
 public class FuncionarioController {
 
 	@Autowired
@@ -43,12 +41,6 @@ public class FuncionarioController {
 
 	@Autowired
 	NegocioBusiness negocioBusiness;
-
-	@Autowired
-	TecnologiaFuncionarioBusiness funcionariotecnologia;
-
-	@Autowired
-	FuncionarioNegocioBusiness funcionarioNegocio;
 
 	@Autowired
 	EquipeBusiness equipeBusiness;
@@ -86,9 +78,9 @@ public class FuncionarioController {
 		int idFuncionario = Integer.parseInt(id);
 
 		model.addAttribute("funcionario", funcionarioBusiness.obterPorId(idFuncionario));
-		model.addAttribute("tecnologias", listaTecnologia);
+		model.addAttribute("listaTecnologia", listaTecnologia);
 		model.addAttribute("cargos", listaCargo);
-		model.addAttribute("negocios", listaNegocio);
+		model.addAttribute("listaNegocio", listaNegocio);
 
 		return "funcionarios/formularioAlterar";
 	}
@@ -96,17 +88,15 @@ public class FuncionarioController {
 	@RequestMapping(value = "alterarFuncionario", method = RequestMethod.POST)
 	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException {
 		funcionarioBusiness.alterar(funcionarioBean);
-		funcionariotecnologia.atualizar(funcionarioBean, funcionarioBean.getListaTecnologia());
-		funcionarioNegocio.atualizar(funcionarioBean, funcionarioBean.getListaNegocio());
-
+		
 		return "redirect:listarFuncionarios";
 	}
 
 	@RequestMapping(value = "removerFuncionario", method = RequestMethod.GET)
 	public String remover(@RequestParam("idFuncionario") String id) throws BusinessException {
 		int idFuncionario = Integer.parseInt(id);
-		FuncionarioBean funcionarioBean = funcionarioBusiness.obterPorId(idFuncionario);
-		funcionarioBusiness.remover(funcionarioBean);
+
+		funcionarioBusiness.remover(idFuncionario);
 
 		return "redirect:listarFuncionarios";
 	}

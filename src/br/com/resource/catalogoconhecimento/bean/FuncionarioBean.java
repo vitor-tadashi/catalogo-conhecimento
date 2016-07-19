@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,9 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 @Entity
 @Table(name = "Funcionario")
 public class FuncionarioBean {
@@ -28,7 +26,7 @@ public class FuncionarioBean {
 	@Column(name = "idFuncionario", unique = true, nullable = false)
 	private int id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "idCargo")
 	private CargoBean cargoBean;
 
@@ -49,31 +47,23 @@ public class FuncionarioBean {
 	@Temporal(value = TemporalType.DATE)
 	private Date dataNascimento;
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "TecnologiaFuncionario", joinColumns = { 
 			@JoinColumn(name = "idFuncionario") }, 
 			inverseJoinColumns = { @JoinColumn(name = "idTecnologia") })
 	private List<TecnologiaBean> listaTecnologia;
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "FuncionarioNegocio", joinColumns = { 
 			@JoinColumn(name = "idFuncionario") }, 
 			inverseJoinColumns = { @JoinColumn(name = "idNegocio") })
 	private List<NegocioBean> listaNegocio;
 
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "EquipeFuncionario", joinColumns = { 
 			@JoinColumn(name = "idFuncionario") }, 
 			inverseJoinColumns = { @JoinColumn(name = "idEquipe") })
 	private List<EquipeBean> equipes;
-	
-//	public FuncionarioBean() {
-//		listaTecnologia = new ArrayList<>();
-//		listaNegocio = new ArrayList<>();
-//	}
 
 	public int getId() {
 		return id;

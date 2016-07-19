@@ -1,29 +1,19 @@
 package br.com.resource.catalogoconhecimento.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.TypedQuery;
-
 import org.springframework.stereotype.Repository;
-
-import br.com.resource.catalogoconhecimento.bean.CargoBean;
 import br.com.resource.catalogoconhecimento.bean.FuncionarioBean;
-import br.com.resource.catalogoconhecimento.business.CargoBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
-import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
 public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 
 	/**
-	 * Método para listar todos os funcionarios ativos
+	 * M?todo para listar todos os funcion?rios ativos
 	 * 
-	 * @return Lista de funcionarios
+	 * @return Lista de funcion?rios
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -35,10 +25,10 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * Método para obter informações de um funcionario por Id
+	 * M?todo para obter informa??es de um funcion?rio por Id
 	 * 
 	 * @param id
-	 * @return Todas informações dos funcionarios
+	 * @return Todas informa??es do funcion?rio
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -56,10 +46,10 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * Metodo para obter informações de um funcionario por nome
+	 * M?todo para obter informa??es de um funcion?rio por nome
 	 * 
 	 * @param nome
-	 * @return Todas informações do funcionarios
+	 * @return Todas informa??es do funcion?rio
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -74,23 +64,23 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * Método para obter informações específicas funcionários por idEquipe
+	 * M?todo para obter informa??es espec?ficas funcion?rios por idEquipe
 	 * 
 	 * @param idEquipe
-	 * @return Lista de funcionários com informações específicas
+	 * @return Lista de funcion?rios com informa??es espec?ficas
 	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLExceptionk
 	 */
+
 	public List<FuncionarioBean> listarPorEquipe(int idEquipe) throws BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean AS f JOIN FETCH f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.id ASC",
+				"SELECT f FROM FuncionarioBean AS f JOIN f.equipes AS e WHERE f.ativo = 'S' and e.id = :id ORDER BY f.nome ASC",
 				FuncionarioBean.class);
-		query.setParameter("id", idEquipe);
-		
-		List<FuncionarioBean> listaFuncionario = query.getResultList();
-		
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("id", idEquipe)
+				.getResultList();
 		return listaFuncionario;
+
 	}
 
 	public FuncionarioBean obterPorEquipe(int idFuncionario, int idEquipe) throws BusinessException {
@@ -102,7 +92,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 			query.setParameter("idEquipe", idEquipe);
 			query.setParameter("idFuncionario", idFuncionario);
 
-			FuncionarioBean funcionario = query.getSingleResult();
+			FuncionarioBean funcionario = (FuncionarioBean) query.getSingleResult();
 			return funcionario;
 
 		} catch (Exception e) {
@@ -112,7 +102,7 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	}
 
 	/**
-	 * Lista todos os funcionarios de uma tecnologia especifica
+	 * Lista todos os funcion?rios de uma tecnologia espec?fica
 	 * 
 	 * @param nomeTecnologias
 	 * @return List<FuncionarioBean>
@@ -122,15 +112,14 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	public List<FuncionarioBean> listarPorTecnologias(String nomeTecnologias) throws BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean as f JOIN f.listaTecnologia AS t WHERE t.nome in ("+ nomeTecnologias +") and f.ativo = 'S' AND t.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaTecnologia AS t WHERE t.nome = :nome and f.ativo = 'S' AND t.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
 						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
 				FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = query.getResultList();
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("nome", nomeTecnologias)
+				.getResultList();
 		return listaFuncionario;
 
 	}
-	
-	
 
 	public List<FuncionarioBean> obterPorCpf(String cpf)
 			throws SQLException, ClassNotFoundException, BusinessException {
@@ -145,15 +134,14 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 	public List<FuncionarioBean> listarPorNegocio(String nomeNegocio) throws BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean as f JOIN f.listaNegocio as n WHERE n.areaAtuacao in ("+nomeNegocio+") and f.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
+				"SELECT f FROM FuncionarioBean as f JOIN f.listaNegocio as n WHERE n.areaAtuacao = :areaAtuacao and f.ativo = 'S' GROUP BY f.cpf, f.rg,f.dataNascimento, f.email, f.cargoBean, "
 						+ "f.id, f.nome, f.nomeUser, f.telefone, f.ativo HAVING COUNT(f.id) > 0 ",
 				FuncionarioBean.class);
-		List<FuncionarioBean> listaFuncionario = query.getResultList();
+		List<FuncionarioBean> listaFuncionario = (List<FuncionarioBean>) query.setParameter("areaAtuacao", nomeNegocio)
+				.getResultList();
 		return listaFuncionario;
 
 	}
-
-	
 
 	public List<FuncionarioBean> obterPorEmail(String email)
 			throws SQLException, ClassNotFoundException, BusinessException {
@@ -169,7 +157,8 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 			throws SQLException, ClassNotFoundException, BusinessException {
 
 		TypedQuery<FuncionarioBean> query = entityManager.createQuery(
-				"SELECT f FROM FuncionarioBean as f WHERE f.nomeUser = :nomeUser and f.ativo = 'S'", FuncionarioBean.class);
+				"SELECT f FROM FuncionarioBean as f WHERE f.nomeUser = :nomeUser and f.ativo = 'S'",
+				FuncionarioBean.class);
 		List<FuncionarioBean> listaFuncionarios = query.setParameter("nomeUser", nomeUser).getResultList();
 		return listaFuncionarios;
 
@@ -183,34 +172,4 @@ public class FuncionarioDAO extends GenericDAOImpl<FuncionarioBean, Integer> {
 		return listaFuncionarios;
 	}
 
-	public List<FuncionarioBean> listarPorNome(String nome)
-			throws SQLException, ClassNotFoundException, BusinessException {
-		Connection conexao = ConnectionFactory.createConnection();
-		String sql = "SELECT * FROM Funcionario WHERE nomeFuncionario LIKE '%" + nome + "%' and ativo = 's'";
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-
-		List<FuncionarioBean> listaFuncionario = new ArrayList<>();
-		FuncionarioBean funcionarioBean = null;
-		CargoBusiness cargoBusiness = new CargoBusiness();
-		while (rs.next()) {
-			CargoBean cargoBean = cargoBusiness.obterPorId(rs.getInt("idCargo"));
-
-			funcionarioBean = new FuncionarioBean();
-			funcionarioBean.setId(rs.getInt("idFuncionario"));
-			funcionarioBean.setCargo(cargoBean);
-			funcionarioBean.setNome(rs.getString("nomeFuncionario"));
-			funcionarioBean.setTelefone(rs.getString("telefone"));
-			funcionarioBean.setNomeUser(rs.getString("nomeUser"));
-			funcionarioBean.setEmail(rs.getString("email"));
-			funcionarioBean.setCpf(rs.getString("CPF"));
-			funcionarioBean.setRg(rs.getString("RG"));
-			funcionarioBean.setDataNascimento(rs.getDate("dataNascimento"));
-
-			listaFuncionario.add(funcionarioBean);
-		}
-
-		conexao.close();
-		return listaFuncionario;
-	}
 }
