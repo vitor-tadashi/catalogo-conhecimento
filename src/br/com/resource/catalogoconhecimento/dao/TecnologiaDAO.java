@@ -1,19 +1,14 @@
 package br.com.resource.catalogoconhecimento.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.resource.catalogoconhecimento.bean.NegocioBean;
 import br.com.resource.catalogoconhecimento.bean.ProjetoBean;
 import br.com.resource.catalogoconhecimento.bean.TecnologiaBean;
-import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
 public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
@@ -37,16 +32,11 @@ public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 	 * @return List<TecnologiaBean>
 	 */
 	public List<TecnologiaBean> listarPorFuncionario(int idFuncionario) {
-//		TypedQuery<TecnologiaBean> query = entityManager.createQuery("SELECT p FROM ProjetoBean p JOIN p.listaNegocio n "
-//				+ "WHERE n.areaAtuacao IN ("+nomeNegocio+") and p.ativo = 'S' and n.ativo = 'S'"
-//				+ "GROUP BY p.id,p.cliente, p.nome, p.observacao, p.ativo HAVING COUNT(p.id) > 0", ProjetoBean.class);
-//			return query.getResultList();
-			
-		String sql = "SELECT t.idTecnologia, t.nomeTecnologia FROM Tecnologia AS t "
-				+ "INNER JOIN TecnologiaFuncionario AS tf ON tf.idTecnologia = t.idTecnologia "
-				+ "INNER JOIN Funcionario AS f on tf.idFuncionario = f.idFuncionario "
-				+ "WHERE f.idFuncionario = ? and t.ativo=?";
-		return null;
+		TypedQuery<TecnologiaBean> query = entityManager.createQuery(
+				"SELECT t FROM FuncionarioBean AS f JOIN f.listaTecnologia AS t WHERE f.id = :id",
+				TecnologiaBean.class);
+		query.setParameter("id", idFuncionario);
+		return query.getResultList();
 	}
 
 	/**
@@ -55,17 +45,11 @@ public class TecnologiaDAO extends GenericDAOImpl<TecnologiaBean, Integer> {
 	 * @param projeto
 	 * @return List<TecnologiaBean>
 	 */
-	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projeto) {
-//		TypedQuery<TecnologiaBean> query = entityManager.createQuery("SELECT p FROM ProjetoBean p JOIN p.listaNegocio n "
-//				+ "WHERE n.areaAtuacao IN ("+nomeNegocio+") and p.ativo = 'S' and n.ativo = 'S'"
-//				+ "GROUP BY p.id,p.cliente, p.nome, p.observacao, p.ativo HAVING COUNT(p.id) > 0", ProjetoBean.class);
-//			return query.getResultList();
-			
-		String sql = "SELECT t.idTecnologia, t.nomeTecnologia"
-				+ "  FROM Projeto AS p INNER JOIN ProjetoTecnologia AS pt" + "	ON p.idProjeto = pt.idProjeto"
-				+ "	INNER JOIN Tecnologia AS t ON t.idTecnologia = pt.idTecnologia"
-				+ "  WHERE p.idProjeto = ? and t.ativo= ?";
-		return null;
+	public List<TecnologiaBean> listarPorProjeto(int idProjeto) {
+		TypedQuery<TecnologiaBean> query = entityManager.createQuery(
+				"SELECT t FROM ProjetoBean AS p JOIN p.listaTecnologia AS t WHERE p.id = :id", TecnologiaBean.class);
+		query.setParameter("id", idProjeto);
+		return query.getResultList();
 	}
 
 	/**

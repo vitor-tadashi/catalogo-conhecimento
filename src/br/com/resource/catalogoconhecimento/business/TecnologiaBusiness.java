@@ -57,7 +57,7 @@ public class TecnologiaBusiness {
 
 	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projetoBean) throws BusinessException {
 		try {
-			List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean);
+			List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean.getId());
 			if (listaTecnologia.isEmpty()) {
 				throw new ConsultaNulaException("Não há tecnologias cadastradas");
 			} else {
