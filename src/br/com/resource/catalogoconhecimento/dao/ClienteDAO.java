@@ -1,14 +1,13 @@
 package br.com.resource.catalogoconhecimento.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
+
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
-import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
 public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
@@ -72,9 +71,10 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	 * @throws SQLException
 	 */
 	public boolean verificarPorCnpj(String cnpj) throws ClassNotFoundException, SQLException {
-		TypedQuery<ClienteBean> query = entityManager.createQuery("SELECT c FROM ClienteBean AS c WHERE c.cnpj = :cnpj AND c.ativo = 'S'", ClienteBean.class);
+		TypedQuery<ClienteBean> query = entityManager.createQuery(
+				"SELECT c FROM ClienteBean AS c WHERE c.cnpj = :cnpj AND c.ativo = 'S'", ClienteBean.class);
 		query.setParameter("cnpj", cnpj);
-		List<ClienteBean>lista = query.getResultList();
+		List<ClienteBean> lista = query.getResultList();
 		if (!lista.isEmpty()) {
 			return true;
 		} else
