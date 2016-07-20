@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -23,17 +22,17 @@ public class ConcorrenteBean {
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "idConcorrente", unique = true, nullable = false)
 	private int id;
-	
+
 	@Column(name = "nomeConcorrente")
 	private String nome;
-	
+
 	private String descricao;
-	
+
 	private char ativo;
-	
+
 	@OneToMany(mappedBy = "concorrente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ConcorrenteClienteBean> listaClientes;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -74,6 +73,4 @@ public class ConcorrenteBean {
 		this.listaClientes = listaClientes;
 	}
 
-	
-	
 }
