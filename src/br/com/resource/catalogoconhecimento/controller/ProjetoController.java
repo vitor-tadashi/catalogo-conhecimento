@@ -46,7 +46,7 @@ public class ProjetoController {
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
 		model.addAttribute("equipes", equipeBusiness.listar());
 
-		return "projetos/formularioAdicionarProjeto";
+		return "projetos/adicionar";
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
@@ -60,7 +60,7 @@ public class ProjetoController {
 	public String listar(Model model) throws BusinessException {
 		model.addAttribute("projetos", projetoBusiness.listar());
 
-		return "projetos/listarProjeto";
+		return "projetos/listar";
 	}
 
 	@RequestMapping(value = "alterar", method = RequestMethod.GET)
@@ -73,7 +73,7 @@ public class ProjetoController {
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
 		model.addAttribute("equipes", equipeBusiness.listar());
 
-		return "projetos/formularioAlterarProjeto";
+		return "projetos/alterar";
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)

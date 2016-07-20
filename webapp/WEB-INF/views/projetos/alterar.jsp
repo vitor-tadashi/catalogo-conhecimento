@@ -14,7 +14,7 @@
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a href="<c:url value='/'/>">Principal</a></li>
-
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/projeto/listar'/>">Projetos</a></li>
 				<li>Projetos</li>
 				<li class="active">Alterar Projeto</li>
 			</ul>

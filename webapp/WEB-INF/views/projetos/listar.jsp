@@ -99,7 +99,7 @@
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i>
-					<a href="<c:url value='/'/>">Principal</a></li>
+					<a href="<c:url value='/home/index'/>">Principal</a></li>
 				<li>Projetos</li>
 				<li class="active">Lista de Projetos</li>
 			</ul>
