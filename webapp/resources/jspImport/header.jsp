@@ -108,14 +108,14 @@
 						</span> <span class="text"> Equipes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/equipe/listarEquipe'/>"> <span
+							<li><a href="<c:url value='/equipe/listar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Equipes
 								</span>
 							</a></li>
 							<li><a
-								href="<c:url value='/equipe/formularioAdicionarEquipe'/>"> <span
+								href="<c:url value='/equipe/adicionar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Equipe
