@@ -30,10 +30,10 @@ public class ClienteController {
 	@Autowired
 	private ConcorrenteBusiness concorrenteBusiness;
 
-	@RequestMapping(value = "formularioAdicionarCliente", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionarCliente(Model model) throws BusinessException {
 		model.addAttribute("concorrentes", concorrenteBusiness.listar());
-		return "cliente/formularioAdicionarCliente";
+		return "cliente/adicionar";
 	}
 
 	@RequestMapping(value = "adicionarCliente", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class ClienteController {
 		clienteBean.setAtivo(ativo.charAt(0));
 		clienteBusiness.adicionar(clienteBean);
 
-		return "redirect:listarCliente";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "adicionarConcorrenteNoCliente", method = RequestMethod.POST)
@@ -73,24 +73,24 @@ public class ClienteController {
 		return "forward:listarConcorrentePorCliente";
 	}
 
-	@RequestMapping(value = "formularioAlterarCliente", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String formularioAlterarCliente(Model model, @RequestParam("idCliente") String id) throws BusinessException {
 		int idCliente = Integer.parseInt(id);
 		model.addAttribute("cliente", clienteBusiness.obterPorId(idCliente));
-		return "cliente/formularioAlterarCliente";
+		return "cliente/alterar";
 	}
 
 	@RequestMapping(value = "alterarCliente", method = RequestMethod.POST)
 	public String alterarCliente(ClienteBean clienteBean) throws BusinessException {
 		clienteBean.setAtivo('S');
 		clienteBusiness.alterar(clienteBean);
-		return "redirect:listarCliente";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "listarCliente", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "listar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarCliente(Model model) throws BusinessException {
 		model.addAttribute("listaCliente", clienteBusiness.listar());
-		return "cliente/listarClientes";
+		return "cliente/listar";
 	}
 
 	@RequestMapping(value = "listarConcorrentePorCliente", method = { RequestMethod.GET, RequestMethod.POST })
@@ -114,7 +114,7 @@ public class ClienteController {
 		
 		clienteBusiness.remover(clienteBean);
 		concorrenteBusiness.removerConcorrenteCliente(idCliente);
-		return "redirect:listarCliente";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "removerConcorrenteDoCliente", method = RequestMethod.GET)
