@@ -48,13 +48,13 @@
 												<tr>
 													<td>${tecnologia.nome}</td>
 													<td style="text-align: center;"><a href="
-													<c:url value='/tecnologia/formularioAlterarTecnologia'>
+													<c:url value='/tecnologia/alterar'>
 													<c:param name='idTecnologia' value='${tecnologia.id}'/>
 													</c:url>
 													">													
 													<i class="fa fa-edit fa-lg"></a></td>
 													<td style="text-align: center;"><a href="
-													<c:url value='/tecnologia/removerTecnologia'>
+													<c:url value='/tecnologia/remover'>
 													<c:param name='idTecnologia' value='${tecnologia.id}'/>
 													<c:param name='ativo' value='N'/>
 													</c:url>
@@ -65,7 +65,7 @@
 										</tbody>
 									</table>
 									<div class="panel-footer text-left">
-										<a href="<c:url value='/tecnologia/formularioAdicionarTecnologia'/>">
+										<a href="<c:url value='/tecnologia/adicionar'/>">
 											<button class="btn btn-success" type="submit">Cadastrar
 												Nova Tecnologia</button>
 										</a>
