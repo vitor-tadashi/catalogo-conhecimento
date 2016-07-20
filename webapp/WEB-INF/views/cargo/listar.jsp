@@ -16,7 +16,7 @@
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i>
-					<a href="<c:url value='/'/>">Principal</a></li>
+					<a href="<c:url value='/home/index'/>">Principal</a></li>
 				<li>Cargos</li>
 				<li class="active">Lista de Cargos</li>
 			</ul>
@@ -51,7 +51,7 @@
 												<td>${cargo.nome}</td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='/cargo/formularioAlterarCargo'>
+													<c:url value='/cargo/alterar'>
 													<c:param name='idCargo' value='${cargo.id}'/>
 													</c:url>
 													">													
@@ -69,7 +69,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
+									<a href="<c:url value='/cargo/adicionar'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Novo Cargo</button>
 									</a>
 								</div>

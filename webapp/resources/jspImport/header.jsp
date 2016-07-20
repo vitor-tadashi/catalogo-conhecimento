@@ -133,13 +133,13 @@
 									</span> Cadastrar Funcionário
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/cargo/listarCargo'/>"> <span
+							<li><a href="<c:url value='/cargo/listar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Cargos
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
+							<li><a href="<c:url value='/cargo/adicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cargo
