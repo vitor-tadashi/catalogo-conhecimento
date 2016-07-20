@@ -85,6 +85,7 @@ public class ProjetoBusiness {
 		}
 
 		if (projetoBean.getListaEquipe() != null) {
+			projetoBean.getListaEquipe().removeIf(p -> p == null || (p != null && p.getId() <=0));
 			for (EquipeBean equipe : projetoBean.getListaEquipe()) {
 				equipes.add(equipeDAO.obterPorId(equipe.getId()));
 			}

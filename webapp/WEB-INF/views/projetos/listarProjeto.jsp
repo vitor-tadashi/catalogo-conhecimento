@@ -152,7 +152,7 @@
 												<td>${projeto.observacao}</td>
 												<td style="text-align: center;"><a
 													href="
-													<c:url value='/projeto/formularioAlterarProjeto'>
+													<c:url value='/projeto/alterar'>
 													<c:param name='idProjeto' value='${projeto.id}'/>
 													</c:url>
 													">
@@ -171,7 +171,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='/projeto/formularioAdicionarProjeto'/>">
+									<a href="<c:url value='/projeto/adicionar'/>">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Projeto</button>
 									</a>
