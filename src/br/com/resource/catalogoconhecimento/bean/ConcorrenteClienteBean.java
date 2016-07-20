@@ -4,8 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -14,22 +15,19 @@ import org.springframework.stereotype.Component;
 @Table(name = "ConcorrenteCliente")
 public class ConcorrenteClienteBean {
 
-
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "idConcorrenteCliente", unique = true, nullable = false)
 	private int id;
-	
-	private int idCliente;
-	
-	private int idConcorrente;
-	
-	@Transient
+
+	@ManyToOne
+	@JoinColumn(name = "idCliente")
 	private ClienteBean cliente;
-	
-	@Transient
+
+	@ManyToOne
+	@JoinColumn(name = "idConcorrente")
 	private ConcorrenteBean concorrente;
-	
+
 	private double valorHora;
 
 	public int getId() {
@@ -48,7 +46,6 @@ public class ConcorrenteClienteBean {
 		this.valorHora = valorhora;
 	}
 
-
 	public ConcorrenteBean getConcorrente() {
 		return concorrente;
 	}
@@ -56,7 +53,7 @@ public class ConcorrenteClienteBean {
 	public void setConcorrente(ConcorrenteBean concorrente) {
 		this.concorrente = concorrente;
 	}
-	
+
 	public ClienteBean getCliente() {
 		return cliente;
 	}
@@ -65,21 +62,4 @@ public class ConcorrenteClienteBean {
 		this.cliente = cliente;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public int getIdConcorrente() {
-		return idConcorrente;
-	}
-
-	public void setIdConcorrente(int idConcorrente) {
-		this.idConcorrente = idConcorrente;
-	}
-	
-	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,79 +37,140 @@
 										<div class="panel-heading">
 											<h3>Alterar Funcionário</h3>
 										</div>
-										<div class="panel-body">
-											<div class="row">
-												
-												<!-- Message Erro-->
-												<c:import url="/resources/jspImport/msgErro.jsp"/>
-												
-												<input type="hidden" name="id" value="${funcionario.id}">
-												
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">Nome:
-															<input type="text" class="form-control"  maxlength="80" name="nome" value="${funcionario.nome}">
-														</label>
-													</div>
-												</div><!-- /.col -->
-								
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">Telefone/Celular:
-															<input type="text" class="form-control" maxlength="11" placeholder="(99)9999-9999" name="telefone" value="${funcionario.telefone}">
-														</label>
-													</div>
-												</div><!-- /.col -->
-											
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">Cargo:
-																<select class="form-control"  name="cargo.id">
-																	<c:forEach items="${cargos}" var="cargos">
-																		<option value="${cargos.id}">${cargos.nome}</option>
-																	</c:forEach>
-																</select>
-														</label>
-													</div>
-												</div><!-- /.col -->
+								<div class="panel-body">
+										<div class="row">
 
-												<div class="col-sm-2">
-													<div class="form-group">
-														<label class="control-label">Tecnologia:
-														</label>
-														<div class="checkbox">
-															<c:forEach items="${tecnologias}" var="tecnologia" varStatus="count">
-																<label class="control-label">		
-																	<input type="checkbox" name="listaTecnologia[${count.index}].id" value="${tecnologia.id}" />
-																	<span class="custom-checkbox"></span>
-																	${tecnologia.nome}
-																</label>
-																<br>
+											<!-- Message Erro-->
+											<c:import url="/resources/jspImport/msgErro.jsp" />
+											<input type="hidden" name="ativo" value="S">
+											
+											<input type="hidden" name="id" value="${funcionario.id}">
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Nome: <input
+														type="text" class="form-control" maxlength="80"
+														name="nome" value="${funcionario.nome}">
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Telefone: <input
+														type="text" class="form-control" maxlength="11"
+														placeholder="(99)9999-9999" name="telefone" value="${funcionario.telefone}">
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Cargo: <select
+														class="form-control" name="cargo.id">
+															<c:forEach items="${cargos}" var="cargos">
+																<option value="${cargos.id}">${cargos.nome}</option>
 															</c:forEach>
-														</div>	
-													</div>
-												</div><!-- /.col --> 
-												
-												
-												<div class="col-sm-3">
-													<div class="form-group">
-														<label class="control-label">Negócios:
-														</label>
-														<div class="checkbox">
-															<c:forEach items="${negocios}" var="negocio" varStatus="count">
-																<label class="control-label">		
-																	<input type="checkbox" name="listaNegocio[${count.index}].id" value="${negocio.id}" />
-																	<span class="custom-checkbox"></span>
-																	${negocio.areaAtuacao}
-																</label>
-																<br>
-															</c:forEach>
-														</div>	
-													</div>
-												</div><!-- /.col -->  
-											</div><!-- /.row -->
+													</select>
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
+
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Email: <input
+														type="text" class="form-control" name="email" value="${funcionario.email}">
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Nome de usuario: <input
+														type="text" class="form-control" maxlength="50"
+														name="nomeUser" value="${funcionario.nomeUser}" readonly>
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
 
 										</div>
+										<div class="row">
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">CPF: <input
+														type="text" class="form-control" maxlength="11"
+														placeholder="999.999.999-99" name="cpf" value="${funcionario.cpf}" readonly>
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
+
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">RG: <input type="text"
+														class="form-control" maxlength="9"
+														placeholder="99.999.999-9" name="rg" value="${funcionario.rg}" readonly>
+													</label>
+												</div>
+											</div>
+											<!-- /.col -->
+
+											<div class="col-sm-2">
+												<div class="form-group">
+														<fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${funcionario.dataNascimento}" var="dataNascimentoFormatted"/>
+														<label class="control-label">Data de nascimento: <input
+															type="text" id="data" class="form-control"
+											 				name="dataNascimento" value="${dataNascimentoFormatted}" readonly>
+														</label>
+												</div>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Tecnologia: </label>
+													<div class="checkbox">
+															<c:forEach items="${listaTecnologia}" var="tecnologia"
+																varStatus="count">
+																<label class="control-label"> <input
+																	type="checkbox"
+																	name="listaTecnologia[${count.index}].id"
+																	value="${tecnologia.id}" /> <span
+																	class="custom-checkbox"></span> ${tecnologia.nome}
+																</label>
+																<br>
+															</c:forEach>
+													</div>
+												</div>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-2">
+												<div class="form-group">
+													<label class="control-label">Negócios: </label>
+													<div class="checkbox">
+														<c:forEach items="${listaNegocio}" var="negocio"
+																varStatus="count">
+															<label class="control-label"> <input
+																type="checkbox"
+																name="listaNegocio[${count.index}].id"
+																value="${negocio.id}" /> <span
+																class="custom-checkbox"></span> ${negocio.areaAtuacao}
+															</label>
+														</c:forEach>
+													</div>
+												</div>
+											</div>
+											<!-- /.col -->
+
+										</div>
+										<!-- /.row -->
+									</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>
 										</div>
@@ -185,6 +247,18 @@ $(document).ready(function() {
 	                }
 	            }
 	        },
+			email : {
+				validators : {
+					notEmpty : {
+						message : '* Campo Obrigatório.'
+					},
+					regexp : {
+						enabled : true,
+						regexp : '^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$',
+						message : 'E-mail inválido, requerido um @ e um domínio completo.'
+					}
+				}
+			},
 	        'tecnologiasArray': {
 	            validators: {
 	            	choice: {

@@ -1,10 +1,6 @@
 package br.com.resource.catalogoconhecimento.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -12,10 +8,8 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.resource.catalogoconhecimento.bean.ClienteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
-import br.com.resource.catalogoconhecimento.factory.ConnectionFactory;
 
 @Repository
 public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
@@ -46,41 +40,14 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @throws SQLException
 	 */
 	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
-		/*
-		 * TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
-		 * "SELECT cc FROM ConcorrenteClienteBean AS cc WHERE cc.idCliente = :id"
-		 * , ConcorrenteClienteBean.class); query.setParameter("id", idCliente);
-		 * 
-		 * return query.getResultList();
-		 */
-		String sql = "SELECT CO.*, CC.valorHora, CL.idCliente, CL.nomeCliente, CC.idConcorrenteCliente FROM Concorrente AS CO"
-				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
-				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
-				+ " WHERE CL.idCliente = ? AND CL.ativo = ?";
 
-		Connection conn = ConnectionFactory.createConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, idCliente);
-		ps.setString(2, "s");
-		ResultSet rs = ps.executeQuery();
-		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
-		while (rs.next()) {
-			ConcorrenteClienteBean concorrenteCliente = new ConcorrenteClienteBean();
-			concorrenteCliente.setId(rs.getInt("idConcorrenteCliente"));
-			concorrenteCliente.setValorHora(rs.getDouble("valorHora"));
-			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-			concorrenteBean.setId(rs.getInt("idConcorrente"));
-			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
-			concorrenteBean.setDescricao(rs.getString("descricao"));
-			concorrenteCliente.setConcorrente(concorrenteBean);
-			ClienteBean clienteBean = new ClienteBean();
-			clienteBean.setId(rs.getInt("idCliente"));
-			clienteBean.setNome(rs.getString("nomeCliente"));
-			concorrenteCliente.setCliente(clienteBean);
-			listaConcorrentesClientes.add(concorrenteCliente);
-		}
-		conn.close();
-		return listaConcorrentesClientes;
+		TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
+				"SELECT cc FROM ConcorrenteClienteBean AS cc WHERE cc.cliente.id = :id AND cc.cliente.ativo = 'S'",
+				ConcorrenteClienteBean.class);
+		query.setParameter("id", idCliente);
+
+		return query.getResultList();
+
 	}
 
 	/**
@@ -94,36 +61,11 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @throws SQLException
 	 */
 	public List<ConcorrenteClienteBean> listarPorConcorrente(int id) throws SQLException, ClassNotFoundException {
-
-		Connection conn = ConnectionFactory.createConnection();
-		String sql = "SELECT CO.*, CC.*, CL.idCliente, CL.nomeCliente FROM Concorrente AS CO"
-				+ " INNER JOIN ConcorrenteCliente AS CC ON CO.idConcorrente = CC.idConcorrente"
-				+ " INNER JOIN Cliente AS CL ON CC.idCliente = CL.idCliente"
-				+ " WHERE CC.idConcorrente = ? AND CO.ativo = ? and CL.ativo = 'S'";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, id);
-		ps.setString(2, "s");
-
-		ResultSet rs = ps.executeQuery();
-		ArrayList<ConcorrenteClienteBean> listaConcorrentesClientes = new ArrayList<ConcorrenteClienteBean>();
-		while (rs.next()) {
-			ConcorrenteClienteBean concorrenteClienteBean = new ConcorrenteClienteBean();
-			concorrenteClienteBean.setId(rs.getInt("idConcorrenteCliente"));
-			concorrenteClienteBean.setValorHora(rs.getDouble("valorHora"));
-			ConcorrenteBean concorrenteBean = new ConcorrenteBean();
-			concorrenteBean.setId(rs.getInt("idConcorrente"));
-			concorrenteBean.setNome(rs.getString("nomeConcorrente"));
-			concorrenteBean.setDescricao(rs.getString("descricao"));
-			concorrenteClienteBean.setConcorrente(concorrenteBean);
-			ClienteBean clienteBean = new ClienteBean();
-			clienteBean.setId(rs.getInt("idCliente"));
-			clienteBean.setNome(rs.getString("nomeCliente"));
-			concorrenteClienteBean.setCliente(clienteBean);
-			listaConcorrentesClientes.add(concorrenteClienteBean);
-		}
-		conn.close();
-		return listaConcorrentesClientes;
-
+		TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
+				"SELECT cc FROM ConcorrenteClienteBean AS cc WHERE cc.concorrente.id = :id AND cc.concorrente.ativo = 'S'",
+				ConcorrenteClienteBean.class);
+		query.setParameter("id", id);
+		return query.getResultList();
 	}
 
 	/**
@@ -212,7 +154,6 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 		Query query = entityManager
 				.createQuery("DELETE FROM ConcorrenteClienteBean AS c WHERE c.idConcorrente = :idConcorrente");
 		query.setParameter("idConcorrente", idConcorrente);
-
 		query.executeUpdate();
 	}
 
@@ -225,7 +166,6 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 		} else {
 			return concorrentes.get(0);
 		}
-
 	}
 
 }

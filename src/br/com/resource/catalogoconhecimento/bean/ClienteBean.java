@@ -2,12 +2,14 @@ package br.com.resource.catalogoconhecimento.bean;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -38,23 +40,9 @@ public class ClienteBean {
 	
 	private char ativo;
 	
-	@Transient
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ConcorrenteClienteBean> listaConcorrentes;
 	
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable(name = "ConcorrenteCliente", joinColumns = {
-//			@JoinColumn(name = "idConcorrente", nullable = false, updatable = false) }, inverseJoinColumns = {
-//					@JoinColumn(name = "idCliente", nullable = false, updatable = false) })
-//	private List<ConcorrenteBean> listaConcorrentes;
-//	
-//	public List<ConcorrenteBean> getListaConcorrentes() {
-//		return listaConcorrentes;
-//	}
-//
-//	public void setListaConcorrentes(List<ConcorrenteBean> listaConcorrentes) {
-//		this.listaConcorrentes = listaConcorrentes;
-//	}
-
 	public char getAtivo() {
 		return ativo;
 	}

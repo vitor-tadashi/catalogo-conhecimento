@@ -57,9 +57,9 @@ public class TecnologiaBusiness {
 
 	public List<TecnologiaBean> listarPorProjeto(ProjetoBean projetoBean) throws BusinessException {
 		try {
-			List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean);
+			List<TecnologiaBean> listaTecnologia = tecnologiaDao.listarPorProjeto(projetoBean.getId());
 			if (listaTecnologia.isEmpty()) {
-				throw new ConsultaNulaException("N�o h� tecnologias cadastradas");
+				throw new ConsultaNulaException("Não há tecnologias cadastradas");
 			} else {
 				return listaTecnologia;
 			}
@@ -84,11 +84,6 @@ public class TecnologiaBusiness {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
-//	public TecnologiaBean obterNomeDesativado(TecnologiaBean tecnologiaBean)
-//			throws SQLException, ClassNotFoundException {
-//		return tecnologiaDao.obterDesativado(tecnologiaBean);
-//	}
 
 	public List<TecnologiaBean> obterPorFuncionario(int idFuncionario) throws BusinessException {
 		try {
@@ -121,21 +116,9 @@ public class TecnologiaBusiness {
 	@Transactional
 	public void remover(TecnologiaBean tecnologiaBean) throws BusinessException {
 		try {
-			// if (tecnologiaDao.verificarPorFuncionario(id) &&
-			// tecnologiaDao.verificarPorProjeto(id)) {
 			tecnologiaDao.remover(tecnologiaBean);
-			// } else {
-			// throw new RegistroVinculadoException("Registro n�o pode ser
-			// removido pois possui v�nculos");
-			// }
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
-
-	// public void reativar(TecnologiaBean tecnologia) throws SQLException,
-	// ClassNotFoundException {
-	// tecnologiaDao.reativar(tecnologia);
-	// }
-
 }
