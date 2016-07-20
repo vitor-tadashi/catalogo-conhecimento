@@ -23,7 +23,7 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
-@RequestMapping("equipe")
+@RequestMapping("/equipe")
 public class EquipeController {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class EquipeController {
 	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
 	public String adicionar(EquipeBean equipe, @RequestParam("ativo") String ativo) throws BusinessException {
 		equipe.setAtivo(ativo.charAt(0));
-		equipeBusiness.inserir(equipe);
+		equipeBusiness.adicionar(equipe);
 		return "redirect:listar";
 	}
 
@@ -66,17 +66,17 @@ public class EquipeController {
 	@RequestMapping(value = "alterarEquipe", method = RequestMethod.POST)
 	public String alterarEquipe(EquipeBean equipe, @RequestParam("idEquipe") String id) throws BusinessException {
 		equipe.setId(Integer.parseInt(id));
-		equipeBusiness.atualizar(equipe);
+		equipeBusiness.alterar(equipe);
 		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "excluirEquipe", method = RequestMethod.GET)
-	public String excluir(@RequestParam("idEquipe") String id, @RequestParam("ativo") String ativo,
+	public String remover(@RequestParam("idEquipe") String id, @RequestParam("ativo") String ativo,
 			HttpServletRequest request) throws BusinessException {
 		int idEquipe = Integer.parseInt(id);
 		EquipeBean equipe = equipeBusiness.obterPorId(idEquipe);
 		equipe.setAtivo(ativo.charAt(0));
-		equipeBusiness.deletar(equipe);
+		equipeBusiness.remover(equipe);
 		return "redirect:listar";
 	}
 
@@ -86,7 +86,7 @@ public class EquipeController {
 
 		int idEquipe = Integer.parseInt(idEq);
 		int idFuncionario = Integer.parseInt(idFunc);
-		equipeBusiness.deletarPorEquipe(idEquipe, idFuncionario);
+		equipeBusiness.removerPorEquipe(idEquipe, idFuncionario);
 		request.setAttribute("idEquipe", idEq);
 
 		return "forward:listarFuncionarioPorEquipe";

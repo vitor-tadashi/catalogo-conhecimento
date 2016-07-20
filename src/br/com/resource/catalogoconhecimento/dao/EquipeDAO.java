@@ -42,7 +42,7 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 	}
 
 	// DELETAR DADOS NA TABELA POR EQUIPE
-	public void deletarPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
+	public void removerPorEquipe(int idEquipe, int idFuncionario) throws ClassNotFoundException, SQLException {
 		Query query = entityManager.createQuery(
 				"DELETE FROM EquipeFuncionarioBean AS e WHERE e.idEquipe = :idEquipe AND e.idFuncionario = :idFuncionario");
 		query.setParameter("idEquipe", idEquipe);
