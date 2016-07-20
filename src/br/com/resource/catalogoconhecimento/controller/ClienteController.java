@@ -106,7 +106,7 @@ public class ClienteController {
 		return "cliente/listarConcorrentePorCliente";
 	}
 
-	@RequestMapping(value = "removerCliente", method = RequestMethod.GET)
+	@RequestMapping(value = "remover", method = RequestMethod.GET)
 	public String removerCliente(@RequestParam("idCliente") String idClienteParam) throws BusinessException {
 		int idCliente = Integer.parseInt(idClienteParam);
 		ClienteBean clienteBean = clienteBusiness.obterPorId(idCliente);
@@ -134,6 +134,6 @@ public class ClienteController {
 	@ExceptionHandler(BusinessException.class)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "forward:listarCliente";
+		return "forward:listar";
 	}
 }
