@@ -1,4 +1,4 @@
-package br.com.resource.catalogoconhecimento.criptografia;
+package br.com.resource.catalogoconhecimento.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
