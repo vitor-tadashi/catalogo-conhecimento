@@ -36,7 +36,7 @@
 
                         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                             
-                        <form id="loginform" class="form-horizontal" role="form" method="POST" action="/catalogoconhecimento/usuario/logarUsuario">
+                        <form id="loginform" class="form-horizontal" role="form" method="POST" action="/catalogoconhecimento/usuario/logar">
                         
                         	<!-- Message Erro-->
 							<c:import url="/resources/jspImport/msgErro.jsp"/>
@@ -103,7 +103,7 @@
                             <div class="panel-title">Criar Login</div>
                         </div>  
                         <div class="panel-body" >
-                            <form id="signupform" class="form-horizontal" role="form" method="POST" action="/catalogoconhecimento/usuario/adicionarUsuario">
+                            <form id="signupform" class="form-horizontal" role="form" method="POST" action="/catalogoconhecimento/usuario/adicionar">
                                 <input type ="hidden" name="ativo" value = "S"/>
                                 <div id="signupalert" style="display:none" class="alert alert-danger">
                                     <p>Erro:</p>

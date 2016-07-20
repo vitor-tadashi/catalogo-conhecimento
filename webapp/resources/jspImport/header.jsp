@@ -203,7 +203,7 @@
 						</span> <span class="text"> Usuários </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/usuario/listarUsuarios'/>"> 
+							<li><a href="<c:url value='/usuario/listar'/>"> 
 							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Usuários
 								</span>
