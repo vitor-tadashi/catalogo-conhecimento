@@ -39,31 +39,31 @@ public class ProjetoController {
 
 
 
-	@RequestMapping(value = "formularioAdicionarProjeto", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {
 		model.addAttribute("negocios", negocioBusiness.listar());
 		model.addAttribute("clientes", clienteBusiness.listar());
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
 		model.addAttribute("equipes", equipeBusiness.listar());
 
-		return "projetos/formularioAdicionarProjeto";
+		return "projetos/adicionar";
 	}
 
 	@RequestMapping(value = "adicionarProjeto", method = RequestMethod.POST)
 	public String adicionarProjeto(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.adicionar(projetoBean);
 
-		return "redirect:listarProjeto";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "listarProjeto", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "listar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listar(Model model) throws BusinessException {
 		model.addAttribute("projetos", projetoBusiness.listar());
 
-		return "projetos/listarProjeto";
+		return "projetos/listar";
 	}
 
-	@RequestMapping(value = "formularioAlterarProjeto", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String alterar(Model model, @RequestParam("idProjeto") String id) throws BusinessException {
 		int idProjeto = Integer.parseInt(id);
 
@@ -73,14 +73,14 @@ public class ProjetoController {
 		model.addAttribute("tecnologias", tecnologiaBusiness.listar());
 		model.addAttribute("equipes", equipeBusiness.listar());
 
-		return "projetos/formularioAlterarProjeto";
+		return "projetos/alterar";
 	}
 
 	@RequestMapping(value = "alterarProjeto", method = RequestMethod.POST)
 	public String alterar(ProjetoBean projetoBean) throws BusinessException {
 		projetoBusiness.atualizar(projetoBean);
 
-		return "redirect:listarProjeto";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "removerProjeto", method = RequestMethod.GET)
@@ -88,13 +88,13 @@ public class ProjetoController {
 		int idProjeto = Integer.parseInt(id);
 
 		projetoBusiness.remover(idProjeto);
-		return "redirect:listarProjeto";
+		return "redirect:listar";
 	}
 
 	@ExceptionHandler(BusinessException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "forward:listarProjeto";
+		return "forward:listar";
 	}
 }
