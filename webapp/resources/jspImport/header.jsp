@@ -72,13 +72,13 @@
 						</span> <span class="text"> Negócios </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/negocio/listarNegocio'/>"> <span
+							<li><a href="<c:url value='/negocio/listar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Negócios
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/negocio/formularioAdicionarNegocio'/>">
+							<li><a href="<c:url value='/negocio/formularioAdicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Negócio

@@ -51,7 +51,7 @@
 												<td>${negocio.areaAtuacao}</td>
 												<td style="text-align: center;"><a
 													href="
-													<c:url value='/negocio/formularioAlterarNegocio'>
+													<c:url value='/negocio/formularioAlterar'>
 													<c:param name='idNegocio' value='${negocio.id}'/>
 													</c:url>
 													">
@@ -59,7 +59,7 @@
 												</a></td>
 												<td style="text-align: center;"><a
 													href="
-													<c:url value='/negocio/removerNegocio'>
+													<c:url value='/negocio/remover'>
 													<c:param name='idNegocio' value='${negocio.id}'/> 
 													<c:param name='ativo' value='n'/>
 													</c:url>
@@ -71,7 +71,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="<c:url value='/negocio/formularioAdicionarNegocio'/>">
+									<a href="<c:url value='/negocio/formularioAdicionar'/>">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Negócio</button>
 									</a>
