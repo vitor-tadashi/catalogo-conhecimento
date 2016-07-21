@@ -56,7 +56,7 @@
 												<td>${equipe.observacao}</td>
 												<td style="text-align: center;">
 													<a href="
-													<c:url value='/equipe/formularioAlterarEquipe'>
+													<c:url value='/equipe/alterar'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
 													</c:url>
 													">
@@ -65,7 +65,7 @@
 													<a href="
 													<c:url value='excluirEquipe'>
 													<c:param name='idEquipe' value='${equipe.id}'/>
-													<c:param name='paginaAtual' value='listarEquipe'/>
+													<c:param name='paginaAtual' value='listar'/>
 													<c:param name='ativo' value='N'/>
 													</c:url>
 													">
@@ -83,7 +83,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-								<a href="<c:url value='/equipe/formularioAdicionarEquipe'/>">
+								<a href="<c:url value='/equipe/adicionar'/>">
 										<button class="btn btn-success" type="submit">Cadastrar Nova Equipe</button>
 										</a>
 									</div> 

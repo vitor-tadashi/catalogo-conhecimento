@@ -53,14 +53,14 @@
 						</span> <span class="text"> Tecnologias </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/tecnologia/listarTecnologia'/>">
+							<li><a href="<c:url value='/tecnologia/listar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Tecnologias
 								</span>
 							</a></li>
 							<li><a
-								href="<c:url value='/tecnologia/formularioAdicionarTecnologia'/>">
+								href="<c:url value='/tecnologia/adicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Tecnologia
@@ -72,13 +72,13 @@
 						</span> <span class="text"> Negócios </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/negocio/listarNegocio'/>"> <span
+							<li><a href="<c:url value='/negocio/listar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Negócios
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/negocio/formularioAdicionarNegocio'/>">
+							<li><a href="<c:url value='/negocio/formularioAdicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Negócio
@@ -108,14 +108,14 @@
 						</span> <span class="text"> Equipes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/equipe/listarEquipe'/>"> <span
+							<li><a href="<c:url value='/equipe/listar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Equipes
 								</span>
 							</a></li>
 							<li><a
-								href="<c:url value='/equipe/formularioAdicionarEquipe'/>"> <span
+								href="<c:url value='/equipe/adicionar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Equipe
@@ -133,13 +133,13 @@
 									</span> Cadastrar Funcionário
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/cargo/listarCargo'/>"> <span
+							<li><a href="<c:url value='/cargo/listar'/>"> <span
 									class="submenu-label"> <span class="menu-icon"> <i
 											class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Cargos
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/cargo/formularioAdicionarCargo'/>">
+							<li><a href="<c:url value='/cargo/adicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Cargo
@@ -203,7 +203,7 @@
 						</span> <span class="text"> Usuários </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/usuario/listarUsuarios'/>"> 
+							<li><a href="<c:url value='/usuario/listar'/>"> 
 							<span class="submenu-label"> <span class="menu-icon"> <i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Usuários
 								</span>

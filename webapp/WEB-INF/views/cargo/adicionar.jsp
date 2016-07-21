@@ -12,9 +12,8 @@
 		<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i>
-					<a href="<c:url value='/'/>">Principal</a></li>
-				<li>Cargos</li>
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/home/index'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/cargo/listar'/>">Cargos</a></li>
 				<li class="active">Adicionar Cargo</li>
 			</ul>
 		</div>

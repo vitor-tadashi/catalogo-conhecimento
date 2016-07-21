@@ -36,9 +36,9 @@ public class UsuarioController {
 		return "login/login";
 	}
 
-	@RequestMapping(value = "formularioAdicionarUsuario", method = RequestMethod.GET)
+	@RequestMapping(value = "formularioAdicionar", method = RequestMethod.GET)
 	public String formularioAdicionar() {
-		return "usuario/formularioAdicionarUsuario";
+		return "usuario/formularioAdicionar";
 	}
 	
 	@RequestMapping(value = "fazerLogoff")
@@ -47,7 +47,7 @@ public class UsuarioController {
 		return "redirect:/usuario";
 	}
 
-	@RequestMapping(value = "adicionarUsuario", method = RequestMethod.POST)
+	@RequestMapping(value = "adicionar", method = RequestMethod.POST)
 	public String adiciona(UsuarioBean usuarioBean, @RequestParam("perfil") String id) throws BusinessException {
 		int idPerfil = Integer.parseInt(id);
 		usuarioBean.setAtivo('S');
@@ -57,43 +57,43 @@ public class UsuarioController {
 		return "login/login";
 	}
 
-	@RequestMapping(value = "listarUsuarios", method = { RequestMethod.GET,RequestMethod.POST })
+	@RequestMapping(value = "listar", method = { RequestMethod.GET,RequestMethod.POST })
 	public String listarUsuario(Model model) throws BusinessException {
 		model.addAttribute("usuarios", usuarioBusiness.listar());
-		return "usuarios/listarUsuario";
+		return "usuarios/listar";
 	}
 	
-	@RequestMapping(value = "formularioAlterarUsuario", method = RequestMethod.GET)
+	@RequestMapping(value = "formularioAlterar", method = RequestMethod.GET)
 	public String alterar(Model model,UsuarioBean usuarioBean, @RequestParam("idUsuario") String id) throws BusinessException {
 		int idUsuario = Integer.parseInt(id);
 		
 		model.addAttribute("usuarios", usuarioBusiness.obterPorId(idUsuario));
 		model.addAttribute("perfis", perfilBusiness.listar());
 		
-		return "usuarios/alterarUsuario";
+		return "usuarios/alterar";
 	}
 
-	@RequestMapping(value = "alterarUsuario", method ={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "alterar", method ={RequestMethod.GET, RequestMethod.POST})
 	public String alterar(UsuarioBean usuarioBean,@RequestParam("perfil")String idP) throws BusinessException {
 		
 		int idPerfil = Integer.parseInt(idP);
 		PerfilBean perfilBean = perfilBusiness.obterPorId(idPerfil);
 		usuarioBean.setPerfilBean(perfilBean);
 		usuarioBusiness.atualizar(usuarioBean);
-		return "redirect:listarUsuarios";
+		return "redirect:listar";
 	}
 	
-	@RequestMapping(value = "excluirUsuario", method = RequestMethod.GET)
+	@RequestMapping(value = "excluir", method = RequestMethod.GET)
 	public String excluir(@RequestParam("idUsuario") String id, @RequestParam("ativo") String ativo)
 			throws BusinessException {
 		int idUsuario = Integer.parseInt(id);
 		UsuarioBean usuario = usuarioBusiness.obterPorId(idUsuario);
 		usuario.setAtivo(ativo.charAt(0));
 		usuarioBusiness.deletar(usuario);
-		return "redirect:listarUsuarios";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "logarUsuario", method = RequestMethod.POST)
+	@RequestMapping(value = "logar", method = RequestMethod.POST)
 	public ModelAndView logar(UsuarioBean usuarioBean, HttpServletRequest request) throws BusinessException {
 		UsuarioBean usuario = usuarioBusiness.logar(usuarioBean.login, usuarioBean.senha);
 		HttpSession session = SessionUtil.getInstance(request);

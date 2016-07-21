@@ -152,7 +152,7 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 */
 	public void removerClienteConcorrente(int idConcorrente) {
 		Query query = entityManager
-				.createQuery("DELETE FROM ConcorrenteClienteBean AS c WHERE c.idConcorrente = :idConcorrente");
+				.createQuery("DELETE FROM ConcorrenteClienteBean AS c WHERE c.concorrente.id = :idConcorrente");
 		query.setParameter("idConcorrente", idConcorrente);
 		query.executeUpdate();
 	}
