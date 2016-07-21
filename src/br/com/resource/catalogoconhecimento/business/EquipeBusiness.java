@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.resource.catalogoconhecimento.bean.EquipeBean;
 import br.com.resource.catalogoconhecimento.dao.EquipeDAO;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
+import br.com.resource.catalogoconhecimento.exceptions.CaracteresEspeciaisException;
 import br.com.resource.catalogoconhecimento.exceptions.ConsultaNulaException;
 import br.com.resource.catalogoconhecimento.exceptions.NomeRepetidoException;
 import br.com.resource.catalogoconhecimento.exceptions.TamanhoCampoException;
@@ -28,17 +29,17 @@ public class EquipeBusiness {
 	@Transactional
 	public void adicionar(EquipeBean equipeBean) throws BusinessException {
 		try {
-			EquipeBean equipeigual = equipeDAO.obterPorNome(equipeBean.getNome().trim());
-			if (!validarNome(equipeBean.getNome())) {
-				throw new TamanhoCampoException("Por Favor, digite um nome válido");
-			} else if (equipeigual != null && equipeigual.getId() != equipeBean.getId()) {
-				throw new NomeRepetidoException("Esta equipe já consta na base de dados");
+			if (equipeDAO.obterPorNome(equipeBean.getNome().trim()) != null) {
+				throw new NomeRepetidoException("Este nome de equipe já exite na base de dados");
+			} else if (!validarNome(equipeBean.getNome())) {
+				throw new CaracteresEspeciaisException("Por favor, digite um nome de equipe válido");
 			} else if (equipeBean.getObservacao().length() > 500) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido (max 500)");
 			} else {
 				equipeDAO.adicionar(equipeBean);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}
@@ -55,19 +56,19 @@ public class EquipeBusiness {
 
 	// ATUALIZAR NA BASE
 	@Transactional
-	public void alterar(EquipeBean equipe) throws BusinessException {
+	public void alterar(EquipeBean equipeBean) throws BusinessException {
 		try {
-			EquipeBean equipeigual = equipeDAO.obterPorNome(equipe.getNome());
-			if (!validarNome(equipe.getNome()) || equipe.getNome().equals("")) {
-				throw new TamanhoCampoException("Por Favor, digite um nome válido");
-			} else if (equipeigual != null && equipeigual.getId() != equipe.getId()) {
-				throw new NomeRepetidoException("Este nome já consta na base de dados");
-			} else if (equipe.getObservacao().length() > 500) {
+			if (equipeDAO.obterPorNome(equipeBean.getNome().trim()) != null) {
+				throw new NomeRepetidoException("Este nome de equipe já exite na base de dados");
+			} else if (!validarNome(equipeBean.getNome())) {
+				throw new CaracteresEspeciaisException("Por favor, digite um nome de equipe válido");
+			} else if (equipeBean.getObservacao().length() > 500) {
 				throw new TamanhoCampoException("Número limite de caracteres excedido (max 500)");
 			} else {
-				equipeDAO.alterar(equipe);
+				equipeDAO.alterar(equipeBean);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ExceptionUtil.handleException(e);
 		}
 	}

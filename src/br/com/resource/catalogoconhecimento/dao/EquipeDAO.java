@@ -25,20 +25,29 @@ public class EquipeDAO extends GenericDAOImpl<EquipeBean, Integer> {
 	}
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO ID
-	@Override
-	public EquipeBean obterPorId(Integer id) {
+	public EquipeBean obterPorId(int id) {
 		TypedQuery<EquipeBean> query = entityManager
 				.createQuery("SELECT e FROM EquipeBean as e WHERE e.id = :id AND e.ativo = 'S'", EquipeBean.class);
-		EquipeBean equipeBean = query.setParameter("id", id).getResultList().get(0);
-		return equipeBean;
+		query.setParameter("id", id);
+		List<EquipeBean> listaEquipe = query.getResultList();
+		if (listaEquipe.isEmpty()) {
+			return null;
+		} else {
+			return listaEquipe.get(0);
+		}
 	}
 
 	// SELECIONAR DADOS NA TABELA DE EQUIPE PELO NOME
 	public EquipeBean obterPorNome(String nome) throws SQLException, ClassNotFoundException {
 		TypedQuery<EquipeBean> query = entityManager
 				.createQuery("SELECT e FROM EquipeBean AS e WHERE e.nome = :nome AND e.ativo = 'S'", EquipeBean.class);
-		EquipeBean equipeBean = query.setParameter("nome", nome).getResultList().get(0);
-		return equipeBean;
+		query.setParameter("nome", nome);
+		List<EquipeBean> listaEquipe = query.getResultList();
+		if (listaEquipe.isEmpty()) {
+			return null;
+		} else {
+			return listaEquipe.get(0);
+		}
 	}
 
 	// DELETAR DADOS NA TABELA POR EQUIPE
