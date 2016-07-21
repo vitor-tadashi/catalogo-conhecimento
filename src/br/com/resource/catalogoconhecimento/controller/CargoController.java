@@ -21,35 +21,35 @@ public class CargoController {
 	@Autowired
 	private CargoBusiness cargoBusiness;
 
-	@RequestMapping(value = "formularioAdicionarCargo", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionar() {
-		return "cargo/formularioAdicionarCargo";
+		return "cargo/adicionar";
 	}
 
 	@RequestMapping(value = "adicionarCargo", method = RequestMethod.POST)
 	public String adiciona(CargoBean cargoBean, @RequestParam("ativo") String ativo) throws BusinessException {
 		cargoBean.setAtivo(ativo.charAt(0));
 		cargoBusiness.adicionar(cargoBean);
-		return "redirect:listarCargo";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "listarCargo", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "listar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarCargo(Model model) throws BusinessException {
 		model.addAttribute("cargos", cargoBusiness.listar());
-		return "cargo/listarCargos";
+		return "cargo/listar";
 	}
 
-	@RequestMapping(value = "formularioAlterarCargo", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String alterar(Model model, @RequestParam("idCargo") String id) throws BusinessException {
 		int idCargo = Integer.parseInt(id);
 		model.addAttribute("cargo", cargoBusiness.obterPorId(idCargo));
-		return "cargo/formularioAlterarCargo";
+		return "cargo/alterar";
 	}
 
 	@RequestMapping(value = "alterarCargo", method = RequestMethod.POST)
 	public String alterar(CargoBean cargoBean) throws BusinessException {
 		cargoBusiness.alterar(cargoBean);
-		return "redirect:listarCargo";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "excluirCargo", method = RequestMethod.GET)
@@ -59,7 +59,7 @@ public class CargoController {
 		CargoBean cargo = cargoBusiness.obterPorId(idCargo);
 		cargo.setAtivo(ativo.charAt(0));
 		cargoBusiness.remover(cargo);
-		return "redirect:listarCargo";
+		return "redirect:listar";
 	}
 
 	@ExceptionHandler(BusinessException.class)

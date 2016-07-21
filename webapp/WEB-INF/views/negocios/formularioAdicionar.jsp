@@ -27,8 +27,8 @@
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
 									<form class="no-margin" id="formAdd"  method="POST" 
-									action="<c:url value='adicionarNegocio'>
-									<c:param name='paginaAtual' value='catalogoconhecimento/negocio/formularioAdicionarNegocio'/>
+									action="<c:url value='adicionar'>
+									<c:param name='paginaAtual' value='catalogoconhecimento/negocio/formularioAdicionar'/>
 											</c:url>">
 										<div class="panel-heading">
 											<h3>Adicionar Negócio</h3>
