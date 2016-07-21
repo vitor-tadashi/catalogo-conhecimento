@@ -32,22 +32,22 @@ public class ConcorrenteController {
 	@Autowired
 	private ConcorrenteBusiness concorrenteBusiness;
 
-	@RequestMapping(value = "formularioAdicionarConcorrente", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionarConcorrente(Model model) throws BusinessException {
 		model.addAttribute("listaCliente", clienteBusiness.listar());
-		return "concorrente/formularioAdicionarConcorrente";
+		return "concorrente/adicionar";
 	}
 
-	@RequestMapping(value = "adicionarConcorrente", method = RequestMethod.POST)
+	@RequestMapping(value = "adicionar", method = RequestMethod.POST)
 	public String adicionarConcorrente(ConcorrenteBean concorrenteBean, @RequestParam("ativo") String ativo)
 			throws BusinessException {
 		concorrenteBean.setAtivo(ativo.charAt(0));
 		concorrenteBusiness.adicionar(concorrenteBean);
 
-		return "redirect:listarConcorrente";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "adicionarClienteNoConcorrente", method = RequestMethod.POST)
+	@RequestMapping(value = "adicionarcliente", method = RequestMethod.POST)
 	public String adicionarClienteNoConcorrente(Model model, @RequestParam("idConcorrente") String id,
 			@RequestParam("cliente") String[] params, @RequestParam("valorConcorrente") String[] valor,
 			HttpServletRequest request) throws BusinessException {
@@ -73,31 +73,31 @@ public class ConcorrenteController {
 		}
 		request.setAttribute("idConcorrente", concorrenteBean.getId());
 
-		return "forward:listarClientePorConcorrente";
+		return "forward:listarcliente";
 	}
 
-	@RequestMapping(value = "formularioAlterarConcorrente", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String formularioAlterarConcorrente(Model model, @RequestParam("idConcorrente") String idConcorrenteParam)
 			throws BusinessException {
 		int idConcorrente = Integer.parseInt(idConcorrenteParam);
 		model.addAttribute("concorrente", concorrenteBusiness.obterPorId(idConcorrente));
-		return "concorrente/formularioAlterarConcorrente";
+		return "concorrente/alterar";
 	}
 
-	@RequestMapping(value = "alterarConcorrente", method = RequestMethod.POST)
+	@RequestMapping(value = "alterar", method = RequestMethod.POST)
 	public String alterarConcorrente(ConcorrenteBean concorrenteBean) throws BusinessException {
 		concorrenteBean.setAtivo('S');
 		concorrenteBusiness.alterar(concorrenteBean);
-		return "redirect:listarConcorrente";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "listarConcorrente", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "listar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarConcorrente(Model model) throws BusinessException {
 		model.addAttribute("concorrentes", concorrenteBusiness.listar());
-		return "concorrente/listarConcorrente";
+		return "concorrente/listar";
 	}
 
-	@RequestMapping(value = "listarClientePorConcorrente", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "listarcliente", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarClientePorConcorrente(Model model, @RequestParam("idConcorrente") String id)
 			throws BusinessException {
 
@@ -107,10 +107,10 @@ public class ConcorrenteController {
 		model.addAttribute("concorrenteBean", concorrenteBusiness.obterPorId(idConcorrente));
 		model.addAttribute("listaCliente", clienteBusiness.listar());
 
-		return "concorrente/listarClientePorConcorrente";
+		return "concorrente/listarCliente";
 	}
 
-	@RequestMapping(value = "removerConcorrente", method = RequestMethod.GET)
+	@RequestMapping(value = "remover", method = RequestMethod.GET)
 	public String removerConcorrente(@RequestParam("idConcorrente") String idConcorrenteParam)
 			throws BusinessException {
 		int idConcorrente = Integer.parseInt(idConcorrenteParam);
@@ -120,7 +120,7 @@ public class ConcorrenteController {
 		concorrenteBusiness.remover(concorrenteBean);
 		concorrenteBusiness.removerClienteConcorrente(idConcorrente);
 
-		return "redirect:listarConcorrente";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "removerClientedoConcorrente", method = RequestMethod.GET)
@@ -131,13 +131,13 @@ public class ConcorrenteController {
 		int idConcorrenteCliente = Integer.parseInt(idConcorrenteClienteParam);
 		concorrenteBusiness.removerEntidadeDaLista(idConcorrenteCliente);
 		request.setAttribute("idConcorrente", idConcorrente);
-		return "forward:listarClientePorConcorrente";
+		return "forward:listarcliente";
 	}
 
 	@ExceptionHandler(BusinessException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "forward:listarConcorrente";
+		return "forward:listar";
 	}
 }

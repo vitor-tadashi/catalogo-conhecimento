@@ -91,7 +91,7 @@
 									</tbody>
 								</table>
 							</div>
-							<form class="no-margin" id="formAdd"  method="POST" action="/catalogoconhecimento/concorrente/adicionarClienteNoConcorrente">
+							<form class="no-margin" id="formAdd"  method="POST" action="/catalogoconhecimento/concorrente/adicionarcliente">
 								<div class="panel-heading">
 									<h3>Adicionar Cliente</h3>
 								</div>

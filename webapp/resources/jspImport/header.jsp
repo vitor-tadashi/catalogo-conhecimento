@@ -168,13 +168,13 @@
 						</span> <span class="text"> Concorrentes </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li> <a href="<c:url value='/concorrente/listarConcorrente'/>">
+							<li> <a href="<c:url value='/concorrente/listar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Concorrentes
 								</span>
 							</a></li>
-							<li><a href="<c:url value='/concorrente/formularioAdicionarConcorrente'/>">
+							<li><a href="<c:url value='/concorrente/adicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Concorrente

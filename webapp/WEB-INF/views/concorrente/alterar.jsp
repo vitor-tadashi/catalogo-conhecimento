@@ -30,7 +30,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="/catalogoconhecimento/concorrente/alterarConcorrente">
+									<form class="no-margin" id="formAlt"  method="POST" action="/catalogoconhecimento/concorrente/alterar">
 										<div class="panel-heading">
 											<h3>Alterar Concorrente</h3>
 										</div>
@@ -54,8 +54,6 @@
 													</div>
 												</div><!-- /.col -->
 											</div><!-- /.row -->
-											<input type="hidden" name="logicaAtual" value="concorrente.FormularioAlterarConcorrenteLogica&id=${concorrente.id}">
-											<input type="hidden" name="logica" value="concorrente.AlterarConcorrenteLogica">
 										</div>
 										<div class="panel-footer text-left">
 											<button class="btn btn-success" type="submit">Alterar</button>
