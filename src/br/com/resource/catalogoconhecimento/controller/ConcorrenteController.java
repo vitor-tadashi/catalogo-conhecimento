@@ -43,13 +43,7 @@ public class ConcorrenteController {
 			throws BusinessException {
 		concorrenteBean.setAtivo(ativo.charAt(0));
 		concorrenteBusiness.adicionar(concorrenteBean);
-		if (concorrenteBean.getListaClientes() != null) {
-			for (ConcorrenteClienteBean concorrenteCliente : concorrenteBean.getListaClientes()) {
-				concorrenteCliente.setCliente(concorrenteCliente.getCliente());
-				concorrenteCliente.setConcorrente(concorrenteBean);
-				concorrenteBusiness.adicionarConcorrenteCliente(concorrenteCliente);
-			}
-		}
+
 		return "redirect:listarConcorrente";
 	}
 
@@ -78,7 +72,7 @@ public class ConcorrenteController {
 			}
 		}
 		request.setAttribute("idConcorrente", concorrenteBean.getId());
-		
+
 		return "forward:listarClientePorConcorrente";
 	}
 
@@ -122,10 +116,10 @@ public class ConcorrenteController {
 		int idConcorrente = Integer.parseInt(idConcorrenteParam);
 		ConcorrenteBean concorrenteBean = concorrenteBusiness.obterPorId(idConcorrente);
 		concorrenteBean.setAtivo('N');
-		
+
 		concorrenteBusiness.remover(concorrenteBean);
 		concorrenteBusiness.removerClienteConcorrente(idConcorrente);
-		
+
 		return "redirect:listarConcorrente";
 	}
 

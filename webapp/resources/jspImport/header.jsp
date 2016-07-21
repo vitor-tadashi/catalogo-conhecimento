@@ -53,14 +53,14 @@
 						</span> <span class="text"> Tecnologias </span> <span class="menu-hover"></span>
 					</a>
 						<ul class="submenu">
-							<li><a href="<c:url value='/tecnologia/listarTecnologia'/>">
+							<li><a href="<c:url value='/tecnologia/listar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Lista de Tecnologias
 								</span>
 							</a></li>
 							<li><a
-								href="<c:url value='/tecnologia/formularioAdicionarTecnologia'/>">
+								href="<c:url value='/tecnologia/adicionar'/>">
 									<span class="submenu-label"> <span class="menu-icon">
 											<i class="fa fa-angle-right fa-lg"></i>
 									</span> Cadastrar Tecnologia

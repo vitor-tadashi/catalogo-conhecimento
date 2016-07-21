@@ -26,8 +26,8 @@
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
 										<form class="no-margin" id="formAlt"  method="POST"
-											action="<c:url value='alterarTecnologia'>
-										<c:param name='paginaAtual' value='catalogoconhecimento/tecnologia/formularioAlterarTecnologia'/>
+											action="<c:url value='alterar'>
+										<c:param name='paginaAtual' value='catalogoconhecimento/tecnologia/alterar'/>
 												</c:url>">
 											<div class="panel-heading">
 												<h3>Alterar Tecnologia</h3>

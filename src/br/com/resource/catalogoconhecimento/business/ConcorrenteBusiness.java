@@ -1,6 +1,7 @@
 package br.com.resource.catalogoconhecimento.business;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,14 @@ public class ConcorrenteBusiness {
 			} else if (concorrenteClone != null && concorrenteClone.getId() != concorrenteBean.getId()) {
 				throw new NomeRepetidoException("Este nome já está cadastrado!");
 			} else {
-				concorrenteDao.adicionar(concorrenteBean);
+				salvarConcorrente(concorrenteBean);
 			}
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
 	}
+
+
 
 	/**
 	 * -SQL- Adiciona um objeto ConcorrenteClienteBean na tabela
@@ -309,6 +312,25 @@ public class ConcorrenteBusiness {
 	@Transactional
 	public boolean validarNome(String nome) {
 		return (nome.matches("[A-Za-zÀ-ú0-9+'\\-\\s]{2,100}"));
+	}
+	
+	
+	private void salvarConcorrente(ConcorrenteBean concorrenteBean) throws BusinessException {
+		List<ConcorrenteClienteBean> lista = new ArrayList<>();
+		if (concorrenteBean.getListaClientes() != null) {
+			for (ConcorrenteClienteBean concorrenteCliente : concorrenteBean.getListaClientes()) {
+				concorrenteCliente.setCliente(concorrenteCliente.getCliente());
+				concorrenteCliente.setConcorrente(concorrenteBean);
+				lista.add(concorrenteCliente);
+
+			}
+		}
+		concorrenteBean.setListaClientes(lista);
+		concorrenteDao.adicionar(concorrenteBean);
+		for (ConcorrenteClienteBean concorrenteCliente : lista) {
+			this.adicionarConcorrenteCliente(concorrenteCliente);
+		}
+		
 	}
 
 }
