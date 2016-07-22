@@ -45,7 +45,7 @@ public class FuncionarioController {
 	@Autowired
 	EquipeBusiness equipeBusiness;
 
-	@RequestMapping(value = "formularioAdicionarFuncionario", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionar(Model model) throws BusinessException {
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<CargoBean> listaCargo = cargoBusiness.listar();
@@ -54,23 +54,23 @@ public class FuncionarioController {
 		model.addAttribute("listaTecnologia", listaTecnologia);
 		model.addAttribute("cargos", listaCargo);
 		model.addAttribute("listaNegocio", listaNegocio);
-		return "funcionarios/formularioAdicionar";
+		return "funcionarios/adicionar";
 	}
 
-	@RequestMapping(value = "listarFuncionarios", method = RequestMethod.GET)
+	@RequestMapping(value = "listar", method = RequestMethod.GET)
 	public String listar(Model model) throws BusinessException {
 		model.addAttribute("listaFuncionario", funcionarioBusiness.listar());
-		return "funcionarios/listarFuncionarios";
+		return "funcionarios/listar";
 	}
 
 	@RequestMapping(value = "adicionarFuncionario", method = RequestMethod.POST)
 	public String adicionarFuncionario(FuncionarioBean funcionarioBean) throws BusinessException {
 		funcionarioBusiness.adicionar(funcionarioBean);
 
-		return "redirect:listarFuncionarios";
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "formularioAlterarFuncionario", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String formularioAlterar(Model model, @RequestParam("idFuncionario") String id) throws BusinessException {
 		List<TecnologiaBean> listaTecnologia = tecnologiaBusiness.listar();
 		List<CargoBean> listaCargo = cargoBusiness.listar();
@@ -82,14 +82,14 @@ public class FuncionarioController {
 		model.addAttribute("cargos", listaCargo);
 		model.addAttribute("listaNegocio", listaNegocio);
 
-		return "funcionarios/formularioAlterar";
+		return "funcionarios/alterar";
 	}
 
 	@RequestMapping(value = "alterarFuncionario", method = RequestMethod.POST)
 	public String alterar(FuncionarioBean funcionarioBean) throws BusinessException {
 		funcionarioBusiness.alterar(funcionarioBean);
 		
-		return "redirect:listarFuncionarios";
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "removerFuncionario", method = RequestMethod.GET)
@@ -98,14 +98,14 @@ public class FuncionarioController {
 
 		funcionarioBusiness.remover(idFuncionario);
 
-		return "redirect:listarFuncionarios";
+		return "redirect:listar";
 	}
 
 	@ExceptionHandler(BusinessException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exceptionHandler(Model model, BusinessException exception) {
 		model.addAttribute("msgErro", exception.getMessage());
-		return "redirect:listarFuncionarios";
+		return "redirect:listar";
 	}
 
 	@InitBinder
