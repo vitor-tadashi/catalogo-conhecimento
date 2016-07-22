@@ -43,7 +43,8 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a href="<c:url value='/'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/home/index'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/cliente/listar'/>">Clientes</a></li>
 				<li>Clientes</li>
 				<li class="active">Adicionar Cliente</li>
 			</ul>
@@ -55,7 +56,10 @@
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="research">
 							<div class="panel panel-default">
-								<form class="no-margin" id="formAdd" method="POST" action="/catalogoconhecimento/cliente/adicionarCliente">
+								<form class="no-margin" id="formAdd" method="POST" 
+								action= "<c:url value = '/cliente/adicionarCliente'>
+									<c:param name = 'paginaAtual' value='/cliente/formularioAdicionarCliente'/>
+										</c:url>">
 									<div class="panel-heading">
 										<h3>Adicionar Cliente</h3>
 									</div>

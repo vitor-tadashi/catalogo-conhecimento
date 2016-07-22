@@ -12,12 +12,11 @@
 <body class="overflow-hidden">
 				
 	<c:import url="/resources/jspImport/header.jsp"/>
-
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i>
-					<a href="<c:url value='/'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i><a href="<c:url value='/'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i><a href="<c:url value='/cliente/listar'/>">Clientes</a></li>
 
 				<li>Clientes</li>
 				<li class="active">Alterar Cliente</li>
@@ -30,7 +29,8 @@
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="research">
 								<div class="panel panel-default">
-									<form class="no-margin" id="formAlt"  method="POST" action="/catalogoconhecimento/cliente/alterarCliente">
+									<form class="no-margin" id="formAlt"  method="POST" 
+									action="<c:url value='/cliente/alterarCliente'/>">
 										<div class="panel-heading">
 											<h3>Alterar Cliente</h3>
 										</div>

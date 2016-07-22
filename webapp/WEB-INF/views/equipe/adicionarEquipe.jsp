@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Inserir Equipe</title>
+	<title>Adicionar Equipe</title>
 	<c:import url="/resources/jspImport/head.jsp"></c:import>
 </head>
 <body class="overflow-hidden">
@@ -28,7 +28,7 @@
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="research">
 									<div class="panel panel-default">
-										<form class="no-margin" id="formAdd"  method="POST" action="/catalogoconhecimento/usuario/adicionarEquipe">
+										<form class="no-margin" id="formAdd"  method="POST" action="adicionarEquipe">
 											<div class="panel-heading">
 											<h3>Adicionar Equipe</h3>
 											</div>

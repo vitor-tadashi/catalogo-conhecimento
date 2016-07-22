@@ -87,7 +87,7 @@
 			 							</c:forEach>
 			 						</tbody>	
 								</table>
-								<form name="formAdicionaFuncionarioEquipe" method="POST" action="/catalogoconhecimento/equipe/adicionarFuncionarioNaEquipe">
+								<form name="formAdicionaFuncionarioEquipe" method="POST" action="adicionarFuncionarioNaEquipe">
 									<div class="panel-heading">
 										<h4>Inserir Funcionário na Equipe</h4>
 									</div>

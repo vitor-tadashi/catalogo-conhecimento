@@ -23,9 +23,9 @@ import br.com.resource.catalogoconhecimento.business.TecnologiaBusiness;
 import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Controller
-@RequestMapping("equipe")
+@RequestMapping("/equipe")
 public class EquipeController {
-	
+
 	@Autowired
 	private EquipeFuncionarioBusiness equipeFuncionarioBusiness;
 
@@ -34,30 +34,29 @@ public class EquipeController {
 
 	@Autowired
 	private FuncionarioBusiness funcionarioBusiness;
-	
+
 	@Autowired
 	private TecnologiaBusiness tecnologiaBusiness;
 
-	@RequestMapping(value = "formularioAdicionarEquipe", method = RequestMethod.GET)
+	@RequestMapping(value = "adicionar", method = RequestMethod.GET)
 	public String formularioAdicionar() {
 		return "equipe/adicionarEquipe";
 	}
-	
-	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
-	public String adicionar(EquipeBean equipe, @RequestParam("ativo")String ativo) throws BusinessException {
-		equipe.setAtivo(ativo.charAt(0));
-		equipeBusiness.inserir(equipe);
-		return "redirect:listarEquipe";
 
+	@RequestMapping(value = "adicionarEquipe", method = RequestMethod.POST)
+	public String adicionar(EquipeBean equipe, @RequestParam("ativo") String ativo) throws BusinessException {
+		equipe.setAtivo(ativo.charAt(0));
+		equipeBusiness.adicionar(equipe);
+		return "redirect:listar";
 	}
 
-	@RequestMapping(value = "listarEquipe", method = { RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "listar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listarEquipe(Model model) throws BusinessException {
 		model.addAttribute("equipes", equipeBusiness.listar());
 		return "equipe/listarEquipe";
 	}
 
-	@RequestMapping(value = "formularioAlterarEquipe", method = RequestMethod.GET)
+	@RequestMapping(value = "alterar", method = RequestMethod.GET)
 	public String formularioAlterar(Model model, @RequestParam("idEquipe") String id) throws BusinessException {
 		int idEquipe = Integer.parseInt(id);
 		model.addAttribute("equipe", equipeBusiness.obterPorId(idEquipe));
@@ -67,19 +66,18 @@ public class EquipeController {
 	@RequestMapping(value = "alterarEquipe", method = RequestMethod.POST)
 	public String alterarEquipe(EquipeBean equipe, @RequestParam("idEquipe") String id) throws BusinessException {
 		equipe.setId(Integer.parseInt(id));
-		equipeBusiness.atualizar(equipe);
-		return "redirect:listarEquipe";
-
+		equipeBusiness.alterar(equipe);
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "excluirEquipe", method = RequestMethod.GET)
-	public String excluir( @RequestParam("idEquipe") String id,@RequestParam("ativo") String ativo, HttpServletRequest request) throws BusinessException{
+	public String remover(@RequestParam("idEquipe") String id, @RequestParam("ativo") String ativo,
+			HttpServletRequest request) throws BusinessException {
 		int idEquipe = Integer.parseInt(id);
 		EquipeBean equipe = equipeBusiness.obterPorId(idEquipe);
 		equipe.setAtivo(ativo.charAt(0));
-		equipeBusiness.deletar(equipe);
-		return "redirect:listarEquipe";
-
+		equipeBusiness.remover(equipe);
+		return "redirect:listar";
 	}
 
 	@RequestMapping(value = "deletarFuncionarioPorEquipe", method = RequestMethod.GET)
@@ -88,27 +86,26 @@ public class EquipeController {
 
 		int idEquipe = Integer.parseInt(idEq);
 		int idFuncionario = Integer.parseInt(idFunc);
-
-		equipeBusiness.deletarPorEquipe(idEquipe, idFuncionario);
+		equipeBusiness.removerPorEquipe(idEquipe, idFuncionario);
 		request.setAttribute("idEquipe", idEq);
 
 		return "forward:listarFuncionarioPorEquipe";
 	}
-	
+
 	@RequestMapping(value = "listarFuncionarioPorEquipe", method = { RequestMethod.GET, RequestMethod.POST })
-	public String listarFuncionarioPorEquipe(Model model, @RequestParam("idEquipe") String idEquipe) throws BusinessException {
+	public String listarFuncionarioPorEquipe(Model model, @RequestParam("idEquipe") String idEquipe)
+			throws BusinessException {
 
 		List<FuncionarioBean> listaFuncionario = funcionarioBusiness.listar();
 		List<FuncionarioBean> funcionarioEquipe = funcionarioBusiness.listarPorEquipe(Integer.parseInt(idEquipe));
 		EquipeBean equipe = equipeBusiness.obterPorId(Integer.parseInt(idEquipe));
-
 		model.addAttribute("funcionarios", listaFuncionario);
 		model.addAttribute("funcionarioEquipe", funcionarioEquipe);
 		model.addAttribute("equipe", equipe);
 
 		return "equipe/listarFuncionariosPorEquipe";
 	}
-	
+
 	@RequestMapping(value = "adicionarFuncionarioNaEquipe", method = RequestMethod.POST)
 	public String adicionarFuncionarioNaEquipe(@RequestParam("idEquipe") String idEq,
 			@RequestParam("idFuncionario") String idFunc, HttpServletRequest request) throws Exception {
@@ -117,21 +114,19 @@ public class EquipeController {
 		int idFuncionario = Integer.parseInt(idFunc);
 		FuncionarioBean funcionario = funcionarioBusiness.obterPorId(idFuncionario);
 		equipeFuncionarioBusiness.inserirPorEquipe(idEquipe, funcionario);
-
 		request.setAttribute("idEquipe", idEq);
 
 		return "forward:listarFuncionarioPorEquipe";
-
 	}
-	
+
 	@ExceptionHandler(BusinessException.class)
-	public String exceptionHandler(BusinessException exception, Model model){
+	public String exceptionHandler(BusinessException exception, Model model) {
 		model.addAttribute("msgErro", exception.getMessage());
 		return "forward:listarEquipe";
 	}
-	
+
 	@RequestMapping(value = "buscarTecnologiaPorFuncionario", method = RequestMethod.POST)
-	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario( @RequestParam("idFuncionario") String id)
+	public @ResponseBody List<TecnologiaBean> buscarTecnologiaPorFuncionario(@RequestParam("idFuncionario") String id)
 			throws BusinessException {
 		int idFuncionario = Integer.parseInt(id);
 		return tecnologiaBusiness.obterPorFuncionario(idFuncionario);
