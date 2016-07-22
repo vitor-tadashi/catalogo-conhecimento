@@ -79,7 +79,7 @@
 	<div id="main-container" style="width: auto">
 		<div id="breadcrumb">
 			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a href="<c:url value='/'/>">Principal</a></li>
+				<li><i class="fa fa-home"></i> <a href="<c:url value='/home/index'/>">Principal</a></li>
 
 				<li>Funcionários</li>
 				<li class="active">Lista de Funcionários</li>
@@ -150,7 +150,7 @@
 
 												<td style="text-align: center;"><a
 													href="
-													<c:url value='formularioAlterarFuncionario'>
+													<c:url value='alterar'>
 													<c:param name='idFuncionario' value='${funcionario.id}'/>
 													</c:url>
 													">
@@ -169,7 +169,7 @@
 									</tbody>
 								</table>
 								<div class="panel-footer text-left">
-									<a href="formularioAdicionarFuncionario">
+									<a href="adicionar">
 										<button class="btn btn-success" type="submit">Cadastrar
 											Novo Funcionário</button>
 									</a>
