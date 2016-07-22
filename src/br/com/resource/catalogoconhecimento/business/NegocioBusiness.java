@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +20,22 @@ import br.com.resource.catalogoconhecimento.utils.ExceptionUtil;
 public class NegocioBusiness {
 	@Autowired
 	private NegocioDAO negocioDao;
-	
+
 	@Autowired
 	private ProjetoBusiness projetoBusiness;
-	
+
 	@Transactional
 	public void adicionar(NegocioBean negocioBean) throws BusinessException {
-		try { 
+		try {
 			NegocioBean negocioClone = this.obterPorNome(negocioBean.getAreaAtuacao());
 
 			if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
 				throw new CaracteresEspeciaisException("Por Favor, digite uma area de ataucao valida!");
 			} else if (negocioBean.getAreaAtuacao().length() > 80) {
 				throw new TamanhoCampoException("Numero limite de caracteres excedido.");
-			}else if (negocioClone != null) {
-				throw new NomeRepetidoException("Este nome ja exite na base de dados");	
-			}else{
+			} else if (negocioClone != null) {
+				throw new NomeRepetidoException("Este nome ja exite na base de dados");
+			} else {
 				negocioDao.adicionar(negocioBean);
 			}
 
@@ -47,8 +46,8 @@ public class NegocioBusiness {
 
 	@Transactional
 	public List<NegocioBean> listar() throws BusinessException {
-		try { 
-			
+		try {
+
 			List<NegocioBean> listaNegocio = negocioDao.listar();
 
 			if (listaNegocio.isEmpty()) {
@@ -64,8 +63,8 @@ public class NegocioBusiness {
 
 	@Transactional
 	public void alterar(NegocioBean negocioBean) throws BusinessException {
-		try { 
-			
+		try {
+
 			NegocioBean negocioClone = this.obterPorNome(negocioBean.getAreaAtuacao());
 
 			if (!validarAreaAtuacao(negocioBean.getAreaAtuacao())) {
@@ -74,7 +73,7 @@ public class NegocioBusiness {
 				throw new TamanhoCampoException("Numero limite de caracteres excedido.");
 			} else if (negocioClone != null && negocioClone.getId() != negocioBean.getId()) {
 				throw new NomeRepetidoException("Este nome ja exite na base de dados");
-			}  else {
+			} else {
 				negocioDao.alterar(negocioBean);
 			}
 
@@ -86,14 +85,7 @@ public class NegocioBusiness {
 	@Transactional
 	public void remover(NegocioBean negocioBean) throws BusinessException {
 		try {
-
 			negocioDao.remover(negocioBean);
-			/*if (negocioDao.verificarPorProjeto(negocioBean)) {
-				negocioDao.remover(negocioBean);
-			} else {
-				throw new RegistroVinculadoException("Registro nao pode ser removido pois possui vinculos");
-			}
-			 */
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
 		}
@@ -102,7 +94,6 @@ public class NegocioBusiness {
 	@Transactional
 	public NegocioBean obterPorId(int id) throws BusinessException {
 		try {
-
 			return negocioDao.obterPorId(id);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -112,7 +103,6 @@ public class NegocioBusiness {
 	@Transactional
 	public NegocioBean obterPorNome(String areaAtuacao) throws BusinessException {
 		try {
-
 			return negocioDao.obterPorNome(areaAtuacao);
 		} catch (Exception e) {
 			throw ExceptionUtil.handleException(e);
@@ -120,8 +110,7 @@ public class NegocioBusiness {
 	}
 
 	@Transactional
-	public NegocioBean obterNomeDesativado(NegocioBean negocioBean) throws ClassNotFoundException, SQLException {
-
+	public NegocioBean obterNomeDesativado(NegocioBean negocioBean) throws BusinessException {
 		return negocioDao.obterNomeDesativado(negocioBean);
 	}
 
@@ -135,8 +124,7 @@ public class NegocioBusiness {
 	}
 
 	@Transactional
-	public void reativar(NegocioBean negocioBean) throws ClassNotFoundException, SQLException {
-
+	public void reativar(NegocioBean negocioBean) throws BusinessException {
 		negocioDao.reativar(negocioBean);
 	}
 

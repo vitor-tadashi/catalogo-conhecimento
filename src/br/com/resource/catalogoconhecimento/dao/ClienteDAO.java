@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -8,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import br.com.resource.catalogoconhecimento.bean.ClienteBean;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Repository
 public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
@@ -48,12 +48,11 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	 * @param nomeCliente
 	 * @return List<ClienteBean>
 	 */
-	public ClienteBean obterPorNome(String nomeCliente) throws ClassNotFoundException, SQLException {
+	public ClienteBean obterPorNome(String nomeCliente) throws BusinessException {
 		TypedQuery<ClienteBean> query = entityManager.createQuery(
 				"SELECT c FROM ClienteBean AS c WHERE c.nome = :nome AND c.ativo = 'S'", ClienteBean.class);
 		query.setParameter("nome", nomeCliente);
 		List<ClienteBean> clientes = query.getResultList();
-
 		if (clientes.isEmpty()) {
 			return null;
 		} else {
@@ -67,10 +66,9 @@ public class ClienteDAO extends GenericDAOImpl<ClienteBean, Integer> {
 	 * 
 	 * @param cnpj
 	 * @return TRUE = CPNJ já está cadastrado / FALSE = CNPJ não está cadastrado
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws BusinessException
 	 */
-	public boolean verificarPorCnpj(String cnpj) throws ClassNotFoundException, SQLException {
+	public boolean verificarPorCnpj(String cnpj) throws BusinessException {
 		TypedQuery<ClienteBean> query = entityManager.createQuery(
 				"SELECT c FROM ClienteBean AS c WHERE c.cnpj = :cnpj AND c.ativo = 'S'", ClienteBean.class);
 		query.setParameter("cnpj", cnpj);

@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteBean;
 import br.com.resource.catalogoconhecimento.bean.ConcorrenteClienteBean;
+import br.com.resource.catalogoconhecimento.exceptions.BusinessException;
 
 @Repository
 public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
@@ -36,10 +36,9 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param idCliente
 	 * @return listaConcorrentesClientes - Retorna uma lista contendo objetos
 	 *         ConcorrenteCliente
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws BusinessException
 	 */
-	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws ClassNotFoundException, SQLException {
+	public List<ConcorrenteClienteBean> listarPorCliente(int idCliente) throws BusinessException {
 
 		TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
 				"SELECT cc FROM ConcorrenteClienteBean AS cc WHERE cc.cliente.id = :id AND cc.cliente.ativo = 'S'",
@@ -57,10 +56,9 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param idConcorrente
 	 * @return listaConcorrentesClientes - Retorna uma lista contendo objetos
 	 *         ConcorrenteCliente
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws BusinessException
 	 */
-	public List<ConcorrenteClienteBean> listarPorConcorrente(int id) throws SQLException, ClassNotFoundException {
+	public List<ConcorrenteClienteBean> listarPorConcorrente(int id) throws BusinessException {
 		TypedQuery<ConcorrenteClienteBean> query = entityManager.createQuery(
 				"SELECT cc FROM ConcorrenteClienteBean AS cc WHERE cc.concorrente.id = :id AND cc.concorrente.ativo = 'S'",
 				ConcorrenteClienteBean.class);
@@ -111,8 +109,6 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param idCliente
 	 * @param idConcorrente
 	 * @return void
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 */
 	public void removerEntidadeDaLista(int idConcorrenteCliente) {
 		Query query = entityManager
@@ -129,8 +125,6 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param idCliente
 	 * @param idConcorrente
 	 * @return void
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 */
 	public void removerConcorrenteCliente(int idCliente) {
 		Query query = entityManager
@@ -147,8 +141,6 @@ public class ConcorrenteDAO extends GenericDAOImpl<ConcorrenteBean, Integer> {
 	 * @param idCliente
 	 * @param idConcorrente
 	 * @return void
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 */
 	public void removerClienteConcorrente(int idConcorrente) {
 		Query query = entityManager

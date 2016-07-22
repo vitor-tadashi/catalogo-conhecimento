@@ -85,7 +85,7 @@ public class ProjetoBusiness {
 		}
 
 		if (projetoBean.getListaEquipe() != null) {
-			projetoBean.getListaEquipe().removeIf(p -> p == null || (p != null && p.getId() <=0));
+			projetoBean.getListaEquipe().removeIf(p -> p == null || (p != null && p.getId() <= 0));
 			for (EquipeBean equipe : projetoBean.getListaEquipe()) {
 				equipes.add(equipeDAO.obterPorId(equipe.getId()));
 			}
@@ -192,15 +192,15 @@ public class ProjetoBusiness {
 		}
 	}
 
-	public List<ProjetoBean> listarPorNomeCliente(String nomeCliente) throws ClassNotFoundException, SQLException {
+	public List<ProjetoBean> listarPorNomeCliente(String nomeCliente) throws BusinessException {
 		return projetoDAO.listarPorNomeCliente(nomeCliente);
 	}
 
 	public boolean validarNome(String nome) {
-		return (nome.matches("[A-Za-z�-�0-9'\\s]{2,150}"));
+		return (nome.matches("[A-Za-Á-ú0-9\\s]{2,150}"));
 	}
 
 	public boolean validarObservacao(String observacao) {
-		return (observacao.matches("[A-Za-z�-�0-9'@&!*\\s]{2,80}"));
+		return (observacao.matches("[A-Za-Á-ú0-9@&!*\\s]{2,80}"));
 	}
 }

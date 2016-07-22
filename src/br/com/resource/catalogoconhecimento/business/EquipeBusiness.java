@@ -1,6 +1,5 @@
 package br.com.resource.catalogoconhecimento.business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +100,12 @@ public class EquipeBusiness {
 
 	// LISTAR POR NOME NA BASE
 	@Transactional
-	public EquipeBean obterPorNome(String nome) throws ClassNotFoundException, SQLException {
-		return equipeDAO.obterPorNome(nome);
+	public EquipeBean obterPorNome(String nome) throws BusinessException {
+		try {
+			return equipeDAO.obterPorNome(nome);
+		} catch (Exception e) {
+			throw ExceptionUtil.handleException(e);
+		}
 	}
 
 	// DELETAR POR EQUIPE NA BASE
